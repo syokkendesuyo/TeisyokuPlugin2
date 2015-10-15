@@ -1,0 +1,32 @@
+name: TeisyokuPlugin2
+version: 2.0.0
+main: net.jp.minecraft.plugins.TeisyokuPlugin2
+commands:
+    help:
+        description: Teisyoku Help Command
+        usage: /help
+    fly:
+        description: Teisyoku Fly Command
+        usage: /fly (true/false)
+    gomi:
+        description: Gomibako.
+        usage: /gomi
+    gomibako:
+        description: Gomibako.
+        usage: /gomi
+    teisyoku:
+        description: teisyoku.
+        usage: /teisyoku
+    t:
+        description: teisyoku.
+        usage: /gomi
+    players:
+        description: show players list.
+        usage: /players
+    p:
+        description: show players list.
+        usage: /p
+permissions:
+    teisyoku.players:
+        description: Allow useing Menu.
+        default: op

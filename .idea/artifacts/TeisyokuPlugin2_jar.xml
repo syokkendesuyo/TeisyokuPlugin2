@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TeisyokuPlugin2:jar">
+    <output-path>$PROJECT_DIR$/../../Minecraft_Servers/SpiGot/1649-No2/plugins</output-path>
+    <root id="archive" name="TeisyokuPlugin2.jar">
+      <element id="module-output" name="TeisyokuPlugin2" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

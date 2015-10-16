@@ -74,8 +74,8 @@ public class Command_fly implements CommandExecutor {
 
         //パーミッションの確認コマンド
         else if(args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")){
-            Messages.getPermission(Permissions.getFlyCommandPermisson());
-            Messages.getPermission(Permissions.getFlyPermisson());
+            Messages.getCheckPermissionMessage(Permissions.getFlyCommandPermisson());
+            Messages.getCheckPermissionMessage(Permissions.getFlyPermisson());
             return true;
         }
 

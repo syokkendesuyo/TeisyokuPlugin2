@@ -11,6 +11,11 @@ import org.bukkit.event.Listener;
  * @auther syokkendesuyo
  */
 public class Messages implements Listener {
+
+    /**
+     * Prefixを提供
+     * @return string
+     */
     public static String getSuccessPrefix(){
         String string = ChatColor.GREEN + "[Teisyoku] "+ ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
         return string;
@@ -46,11 +51,11 @@ public class Messages implements Listener {
         return string;
     }
 
-    public static String getPermissionNode(String permission){
-        String string = ChatColor.GRAY + " (" + permission + ")" + ChatColor.RESET;
-        return string;
-    }
 
+    /**
+     * ヘルプメッセーいを提供
+     * @param sender
+     */
     public static void HelpMessage(CommandSender sender){
         if(!(sender.hasPermission(Permissions.getHelpPermisson()))){
             sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getHelpPermisson()));
@@ -62,15 +67,28 @@ public class Messages implements Listener {
         sender.sendMessage(getCommandFormat("teisyoku", "当サーバ専用のメニューを表示します"));
     }
 
+
+    /**
+     * パーミッション関連
+     */
+    //パーミッションを灰色で表示する
+    public static String getPermissionNode(String permission){
+        String string = ChatColor.GRAY + " (" + permission + ")" + ChatColor.RESET;
+        return string;
+    }
+
+    //パーミッションが無い時のメッセージ
     public static String getNoPermissionMesssage(String permission){
         String permissionFormat = getPermissionNode(permission);
         String string = getDenyPrefix() + "パーミッションがありません" + permissionFormat;
         return string;
     }
 
-    public static String getPermission(String permission){
+    //パーミッションの確認コマンド
+    public static String getCheckPermissionMessage(String permission){
         String permissionFormat = permission;
         String string = getNormalPrefix() + "パーミッション：" + permissionFormat;
         return string;
     }
+
 }

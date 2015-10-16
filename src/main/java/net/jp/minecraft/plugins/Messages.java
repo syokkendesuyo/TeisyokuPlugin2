@@ -67,4 +67,10 @@ public class Messages implements Listener {
         String string = getDenyPrefix() + "パーミッションがありません" + permissionFormat;
         return string;
     }
+
+    public static String getPermission(String permission){
+        String permissionFormat = permission;
+        String string = getNormalPrefix() + "パーミッション：" + permissionFormat;
+        return string;
+    }
 }

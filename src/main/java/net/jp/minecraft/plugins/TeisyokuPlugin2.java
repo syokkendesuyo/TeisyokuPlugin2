@@ -31,7 +31,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         //Flyコマンド
         //TODO 関数化
-        getCommand("fly").setExecutor(new FlyCommand());
+        getCommand("fly").setExecutor(new Command_fly());
 
         //定食コマンド
         getCommand("t").setExecutor(new TeisyokuCommand());

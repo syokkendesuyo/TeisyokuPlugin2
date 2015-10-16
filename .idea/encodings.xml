@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_fly.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/DeathEvent.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/FlyCommand.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/GUIClickEvent.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Gomibako.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/GomibakoCommand.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/HelpCommand.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/JoinEvent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Listener_fly.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Messages.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/MineCartEvent.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/NetherGateEvent.java" charset="UTF-8" />
@@ -18,6 +19,5 @@
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/TeisyokuMenuIndex.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/TeisyokuPlugin2.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/YesNoGUI.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/flyCommand.java" charset="UTF-8" />
   </component>
 </project>

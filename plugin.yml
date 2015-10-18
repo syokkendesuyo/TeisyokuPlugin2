@@ -26,6 +26,9 @@ commands:
     p:
         description: show players list.
         usage: /p
+    lastjoin:
+        description: show player last login date.
+        usage: /lastlogin <Player>
 permissions:
     teisyoku.players:
         description: Allow useing Menu.

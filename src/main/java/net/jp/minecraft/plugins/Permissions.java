@@ -56,4 +56,9 @@ public class Permissions {
         String string = "teisyoku.gomibako";
         return string;
     }
+
+    public static String getLastJoinCommandPermisson(){
+        String string = "teisyoku.command.lastjoin";
+        return string;
+    }
 }

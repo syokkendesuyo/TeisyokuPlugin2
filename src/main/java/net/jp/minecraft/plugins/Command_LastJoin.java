@@ -53,13 +53,12 @@ public class Command_LastJoin implements CommandExecutor {
 
         //パーミッションの確認コマンド
         if(args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")){
-            Messages.getCheckPermissionMessage(Permissions.getFlyCommandPermisson());
-            Messages.getCheckPermissionMessage(Permissions.getFlyPermisson());
+            Messages.getCheckPermissionMessage(Permissions.getLastJoinCommandPermisson());
             return true;
         }
 
         else if(args[0].length()<3 || args[0].length() >16){
-            sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー名は3から16文字以内で入力してください");
+            sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー名は3から16文字で入力してください");
             return true;
         }
 

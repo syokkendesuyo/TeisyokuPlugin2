@@ -57,6 +57,7 @@ public class Permissions {
         return string;
     }
 
+    //ログイン履歴確認コマンド
     public static String getLastJoinCommandPermisson(){
         String string = "teisyoku.command.lastjoin";
         return string;

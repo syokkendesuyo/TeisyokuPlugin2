@@ -39,6 +39,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new DeathEvent() , this);
         pm.registerEvents(new Gomibako() , this);
         pm.registerEvents(new Listener_LastJoin() , this);
+        pm.registerEvents(new Listener_Tab() , this);
 
         //ヘルプコマンド
         getCommand("help").setExecutor(new HelpCommand());

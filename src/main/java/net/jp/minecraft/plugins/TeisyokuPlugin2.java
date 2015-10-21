@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -31,37 +30,39 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         instance = this;
 
         //リスナー登録
-        pm.registerEvents(new JoinEvent() , this);
-        pm.registerEvents(new NetherGateEvent() , this);
-        pm.registerEvents(new MineCartEvent() , this);
-        pm.registerEvents(new YesNoGUI() , this);
-        pm.registerEvents(new GUIClickEvent() , this);
-        pm.registerEvents(new DeathEvent() , this);
-        pm.registerEvents(new Gomibako() , this);
+        pm.registerEvents(new Listener_JoinEvent() , this);
+        pm.registerEvents(new Listener_NetherGateEvent() , this);
+        pm.registerEvents(new Listener_MineCartEvent() , this);
+        pm.registerEvents(new Listener_DeathEvent() , this);
+        pm.registerEvents(new Listener_Gomibako() , this);
         pm.registerEvents(new Listener_LastJoin() , this);
         pm.registerEvents(new Listener_Tab() , this);
+        pm.registerEvents(new Listener_Sign() , this);
+        pm.registerEvents(new GUI_YesNo() , this);
+        pm.registerEvents(new GUI_ClickEvent() , this);
+
 
         //ヘルプコマンド
-        getCommand("help").setExecutor(new HelpCommand());
+        getCommand("help").setExecutor(new Command_Help());
 
         //Flyコマンド
-        //TODO 関数化
         getCommand("fly").setExecutor(new Command_fly());
 
         //定食コマンド
-        getCommand("t").setExecutor(new TeisyokuCommand());
-        getCommand("teisyoku").setExecutor(new TeisyokuCommand());
+        getCommand("t").setExecutor(new Command_Teisyoku());
+        getCommand("teisyoku").setExecutor(new Command_Teisyoku());
 
         //ゴミ箱
-        getCommand("gomi").setExecutor(new GomibakoCommand());
-        getCommand("gomibako").setExecutor(new GomibakoCommand());
+        getCommand("gomi").setExecutor(new Command_Gomibako());
+        getCommand("gomibako").setExecutor(new Command_Gomibako());
 
         //プレイヤー一覧
         //TODO ミドルクリックでテレポート
-        getCommand("p").setExecutor(new PlayersCommand());
-        getCommand("players").setExecutor(new PlayersCommand());
+        getCommand("p").setExecutor(new Command_Players());
+        getCommand("players").setExecutor(new Command_Players());
 
-        getCommand("lastjoin").setExecutor(new Command_LastJoin());
+        //最終ログイン確認
+        getCommand("last").setExecutor(new Command_Last());
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {

@@ -15,7 +15,7 @@ import java.util.Arrays;
  *
  * @auther syokkendesuyo
  */
-public class PlayersList {
+public class GUI_PlayersList {
     public static void getPlayersList(Player player) {
 
         if(! (player.hasPermission(Permissions.getPlayersPermisson()))){

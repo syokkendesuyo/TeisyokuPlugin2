@@ -26,10 +26,16 @@ commands:
     p:
         description: show players list.
         usage: /p
-    lastjoin:
+    last:
         description: show player last login date.
-        usage: /lastlogin <Player>
+        usage: /last <Player>
 permissions:
-    teisyoku.players:
-        description: Allow useing Menu.
+    teisyoku.*:
+        description: Allow Flying.
+        default: op
+    teisyoku.user:
+        description: Teisyoku.
+        default: op
+    teisyoku.admin:
+        description: Teisyoku.
         default: op

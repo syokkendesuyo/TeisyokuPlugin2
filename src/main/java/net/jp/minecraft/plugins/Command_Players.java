@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
  *
  * @auther syokkendesuyo
  */
-public class PlayersCommand implements CommandExecutor {
+public class Command_Players implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
@@ -25,7 +25,7 @@ public class PlayersCommand implements CommandExecutor {
 
         Player player = (Player)sender;
 
-        PlayersList.getPlayersList(player);
+        GUI_PlayersList.getPlayersList(player);
         return true;
     }
 }

@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
  *
  * @auther syokkendesuyo
  */
-public class TeisyokuCommand implements CommandExecutor{
+public class Command_Teisyoku implements CommandExecutor{
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
         if(! (sender.hasPermission(Permissions.getTeisyokuCommandPermisson()))){
             sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getTeisyokuCommandPermisson()));

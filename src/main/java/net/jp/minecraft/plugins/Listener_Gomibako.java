@@ -17,7 +17,7 @@ import java.util.Arrays;
  *
  * @auther syokkendesuyo
  */
-public class Gomibako implements Listener {
+public class Listener_Gomibako implements Listener {
     public static void openGomibako(CommandSender sender){
         if (!(sender instanceof Player)) {
             sender.sendMessage(Messages.getDenyPrefix() +"ゴミ箱コマンドはゲーム内からのみ実行できます");

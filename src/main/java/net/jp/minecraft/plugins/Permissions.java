@@ -9,57 +9,57 @@ public class Permissions {
 
     //ヘルプパーミッション
     public static String getHelpCommandPermisson(){
-        String permission = "teisyoku.command.Help";
+        String permission = "teisyoku.user";
         return permission;
     }
     public static String getHelpPermisson(){
-        String permission = "teisyoku.Help";
+        String permission = "teisyoku.user";
         return permission;
     }
 
     //飛行パーミッション
     public static String getFlyCommandPermisson(){
-        String permission = "teisyoku.command.fly";
+        String permission = "teisyoku.admin";
         return permission;
     }
     public static String getFlyPermisson(){
-        String permission = "teisyoku.fly";
+        String permission = "teisyoku.admin";
         return permission;
     }
 
     //定食メニューパーミッション
     public static String getTeisyokuCommandPermisson(){
-        String permisson = "teisyoku.command.menu";
+        String permisson = "teisyoku.user";
         return permisson;
     }
     public static String getTeisyokuPermisson(){
-        String permisson = "teisyoku.menu";
+        String permisson = "teisyoku.user";
         return permisson;
     }
 
     //プレイヤー一覧パーミッション
     public static String getPlayersCommandPermisson(){
-        String permisson = "teisyoku.command.players";
+        String permisson = "teisyoku.user";
         return permisson;
     }
     public static String getPlayersPermisson(){
-        String permisson = "teisyoku.players";
+        String permisson = "teisyoku.user";
         return permisson;
     }
 
     //ゴミ箱パーミッション
     public static String getGomibakoCommandPermisson(){
-        String string = "teisyoku.command.gomibako";
+        String string = "teisyoku.user";
         return string;
     }
     public static String getGomibakoPermisson(){
-        String string = "teisyoku.gomibako";
+        String string = "teisyoku.user";
         return string;
     }
 
     //ログイン履歴確認コマンド
-    public static String getLastJoinCommandPermisson(){
-        String string = "teisyoku.command.lastjoin";
+    public static String getLastCommandPermisson(){
+        String string = "teisyoku.user";
         return string;
     }
 }

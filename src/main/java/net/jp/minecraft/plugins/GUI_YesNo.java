@@ -18,7 +18,7 @@ import java.util.Arrays;
  *
  * @auther syokkendesuyo
  */
-public class YesNoGUI implements Listener {
+public class GUI_YesNo implements Listener {
     public static String openGUI(Player player , String yes , String no , String inventoryName){
         Inventory inv = Bukkit.createInventory(player, 9, inventoryName);
         ItemStack item0 = new ItemStack(Material.WOOL, 1, (short) 5);

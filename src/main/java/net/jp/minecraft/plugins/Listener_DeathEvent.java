@@ -11,7 +11,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
  *
  * @auther syokkendesuyo
  */
-public class DeathEvent implements Listener {
+public class Listener_DeathEvent implements Listener {
     @EventHandler
     public void death(PlayerDeathEvent event){
         try{

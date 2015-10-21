@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
  *
  * @auther syokkendesuyo
  */
-public class MineCartEvent implements Listener {
+public class Listener_MineCartEvent implements Listener {
     @EventHandler
     public void onVehicleDestroyEvent (VehicleDestroyEvent event){
         Player player = (Player) event.getAttacker();

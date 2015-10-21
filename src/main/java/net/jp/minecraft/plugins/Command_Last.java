@@ -14,7 +14,7 @@ import java.util.UUID;
  *
  * @auther syokkendesuyo
  */
-public class Command_LastJoin implements CommandExecutor {
+public class Command_Last implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
 
@@ -23,8 +23,8 @@ public class Command_LastJoin implements CommandExecutor {
          */
 
         //パーミッションの確認(コマンド側)
-        if(!(sender.hasPermission(Permissions.getFlyCommandPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getLastJoinCommandPermisson()));
+        if(!(sender.hasPermission(Permissions.getLastCommandPermisson()))){
+            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getLastCommandPermisson()));
             return true;
         }
 
@@ -53,7 +53,7 @@ public class Command_LastJoin implements CommandExecutor {
 
         //パーミッションの確認コマンド
         if(args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")){
-            Messages.getCheckPermissionMessage(Permissions.getLastJoinCommandPermisson());
+            Messages.getCheckPermissionMessage(Permissions.getLastCommandPermisson());
             return true;
         }
 
@@ -67,9 +67,11 @@ public class Command_LastJoin implements CommandExecutor {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
             UUID uuid = player.getUniqueId();
             try{
-                String date = TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.getString(uuid + ".date");
+                String joinDate = TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.getString(uuid + ".JoinDate");
+                String quitDate = TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.getString(uuid + ".QuitDate");
 
-                sender.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログイン： " + date);
+                sender.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログイン  " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + joinDate);
+                sender.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログアウト" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + quitDate);
                 return true;
             }
             catch(Exception e){

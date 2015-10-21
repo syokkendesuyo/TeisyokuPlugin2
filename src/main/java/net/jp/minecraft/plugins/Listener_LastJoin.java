@@ -4,6 +4,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,13 +24,30 @@ public class Listener_LastJoin implements Listener {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
         String strDate = sdf.format(date.getTime());
 
-        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".name",event.getPlayer().getName().toString());
-        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".rawDate",date.toString());
-        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".date", strDate.toString());
-        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".timestamp",System.currentTimeMillis());
+        //プレイヤー名
+        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".Name",event.getPlayer().getName().toString());
+
+        //ログイン時の日時
+        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".JoinDate", strDate.toString());
+        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".JoinTimestamp",System.currentTimeMillis());
 
         event.getPlayer().sendMessage(Messages.getSuccessPrefix() + "ログインデータを書き込みました。");
         TeisyokuPlugin2.getInstance().saveLastPlayerJoinConfig();
+    }
 
+    @EventHandler
+    public void quit(PlayerQuitEvent event){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+        String strDate = sdf.format(date.getTime());
+
+        //プレイヤー名
+        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".Name",event.getPlayer().getName().toString());
+
+        //ログアウト時の日時
+        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".QuitDate", strDate.toString());
+        TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".QuitTimestamp",System.currentTimeMillis());
+
+        TeisyokuPlugin2.getInstance().saveLastPlayerJoinConfig();
     }
 }

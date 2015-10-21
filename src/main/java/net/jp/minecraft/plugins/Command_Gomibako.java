@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins;
 
-import com.sun.xml.internal.ws.resources.SenderMessages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,7 +9,7 @@ import org.bukkit.command.CommandSender;
  *
  * @auther syokkendesuyo
  */
-public class GomibakoCommand implements CommandExecutor {
+public class Command_Gomibako implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if(! (sender.hasPermission(Permissions.getGomibakoCommandPermisson()))){
@@ -19,7 +18,7 @@ public class GomibakoCommand implements CommandExecutor {
         }
 
         if(args.length != 1){
-            Gomibako.openGomibako(sender);
+            Listener_Gomibako.openGomibako(sender);
         }
         else if(args.length == 1){
             if(args[0].equalsIgnoreCase("perm")||args[0].equalsIgnoreCase("permission")){

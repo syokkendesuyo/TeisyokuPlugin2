@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins;
 
-import com.avaje.ebeaninternal.server.el.ElSetValue;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -15,7 +14,7 @@ import org.bukkit.event.inventory.InventoryType;
  *
  * @auther syokkendesuyo
  */
-public class GUIClickEvent implements Listener {
+public class GUI_ClickEvent implements Listener {
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
@@ -54,7 +53,7 @@ public class GUIClickEvent implements Listener {
                 player.kickPlayer(ChatColor.YELLOW + " サーバから切断しました。 ");
             }
             else if(event.getRawSlot() == 28){
-                Gomibako.openGomibako(player);
+                Listener_Gomibako.openGomibako(player);
             }
             else if(event.getRawSlot() == 30){
                 Bukkit.getServer().dispatchCommand(player, "lock");
@@ -69,10 +68,10 @@ public class GUIClickEvent implements Listener {
                 player.closeInventory();
             }
             else if(event.getRawSlot() == 2){
-                PlayersList.getPlayersList(player);
+                GUI_PlayersList.getPlayersList(player);
             }
             else if(event.getRawSlot() == 4){
-                YesNoGUI.openGUI(player,"自殺を処理を行います","自殺をやっぱり辞める！" , "自殺を行いますか？");
+                GUI_YesNo.openGUI(player, "自殺を処理を行います", "自殺をやっぱり辞める！", "自殺を行いますか？");
             }
             else if(event.getRawSlot() == 6){
                 player.sendMessage(Messages.getNormalPrefix() + ChatColor.GOLD +"投票サイト:" + ChatColor.WHITE + " http://bit.ly/vote_mc");

@@ -62,13 +62,13 @@ public class Command_fly implements CommandExecutor {
 
         //引数1がtrueまたはenableだった場合flyモードを開始
         if(args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("enable")){
-            Listener_fly.enable_fly(player);
+            Listener_Fly.enable_fly(player);
             return true;
         }
 
         //引数1がfalseまたはdisableだった場合flyモードを終了
         else if(args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("disable")){
-            Listener_fly.disable_fly(player);
+            Listener_Fly.disable_fly(player);
             return true;
         }
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Ad.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Fly.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Gomibako.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Help.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Last.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Players.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Teisyoku.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_fly.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/GUI_ClickEvent.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/GUI_PlayersList.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/GUI_YesNo.java" charset="UTF-8" />

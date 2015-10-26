@@ -29,6 +29,12 @@ commands:
     last:
         description: show player last login date.
         usage: /last <Player>
+    ad:
+        description: Teisyoku Ad.
+        usage: /ad <Messages>
+    notice:
+        description: Teisyoku Ad.
+        usage: /notice <Messages>
 permissions:
     teisyoku.*:
         description: Allow Flying.

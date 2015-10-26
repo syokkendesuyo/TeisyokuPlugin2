@@ -1,11 +1,9 @@
 package net.jp.minecraft.plugins;
 
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * TeisyokuPlugin2
@@ -33,15 +31,6 @@ public class Command_Teisyoku implements CommandExecutor{
             else if(args[0].equalsIgnoreCase("permission") || args[0].equalsIgnoreCase("perm")){
                 sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(通常利用): " + Permissions.getTeisyokuPermisson());
                 sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(コマンド): " + Permissions.getTeisyokuCommandPermisson());
-            }
-        }
-        else if (args.length == 2){
-            if(args[0].equalsIgnoreCase("give") && sender.isOp() && sender instanceof Player){
-                if(args[1].equalsIgnoreCase("43")){
-                    Player player = (Player)sender;
-                    sender.sendMessage(Messages.getSuccessPrefix() +"43をインベントリへ投入");
-                    player.getInventory().addItem(new ItemStack(Material.DOUBLE_STEP, 1));
-                }
             }
         }
         else{

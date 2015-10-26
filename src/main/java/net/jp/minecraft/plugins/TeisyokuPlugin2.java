@@ -46,7 +46,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("help").setExecutor(new Command_Help());
 
         //Flyコマンド
-        getCommand("fly").setExecutor(new Command_fly());
+        getCommand("fly").setExecutor(new Command_Fly());
 
         //定食コマンド
         getCommand("t").setExecutor(new Command_Teisyoku());
@@ -63,6 +63,10 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         //最終ログイン確認
         getCommand("last").setExecutor(new Command_Last());
+
+        //広告コマンド
+        getCommand("ad").setExecutor(new Command_Ad());
+        getCommand("notice").setExecutor(new Command_Ad());
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {

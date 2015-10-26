@@ -36,6 +36,11 @@ public class Messages implements Listener {
         return string;
     }
 
+    public static String getAdPrefix(String name){
+        String string = ChatColor.GOLD + "[お知らせ] "+ChatColor.YELLOW + name + " " + ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+        return string;
+    }
+
     public static String getCommandFormat(String command , String discription){
         String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;
         return string;

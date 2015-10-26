@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
  *
  * flyコマンドを実行時の処理
  */
-public class Command_fly implements CommandExecutor {
+public class Command_Fly implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
         /**

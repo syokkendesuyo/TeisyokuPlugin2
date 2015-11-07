@@ -41,6 +41,11 @@ public class Messages implements Listener {
         return string;
     }
 
+    public static String getCallPrefix(){
+        String string = ChatColor.GOLD + "[お呼び出し] " + ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+        return string;
+    }
+
     public static String getCommandFormat(String command , String discription){
         String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;
         return string;
@@ -69,7 +74,12 @@ public class Messages implements Listener {
 
         sender.sendMessage(getSuccessPrefix() + "ヘルプ");
         sender.sendMessage(getCommandFormat("help", "当サーバのヘルプをご覧頂けます"));
+        sender.sendMessage(getCommandFormat("t", "当サーバ専用のメニューを表示します"));
         sender.sendMessage(getCommandFormat("teisyoku", "当サーバ専用のメニューを表示します"));
+        sender.sendMessage(getCommandFormat("player", "プレイヤー一覧を表示します"));
+        sender.sendMessage(getCommandFormat("call", "プレイヤーを呼び出せます"));
+        sender.sendMessage(getCommandFormat("last", "プレイヤーの最終ログイン・ログアウトを表示します"));
+        sender.sendMessage(getCommandFormat("gomi", "ゴミ箱を展開します"));
     }
 
 

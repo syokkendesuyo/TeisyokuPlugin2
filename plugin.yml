@@ -35,6 +35,15 @@ commands:
     notice:
         description: Teisyoku Ad.
         usage: /notice <Messages>
+    call:
+        description: Teisyoku Call.
+        usage: /call <Player> <Messages>
+    cart:
+        description: Give to Minecart.
+        usage: /cart
+    minecart:
+        description: Give to Minecart.
+        usage: /minecart
 permissions:
     teisyoku.*:
         description: Allow Flying.

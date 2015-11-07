@@ -34,6 +34,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_NetherGateEvent() , this);
         pm.registerEvents(new Listener_MineCartEvent() , this);
         pm.registerEvents(new Listener_DeathEvent() , this);
+        pm.registerEvents(new Listener_EntityDamage() , this);;
         pm.registerEvents(new Listener_Gomibako() , this);
         pm.registerEvents(new Listener_LastJoin() , this);
         pm.registerEvents(new Listener_Tab() , this);
@@ -67,6 +68,13 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         //広告コマンド
         getCommand("ad").setExecutor(new Command_Ad());
         getCommand("notice").setExecutor(new Command_Ad());
+
+        //呼び出しコマンド
+        getCommand("call").setExecutor(new Command_Call());
+
+        //マインカートを渡すコマンド
+        getCommand("cart").setExecutor(new Command_Cart());
+        getCommand("minecart").setExecutor(new Command_Cart());
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {

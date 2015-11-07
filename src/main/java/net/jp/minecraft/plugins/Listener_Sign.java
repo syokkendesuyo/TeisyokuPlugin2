@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * TeisyokuPlugin2
@@ -15,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * @auther syokkendesuyo
  */
 public class Listener_Sign implements Listener {
-    //看板右クリックでゴミ箱を表示
+    //逵区攸蜿ｳ繧ｯ繝ｪ繝�繧ｯ縺ｧ繧ｴ繝溽ｮｱ繧定｡ｨ遉ｺ
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event){
         Block block = event.getClickedBlock();
@@ -26,11 +27,15 @@ public class Listener_Sign implements Listener {
         else{
             if(block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)){
                 Sign sign = (Sign) block.getState();
-                if (sign.getLine(0).equalsIgnoreCase("[GOMI]") && player.hasPermission("teisyoku.use" + sign.getLine(1))){
+                if (sign.getLine(0).equalsIgnoreCase("[GOMI]")){
                     Listener_Gomibako.openGomibako(player);
                 }
-                else if (sign.getLine(0).equalsIgnoreCase("[Teisyoku]") && player.hasPermission("teisyoku.use" + sign.getLine(1))){
+                else if (sign.getLine(0).equalsIgnoreCase("[Teisyoku]") || sign.getLine(1).equalsIgnoreCase("[Teisyoku]")){
                     TeisyokuMenuIndex.getMenu(player);
+                }
+                else if (sign.getLine(0).equalsIgnoreCase("[Cart]") || sign.getLine(1).equalsIgnoreCase("[Cart]") || sign.getLine(2).equalsIgnoreCase("[Cart]") || sign.getLine(3).equalsIgnoreCase("[Cart]")) {
+                    player.sendMessage(Messages.getSuccessPrefix() +"繝槭う繝ｳ繧ｫ繝ｼ繝医ｒ繧､繝ｳ繝吶Φ繝医Μ縺ｫ霑ｽ蜉縺励∪縺励◆");
+                    player.getInventory().addItem(new ItemStack(Material.MINECART));
                 }
             }
         }

@@ -35,12 +35,14 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_MineCartEvent() , this);
         pm.registerEvents(new Listener_DeathEvent() , this);
         pm.registerEvents(new Listener_EntityDamage() , this);;
+        pm.registerEvents(new Listener_WitherSpawmCancel() , this);
         pm.registerEvents(new Listener_Gomibako() , this);
         pm.registerEvents(new Listener_LastJoin() , this);
         pm.registerEvents(new Listener_Tab() , this);
         pm.registerEvents(new Listener_Sign() , this);
         pm.registerEvents(new GUI_YesNo() , this);
         pm.registerEvents(new GUI_ClickEvent() , this);
+
 
 
         //ヘルプコマンド

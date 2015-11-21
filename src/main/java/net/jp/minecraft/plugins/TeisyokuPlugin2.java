@@ -45,6 +45,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_Sign() , this);
         pm.registerEvents(new GUI_YesNo() , this);
         pm.registerEvents(new GUI_ClickEvent() , this);
+        pm.registerEvents(new Listener_SignColor() , this);
 
 
 
@@ -105,12 +106,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         saveNickConfig();
 
 
-    }
-
-    @Override
-    public void onDisable(){
-        saveLastPlayerJoinConfig();
-        saveNickConfig();
     }
 
 

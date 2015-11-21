@@ -21,6 +21,7 @@ public class Command_Players implements CommandExecutor {
 
         if(! (sender  instanceof Player)){
             sender.sendMessage(Messages.getDenyPrefix() + "コンソールからコマンドを送信することはできません");
+            return true;
         }
 
         Player player = (Player)sender;

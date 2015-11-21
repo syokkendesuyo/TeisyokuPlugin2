@@ -19,7 +19,7 @@ commands:
         usage: /teisyoku
     t:
         description: teisyoku.
-        usage: /gomi
+        usage: /t
     players:
         description: show players list.
         usage: /players

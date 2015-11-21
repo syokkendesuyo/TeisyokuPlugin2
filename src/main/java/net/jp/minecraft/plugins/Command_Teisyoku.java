@@ -20,6 +20,7 @@ public class Command_Teisyoku implements CommandExecutor{
 
         if(args.length == 0){
             teisyoku(sender);
+            return true;
         }
         else if(args.length == 1){
             if(args[0].equalsIgnoreCase("help")){
@@ -28,25 +29,30 @@ public class Command_Teisyoku implements CommandExecutor{
                     return true;
                 }
                 Messages.HelpMessage(sender);
+                return true;
             }
             else if(args[0].equalsIgnoreCase("permission") || args[0].equalsIgnoreCase("perm")){
                 sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(通常利用): " + Permissions.getTeisyokuPermisson());
                 sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(コマンド): " + Permissions.getTeisyokuCommandPermisson());
+                return true;
             }
             else if(args[0].equalsIgnoreCase("reload")){
                 TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
                 TeisyokuPlugin2.getInstance().reloadNickConfig();
                 sender.sendMessage(Messages.getSuccessPrefix() + "TeisyokuPlugin2のconfigをリロードしました。" );
+                return true;
             }
             else if(args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")){
                 sender.sendMessage(Messages.getNormalPrefix() + "Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
+                return true;
             }
             sender.sendMessage(Messages.getDenyPrefix() + "引数 " + args[0].toString()  + " は存在しません");
+            return true;
         }
         else{
             sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎるかまたは少なすぎます");
+            return true;
         }
-        return true;
     }
     public void teisyoku(CommandSender sender){
         if (!(sender instanceof Player)) {

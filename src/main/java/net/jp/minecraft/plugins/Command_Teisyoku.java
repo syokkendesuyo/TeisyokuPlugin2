@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import sun.security.jca.GetInstance;
 
 /**
  * TeisyokuPlugin2
@@ -36,6 +37,9 @@ public class Command_Teisyoku implements CommandExecutor{
                 TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
                 TeisyokuPlugin2.getInstance().reloadNickConfig();
                 sender.sendMessage(Messages.getSuccessPrefix() + "TeisyokuPlugin2のconfigをリロードしました。" );
+            }
+            else if(args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")){
+                sender.sendMessage(Messages.getNormalPrefix() + "Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
             }
         }
         else{

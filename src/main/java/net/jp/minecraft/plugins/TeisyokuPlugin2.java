@@ -18,8 +18,10 @@ import java.io.File;
  */
 public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
-    File newConfig;
+    File newConfig_last;
+    File newConfig_nick;
     FileConfiguration lastJoinPlayerConfig;
+    FileConfiguration NickConfig;
 
     private static TeisyokuPlugin2 instance;
 
@@ -32,16 +34,18 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         //リスナー登録
         pm.registerEvents(new Listener_JoinEvent() , this);
         pm.registerEvents(new Listener_NetherGateEvent() , this);
-        pm.registerEvents(new Listener_MineCartEvent() , this);
         pm.registerEvents(new Listener_DeathEvent() , this);
         pm.registerEvents(new Listener_EntityDamage() , this);;
         pm.registerEvents(new Listener_WitherSpawmCancel() , this);
+        pm.registerEvents(new Listener_MineCartEvent() , this);
         pm.registerEvents(new Listener_Gomibako() , this);
         pm.registerEvents(new Listener_LastJoin() , this);
+        pm.registerEvents(new Listener_Chat() , this);
         pm.registerEvents(new Listener_Tab() , this);
         pm.registerEvents(new Listener_Sign() , this);
         pm.registerEvents(new GUI_YesNo() , this);
         pm.registerEvents(new GUI_ClickEvent() , this);
+
 
 
 
@@ -78,6 +82,10 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("cart").setExecutor(new Command_Cart());
         getCommand("minecart").setExecutor(new Command_Cart());
 
+        //ニックネームコマンド
+        getCommand("nick").setExecutor(new Command_Nick());
+        getCommand("nickname").setExecutor(new Command_Nick());
+
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
@@ -93,19 +101,35 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
 
+        NickConfig();
+        saveNickConfig();
+
+
     }
+
+    @Override
+    public void onDisable(){
+        saveLastPlayerJoinConfig();
+        saveNickConfig();
+    }
+
+
+
+    /*
+        LastCommandのconfig
+     */
 
     //configを生成
     public void LastJoinPlayerConfig(){
-        newConfig = new File(getDataFolder(),"LastJoinPlayersData.yml");
-        lastJoinPlayerConfig = YamlConfiguration.loadConfiguration(newConfig);
+        newConfig_last = new File(getDataFolder(),"LastJoinPlayersData.yml");
+        lastJoinPlayerConfig = YamlConfiguration.loadConfiguration(newConfig_last);
         saveLastPlayerJoinConfig();
     }
 
     //LastPlayerJoinPlayersData.ymlの保存
     public void saveLastPlayerJoinConfig(){
         try{
-            lastJoinPlayerConfig.save(newConfig);
+            lastJoinPlayerConfig.save(newConfig_last);
 
         }catch(Exception e){
             e.printStackTrace();
@@ -115,13 +139,53 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     //LastPlayerJoinPlayersData.ymlのリロード
     public void reloadLastPlayerJoinConfig(){
         try{
-            lastJoinPlayerConfig.load(newConfig);
+            lastJoinPlayerConfig.load(newConfig_last);
+            lastJoinPlayerConfig.save(newConfig_last);
 
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
+
+
+    /*
+        NickCommandのconfig
+     */
+
+    //configを生成
+    public void NickConfig(){
+        newConfig_nick = new File(getDataFolder(),"NickData.yml");
+        NickConfig = YamlConfiguration.loadConfiguration(newConfig_nick);
+        saveLastPlayerJoinConfig();
+    }
+
+    //LastPlayerJoinPlayersData.ymlの保存
+    public void saveNickConfig(){
+        try{
+            NickConfig.save(newConfig_nick);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //LastPlayerJoinPlayersData.ymlのリロード
+    public void reloadNickConfig(){
+        try{
+            NickConfig.load(newConfig_nick);
+            NickConfig.save(newConfig_nick);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /*
+        インスタンス
+     */
     public static TeisyokuPlugin2 getInstance(){
         return instance;
     }

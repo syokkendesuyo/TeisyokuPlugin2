@@ -44,9 +44,15 @@ commands:
     minecart:
         description: Give to Minecart.
         usage: /minecart
+    nick:
+        description: Nick
+        usage: /nick
+    nickname:
+        description: Nickname
+        usage: /nickname
 permissions:
     teisyoku.*:
-        description: Allow Flying.
+        description: Allow using TeisyokuPlugin2.
         default: op
     teisyoku.user:
         description: Teisyoku.

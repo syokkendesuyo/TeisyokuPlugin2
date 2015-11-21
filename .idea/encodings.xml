@@ -8,6 +8,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Gomibako.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Help.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Last.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Nick.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Players.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/Command_Teisyoku.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/net/jp/minecraft/plugins/GUI_ClickEvent.java" charset="UTF-8" />

@@ -41,9 +41,10 @@ public class Command_Teisyoku implements CommandExecutor{
             else if(args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")){
                 sender.sendMessage(Messages.getNormalPrefix() + "Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
             }
+            sender.sendMessage(Messages.getDenyPrefix() + "引数 " + args[0].toString()  + " は存在しません");
         }
         else{
-            teisyoku(sender);
+            sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎるかまたは少なすぎます");
         }
         return true;
     }

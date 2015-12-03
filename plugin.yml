@@ -1,5 +1,5 @@
 name: TeisyokuPlugin2
-version: 2.3.2
+version: 2.3.3
 main: net.jp.minecraft.plugins.TeisyokuPlugin2
 commands:
     help:
@@ -50,6 +50,12 @@ commands:
     nickname:
         description: Nickname
         usage: /nickname
+    point:
+        description: TPoint
+        usage: /point
+    tpoint:
+        description: TPoint
+        usage: /tpoint
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

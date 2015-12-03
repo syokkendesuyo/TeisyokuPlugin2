@@ -20,8 +20,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     File newConfig_last;
     File newConfig_nick;
+    File newConfig_tpoint;
+    File newConfig_tpoint_settings;
     FileConfiguration lastJoinPlayerConfig;
     FileConfiguration NickConfig;
+    FileConfiguration TPointConfig;
+    FileConfiguration TPointSettingsConfig;
 
     private static TeisyokuPlugin2 instance;
 
@@ -86,6 +90,10 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         //ニックネームコマンド
         getCommand("nick").setExecutor(new Command_Nick());
         getCommand("nickname").setExecutor(new Command_Nick());
+
+        //ポイントコマンド
+        getCommand("point").setExecutor(new Command_TPoint());
+        getCommand("tpoint").setExecutor(new Command_TPoint());
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
@@ -176,6 +184,73 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }
     }
 
+
+
+    /*
+        TPointSettingsのconfig
+     */
+
+    //configを生成
+    public void TpointSettingsConfig(){
+        newConfig_tpoint_settings = new File(getDataFolder(),"TPoint_Settings.yml");
+        TPointSettingsConfig = YamlConfiguration.loadConfiguration(newConfig_tpoint);
+        saveLastPlayerJoinConfig();
+    }
+
+    //LastPlayerJoinPlayersData.ymlの保存
+    public void savTpointSettingsConfig(){
+        try{
+            TPointSettingsConfig.save(newConfig_tpoint_settings);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //LastPlayerJoinPlayersData.ymlのリロード
+    public void reloadTpointSettingsConfig(){
+        try{
+            TPointSettingsConfig.load(newConfig_tpoint_settings);
+            TPointSettingsConfig.save(newConfig_tpoint_settings);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /*
+        TPointのconfig
+     */
+
+    //configを生成
+    public void TPointConfig(){
+        newConfig_tpoint = new File(getDataFolder(),"TPoint.yml");
+        TPointConfig = YamlConfiguration.loadConfiguration(newConfig_tpoint);
+        saveLastPlayerJoinConfig();
+    }
+
+    //LastPlayerJoinPlayersData.ymlの保存
+    public void saveTPointConfig(){
+        try{
+            TPointConfig.save(newConfig_tpoint);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //LastPlayerJoinPlayersData.ymlのリロード
+    public void reloadTPointConfig(){
+        try{
+            TPointConfig.load(newConfig_tpoint);
+            TPointConfig.save(newConfig_tpoint);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
 
     /*

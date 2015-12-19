@@ -1,5 +1,5 @@
 name: TeisyokuPlugin2
-version: 2.3.3
+version: 2.3.4
 main: net.jp.minecraft.plugins.TeisyokuPlugin2
 commands:
     help:
@@ -54,6 +54,9 @@ commands:
         description: TPoint
         usage: /point
     tpoint:
+        description: TPoint
+        usage: /tpoint
+    tt:
         description: TPoint
         usage: /tpoint
 permissions:

@@ -50,6 +50,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new GUI_YesNo() , this);
         pm.registerEvents(new GUI_ClickEvent() , this);
         pm.registerEvents(new Listener_SignColor() , this);
+        pm.registerEvents(new Listener_TPoint() , this);
 
 
 
@@ -92,6 +93,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("nickname").setExecutor(new Command_Nick());
 
         //ポイントコマンド
+        getCommand("tt").setExecutor(new Command_TPoint());
         getCommand("point").setExecutor(new Command_TPoint());
         getCommand("tpoint").setExecutor(new Command_TPoint());
 
@@ -113,6 +115,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         NickConfig();
         saveNickConfig();
 
+        TPointConfig();
+        saveTPointConfig();
 
     }
 

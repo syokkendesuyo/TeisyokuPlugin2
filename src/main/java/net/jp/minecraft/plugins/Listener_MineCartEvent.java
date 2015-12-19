@@ -1,7 +1,12 @@
 package net.jp.minecraft.plugins;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Sign;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.entity.minecart.RideableMinecart;
@@ -9,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
+import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -65,6 +71,25 @@ public class Listener_MineCartEvent implements Listener {
     public void onVehicleDestroy(VehicleDestroyEvent event) {
         if (event.getVehicle() instanceof RideableMinecart) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerVehicleMoveEvent(VehicleMoveEvent event){
+        if(event.getVehicle() instanceof Minecart){
+            if(event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
+            Vehicle minecart = event.getVehicle();
+            Entity player = minecart.getPassenger();
+            if(player instanceof Player){
+                if(! (minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getType().equals(Material.WALL_SIGN))){
+                    return;
+                }
+                Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();
+                if(sign.getLine(0).equalsIgnoreCase("[test]")){
+                    Player sendPlayer = ((Player) player);
+                    sendPlayer.sendMessage(sign.getLine(1).toString());
+                }
+            }
         }
     }
 }

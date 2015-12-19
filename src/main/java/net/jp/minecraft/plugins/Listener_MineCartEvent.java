@@ -74,6 +74,10 @@ public class Listener_MineCartEvent implements Listener {
         }
     }
 
+    /**
+     * マインカートに乗っている場合にレール下に看板があると圧胴
+     * @param event
+     */
     @EventHandler
     public void onPlayerVehicleMoveEvent(VehicleMoveEvent event){
         if(event.getVehicle() instanceof Minecart){
@@ -85,9 +89,27 @@ public class Listener_MineCartEvent implements Listener {
                     return;
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();
-                if(sign.getLine(0).equalsIgnoreCase("[test]")){
+                if(sign.getLine(0).equalsIgnoreCase("[alert]")||sign.getLine(0).equalsIgnoreCase("[announce]")||sign.getLine(0).equalsIgnoreCase("[a]")){
                     Player sendPlayer = ((Player) player);
-                    sendPlayer.sendMessage(sign.getLine(1).toString());
+
+                    try{
+                        if(TeisyokuPlugin2.getInstance().CartConfig.get(sign.getLine(1).toString()) == null){
+                            String location = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1).toString());
+                            player.sendMessage(Messages.getDenyPrefix() + "登録名 " + ChatColor.YELLOW + location + ChatColor.RESET + " は登録されていません");
+                            return;
+                        }
+                        else{
+                            //正常処理
+                            String announce = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1).toString() + ".announce");
+                            player.sendMessage(announce);
+                            return;
+                        }
+                    }
+                    catch (Exception e){
+                        player.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
+                        e.printStackTrace();
+                        return;
+                    }
                 }
             }
         }

@@ -20,10 +20,13 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     File newConfig_last;
     File newConfig_nick;
+    File newConfig_cart;
     File newConfig_tpoint;
     File newConfig_tpoint_settings;
+
     FileConfiguration lastJoinPlayerConfig;
     FileConfiguration NickConfig;
+    FileConfiguration CartConfig;
     FileConfiguration TPointConfig;
     FileConfiguration TPointSettingsConfig;
 
@@ -235,7 +238,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         saveLastPlayerJoinConfig();
     }
 
-    //LastPlayerJoinPlayersData.ymlの保存
+    //TPoint.ymlの保存
     public void saveTPointConfig(){
         try{
             TPointConfig.save(newConfig_tpoint);
@@ -245,11 +248,45 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }
     }
 
-    //LastPlayerJoinPlayersData.ymlのリロード
+    //TPoint.ymlのリロード
     public void reloadTPointConfig(){
         try{
             TPointConfig.load(newConfig_tpoint);
             TPointConfig.save(newConfig_tpoint);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /*
+        Cartのconfig
+     */
+
+    //configを生成
+    public void CartConfig(){
+        newConfig_cart = new File(getDataFolder(),"Cart.yml");
+        CartConfig = YamlConfiguration.loadConfiguration(newConfig_cart);
+        saveLastPlayerJoinConfig();
+    }
+
+    //LastPlayerJoinPlayersData.ymlの保存
+    public void saveCartConfig(){
+        try{
+            CartConfig.save(newConfig_cart);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //LastPlayerJoinPlayersData.ymlのリロード
+    public void reloadCartConfig(){
+        try{
+            CartConfig.load(newConfig_cart);
+            CartConfig.save(newConfig_cart);
 
         }catch(Exception e){
             e.printStackTrace();

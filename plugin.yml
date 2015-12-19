@@ -1,5 +1,5 @@
 name: TeisyokuPlugin2
-version: 2.3.4
+version: 2.3.5
 main: net.jp.minecraft.plugins.TeisyokuPlugin2
 commands:
     help:

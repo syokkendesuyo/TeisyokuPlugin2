@@ -136,7 +136,7 @@ public class Command_RailwayInfo implements CommandExecutor {
 
     public static void remove(String name , Player player){
         try{
-            if(TeisyokuPlugin2.getInstance().CartConfig.getString(name + ".uuid").toString().equalsIgnoreCase(player.getUniqueId().toString()) || player.hasPermission("teisyoku.admin")){
+            if(TeisyokuPlugin2.getInstance().CartConfig.getString(name + ".uuid").toString().equalsIgnoreCase(player.getUniqueId().toString()) || player.hasPermission(Permissions.getTeisyokuUserPermisson())){
                 TeisyokuPlugin2.getInstance().CartConfig.set(name.toString(),null);
                 TeisyokuPlugin2.getInstance().saveCartConfig();
                 player.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + name + ChatColor.RESET + " を削除しました");
@@ -156,7 +156,7 @@ public class Command_RailwayInfo implements CommandExecutor {
 
     public static void edit(String name , String string , Player player){
         try{
-            if(TeisyokuPlugin2.getInstance().CartConfig.getString(name + ".uuid").toString().equalsIgnoreCase(player.getUniqueId().toString()) || player.hasPermission("teisyoku.admin")){
+            if(TeisyokuPlugin2.getInstance().CartConfig.getString(name + ".uuid").toString().equalsIgnoreCase(player.getUniqueId().toString()) || player.hasPermission(Permissions.getTeisyokuUserPermisson())){
                 add(name,string,player);
                 player.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + name + ChatColor.RESET + " を編集しました");
                 return;

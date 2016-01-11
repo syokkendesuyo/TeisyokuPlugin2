@@ -7,6 +7,16 @@ package net.jp.minecraft.plugins;
  */
 public class Permissions {
 
+    //管理者の定義
+    public static String getTeisyokuAdminPermisson(){
+        return "teisyoku.admin";
+    }
+
+    //一般プレイヤーの定義
+    public static String getTeisyokuUserPermisson(){
+        return "teisyoku.user";
+    }
+
     //ヘルプパーミッション
     public static String getHelpCommandPermisson(){
         String permission = "teisyoku.user";

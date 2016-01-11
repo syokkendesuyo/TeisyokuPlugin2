@@ -80,7 +80,7 @@ public class Listener_MineCartEvent implements Listener {
      */
     @EventHandler
     public void onPlayerVehicleMoveEvent(VehicleMoveEvent event){
-        if(event.getVehicle() instanceof Minecart){
+            if(event.getVehicle() instanceof Minecart){
             if(event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
             Vehicle minecart = event.getVehicle();
             Entity player = minecart.getPassenger();
@@ -89,19 +89,25 @@ public class Listener_MineCartEvent implements Listener {
                     return;
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();
-                if(sign.getLine(0).equalsIgnoreCase("[alert]")||sign.getLine(0).equalsIgnoreCase("[announce]")||sign.getLine(0).equalsIgnoreCase("[a]")){
+                if(sign.getLine(0).equalsIgnoreCase("[alert]")||sign.getLine(0).equalsIgnoreCase("[announce]")||sign.getLine(0).equalsIgnoreCase("[a]") || sign.getLine(0).equalsIgnoreCase("[ri]") || sign.getLine(0).equalsIgnoreCase("[railwayinfo]")){
                     Player sendPlayer = ((Player) player);
 
                     try{
+                        if(sign.getLine(1).equalsIgnoreCase("")){
+                            player.sendMessage(Messages.getDenyPrefix() + "看板2行目が空白になっています");
+                            return;
+                        }
+
                         if(TeisyokuPlugin2.getInstance().CartConfig.get(sign.getLine(1).toString()) == null){
-                            String location = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1).toString());
-                            player.sendMessage(Messages.getDenyPrefix() + "登録名 " + ChatColor.YELLOW + location + ChatColor.RESET + " は登録されていません");
+                            player.sendMessage(Messages.getDenyPrefix() + "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
                             return;
                         }
                         else{
                             //正常処理
-                            String announce = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1).toString() + ".announce");
-                            player.sendMessage(announce);
+                            String announce = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1).toString() + ".string");
+                            String announceReplace = announce.replaceAll("&","§");
+                            String annaunceReplace2 = announceReplace.replaceAll("%%"," ");
+                            player.sendMessage(annaunceReplace2);
                             return;
                         }
                     }

@@ -1,5 +1,5 @@
 name: TeisyokuPlugin2
-version: 2.3.5
+version: 2.4.0
 main: net.jp.minecraft.plugins.TeisyokuPlugin2
 commands:
     help:
@@ -59,6 +59,12 @@ commands:
     tt:
         description: TPoint
         usage: /tpoint
+    ri:
+        description: RailwayInfo
+        usage: /ri
+    railwayinfo:
+        description: RailwayInfo
+        usage: /railwayinfo
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

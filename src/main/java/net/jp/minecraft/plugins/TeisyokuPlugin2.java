@@ -100,6 +100,10 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("point").setExecutor(new Command_TPoint());
         getCommand("tpoint").setExecutor(new Command_TPoint());
 
+        //鉄道情報コマンド
+        getCommand("ri").setExecutor(new Command_RailwayInfo());
+        getCommand("railwayinfo").setExecutor(new Command_RailwayInfo());
+
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
@@ -120,6 +124,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         TPointConfig();
         saveTPointConfig();
+
+        CartConfig();
+        saveCartConfig();
 
     }
 
@@ -205,7 +212,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     }
 
     //LastPlayerJoinPlayersData.ymlの保存
-    public void savTpointSettingsConfig(){
+    public void saveTpointSettingsConfig(){
         try{
             TPointSettingsConfig.save(newConfig_tpoint_settings);
 
@@ -265,14 +272,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         Cartのconfig
      */
 
-    //configを生成
     public void CartConfig(){
         newConfig_cart = new File(getDataFolder(),"Cart.yml");
         CartConfig = YamlConfiguration.loadConfiguration(newConfig_cart);
         saveLastPlayerJoinConfig();
     }
 
-    //LastPlayerJoinPlayersData.ymlの保存
     public void saveCartConfig(){
         try{
             CartConfig.save(newConfig_cart);
@@ -282,7 +287,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }
     }
 
-    //LastPlayerJoinPlayersData.ymlのリロード
     public void reloadCartConfig(){
         try{
             CartConfig.load(newConfig_cart);

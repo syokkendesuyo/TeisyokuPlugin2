@@ -71,6 +71,10 @@ public class Command_RailwayInfo implements CommandExecutor {
                 return true;
             }
         }
+        else if(args[0].equalsIgnoreCase("perm")||args[0].equalsIgnoreCase("perms")||args[0].equalsIgnoreCase("permission")){
+            Messages.getCheckPermissionMessage(Permissions.getTeisyokuUserPermisson());
+            return true;
+        }
         else{
             help(cmd,sender);
             return true;

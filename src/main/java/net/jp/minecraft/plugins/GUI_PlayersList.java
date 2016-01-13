@@ -46,7 +46,13 @@ public class GUI_PlayersList {
             SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
             meta.setDisplayName(p.getName().toString());
             meta.setOwner(p.getName());
-            meta.setLore(Arrays.asList(new String[]{ChatColor.GRAY + "UUID:" + p.getUniqueId().toString(), ChatColor.GRAY + "クリックで現在地を表示します"}));
+
+            String world = p.getLocation().getWorld().getName();
+            int x = (int) p.getLocation().getX();
+            int y = (int) p.getLocation().getY();
+            int z = (int) p.getLocation().getZ();
+
+            meta.setLore(Arrays.asList(new String[]{ChatColor.YELLOW + "現在地 ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z , ChatColor.GRAY + "クリックで現在地をチャットに送信" , ChatColor.GRAY + "UUID:" + p.getUniqueId().toString()}));
             skull.setItemMeta(meta);
 
             inv.addItem(skull);

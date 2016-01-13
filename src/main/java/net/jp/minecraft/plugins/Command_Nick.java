@@ -18,7 +18,7 @@ public class Command_Nick implements CommandExecutor {
 
         //パーミッションのチェックを行います
         if(! (sender.hasPermission("teisyoku.user"))){
-            sender.sendMessage(Messages.getNoPermissionMesssage("teisyoku.user"));
+            sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.user"));
             return true;
         }
 
@@ -40,7 +40,7 @@ public class Command_Nick implements CommandExecutor {
             }
 
             if(! (sender.hasPermission("teisyoku.admin"))){
-                sender.sendMessage(Messages.getNoPermissionMesssage("teisyoku.admin"));
+                sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
                 return true;
             }
 

@@ -13,7 +13,7 @@ public class Command_Gomibako implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if(! (sender.hasPermission(Permissions.getGomibakoCommandPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getGomibakoCommandPermisson()));
+            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getGomibakoCommandPermisson()));
             return true;
         }
 

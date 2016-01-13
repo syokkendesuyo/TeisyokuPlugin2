@@ -68,7 +68,7 @@ public class Messages implements Listener {
      */
     public static void HelpMessage(CommandSender sender){
         if(!(sender.hasPermission(Permissions.getHelpPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getHelpPermisson()));
+            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpPermisson()));
             return;
         }
 
@@ -94,7 +94,7 @@ public class Messages implements Listener {
     }
 
     //パーミッションが無い時のメッセージ
-    public static String getNoPermissionMesssage(String permission){
+    public static String getNoPermissionMessage(String permission){
         String permissionFormat = getPermissionNode(permission);
         String string = getDenyPrefix() + "パーミッションがありません" + permissionFormat;
         return string;

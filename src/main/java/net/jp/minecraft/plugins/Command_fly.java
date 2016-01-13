@@ -36,7 +36,7 @@ public class Command_Fly implements CommandExecutor {
 
         //パーミッションの確認(コマンド側)
         if(!(player.hasPermission(Permissions.getFlyCommandPermisson()))){
-            player.sendMessage(Messages.getNoPermissionMesssage(Permissions.getFlyCommandPermisson()));
+            player.sendMessage(Messages.getNoPermissionMessage(Permissions.getFlyCommandPermisson()));
             return true;
         }
 

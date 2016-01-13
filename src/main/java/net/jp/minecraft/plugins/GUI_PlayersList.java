@@ -19,7 +19,7 @@ public class GUI_PlayersList {
     public static void getPlayersList(Player player) {
 
         if(! (player.hasPermission(Permissions.getPlayersPermisson()))){
-            player.sendMessage(Messages.getNoPermissionMesssage(Permissions.getPlayersPermisson()));
+            player.sendMessage(Messages.getNoPermissionMessage(Permissions.getPlayersPermisson()));
             return;
         }
 

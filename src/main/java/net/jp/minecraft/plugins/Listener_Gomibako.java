@@ -26,7 +26,7 @@ public class Listener_Gomibako implements Listener {
         Player player = (Player) sender;
 
         if(! (player.hasPermission(Permissions.getGomibakoPermisson()))){
-            player.sendMessage(Messages.getNoPermissionMesssage(Permissions.getGomibakoPermisson()));
+            player.sendMessage(Messages.getNoPermissionMessage(Permissions.getGomibakoPermisson()));
             return;
         }
 

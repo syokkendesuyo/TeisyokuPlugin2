@@ -14,7 +14,7 @@ import sun.security.jca.GetInstance;
 public class Command_Teisyoku implements CommandExecutor{
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
         if(! (sender.hasPermission(Permissions.getTeisyokuCommandPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getTeisyokuCommandPermisson()));
+            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getTeisyokuCommandPermisson()));
             return true;
         }
 
@@ -25,7 +25,7 @@ public class Command_Teisyoku implements CommandExecutor{
         else if(args.length == 1){
             if(args[0].equalsIgnoreCase("help")){
                 if(!(sender.hasPermission(Permissions.getHelpCommandPermisson()))){
-                    sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getHelpCommandPermisson()));
+                    sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpCommandPermisson()));
                     return true;
                 }
                 Messages.HelpMessage(sender);
@@ -64,7 +64,7 @@ public class Command_Teisyoku implements CommandExecutor{
         }
 
         if(!(sender.hasPermission(Permissions.getTeisyokuPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getTeisyokuPermisson()));
+            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getTeisyokuPermisson()));
             return ;
         }
 

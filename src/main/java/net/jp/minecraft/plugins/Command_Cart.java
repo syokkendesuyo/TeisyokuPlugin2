@@ -35,7 +35,7 @@ public class Command_Cart implements CommandExecutor {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
             if(offlinePlayer.isOnline()){
                 if(!(sender.hasPermission("teisyoku.admin"))){
-                    sender.sendMessage(Messages.getNoPermissionMesssage("teisyoku.admin"));
+                    sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
                     return true;
                 }
                 else{

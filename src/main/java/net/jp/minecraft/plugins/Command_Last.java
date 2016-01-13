@@ -24,7 +24,7 @@ public class Command_Last implements CommandExecutor {
 
         //パーミッションの確認(コマンド側)
         if(!(sender.hasPermission(Permissions.getLastCommandPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getLastCommandPermisson()));
+            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getLastCommandPermisson()));
             return true;
         }
 

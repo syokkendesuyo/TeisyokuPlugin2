@@ -15,7 +15,7 @@ public class Command_Players implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if(!(sender.hasPermission(Permissions.getPlayersCommandPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getPlayersCommandPermisson()));
+            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getPlayersCommandPermisson()));
             return true;
         }
 

@@ -13,7 +13,7 @@ public class Command_Help implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
         if(!(sender.hasPermission(Permissions.getHelpCommandPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMesssage(Permissions.getHelpCommandPermisson()));
+            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpCommandPermisson()));
             return true;
         }
 

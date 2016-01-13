@@ -81,6 +81,7 @@ public class Messages implements Listener {
         sender.sendMessage(getCommandFormat("last", "プレイヤーの最終ログイン・ログアウトを表示します"));
         sender.sendMessage(getCommandFormat("gomi", "ゴミ箱を展開します"));
         sender.sendMessage(getCommandFormat("nick", "ニックネームを設定します"));
+        sender.sendMessage(getCommandFormat("ri", "RailwayInformationのコマンド(Teisyoku完全ｵﾘｼﾞﾅﾙ)"));
     }
 
 

@@ -90,7 +90,7 @@ public final class Msg{
      * @param msg メッセージ
      * @param sound
      */
-    public static void adminBroadcast(String msg , boolean sound){
+    public static void adminBroadcast(final String msg , boolean sound){
         for(Player admin : Bukkit.getOnlinePlayers()){
             if(admin.hasPermission("teisyoku.admin")){
                 admin.sendMessage(ChatColor.LIGHT_PURPLE + broadcast + ChatColor.RESET + msg);
@@ -105,7 +105,7 @@ public final class Msg{
      *Adminにのみブロードキャストメッセージを送信
      * @param msg メッセージ
      */
-    public static void opBroadcast(String msg) {
+    public static void opBroadcast(final String msg) {
         adminBroadcast(msg , true);
     }
 
@@ -114,7 +114,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param perm パーミッション
      */
-    public static void getNoPermissionMessage(Player p , String perm){
+    public static void noPermissionMessage(final Player p , final String perm){
         Msg.warning(p , "パーミッションがありません" + getPermissionNode(perm));
     }
 
@@ -123,7 +123,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param perm パーミッション
      */
-    public static void getCheckPermissionMessage(Player p , String perm){
+    public static void checkPermissionMessage(final Player p , final String perm){
         Msg.info(p , "パーミッション：" + getPermissionNode(perm));
     }
 
@@ -132,8 +132,18 @@ public final class Msg{
      * @param permission パーミッション
      * @return パーミッション専用スタイル
      */
-    public static String getPermissionNode(String permission){
+    public static String getPermissionNode(final String permission){
         String string = ChatColor.GRAY + permission + ChatColor.RESET;
         return string;
+    }
+
+    /**
+     * コマンドヘルプのフォーマット
+     * @param command コマンドラベル
+     * @param discription コマンドの説明
+     */
+    public static void commandFormat(final Player p , final String command , final String discription){
+        String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;
+        p.sendMessage(string);
     }
 }

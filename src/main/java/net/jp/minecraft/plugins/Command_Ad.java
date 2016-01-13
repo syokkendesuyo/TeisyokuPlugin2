@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins;
 
 import com.google.common.base.Joiner;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -35,7 +36,7 @@ public class Command_Ad implements CommandExecutor {
 
         //パーミッションの確認コマンドを追加
         if(args[0].equalsIgnoreCase("perm")||args[0].equalsIgnoreCase("perms")||args[0].equalsIgnoreCase("permission")){
-            Messages.getCheckPermissionMessage(Permissions.getTeisyokuUserPermisson());
+            Msg.checkPermission((Player)sender , Permissions.getTeisyokuUserPermisson());
             return true;
         }
 
@@ -55,9 +56,13 @@ public class Command_Ad implements CommandExecutor {
         return true;
     }
 
-    //ヘルプ関数
+    /**
+     *Adコマンドのヘルプ
+     * @param sender 送信者
+     * @param commandLabel コマンドラベル
+     */
     public void help(CommandSender sender , String commandLabel){
-        sender.sendMessage(Messages.getSuccessPrefix() + commandLabel.toString() + " コマンドのヘルプ");
-        sender.sendMessage(Messages.getCommandFormat(commandLabel.toString() + " + <メッセージ>", "広告を表示"));
+        Msg.success((Player)sender , "コマンドのヘルプ");
+        Msg.commandFormat((Player)sender , commandLabel.toString() + " <メッセージ>", "広告を表示");
     }
 }

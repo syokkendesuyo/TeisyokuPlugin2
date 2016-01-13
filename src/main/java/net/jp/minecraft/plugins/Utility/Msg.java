@@ -123,7 +123,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param perm パーミッション
      */
-    public static void checkPermissionMessage(final Player p , final String perm){
+    public static void checkPermission(final Player p , final String perm){
         Msg.info(p , "パーミッション：" + getPermissionNode(perm));
     }
 

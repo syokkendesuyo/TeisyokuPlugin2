@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins;
 
 import com.google.common.base.Joiner;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -26,16 +27,16 @@ public class Command_Call implements CommandExecutor {
             return true;
         }
 
-        //引数が1だった場合
-        if(args.length == 1){
-            sender.sendMessage(Messages.getDenyPrefix() + "メッセージがありません！");
-            help(sender, commandLabel);
+        //パーミッションの確認コマンド
+        if(args[0].equalsIgnoreCase("perm")||args[0].equalsIgnoreCase("perms")||args[0].equalsIgnoreCase("permission")){
+            Msg.checkPermission((Player)sender , Permissions.getTeisyokuUserPermisson());
             return true;
         }
 
-        //パーミッションの確認コマンド
-        if(args[0].equalsIgnoreCase("perm")||args[0].equalsIgnoreCase("perms")||args[0].equalsIgnoreCase("permission")){
-            Messages.getCheckPermissionMessage(Permissions.getTeisyokuUserPermisson());
+        //引数が1だった場合
+        if(args.length == 1){
+            Msg.warning((Player)sender , "メッセージがありません！");
+            help(sender, commandLabel);
             return true;
         }
 
@@ -69,7 +70,7 @@ public class Command_Call implements CommandExecutor {
 
     //ヘルプ関数
     public void help(CommandSender sender , String commandLabel){
-        sender.sendMessage(Messages.getSuccessPrefix() + commandLabel.toString() + " コマンドのヘルプ");
-        sender.sendMessage(Messages.getCommandFormat(commandLabel.toString() + " + <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信"));
+        Msg.success((Player) sender, "コマンドのヘルプ");
+        Msg.commandFormat((Player)sender , commandLabel.toString() + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
     }
 }

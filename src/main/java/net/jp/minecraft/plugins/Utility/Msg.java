@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Utility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -22,7 +23,7 @@ public final class Msg{
      * @param msg メッセージ
      * @param broadcast
      */
-    public static void success(final Player p , final String msg , boolean broadcast){
+    public static void success(final CommandSender p , final String msg , boolean broadcast){
         if(broadcast == true){
             Bukkit.broadcastMessage(ChatColor.GREEN + prefix + ChatColor.RESET + msg);
         }else{
@@ -35,7 +36,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param msg メッセージ
      */
-    public static void success(final Player p , final String msg){
+    public static void success(final CommandSender p , final String msg){
         success(p,msg,false);
     }
 
@@ -45,7 +46,7 @@ public final class Msg{
      * @param msg メッセージ
      * @param broadcast
      */
-    public static void warning(final Player p , final String msg , boolean broadcast){
+    public static void warning(final CommandSender p , final String msg , boolean broadcast){
         if(broadcast == true){
             Bukkit.broadcastMessage(ChatColor.RED + prefix + ChatColor.RESET + msg);
         }else{
@@ -58,7 +59,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param msg メッセージ
      */
-    public static void warning(final Player p , final String msg){
+    public static void warning(final CommandSender p , final String msg){
         warning(p,msg,false);
     }
 
@@ -68,7 +69,7 @@ public final class Msg{
      * @param msg メッセージ
      * @param broadcast
      */
-    public static void info(final Player p , final String msg , boolean broadcast){
+    public static void info(final CommandSender p , final String msg , boolean broadcast){
         if(broadcast == true){
             Bukkit.broadcastMessage(ChatColor.YELLOW + prefix + ChatColor.RESET + msg);
         }else{
@@ -81,7 +82,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param msg メッセージ
      */
-    public static void info(final Player p , final String msg){
+    public static void info(final CommandSender p , final String msg){
         info(p,msg,false);
     }
 
@@ -114,7 +115,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param perm パーミッション
      */
-    public static void noPermissionMessage(final Player p , final String perm){
+    public static void noPermissionMessage(final CommandSender p , final String perm){
         Msg.warning(p , "パーミッションがありません" + getPermissionNode(perm));
     }
 
@@ -123,7 +124,7 @@ public final class Msg{
      * @param p プレイヤー
      * @param perm パーミッション
      */
-    public static void checkPermission(final Player p , final String perm){
+    public static void checkPermission(final CommandSender p , final String perm){
         Msg.info(p , "パーミッション：" + getPermissionNode(perm));
     }
 
@@ -142,7 +143,7 @@ public final class Msg{
      * @param command コマンドラベル
      * @param discription コマンドの説明
      */
-    public static void commandFormat(final Player p , final String command , final String discription){
+    public static void commandFormat(final CommandSender p , final String command , final String discription){
         String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;
         p.sendMessage(string);
     }

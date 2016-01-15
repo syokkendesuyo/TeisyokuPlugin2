@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Commands.Command_TabName;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -103,6 +104,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         //鉄道情報コマンド
         getCommand("ri").setExecutor(new Command_RailwayInfo());
         getCommand("railwayinfo").setExecutor(new Command_RailwayInfo());
+
+        getCommand("tabname").setExecutor(new Command_TabName());
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {

@@ -65,6 +65,9 @@ commands:
     railwayinfo:
         description: RailwayInfo
         usage: /railwayinfo
+    tabname:
+        description: tabname
+        usage: /tabname
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

@@ -50,7 +50,7 @@ public class Command_TPoint implements CommandExecutor {
         //ステイタス
         if(args[0].equalsIgnoreCase("status")){
             if(args.length == 1){
-                if(sender instanceof Player){
+                if(!(sender instanceof Player)){
                     sender.sendMessage(Messages.getNormalPrefix() + "使い方：/tpoint status <プレイヤー>");
                     sender.sendMessage(Messages.getNormalPrefix() + "※ゲーム側からのみプレイヤーを省略できます");
                 }

@@ -75,7 +75,7 @@ public class Listener_MineCartEvent implements Listener {
     }
 
     /**
-     * マインカートに乗っている場合にレール下に看板があると圧胴
+     * マインカートに乗っている場合にレール下に看板があると発動
      * @param event
      */
     @EventHandler

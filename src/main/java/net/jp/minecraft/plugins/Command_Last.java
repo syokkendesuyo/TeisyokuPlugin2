@@ -35,14 +35,14 @@ public class Command_Last implements CommandExecutor {
 
         //引数が0だった場合
         if(args.length == 0){
-            sender.sendMessage(Messages.getNormalPrefix() + "利用方法： /lastjoin <プレイヤー名>");
+            sender.sendMessage(Messages.getNormalPrefix() + "利用方法： /last <プレイヤー名>");
             return true;
         }
 
         //引数が1より大きかった場合
         else if(args.length > 1){
             sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎです");
-            sender.sendMessage(Messages.getNormalPrefix() + "利用方法：/lastjoin <プレイヤー名>");
+            sender.sendMessage(Messages.getNormalPrefix() + "利用方法：/last <プレイヤー名>");
             return true;
         }
 

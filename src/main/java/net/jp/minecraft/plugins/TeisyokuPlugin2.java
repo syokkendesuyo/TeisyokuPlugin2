@@ -1,6 +1,9 @@
 package net.jp.minecraft.plugins;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
 import net.jp.minecraft.plugins.Commands.Command_TabName;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -91,10 +94,10 @@ public class TeisyokuPlugin2 extends JavaPlugin
         scheduler.scheduleSyncRepeatingTask(this, new Runnable()
         {
             public void run() {
-                Bukkit.getServer().broadcastMessage("");
-                Bukkit.getServer().broadcastMessage(Messages.getNormalPrefix() + "当サーバに投票すると素敵な商品が入手できます。");
-                Bukkit.getServer().broadcastMessage(Messages.getNormalPrefix() + "詳細はこちら >> " + ChatColor.YELLOW + ChatColor.UNDERLINE + "http://bit.ly/teisyoku_vote");
-                Bukkit.getServer().broadcastMessage("");
+                List<String> ad = TeisyokuConfig.getStringList("ad");
+                for (String s : ad){
+                    Bukkit.getServer().broadcastMessage(Messages.getNormalPrefix() + color(s));
+                }
             }
         }
                 , 0L, 54000L);
@@ -121,6 +124,11 @@ public class TeisyokuPlugin2 extends JavaPlugin
         }
         if(TeisyokuConfig.get("subtitle") == null){
             TeisyokuConfig.set("subtitle","§aWebsite:http://example.com/");
+            saveTeisyokuConfig();
+        }
+        if(TeisyokuConfig.get("ad") == null){
+            List<String> list = Arrays.asList("Welcome to My server", "Github : https://github.com/syokkendesuyo/TeisyokuPlugin2/", "Create by syokkendesuyo");
+            TeisyokuConfig.set("ad",list);
             saveTeisyokuConfig();
         }
     }
@@ -294,5 +302,9 @@ public class TeisyokuPlugin2 extends JavaPlugin
     public static TeisyokuPlugin2 getInstance()
     {
         return instance;
+    }
+
+    public static String color(String str){
+        return str.replaceAll("&","§");
     }
 }

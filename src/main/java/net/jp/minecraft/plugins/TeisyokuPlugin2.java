@@ -133,6 +133,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         TPointConfig();
         saveTPointConfig();
 
+        TPointConfig();
+        saveTPointSettingsConfig();
+
         CartConfig();
         saveCartConfig();
 
@@ -247,14 +250,14 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
      */
 
     //configを生成
-    public void TpointSettingsConfig(){
+    public void TPointSettingsConfig(){
         newConfig_tpoint_settings = new File(getDataFolder(),"TPoint_Settings.yml");
         TPointSettingsConfig = YamlConfiguration.loadConfiguration(newConfig_tpoint);
-        saveLastPlayerJoinConfig();
+        saveTPointSettingsConfig();
     }
 
     //LastPlayerJoinPlayersData.ymlの保存
-    public void saveTpointSettingsConfig(){
+    public void saveTPointSettingsConfig(){
         try{
             TPointSettingsConfig.save(newConfig_tpoint_settings);
 
@@ -264,7 +267,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     }
 
     //LastPlayerJoinPlayersData.ymlのリロード
-    public void reloadTpointSettingsConfig(){
+    public void reloadTPointSettingsConfig(){
         try{
             TPointSettingsConfig.load(newConfig_tpoint_settings);
             TPointSettingsConfig.save(newConfig_tpoint_settings);

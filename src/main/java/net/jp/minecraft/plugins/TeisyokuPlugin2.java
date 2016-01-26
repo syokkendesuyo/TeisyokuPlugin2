@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.jp.minecraft.plugins.Commands.Command_TabName;
+import net.jp.minecraft.plugins.Listener.Listener_MobGrief;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -51,6 +52,7 @@ public class TeisyokuPlugin2 extends JavaPlugin
         pm.registerEvents(new GUI_ClickEvent(), this);
         pm.registerEvents(new Listener_SignColor(), this);
         pm.registerEvents(new Listener_TPoint(), this);
+        pm.registerEvents(new Listener_MobGrief(), this);
 
         getCommand("help").setExecutor(new Command_Help());
 
@@ -96,8 +98,7 @@ public class TeisyokuPlugin2 extends JavaPlugin
                     Bukkit.getServer().broadcastMessage(Messages.getNormalPrefix() + color(s));
                 }
             }
-        }
-                , 0L, 54000L);
+        }, 0L, 54000L);
 
         TeisyokuConfig();
         saveTeisyokuConfig();

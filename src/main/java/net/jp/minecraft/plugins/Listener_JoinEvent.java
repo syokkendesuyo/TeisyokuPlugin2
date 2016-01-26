@@ -20,15 +20,6 @@ public class Listener_JoinEvent implements Listener {
         for (String s : ad){
             player.sendMessage(Messages.getNormalPrefix() + color(s));
         }
-        /*
-        player.sendMessage(ChatColor.AQUA + "---------------  " + ChatColor.GOLD + "ようこそ！定食サーバ へ！" + ChatColor.AQUA + "  ---------------");
-        player.sendMessage("");
-        player.sendMessage("- ルールやコマンドなどは確認しましたか？ http://bit.ly/teisyoku で確認！");
-        player.sendMessage("-" + ChatColor.LIGHT_PURPLE + " 問題が発生したら？  掲示板へご連絡ください。");
-        player.sendMessage("");
-        player.sendMessage("- 直接接続アドレス:teisyoku.minecraft.jp.net");
-        player.sendMessage(ChatColor.AQUA + "-----------------------------------------------------------");
-        */
         return;
     }
 

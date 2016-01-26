@@ -131,6 +131,11 @@ public class TeisyokuPlugin2 extends JavaPlugin
             TeisyokuConfig.set("ad",list);
             saveTeisyokuConfig();
         }
+        if(TeisyokuConfig.get("joinMessage") == null){
+            List<String> list = Arrays.asList("Welcome to My server", "TeisyokuPlugin2 is enabled! ", "Create by syokkendesuyo");
+            TeisyokuConfig.set("joinMessage",list);
+            saveTeisyokuConfig();
+        }
     }
 
     public void TeisyokuConfig()

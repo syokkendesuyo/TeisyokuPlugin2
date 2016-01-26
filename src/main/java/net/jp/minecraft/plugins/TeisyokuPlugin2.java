@@ -19,12 +19,14 @@ import java.io.File;
  */
 public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
+    File newConfig_teisyoku;
     File newConfig_last;
     File newConfig_nick;
     File newConfig_cart;
     File newConfig_tpoint;
     File newConfig_tpoint_settings;
 
+    FileConfiguration teisyokuConfig;
     FileConfiguration lastJoinPlayerConfig;
     FileConfiguration NickConfig;
     FileConfiguration CartConfig;
@@ -119,6 +121,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }, 0L, 20*60*45L);
 
 
+        TeisyokuConfig();
+        saveLastPlayerJoinConfig();
+
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
 
@@ -131,6 +136,40 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         CartConfig();
         saveCartConfig();
 
+    }
+
+
+
+    /*
+        Teisyokuのconfig
+     */
+
+    //configを生成
+    public void TeisyokuConfig(){
+        newConfig_teisyoku = new File(getDataFolder(),"Teisyoku.yml");
+        teisyokuConfig = YamlConfiguration.loadConfiguration(newConfig_teisyoku);
+        saveTeisyokuConfig();
+    }
+
+    //teisyoku.ymlの保存
+    public void saveTeisyokuConfig(){
+        try{
+            teisyokuConfig.save(newConfig_teisyoku);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //teisyoku.ymlのリロード
+    public void reloadTeisyokuConfig(){
+        try{
+            teisyokuConfig.load(newConfig_teisyoku);
+            teisyokuConfig.save(newConfig_teisyoku);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 

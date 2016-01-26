@@ -24,8 +24,8 @@ public class Listener_Tab implements Listener {
 
         Player player = event.getPlayer();
 
-        IChatBaseComponent chatTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + "   §6>>§l Teisyoku Server §r§6<<§r \n §d* -- * -- * -- * -- * -- * -- * -- * -- * -- *  " + "\"}");
-        IChatBaseComponent chatSubTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + " §d* -- * -- * -- * -- * -- * -- * -- * -- * -- *  \n §r §7WebSite : §b§nhttp://lunch.minecraft.jp.net/§r    " + "\"}");
+        IChatBaseComponent chatTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("title").toString()) + "\"}");
+        IChatBaseComponent chatSubTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("subtitle").toString()) + "\"}");
 
         sendTabTitle(player,chatTitle,chatSubTitle);
 
@@ -44,5 +44,9 @@ public class Listener_Tab implements Listener {
         }finally{
             connection.sendPacket(headerPacket);
         }
+    }
+
+    public static String color(String str){
+        return str.replaceAll("&","§");
     }
 }

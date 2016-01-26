@@ -37,11 +37,10 @@ public class Command_Teisyoku implements CommandExecutor{
                 return true;
             }
             else if(args[0].equalsIgnoreCase("reload")){
+                TeisyokuPlugin2.getInstance().reloadTeisyokuConfig();
                 TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
                 TeisyokuPlugin2.getInstance().reloadNickConfig();
                 TeisyokuPlugin2.getInstance().reloadTPointConfig();
-                TeisyokuPlugin2.getInstance().reloadTPointSettingsConfig();
-                TeisyokuPlugin2.getInstance().reloadTPointSettingsConfig();
                 TeisyokuPlugin2.getInstance().reloadCartConfig();
                 sender.sendMessage(Messages.getSuccessPrefix() + "TeisyokuPlugin2のconfigをリロードしました。" );
                 return true;

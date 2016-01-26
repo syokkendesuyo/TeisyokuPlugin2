@@ -67,13 +67,13 @@ public class Command_Last implements CommandExecutor {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
             UUID uuid = player.getUniqueId();
             try{
-                if(TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.get(uuid + ".JoinDate") == null){
+                if(TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null){
                     sender.sendMessage(Messages.getDenyPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET  + "のデータはありませんでした");
                     return true;
                 }
 
-                String joinDate = TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.getString(uuid + ".JoinDate");
-                String quitDate = TeisyokuPlugin2.getInstance().lastJoinPlayerConfig.getString(uuid + ".QuitDate");
+                String joinDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".JoinDate");
+                String quitDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".QuitDate");
 
                 sender.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログイン  " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + joinDate);
                 sender.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログアウト" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + quitDate);

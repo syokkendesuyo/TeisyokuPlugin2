@@ -2,12 +2,17 @@ package net.jp.minecraft.plugins;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -182,6 +187,43 @@ public class Command_TPoint implements CommandExecutor {
             sender.sendMessage(Messages.getDenyPrefix() + "現在利用できません");
             return true;
         }
+
+        /*
+        if(args[0].equalsIgnoreCase("convert") || args[0].equalsIgnoreCase("exchange")){
+
+            if(args.length > 2){
+                HelpMessage(sender , cmd);
+            }
+
+            if(!(sender instanceof Player)){
+                sender.sendMessage(Messages.getDenyPrefix() + "コンソールでは引数「"+ args[0] +"」は利用できません");
+                return true;
+            }
+            else {
+                Player player = (Player) sender;
+                if(player.getItemInHand().getType() == Material.AIR||player.getItemInHand().getItemMeta().getLore() == null || !(player.getItemInHand().getItemMeta().getLore().toString().equals("[何かと交換できるらしい･･･]"))){
+                    sender.sendMessage(Messages.getDenyPrefix() + "このアイテムは変換できません");
+                    return true;
+                }
+                else{
+                    ItemStack item = new ItemStack(339, 1);
+                    ItemMeta meta = item.getItemMeta();
+                    meta.setDisplayName("Test");
+                    List<String> lore = new ArrayList<String>();
+                    lore.add()
+                    meta.setLore(("何かと交換できるらしい･･･"));
+
+                    player.getInventory().removeItem(item);
+                    player.updateInventory();
+                    sender.sendMessage(Messages.getSuccessPrefix() + "交換しました");
+                    return true;
+                }
+                //デバッグ用
+                //String lore = player.getItemInHand().getItemMeta().getLore().toString();
+                //player.sendMessage(lore);
+            }
+        }
+        */
 
         HelpMessage(sender , cmd);
         if(sender.hasPermission("teisyoku.admin")){

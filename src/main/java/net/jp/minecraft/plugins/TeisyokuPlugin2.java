@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.jp.minecraft.plugins.Commands.Command_TabName;
+import net.jp.minecraft.plugins.Listener.Listener_Horse;
 import net.jp.minecraft.plugins.Listener.Listener_MobGrief;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,21 +15,21 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-public class TeisyokuPlugin2 extends JavaPlugin
-        implements Listener
-{
+public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     File newConfig_teisyoku;
     File newConfig_last;
     File newConfig_nick;
     File newConfig_cart;
     File newConfig_tpoint;
     File newConfig_tpoint_settings;
+    File newConfig_horse;
     FileConfiguration TeisyokuConfig;
     FileConfiguration LastJoinPlayerConfig;
     FileConfiguration NickConfig;
     FileConfiguration CartConfig;
     FileConfiguration TPointConfig;
     FileConfiguration TPointSettingsConfig;
+    FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
     public void onEnable()
@@ -53,6 +54,7 @@ public class TeisyokuPlugin2 extends JavaPlugin
         pm.registerEvents(new Listener_SignColor(), this);
         pm.registerEvents(new Listener_TPoint(), this);
         pm.registerEvents(new Listener_MobGrief(), this);
+        pm.registerEvents(new Listener_Horse(), this);
 
         getCommand("help").setExecutor(new Command_Help());
 
@@ -114,6 +116,9 @@ public class TeisyokuPlugin2 extends JavaPlugin
 
         CartConfig();
         saveCartConfig();
+
+        HorseConfig();
+        saveHorseConfig();
 
         if(TeisyokuConfig.get("title") == null){
             TeisyokuConfig.set("title","§bWelcome to My server" +
@@ -296,6 +301,32 @@ public class TeisyokuPlugin2 extends JavaPlugin
         try {
             this.CartConfig.load(this.newConfig_cart);
             this.CartConfig.save(this.newConfig_cart);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void HorseConfig()
+    {
+        this.newConfig_horse = new File(getDataFolder(), "Horses.yml");
+        this.HorseConfig = YamlConfiguration.loadConfiguration(this.newConfig_horse);
+        saveLastPlayerJoinConfig();
+    }
+
+    public void saveHorseConfig() {
+        try {
+            this.HorseConfig.save(this.newConfig_horse);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reloadHorseConfig() {
+        try {
+            this.HorseConfig.load(this.newConfig_horse);
+            this.HorseConfig.save(this.newConfig_horse);
         }
         catch (Exception e) {
             e.printStackTrace();

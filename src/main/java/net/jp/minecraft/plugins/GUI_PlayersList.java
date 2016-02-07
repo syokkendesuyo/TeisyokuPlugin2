@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -42,6 +43,9 @@ public class GUI_PlayersList {
         Inventory inv = Bukkit.createInventory(player, size2*9 ," プレイヤー一覧 ");
         // Add all the skulls
         for (Player p : Bukkit.getOnlinePlayers()) {
+            if(p.getGameMode() == GameMode.SPECTATOR){
+                break;
+            }
             ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
             SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
             meta.setDisplayName(p.getName().toString());

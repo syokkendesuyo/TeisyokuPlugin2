@@ -43,7 +43,7 @@ public class GUI_PlayersList {
         Inventory inv = Bukkit.createInventory(player, size2*9 ," プレイヤー一覧 ");
         // Add all the skulls
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if(p.getGameMode() == GameMode.SPECTATOR){
+            if( !(player.isOp()) && p.getGameMode() == GameMode.SPECTATOR){
                 break;
             }
             ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);

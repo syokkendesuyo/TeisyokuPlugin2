@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -107,7 +108,11 @@ public class GUI_ClickEvent implements Listener {
                     int x = (int) p.getLocation().getX();
                     int y = (int) p.getLocation().getY();
                     int z = (int) p.getLocation().getZ();
-                    player.sendMessage(Messages.getSuccessPrefix()+ ChatColor.GOLD + p.getName().toString() + "の現在地" + ChatColor.DARK_GRAY +" ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z );
+                    if(player.getPlayer().getGameMode() == GameMode.SPECTATOR){
+                        player.teleport(p.getLocation());
+                        player.sendMessage(Messages.getSuccessPrefix()+ ChatColor.GOLD + p.getName().toString() + "へテレポートしました");
+                    }
+                    player.sendMessage(Messages.getSuccessPrefix() + ChatColor.GOLD + p.getName().toString() + "の現在地" + ChatColor.DARK_GRAY + " ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z);
                 }
                 catch(NullPointerException e){
                     player.sendMessage(Messages.getDenyPrefix() +" 現在地を取得できませんでした。プレイヤーがオフラインの可能性があります。" );

@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -36,6 +37,15 @@ public class Listener_Sign implements Listener {
                 else if (sign.getLine(0).equalsIgnoreCase("[Cart]") || sign.getLine(1).equalsIgnoreCase("[Cart]") || sign.getLine(2).equalsIgnoreCase("[Cart]") || sign.getLine(3).equalsIgnoreCase("[Cart]")) {
                     player.sendMessage(Messages.getSuccessPrefix() +"マインカートをインベントリに追加しました");
                     player.getInventory().addItem(new ItemStack(Material.MINECART));
+                }
+                else if(sign.getLine(0).equalsIgnoreCase("[Warp]")){
+                    if(sign.getLine(1) != null){
+                        Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
+                    }
+                    else{
+                        Bukkit.getServer().dispatchCommand(player, "warp");
+                    }
+
                 }
             }
         }

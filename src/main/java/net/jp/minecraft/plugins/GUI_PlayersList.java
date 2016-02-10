@@ -44,7 +44,7 @@ public class GUI_PlayersList {
         // Add all the skulls
         for (Player p : Bukkit.getOnlinePlayers()) {
             if( !(player.isOp()) && p.getGameMode() == GameMode.SPECTATOR){
-                break;
+                continue;
             }
             ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
             SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);

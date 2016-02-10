@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import net.jp.minecraft.plugins.Commands.Command_TPS;
 import net.jp.minecraft.plugins.Commands.Command_TabName;
 import net.jp.minecraft.plugins.Listener.Listener_Horse;
 import net.jp.minecraft.plugins.Listener.Listener_MobGrief;
@@ -90,6 +91,10 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("railwayinfo").setExecutor(new Command_RailwayInfo());
 
         getCommand("tabname").setExecutor(new Command_TabName());
+
+        getCommand("tps").setExecutor(new Command_TPS());
+        getCommand("status").setExecutor(new Command_TPS());
+        getCommand("s").setExecutor(new Command_TPS());
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable()

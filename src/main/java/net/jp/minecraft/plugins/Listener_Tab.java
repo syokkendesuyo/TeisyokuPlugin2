@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.lang.reflect.Field;
 
@@ -25,6 +26,18 @@ public class Listener_Tab implements Listener {
 
         IChatBaseComponent chatTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("title").toString()) + "\"}");
         IChatBaseComponent chatSubTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("subtitle").toString()) + "\"}");
+
+        sendTabTitle(player,chatTitle,chatSubTitle);
+
+    }
+
+    @EventHandler
+    public void exit (PlayerQuitEvent event){
+
+        Player player = event.getPlayer();
+
+        IChatBaseComponent chatTitle = IChatBaseComponent.ChatSerializer.a("");
+        IChatBaseComponent chatSubTitle = IChatBaseComponent.ChatSerializer.a("");
 
         sendTabTitle(player,chatTitle,chatSubTitle);
 

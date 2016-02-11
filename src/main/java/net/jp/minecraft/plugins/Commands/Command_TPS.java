@@ -16,6 +16,10 @@ import java.math.BigDecimal;
  */
 public class Command_TPS implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+        if(args.length == 3){
+            debug(sender,args[0],args[1],args[2]);
+            return true;
+        }
         String s1 = Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(1));
         String s2 = Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(2));
         String s3 = Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(3));
@@ -29,6 +33,7 @@ public class Command_TPS implements CommandExecutor {
         String ds1 = doubleToString(d1);
         String ds2 = doubleToString(d2);
         String ds3 = doubleToString(d3);
+
 
         Msg.success(sender, ChatColor.GOLD + "現在のラグ状況"+ ChatColor.DARK_GRAY +" ： " + color(d1) + ds1 + ChatColor.RESET + "% , " + color(d2) + ds2 + ChatColor.RESET + "% , " + color(d3) + ds3+ ChatColor.RESET + "%");
         Msg.success(sender, ChatColor.GOLD + "診断結果" + ChatColor.DARK_GRAY + " ： " + status(dAll));
@@ -65,5 +70,28 @@ public class Command_TPS implements CommandExecutor {
         BigDecimal bd = new BigDecimal(num);
         BigDecimal bd2 = bd.setScale(3, BigDecimal.ROUND_HALF_UP);
         return bd2.toString();
+    }
+
+    public void debug(CommandSender sender , String s1 , String s2 , String s3){
+        try {
+            double d1 = Double.parseDouble(s1);
+            double d2 = Double.parseDouble(s2);
+            double d3 = Double.parseDouble(s3);
+
+            double dAll = d1+d2+d3;
+
+            String ds1 = doubleToString(d1);
+            String ds2 = doubleToString(d2);
+            String ds3 = doubleToString(d3);
+
+
+            Msg.success(sender, ChatColor.GOLD + "現在のラグ状況"+ ChatColor.DARK_GRAY +" ： " + color(d1) + ds1 + ChatColor.RESET + "% , " + color(d2) + ds2 + ChatColor.RESET + "% , " + color(d3) + ds3+ ChatColor.RESET + "%");
+            Msg.success(sender, ChatColor.GOLD + "診断結果" + ChatColor.DARK_GRAY + " ： " + status(dAll));
+            Msg.success(sender, ChatColor.GRAY + "※デバッグ中" + "  引数 ："+ s1 + " , " + s2 + " , " +s3);
+        }
+        catch (Exception e){
+            Msg.warning(sender, "引数エラー");
+            Msg.warning(sender, "デバッグを行う場合は /status <double> <double> <double> である必要があります");
+        }
     }
 }

@@ -42,6 +42,7 @@ public class Command_Teisyoku implements CommandExecutor{
                 TeisyokuPlugin2.getInstance().reloadNickConfig();
                 TeisyokuPlugin2.getInstance().reloadTPointConfig();
                 TeisyokuPlugin2.getInstance().reloadCartConfig();
+                TeisyokuPlugin2.getInstance().reloadHorseConfig();
                 sender.sendMessage(Messages.getSuccessPrefix() + "TeisyokuPlugin2のconfigをリロードしました。" );
                 return true;
             }

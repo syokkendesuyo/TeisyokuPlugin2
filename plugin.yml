@@ -1,5 +1,5 @@
 name: TeisyokuPlugin2
-version: 2.6.1
+version: 2.7.0
 main: net.jp.minecraft.plugins.TeisyokuPlugin2
 commands:
     help:
@@ -77,6 +77,9 @@ commands:
     s:
         description: status
         usage: /status
+    horse:
+        description: horse
+        usage: /horse
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

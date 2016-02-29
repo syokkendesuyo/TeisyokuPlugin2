@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.TeisyokuItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,9 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Arrays;
 
 /**
  * TeisyokuPlugin2
@@ -19,22 +17,26 @@ import java.util.Arrays;
  * @auther syokkendesuyo
  */
 public class GUI_YesNo implements Listener {
+
+    /**
+     * <p>はい/いいえを選択するGUIを表示します</p>
+     * @param player プレイヤー
+     * @param yes yesの時の説明文
+     * @param no noの時の説明文
+     * @param inventoryName インベントリ名
+     * @return
+     */
     public static String openGUI(Player player , String yes , String no , String inventoryName){
         Inventory inv = Bukkit.createInventory(player, 9, inventoryName);
-        ItemStack item0 = new ItemStack(Material.WOOL, 1, (short) 5);
-        ItemMeta itemmeta0 = item0.getItemMeta();
-        itemmeta0.setDisplayName(ChatColor.GOLD  + "はい");
-        itemmeta0.setLore(Arrays.asList(ChatColor.WHITE + yes.toString()));
-        item0.setItemMeta(itemmeta0);
 
-        ItemStack item1 = new ItemStack(Material.WOOL, 1, (short) 14);
-        ItemMeta itemmeta1 = item1.getItemMeta();
-        itemmeta1.setDisplayName(ChatColor.GOLD  + "いいえ");
-        itemmeta1.setLore(Arrays.asList(ChatColor.WHITE + no.toString() ));
-        item1.setItemMeta(itemmeta1);
+        String lore_yes[] = {ChatColor.WHITE + yes.toString()};
+        ItemStack item_yes = TeisyokuItem.custom_item(ChatColor.GOLD + "はい", 1, Material.WOOL, (short) 5, lore_yes);
 
-        inv.setItem(2, item0);
-        inv.setItem(6, item1);
+        String lore_no[] = {ChatColor.WHITE + no.toString()};
+        ItemStack item_no = TeisyokuItem.custom_item(ChatColor.GOLD + "いいえ",1,Material.WOOL,(short) 14,lore_no);
+
+        inv.setItem(2, item_yes);
+        inv.setItem(6, item_no);
         player.openInventory(inv);
 
         return inventoryName;

@@ -58,7 +58,7 @@ public class Listener_TPoint implements Listener {
 
         if(point_after < 0){
             int error = Math.abs(point_after);
-            player.sendMessage(Messages.getDenyPrefix() + point + " TPoint消費しようとしましたが、" + error + " TPointが足りませんでした");
+            player.sendMessage(Messages.getDenyPrefix() + point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
             status(player);//ステイタスを表示
             return;
         }
@@ -126,6 +126,25 @@ public class Listener_TPoint implements Listener {
             sender.sendMessage(Messages.getDenyPrefix() + "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
             sender.sendMessage(Messages.getDenyPrefix() + "Exception Error : Listener_TPoint.status function");
             return;
+        }
+    }
+
+    /**
+     * Playerを渡すことで現在保有しているポイントをintで返します<br />
+     * @param player
+     * @return 保有ポイント(int)
+     */
+    public static int int_status(Player player){
+        try{
+            //正常に取得
+            int point = TeisyokuPlugin2.getInstance().TPointConfig.getInt(player.getPlayer().getUniqueId().toString() + ".Point");
+            return point;
+        }
+        catch (Exception e){
+            //エラー
+            player.sendMessage(Messages.getDenyPrefix() + "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
+            player.sendMessage(Messages.getDenyPrefix() + "Exception Error : Listener_TPoint.int_status function");
+            return -1;
         }
     }
 

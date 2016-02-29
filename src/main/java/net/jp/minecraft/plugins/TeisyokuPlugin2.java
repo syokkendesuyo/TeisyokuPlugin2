@@ -8,6 +8,8 @@ import net.jp.minecraft.plugins.Commands.Command_Horse;
 import net.jp.minecraft.plugins.Commands.Command_TPS;
 import net.jp.minecraft.plugins.Commands.Command_TabName;
 import net.jp.minecraft.plugins.Listener.Listener_MobGrief;
+import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
+import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,20 +19,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
-    File newConfig_teisyoku;
-    File newConfig_last;
-    File newConfig_nick;
-    File newConfig_cart;
-    File newConfig_tpoint;
-    File newConfig_tpoint_settings;
-    File newConfig_horse;
-    FileConfiguration TeisyokuConfig;
-    FileConfiguration LastJoinPlayerConfig;
-    FileConfiguration NickConfig;
-    FileConfiguration CartConfig;
-    FileConfiguration TPointConfig;
-    FileConfiguration TPointSettingsConfig;
-    FileConfiguration HorseConfig;
+    public File newConfig_teisyoku;
+    public File newConfig_last;
+    public File newConfig_nick;
+    public File newConfig_cart;
+    public File newConfig_tpoint;
+    public File newConfig_tpoint_settings;
+    public File newConfig_horse;
+    public FileConfiguration TeisyokuConfig;
+    public FileConfiguration LastJoinPlayerConfig;
+    public FileConfiguration NickConfig;
+    public FileConfiguration CartConfig;
+    public FileConfiguration TPointConfig;
+    public FileConfiguration TPointSettingsConfig;
+    public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
     public void onEnable()
@@ -56,6 +58,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_TPoint(), this);
         pm.registerEvents(new Listener_MobGrief(), this);
         pm.registerEvents(new Listener_Horse(), this);
+
+        pm.registerEvents(new TPointIndexGUI(), this);
+        pm.registerEvents(new TPointBuyGUI(), this);
 
         getCommand("help").setExecutor(new Command_Help());
 
@@ -127,9 +132,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         HorseConfig();
         saveHorseConfig();
 
+        TPointSettingsConfig();
+        saveTPointSettingsConfig();
+
+
         if(TeisyokuConfig.get("title") == null){
-            TeisyokuConfig.set("title","§bWelcome to My server" +
-                    "  ");
+            TeisyokuConfig.set("title","§bWelcome to My server");
             saveTeisyokuConfig();
         }
         if(TeisyokuConfig.get("subtitle") == null){
@@ -144,6 +152,11 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         if(TeisyokuConfig.get("joinMessage") == null){
             List<String> list = Arrays.asList("Welcome to My server", "TeisyokuPlugin2 is enabled! ", "Create by syokkendesuyo");
             TeisyokuConfig.set("joinMessage",list);
+            saveTeisyokuConfig();
+        }
+        if(TeisyokuConfig.get("arrow_summon_wither") == null){
+            List<String> list = Arrays.asList("world_the_end", "the_end");
+            TeisyokuConfig.set("arrow_summon_wither",list);
             saveTeisyokuConfig();
         }
     }
@@ -232,14 +245,14 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }
     }
 
-    public void TpointSettingsConfig()
+    public void TPointSettingsConfig()
     {
         this.newConfig_tpoint_settings = new File(getDataFolder(), "TPoint_Settings.yml");
-        this.TPointSettingsConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint);
+        this.TPointSettingsConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint_settings);
         saveLastPlayerJoinConfig();
     }
 
-    public void saveTpointSettingsConfig()
+    public void saveTPointSettingsConfig()
     {
         try {
             this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
@@ -249,7 +262,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }
     }
 
-    public void reloadTpointSettingsConfig()
+    public void reloadTPointSettingsConfig()
     {
         try {
             this.TPointSettingsConfig.load(this.newConfig_tpoint_settings);

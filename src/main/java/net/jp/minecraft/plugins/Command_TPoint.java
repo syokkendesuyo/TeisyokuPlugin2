@@ -1,18 +1,14 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,6 +28,10 @@ public class Command_TPoint implements CommandExecutor {
 
         //引数0の場合
         if(args.length == 0){
+            if(sender instanceof Player){
+                TPointIndexGUI.index((Player) sender);
+                return true;
+            }
             HelpMessage(sender , cmd);
             if(sender.hasPermission("teisyoku.admin")){
                 AdminHelpMessage(sender , cmd);

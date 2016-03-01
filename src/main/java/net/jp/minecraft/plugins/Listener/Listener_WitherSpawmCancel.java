@@ -1,5 +1,7 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,8 +20,14 @@ public class Listener_WitherSpawmCancel implements Listener {
         if (event.getEntityType() == EntityType.WITHER){
             List<String> worlds = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("arrow_summon_wither");
             for(String s : worlds){
-                if (!(event.getLocation().getWorld().getName().toString().equals(s))){
+                // ## Debug ##
+                // Bukkit.broadcastMessage("Debug: " + s + " " + event.getLocation().getWorld().getName().toString());
+                if(event.getLocation().getWorld().getName().toString().equals(s)){
+                    return;
+                }
+                else{
                     event.setCancelled(true);
+                    continue;
                 }
             }
         }

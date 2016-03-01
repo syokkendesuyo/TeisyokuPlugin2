@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -71,11 +72,12 @@ public class Messages implements Listener {
             sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpPermisson()));
             return;
         }
-
-        sender.sendMessage(getSuccessPrefix() + "ヘルプ");
+        String name = TeisyokuPlugin2.getInstance().getDescription().getName();
+        sender.sendMessage(getSuccessPrefix() + name + "のヘルプ");
         sender.sendMessage(getCommandFormat("help", "当サーバのヘルプをご覧頂けます"));
         sender.sendMessage(getCommandFormat("t", "当サーバ専用のメニューを表示します"));
         sender.sendMessage(getCommandFormat("teisyoku", "当サーバ専用のメニューを表示します"));
+        sender.sendMessage(getCommandFormat("tpoint", "Tポイントデータの参照をします"));
         sender.sendMessage(getCommandFormat("player", "プレイヤー一覧を表示します"));
         sender.sendMessage(getCommandFormat("ad", "全体チャットに音付きでお知らせを送信します"));
         sender.sendMessage(getCommandFormat("call", "プレイヤーを呼び出せます"));

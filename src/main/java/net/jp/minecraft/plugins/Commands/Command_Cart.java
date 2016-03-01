@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

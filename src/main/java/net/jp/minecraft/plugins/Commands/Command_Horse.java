@@ -23,8 +23,8 @@ import java.util.Arrays;
 public class Command_Horse implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Please excute this /ait command on a game!");
-            sender.sendMessage("/ait コマンドはゲーム内で実行してください。");
+            Msg.warning(sender,"Please excute this /ait command on a game!");
+            Msg.warning(sender,"/ait コマンドはゲーム内で実行してください。");
             return true;
         }
 

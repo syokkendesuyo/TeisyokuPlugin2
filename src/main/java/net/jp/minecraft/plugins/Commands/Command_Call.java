@@ -1,10 +1,11 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Commands;
 
 import com.google.common.base.Joiner;
+import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

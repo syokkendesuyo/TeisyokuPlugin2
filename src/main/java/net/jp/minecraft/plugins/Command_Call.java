@@ -29,27 +29,27 @@ public class Command_Call implements CommandExecutor {
 
         //パーミッションの確認コマンド
         if(args[0].equalsIgnoreCase("perm")||args[0].equalsIgnoreCase("perms")||args[0].equalsIgnoreCase("permission")){
-            Msg.checkPermission((Player)sender , Permissions.getTeisyokuUserPermisson());
+            Msg.checkPermission(sender , Permissions.getTeisyokuUserPermisson());
             return true;
         }
 
         //引数が1だった場合
         if(args.length == 1){
-            Msg.warning((Player)sender , "メッセージがありません！");
+            Msg.warning(sender , "メッセージがありません！");
             help(sender, commandLabel);
             return true;
         }
 
         //プレイヤーの変数を作成
-        OfflinePlayer player =  Bukkit.getOfflinePlayer(args[0]);
+        Player player =  Bukkit.getServer().getPlayer(args[0]);
 
         //プレイヤーがオンラインであればメッセージを送信
-        if(player.isOnline()){
+        if( !(player == null) ){
             String arg = Joiner.on(' ').join(args);
             String noneName = arg.replaceAll(args[0].toString(),"");
             String argReplace = noneName.replaceAll("&","§");
 
-            Player player2 = (Player) player;
+            Player player2 = player;
             sender.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + player2.getName().toString() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
             player2.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + sender.getName().toString() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
 
@@ -70,7 +70,7 @@ public class Command_Call implements CommandExecutor {
 
     //ヘルプ関数
     public void help(CommandSender sender , String commandLabel){
-        Msg.success((Player) sender, "コマンドのヘルプ");
-        Msg.commandFormat((Player)sender , commandLabel.toString() + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
+        Msg.success(sender, "コマンドのヘルプ");
+        Msg.commandFormat(sender , commandLabel.toString() + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
     }
 }

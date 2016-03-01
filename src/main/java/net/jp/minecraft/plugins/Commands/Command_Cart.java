@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -20,17 +21,17 @@ public class Command_Cart implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
         if(!(sender instanceof Player)){
-            sender.sendMessage(Messages.getDenyPrefix() + "コンソールからコマンドを送信することはできません");
+            Msg.warning(sender,"コンソールからコマンドを送信することはできません");
             return true;
         }
 
         if(args.length > 1){
-            sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎです");
+            Msg.warning(sender,"引数が多すぎです");
             return true;
         }
 
         if(args.length == 0){
-            sender.sendMessage(Messages.getSuccessPrefix() +"マインカートをインベントリに追加しました");
+            Msg.success(sender,"マインカートをインベントリに追加しました");
             Player player =  (Player) sender;
             player.getInventory().addItem(new ItemStack(Material.MINECART));
             return true;
@@ -44,8 +45,8 @@ public class Command_Cart implements CommandExecutor {
                 }
                 else{
                     player.getInventory().addItem(new ItemStack(Material.MINECART));
-                    sender.sendMessage(Messages.getSuccessPrefix() + "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " にマインカートを渡しました");
-                    player.sendMessage(Messages.getSuccessPrefix() + "プレイヤー " + ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " からマインカートを渡されました");
+                    Msg.success(sender,"プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " にマインカートを渡しました");
+                    Msg.success(player,"プレイヤー " + ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " からマインカートを渡されました");
 
                     player.playSound(player.getLocation(), Sound.WOLF_BARK, 3.0F, 1.8F);
                     return true;

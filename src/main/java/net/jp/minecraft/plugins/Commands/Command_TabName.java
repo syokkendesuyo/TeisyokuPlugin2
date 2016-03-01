@@ -22,7 +22,7 @@ public class Command_TabName implements CommandExecutor {
         }
         if(sender.hasPermission("teisyoku.admin")){
             if(args.length > 1 ){
-                Msg.warning((Player)sender , "引数が多すぎます");
+                Msg.warning(sender , "引数が多すぎます");
                 help(sender, commandLabel);
                 return true;
             }
@@ -52,14 +52,14 @@ public class Command_TabName implements CommandExecutor {
             }
         }
         else{
-            Msg.noPermissionMessage((Player)sender , "teisyoku.admin");
+            Msg.noPermissionMessage(sender , "teisyoku.admin");
             return true;
         }
     }
 
     //ヘルプ関数
     public void help(CommandSender sender , String commandLabel){
-        Msg.success((Player) sender, "コマンドのヘルプ");
-        Msg.commandFormat((Player)sender , commandLabel.toString() + " <文字列>", "TabListを指定した文字列に更新します");
+        Msg.success(sender, "コマンドのヘルプ");
+        Msg.commandFormat(sender , commandLabel.toString() + " <文字列>", "TabListを指定した文字列に更新します");
     }
 }

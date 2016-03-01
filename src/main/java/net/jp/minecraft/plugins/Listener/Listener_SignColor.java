@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;

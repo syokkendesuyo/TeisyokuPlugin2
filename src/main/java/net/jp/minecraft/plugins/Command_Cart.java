@@ -1,6 +1,9 @@
 package net.jp.minecraft.plugins;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,15 +35,13 @@ public class Command_Cart implements CommandExecutor {
             return true;
         }
         else if(args.length == 1){
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-            if(offlinePlayer.isOnline()){
+            Player player = Bukkit.getServer().getPlayer(args[0]);
+            if( !(player == null) ){
                 if(!(sender.hasPermission("teisyoku.admin"))){
                     sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
                     return true;
                 }
                 else{
-
-                    Player player =  (Player) offlinePlayer;
                     player.getInventory().addItem(new ItemStack(Material.MINECART));
                     sender.sendMessage(Messages.getSuccessPrefix() + "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " にマインカートを渡しました");
                     player.sendMessage(Messages.getSuccessPrefix() + "プレイヤー " + ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " からマインカートを渡されました");

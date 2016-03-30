@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

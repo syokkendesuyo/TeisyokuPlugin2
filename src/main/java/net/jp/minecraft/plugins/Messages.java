@@ -1,9 +1,7 @@
 package net.jp.minecraft.plugins;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 /**
@@ -85,6 +83,7 @@ public class Messages implements Listener {
         sender.sendMessage(getCommandFormat("gomi", "ゴミ箱を展開します"));
         sender.sendMessage(getCommandFormat("nick", "ニックネームを設定します"));
         sender.sendMessage(getCommandFormat("ri", "RailwayInformationのコマンド(Teisyoku完全ｵﾘｼﾞﾅﾙ)"));
+        sender.sendMessage(getCommandFormat("carthelp", "鉄道関連のヘルプを表示します"));
     }
 
 

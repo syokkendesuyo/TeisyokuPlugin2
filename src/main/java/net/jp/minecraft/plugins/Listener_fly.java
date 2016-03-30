@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
  *
  * flyの実行時の処理
  */
-public class Listener_Fly {
+public class Listener_fly {
 
     //flyを有効化
     public static boolean enable_fly(Player player){

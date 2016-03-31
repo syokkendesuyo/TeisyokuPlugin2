@@ -80,6 +80,12 @@ commands:
     horse:
         description: horse
         usage: /horse
+    carthelp:
+        description: charthelp
+        usage: /charthelp
+    ch:
+        description: charthelp
+        usage: /charthelp
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

@@ -170,6 +170,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             TeisyokuConfig.set("arrow_summon_wither",list);
             saveTeisyokuConfig();
         }
+        if(TeisyokuConfig.get("commands") == null){
+            if(TeisyokuConfig.get("commands.ad") == null){
+                TeisyokuConfig.set("commands.ad",true);
+            }
+            saveTeisyokuConfig();
+        }
     }
 
     public void TeisyokuConfig()

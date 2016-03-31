@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Commands;
 import com.google.common.base.Joiner;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -20,6 +21,12 @@ import org.bukkit.entity.Player;
  */
 public class Command_Ad implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+
+        //コマンドが有効化されているかどうか検出
+        if(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("commands.ad") == false){
+            Msg.warning(sender,"「ad」コマンドは有効化されていません");
+            return true;
+        }
 
         //引数が0だった場合
         if(args.length == 0){

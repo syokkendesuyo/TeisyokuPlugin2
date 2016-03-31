@@ -9,7 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * TeisyokuPlugin2
@@ -36,7 +38,11 @@ public class Listener_Sign implements Listener {
                 }
                 else if (sign.getLine(0).equalsIgnoreCase("[Cart]") || sign.getLine(1).equalsIgnoreCase("[Cart]") || sign.getLine(2).equalsIgnoreCase("[Cart]") || sign.getLine(3).equalsIgnoreCase("[Cart]")) {
                     player.sendMessage(Messages.getSuccessPrefix() +"マインカートをインベントリに追加しました");
-                    player.getInventory().addItem(new ItemStack(Material.MINECART));
+                    ItemStack cart = new ItemStack(Material.MINECART);
+                    ItemMeta cartmeta = cart.getItemMeta();
+                    cartmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);//通常のMinecartはLocalとする
+                    cart.setItemMeta(cartmeta);
+                    player.getInventory().addItem(cart);
                 }
                 else if(sign.getLine(0).equalsIgnoreCase("[Warp]")){
                     if(sign.getLine(1) != null){
@@ -46,6 +52,89 @@ public class Listener_Sign implements Listener {
                         Bukkit.getServer().dispatchCommand(player, "warp");
                     }
 
+                }//特殊なMineCartをゲットさせる
+                else if(sign.getLine(0).equalsIgnoreCase("[minecart]")){
+                	
+                	Inventory inv = player.getInventory();
+            		
+            		if(sign.getLine(2).equalsIgnoreCase("shinkansen")){
+            			
+            			ItemStack shinkansen = new ItemStack(Material.MINECART);
+            			
+            			ItemMeta shinkansenmeta = shinkansen.getItemMeta();
+            			
+            			shinkansenmeta.setDisplayName(TeisyokuPlugin2.getInstance().Shinkansen);
+            			
+            			shinkansen.setItemMeta(shinkansenmeta);
+            			
+            			inv.addItem(shinkansen);
+            			
+            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(新幹線)をインベントリに追加しました");
+            			
+            			return;
+            			
+            		}
+            		else if(sign.getLine(2).equalsIgnoreCase("express")){
+            			
+            			ItemStack express = new ItemStack(Material.MINECART);
+            			
+            			ItemMeta expressmeta = express.getItemMeta();
+            			
+            			expressmeta.setDisplayName(TeisyokuPlugin2.getInstance().Express);
+            			
+            			express.setItemMeta(expressmeta);
+            			
+            			inv.addItem(express);
+            			
+            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(急行)をインベントリに追加しました");
+            			
+            			return;
+            			
+            		}
+            		else if(sign.getLine(2).equalsIgnoreCase("local")){
+            			
+            			ItemStack local = new ItemStack(Material.MINECART);
+            			
+            			ItemMeta localmeta = local.getItemMeta();
+            			
+            			localmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);
+            			
+            			local.setItemMeta(localmeta);
+            			
+            			inv.addItem(local);
+            			
+            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(各駅停車)をインベントリに追加しました");
+            			
+            			return;
+            			
+            		}
+            		else if(sign.getLine(2).equalsIgnoreCase("sightseeing")){
+            			
+            			ItemStack Sightseeing = new ItemStack(Material.MINECART);
+            			
+            			ItemMeta Sightseeingmeta = Sightseeing.getItemMeta();
+            			
+            			Sightseeingmeta.setDisplayName(TeisyokuPlugin2.getInstance().Sightseeing);
+            			
+            			Sightseeing.setItemMeta(Sightseeingmeta);
+            			
+            			inv.addItem(Sightseeing);
+            			
+            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(観光鉄道)をインベントリに追加しました");
+            			
+            			return;
+            			
+            		}
+            		else {
+            			
+            			player.sendMessage(Messages.getDenyPrefix() + "看板の3行目に Shinkansen Express Local Sightseeing のどれかを記入してください");
+            			
+            			return;
+            			
+            		}
+                	
+                	
+                	
                 }
             }
         }

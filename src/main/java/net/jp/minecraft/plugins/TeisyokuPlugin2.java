@@ -10,7 +10,9 @@ import net.jp.minecraft.plugins.Listener.Listener_SignColor;
 import net.jp.minecraft.plugins.Listener.Listener_WitherSpawmCancel;
 import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
+
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
@@ -34,6 +36,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration TPointSettingsConfig;
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
+    
+
+	public final String Shinkansen = ChatColor.LIGHT_PURPLE + "Shinkansen";
+    public final String Express = ChatColor.RED  + "Express";
+    public final String Local = ChatColor.AQUA  + "Local";
+    public final String Sightseeing = ChatColor.BLUE  + "Sightseeing";
 
     public void onEnable()
     {
@@ -64,7 +72,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("help").setExecutor(new Command_Help());
 
-        getCommand("fly").setExecutor(new Command_Fly());
+        getCommand("fly").setExecutor(new Command_fly());
 
         getCommand("t").setExecutor(new Command_Teisyoku());
         getCommand("teisyoku").setExecutor(new Command_Teisyoku());
@@ -102,6 +110,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("s").setExecutor(new Command_TPS());
 
         getCommand("horse").setExecutor(new Command_Horse());
+        
+        getCommand("carthelp").setExecutor(new Command_CartHelp());
+        getCommand("ch").setExecutor(new Command_CartHelp());
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable()

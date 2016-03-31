@@ -35,7 +35,7 @@ public class Command_Teisyoku implements CommandExecutor{
                 sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(コマンド): " + Permissions.getTeisyokuCommandPermisson());
                 return true;
             }
-            else if(args[0].equalsIgnoreCase("reload")){
+            else if(args[0].equalsIgnoreCase("reload")||args[0].equalsIgnoreCase("r")||args[0].equalsIgnoreCase("rl")){
                 TeisyokuPlugin2.getInstance().reloadTeisyokuConfig();
                 TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
                 TeisyokuPlugin2.getInstance().reloadNickConfig();

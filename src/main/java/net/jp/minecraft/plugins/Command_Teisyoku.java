@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,24 +44,24 @@ public class Command_Teisyoku implements CommandExecutor{
                 TeisyokuPlugin2.getInstance().reloadCartConfig();
                 TeisyokuPlugin2.getInstance().reloadHorseConfig();
                 TeisyokuPlugin2.getInstance().reloadTPointSettingsConfig();
-                sender.sendMessage(Messages.getSuccessPrefix() + "TeisyokuPlugin2のconfigをリロードしました。" );
+                Msg.success(sender,"TeisyokuPlugin2のconfigをリロードしました。");
                 return true;
             }
             else if(args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")){
-                sender.sendMessage(Messages.getNormalPrefix() + "Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
+                Msg.success(sender,"Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
                 return true;
             }
-            sender.sendMessage(Messages.getDenyPrefix() + "引数 " + args[0].toString()  + " は存在しません");
+            Msg.warning(sender,"引数 " + args[0].toString()  + " は存在しません");
             return true;
         }
         else{
-            sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎるかまたは少なすぎます");
+            Msg.warning(sender,"引数が多すぎるかまたは少なすぎます");
             return true;
         }
     }
     public void teisyoku(CommandSender sender){
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Messages.getDenyPrefix() +"定食メニューコマンドはゲーム内からのみ実行できます");
+            Msg.warning(sender,"定食メニューコマンドはゲーム内からのみ実行できます");
             return;
         }
 

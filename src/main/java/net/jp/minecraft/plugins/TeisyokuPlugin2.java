@@ -43,8 +43,14 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public final String Local = ChatColor.AQUA  + "Local";
     public final String Sightseeing = ChatColor.BLUE  + "Sightseeing";
 
+    public String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
+    public String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
+
     public void onEnable()
     {
+        String version = Bukkit.getBukkitVersion();
+        getLogger().info("Running on " + version);
+
         PluginManager pm = Bukkit.getServer().getPluginManager();
 
         instance = this;
@@ -58,7 +64,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_Gomibako(), this);
         pm.registerEvents(new Listener_LastJoin(), this);
         pm.registerEvents(new Listener_Chat(), this);
-        pm.registerEvents(new Listener_Tab(), this);
         pm.registerEvents(new Listener_Sign(), this);
         pm.registerEvents(new GUI_YesNo(), this);
         pm.registerEvents(new GUI_ClickEvent(), this);
@@ -69,6 +74,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         pm.registerEvents(new TPointIndexGUI(), this);
         pm.registerEvents(new TPointBuyGUI(), this);
+
 
         getCommand("help").setExecutor(new Command_Help());
 
@@ -105,14 +111,29 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("tabname").setExecutor(new Command_TabName());
 
-        getCommand("tps").setExecutor(new Command_TPS());
-        getCommand("status").setExecutor(new Command_TPS());
-        getCommand("s").setExecutor(new Command_TPS());
-
         getCommand("horse").setExecutor(new Command_Horse());
         
         getCommand("carthelp").setExecutor(new Command_CartHelp());
         getCommand("ch").setExecutor(new Command_CartHelp());
+
+        //1.8のみに対応している機能・コマンド
+        if (version.equals(ver1_8_8_R01)) {
+            //機能
+            pm.registerEvents(new Listener_Tab(), this);
+
+            //コマンドリスト
+            getCommand("tps").setExecutor(new Command_TPS());
+            getCommand("status").setExecutor(new Command_TPS());
+            getCommand("s").setExecutor(new Command_TPS());
+
+            getLogger().info("1.8.8-R0.1 用に作成された一部機能が開放されました");
+        }
+        else if(version.equals(ver1_9_2_R01)){
+            getLogger().info("1.9.2-R0.1 は現在開発中の為一部機能が制限されています");
+        }
+        else{
+            getLogger().info("1.8.8-R0.1 / 1.9.2-R0.1 は一部の機能が制限されています(サポートの対象外のバージョンをご利用中です)");
+        }
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable()

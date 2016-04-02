@@ -65,11 +65,20 @@ public class Listener_Horse implements Listener{
             UUID entityUUID = event.getVehicle().getUniqueId();
             UUID playerUUID =  player.getUniqueId();
 
-            if(! player.getItemInHand().getType().equals(Material.AIR)){
-                if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
-                    event.setCancelled(true);
-                    return;
-                }
+            if(player.getItemInHand().getType().equals(Material.STICK)){
+            	
+            	if((player.getItemInHand().getItemMeta().getDisplayName() != null)||(!(player.getItemInHand().getItemMeta().getDisplayName().equals("")))){
+            	
+            		if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
+            			
+            			event.setCancelled(true);
+            			
+            			return;
+            			
+            		}
+            		
+            	}
+            	
             }
 
             int temp = isEqual(player,playerUUID,entityUUID);

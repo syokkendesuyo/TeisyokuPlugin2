@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.jp.minecraft.plugins.Commands.*;
+import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
 import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;

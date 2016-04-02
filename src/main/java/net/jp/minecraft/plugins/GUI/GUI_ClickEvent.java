@@ -1,8 +1,9 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.GUI;
 
 import net.jp.minecraft.plugins.GUI.GUI_PlayersList;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
+import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.CoolDown;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -11,6 +12,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * TeisyokuPlugin2
@@ -46,6 +50,16 @@ public class Command_Ad implements CommandExecutor {
             return true;
         }
 
+        //クールタイムを確認
+        if(sender instanceof Player){
+            Player player = (Player)sender;
+            if(CoolDown.is(player) == true){
+                if(CoolDown.cooldown(player) == false){
+                    return true;
+                }
+            }
+        }
+
         //コマンドの引数を結合する
         String arg = Joiner.on(' ').join(args);
 
@@ -59,6 +73,17 @@ public class Command_Ad implements CommandExecutor {
         for(Player player : Bukkit.getOnlinePlayers()){
             player.playSound(player.getLocation() , Sound.NOTE_PLING , 3.0F,1.5F);
         }
+
+        //クールタイムを設定
+        if(sender instanceof Player){
+            Player player = (Player)sender;
+            //現在時刻を取得
+            Date nowDate = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(nowDate);
+            CoolDown.put(player,calendar);
+        }
+
         return true;
     }
 

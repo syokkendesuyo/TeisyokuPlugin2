@@ -20,9 +20,9 @@ public class Command_TPS implements CommandExecutor {
             debug(sender,args[0],args[1],args[2]);
             return true;
         }
-        String s1 = Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(1));
-        String s2 = Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(2));
-        String s3 = Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(3));
+        String s1 = tps1();
+        String s2 = tps2();
+        String s3 = tps3();
 
         double d1 = Double.parseDouble(s1);
         double d2 = Double.parseDouble(s2);
@@ -93,5 +93,17 @@ public class Command_TPS implements CommandExecutor {
             Msg.warning(sender, "引数エラー");
             Msg.warning(sender, "デバッグを行う場合は /status <double> <double> <double> である必要があります");
         }
+    }
+
+    public static String tps1(){
+        return Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(1));
+    }
+
+    public static String tps2(){
+        return Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(2));
+    }
+
+    public static String tps3(){
+        return Listener_TicksPerSecond.doubleToString(Listener_TicksPerSecond.getTps(3));
     }
 }

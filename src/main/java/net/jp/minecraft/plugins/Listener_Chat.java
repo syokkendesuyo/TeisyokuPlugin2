@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @auther syokkendesuyo azuhata
  */
 public class Listener_Chat implements Listener{
     @EventHandler
@@ -31,7 +31,6 @@ public class Listener_Chat implements Listener{
                 Name = ChatColor.AQUA + "" + NickName + " " + ChatColor.RESET + sender;
                 player.setDisplayName(Name);
             }
-
         }
         catch (Exception e) {
             e.printStackTrace();

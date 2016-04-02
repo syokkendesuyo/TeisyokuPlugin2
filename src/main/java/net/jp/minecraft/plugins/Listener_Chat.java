@@ -21,10 +21,9 @@ public class Listener_Chat implements Listener{
         UUID uuid = player.getUniqueId();
         try {
             String NickName = TeisyokuPlugin2.getInstance().NickConfig.getString(uuid + ".nick");
-            String ID = TeisyokuPlugin2.getInstance().NickConfig.getString(uuid + "id");
             String sender = event.getPlayer().getName().toString();
 
-            String Name = player.getDisplayName();
+            String Name;
             if(NickName == null){
                 Name = sender;
                 player.setDisplayName(Name);

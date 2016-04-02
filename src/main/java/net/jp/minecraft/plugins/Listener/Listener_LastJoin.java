@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -29,7 +30,7 @@ public class Listener_LastJoin implements Listener {
         //ログイン時の日時
         TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".JoinDate", strDate.toString());
         TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".JoinTimestamp",System.currentTimeMillis());
-        
+
         TeisyokuPlugin2.getInstance().saveLastPlayerJoinConfig();
     }
 

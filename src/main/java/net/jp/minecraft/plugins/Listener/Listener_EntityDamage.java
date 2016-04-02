@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.Listener_Horse;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

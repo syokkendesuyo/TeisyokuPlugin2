@@ -93,18 +93,17 @@ public class Command_Flymode implements CommandExecutor {
             }
         }
         else if(args.length == 2){
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
-            if(offlinePlayer.isOnline()){
+            Player target_player = Bukkit.getServer().getPlayer(args[1]);
+            if( !(target_player == null) ){
                 //正常に処理
-                Player onlinePlayer = (Player) offlinePlayer;
                 if(args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("enable")){
-                    Listener_Flymode.enable_fly(onlinePlayer);
+                    Listener_Flymode.enable_fly(target_player);
                     return true;
                 }
 
                 //引数1がfalseまたはdisableだった場合flyモードを終了
                 else if(args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("disable")){
-                    Listener_Flymode.disable_fly(onlinePlayer);
+                    Listener_Flymode.disable_fly(target_player);
                     return true;
                 }
                 //その他の場合

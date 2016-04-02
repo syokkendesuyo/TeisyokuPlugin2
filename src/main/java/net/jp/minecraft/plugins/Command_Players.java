@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,12 +16,12 @@ public class Command_Players implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if(!(sender.hasPermission(Permissions.getPlayersCommandPermisson()))){
-            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getPlayersCommandPermisson()));
+            Msg.noPermissionMessage(sender, Permissions.getPlayersCommandPermisson());
             return true;
         }
 
         if(! (sender  instanceof Player)){
-            sender.sendMessage(Messages.getDenyPrefix() + "コンソールからコマンドを送信することはできません");
+            Msg.warning(sender, "コンソールからコマンドを送信することはできません");
             return true;
         }
 

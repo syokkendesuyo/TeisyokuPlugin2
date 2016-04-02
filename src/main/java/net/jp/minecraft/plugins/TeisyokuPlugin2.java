@@ -78,7 +78,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("help").setExecutor(new Command_Help());
 
-        getCommand("fly").setExecutor(new Command_Fly());
+        getCommand("fly").setExecutor(new Command_Flymode());
 
         getCommand("t").setExecutor(new Command_Teisyoku());
         getCommand("teisyoku").setExecutor(new Command_Teisyoku());

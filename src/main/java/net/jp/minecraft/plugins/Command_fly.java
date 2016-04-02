@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
  *
  * flyコマンドを実行時の処理
  */
-public class Command_fly implements CommandExecutor {
+public class Command_Fly implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
         /**
@@ -65,13 +65,13 @@ public class Command_fly implements CommandExecutor {
         if(args.length ==1){
             //引数1がtrueまたはenableだった場合flyモードを開始
             if(args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("enable")){
-                Listener_fly.enable_fly(player);
+                Listener_Fly.enable_fly(player);
                 return true;
             }
 
             //引数1がfalseまたはdisableだった場合flyモードを終了
             else if(args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("disable")){
-                Listener_fly.disable_fly(player);
+                Listener_Fly.disable_fly(player);
                 return true;
             }
 
@@ -95,13 +95,13 @@ public class Command_fly implements CommandExecutor {
                 //正常に処理
                 Player onlinePlayer = (Player) offlinePlayer;
                 if(args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("enable")){
-                    Listener_fly.enable_fly(onlinePlayer);
+                    Listener_Fly.enable_fly(onlinePlayer);
                     return true;
                 }
 
                 //引数1がfalseまたはdisableだった場合flyモードを終了
                 else if(args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("disable")){
-                    Listener_fly.disable_fly(onlinePlayer);
+                    Listener_Fly.disable_fly(onlinePlayer);
                     return true;
                 }
                 //その他の場合

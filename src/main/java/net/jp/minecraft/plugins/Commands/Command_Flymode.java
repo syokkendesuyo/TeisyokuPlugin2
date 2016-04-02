@@ -1,5 +1,7 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.Listener_Flymode;
+import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

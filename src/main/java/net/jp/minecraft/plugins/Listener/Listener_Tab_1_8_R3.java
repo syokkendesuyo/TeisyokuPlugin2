@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import net.minecraft.server.v1_8_R3.PlayerConnection;

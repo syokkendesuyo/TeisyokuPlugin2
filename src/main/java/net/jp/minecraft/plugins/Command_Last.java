@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -35,14 +36,14 @@ public class Command_Last implements CommandExecutor {
 
         //引数が0だった場合
         if(args.length == 0){
-            sender.sendMessage(Messages.getNormalPrefix() + "利用方法： /last <プレイヤー名>");
+            Msg.info(sender, "利用方法： /last <プレイヤー名>");
             return true;
         }
 
         //引数が1より大きかった場合
         else if(args.length > 1){
-            sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎです");
-            sender.sendMessage(Messages.getNormalPrefix() + "利用方法：/last <プレイヤー名>");
+            Msg.warning(sender, "引数が多すぎです");
+            Msg.warning(sender, "利用方法：/last <プレイヤー名>");
             return true;
         }
 
@@ -58,7 +59,7 @@ public class Command_Last implements CommandExecutor {
         }
 
         else if(args[0].length()<3 || args[0].length() >16){
-            sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー名は3から16文字で入力してください");
+            Msg.warning(sender, "プレイヤー名は3から16文字で入力してください");
             return true;
         }
 
@@ -68,19 +69,19 @@ public class Command_Last implements CommandExecutor {
             UUID uuid = player.getUniqueId();
             try{
                 if(TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null){
-                    sender.sendMessage(Messages.getDenyPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET  + "のデータはありませんでした");
+                    Msg.warning(sender, ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET  + "のデータはありませんでした");
                     return true;
                 }
 
                 String joinDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".JoinDate");
                 String quitDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".QuitDate");
 
-                sender.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログイン  " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + joinDate);
-                sender.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログアウト" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + quitDate);
+                Msg.success(sender, ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログイン  " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + joinDate);
+                Msg.success(sender, ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログアウト" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + quitDate);
                 return true;
             }
             catch(Exception e){
-                sender.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
+                Msg.warning(sender, "不明なエラーが発生しました");
                 e.printStackTrace();
                 return true;
             }

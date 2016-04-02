@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -50,12 +51,12 @@ public class GUI_YesNo implements Listener {
                 //実行
                 player.setHealth(0);
                 player.closeInventory();
-                player.sendMessage(Messages.getSuccessPrefix() + "自殺しました");
+                Msg.success(player, "自殺しました");
                 return;
             }
             else if(event.getRawSlot() == 6){
                 //拒否
-                player.sendMessage(Messages.getDenyPrefix() + "自殺をやっぱり辞めました！");
+                Msg.success(player, "自殺をやっぱり辞めました！");
                 player.closeInventory();
                 return;
             }

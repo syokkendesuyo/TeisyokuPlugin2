@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.GUI.GUI_PlayersList;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
 import org.bukkit.Bukkit;

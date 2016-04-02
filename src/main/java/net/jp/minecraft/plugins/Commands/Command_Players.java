@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.GUI_PlayersList;
+import net.jp.minecraft.plugins.GUI.GUI_PlayersList;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.command.Command;

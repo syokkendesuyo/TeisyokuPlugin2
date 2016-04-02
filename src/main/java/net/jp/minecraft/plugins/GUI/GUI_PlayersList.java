@@ -1,5 +1,7 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.GUI;
 
+import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;

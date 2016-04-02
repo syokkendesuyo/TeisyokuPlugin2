@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +16,7 @@ public class Listener_NetherGateEvent implements Listener {
         Player player = event.getPlayer();
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL) {
             event.setCancelled(true);
-            player.sendMessage(Messages.getDenyPrefix() + "当サーバではポータルを使って移動できません");
+            Msg.warning(player, "当サーバではネザーポータルをご利用頂けません");
         }
     }
 }

@@ -1,6 +1,8 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
+import net.jp.minecraft.plugins.TeisyokuMenuIndex;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

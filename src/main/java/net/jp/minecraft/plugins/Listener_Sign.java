@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins;
 
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,7 +39,7 @@ public class Listener_Sign implements Listener {
                     TeisyokuMenuIndex.getMenu(player);
                 }
                 else if (sign.getLine(0).equalsIgnoreCase("[Cart]") || sign.getLine(1).equalsIgnoreCase("[Cart]") || sign.getLine(2).equalsIgnoreCase("[Cart]") || sign.getLine(3).equalsIgnoreCase("[Cart]")) {
-                    player.sendMessage(Messages.getSuccessPrefix() +"マインカートをインベントリに追加しました");
+                    Msg.success(player, "マインカートをインベントリに追加しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();
                     cartmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);//通常のMinecartはLocalとする
@@ -52,8 +53,8 @@ public class Listener_Sign implements Listener {
                     else{
                         Bukkit.getServer().dispatchCommand(player, "warp");
                     }
-
-                }//特殊なMineCartをゲットさせる
+                }
+                //特殊なMinecartをゲットさせる
                 else if(sign.getLine(0).equalsIgnoreCase("[minecart]")){
                 	
                 	Inventory inv = player.getInventory();
@@ -69,8 +70,8 @@ public class Listener_Sign implements Listener {
             			shinkansen.setItemMeta(shinkansenmeta);
             			
             			inv.addItem(shinkansen);
-            			
-            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(新幹線)をインベントリに追加しました");
+
+                        Msg.success(player, "マインカート(新幹線)をインベントリに追加しました");
             			
             			return;
             			
@@ -86,8 +87,8 @@ public class Listener_Sign implements Listener {
             			express.setItemMeta(expressmeta);
             			
             			inv.addItem(express);
-            			
-            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(急行)をインベントリに追加しました");
+
+                        Msg.success(player, "マインカート(急行)をインベントリに追加しました");
             			
             			return;
             			
@@ -103,8 +104,8 @@ public class Listener_Sign implements Listener {
             			local.setItemMeta(localmeta);
             			
             			inv.addItem(local);
-            			
-            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(各駅停車)をインベントリに追加しました");
+
+                        Msg.success(player, "マインカート(各駅停車)をインベントリに追加しました");
             			
             			return;
             			
@@ -120,22 +121,19 @@ public class Listener_Sign implements Listener {
             			Sightseeing.setItemMeta(Sightseeingmeta);
             			
             			inv.addItem(Sightseeing);
-            			
-            			player.sendMessage(Messages.getSuccessPrefix() +"マインカート(観光鉄道)をインベントリに追加しました");
+
+                        Msg.success(player, "マインカート(観光鉄道)をインベントリに追加しました");
             			
             			return;
             			
             		}
             		else {
-            			
-            			player.sendMessage(Messages.getDenyPrefix() + "看板の3行目に Shinkansen Express Local Sightseeing のどれかを記入してください");
+
+                        Msg.success(player, "看板の3行目に Shinkansen Express Local Sightseeing のどれかを記入してください");
             			
             			return;
             			
             		}
-                	
-                	
-                	
                 }
             }
         }

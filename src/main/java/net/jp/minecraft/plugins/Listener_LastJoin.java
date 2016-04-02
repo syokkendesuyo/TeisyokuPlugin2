@@ -29,8 +29,7 @@ public class Listener_LastJoin implements Listener {
         //ログイン時の日時
         TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".JoinDate", strDate.toString());
         TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.set(event.getPlayer().getUniqueId().toString() + ".JoinTimestamp",System.currentTimeMillis());
-
-        event.getPlayer().sendMessage(Messages.getSuccessPrefix() + "ログインデータを書き込みました。");
+        
         TeisyokuPlugin2.getInstance().saveLastPlayerJoinConfig();
     }
 

@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;

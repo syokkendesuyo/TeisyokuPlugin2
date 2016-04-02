@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Listener_Gomibako;
+import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.command.Command;

@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins;
 import net.jp.minecraft.plugins.GUI.GUI_PlayersList;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -31,7 +32,7 @@ public class GUI_ClickEvent implements Listener {
             }
             if(event.getRawSlot() == 1){
                 player.closeInventory();
-                player.sendMessage(Messages.getSuccessPrefix() +"ゴミを処分しました");
+                Msg.success(player, "ゴミを処分しました");
             }
         }
 
@@ -78,7 +79,7 @@ public class GUI_ClickEvent implements Listener {
                 GUI_YesNo.openGUI(player, "自殺を処理を行います", "自殺をやっぱり辞める！", "自殺を行いますか？");
             }
             else if(event.getRawSlot() == 6){
-                player.sendMessage(Messages.getNormalPrefix() + ChatColor.GOLD +"投票サイト:" + ChatColor.WHITE + " http://bit.ly/vote_mc");
+                Msg.info(player, "投票サイト:" + ChatColor.AQUA + " http://bit.ly/vote_mc");
                 player.closeInventory();
             }
             event.setCancelled(true);
@@ -113,12 +114,12 @@ public class GUI_ClickEvent implements Listener {
                     int z = (int) p.getLocation().getZ();
                     if(player.getPlayer().getGameMode() == GameMode.SPECTATOR){
                         player.teleport(p.getLocation());
-                        player.sendMessage(Messages.getSuccessPrefix()+ ChatColor.GOLD + p.getName().toString() + "へテレポートしました");
+                        Msg.success(player, ChatColor.YELLOW + p.getName().toString() + ChatColor.RESET + " へテレポートしました");
                     }
-                    player.sendMessage(Messages.getSuccessPrefix() + ChatColor.GOLD + p.getName().toString() + "の現在地" + ChatColor.DARK_GRAY + " ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z);
+                    player.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + p.getName().toString() + ChatColor.RESET + " の現在地" + ChatColor.DARK_GRAY + " ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z);
                 }
                 catch(NullPointerException e){
-                    player.sendMessage(Messages.getDenyPrefix() +" 現在地を取得できませんでした。プレイヤーがオフラインの可能性があります。" );
+                    Msg.info(player, "現在地を取得できませんでした。プレイヤーがオフラインの可能性があります。");
                 }
                 event.setCancelled(true);
             }

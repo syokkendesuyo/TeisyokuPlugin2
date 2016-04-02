@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.GUI;
 
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;

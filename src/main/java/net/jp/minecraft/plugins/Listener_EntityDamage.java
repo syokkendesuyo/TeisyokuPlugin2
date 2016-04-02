@@ -43,7 +43,7 @@ public class Listener_EntityDamage implements Listener {
             return;
         }
 
-        player.sendMessage(Messages.getDenyPrefix() + "ダイヤの剣以外では村人と馬は殺害できません");
+        Msg.warning(player, "ダイヤの剣以外では村人と馬は殺害できません");
         event.setCancelled(true);
 
     }

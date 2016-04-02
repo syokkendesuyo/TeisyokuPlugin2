@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -23,7 +24,7 @@ public class Command_Flymode implements CommandExecutor {
          */
 
         if(! (sender  instanceof Player)){
-            sender.sendMessage(Messages.getDenyPrefix() + "コンソールからコマンドを送信することはできません");
+            Msg.warning(sender, "コンソールからコマンドを送信することはできません");
         }
 
         //コンソール以外からの指令なのでプレイヤーと断定
@@ -36,7 +37,7 @@ public class Command_Flymode implements CommandExecutor {
 
         //パーミッションの確認(コマンド側)
         if(!(player.hasPermission(Permissions.getFlyCommandPermisson()))){
-            player.sendMessage(Messages.getNoPermissionMessage(Permissions.getFlyCommandPermisson()));
+            Msg.noPermissionMessage(sender, Permissions.getFlyCommandPermisson());
             return true;
         }
 
@@ -47,14 +48,14 @@ public class Command_Flymode implements CommandExecutor {
 
         //引数が0だった場合
         if(args.length == 0){
-            player.sendMessage(Messages.getNormalPrefix() + "利用方法： /fly <true/false> (Player)");
+            Msg.info(sender, "利用方法： /fly <true/false> (Player)");
             return true;
         }
 
         //引数が1より大きかった場合
         else if(args.length > 2){
-            player.sendMessage(Messages.getDenyPrefix() + "引数が多すぎです");
-            player.sendMessage(Messages.getNormalPrefix() + "利用方法： /fly <true/false> (Player)");
+            Msg.warning(sender, "引数が多すぎです");
+            Msg.warning(sender, "利用方法： /fly <true/false> (Player)");
             return true;
         }
 
@@ -77,15 +78,15 @@ public class Command_Flymode implements CommandExecutor {
 
             //パーミッションの確認コマンド
             else if(args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")){
-                Messages.getCheckPermissionMessage(Permissions.getFlyCommandPermisson());
-                Messages.getCheckPermissionMessage(Permissions.getFlyPermisson());
+                Msg.checkPermission(sender, Permissions.getFlyCommandPermisson());
+                Msg.checkPermission(sender, Permissions.getFlyPermisson());
                 return true;
             }
 
             //その他の場合
             else{
-                player.sendMessage(Messages.getDenyPrefix() + "引数「" + args[0] + "」は存在しません");
-                player.sendMessage(Messages.getNormalPrefix() + "利用方法： /fly <true/false> (Player)");
+                Msg.warning(sender, "引数「" + args[0] + "」は存在しません");
+                Msg.warning(sender, "利用方法： /fly <true/false> (Player)");
                 return true;
             }
         }
@@ -106,14 +107,14 @@ public class Command_Flymode implements CommandExecutor {
                 }
                 //その他の場合
                 else{
-                    player.sendMessage(Messages.getDenyPrefix() + "引数「" + args[0] + "」は存在しません");
-                    player.sendMessage(Messages.getNormalPrefix() + "利用方法： /fly <true/false> (Player)");
+                    Msg.warning(sender, "引数「" + args[0] + "」は存在しません");
+                    Msg.warning(sender, "利用方法： /fly <true/false> (Player)");
                     return true;
                 }
             }
             else{
                 //プレイヤーが居ないのでエラー
-                player.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
+                Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
                 return true;
             }
         }

@@ -119,7 +119,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         //1.8のみに対応している機能・コマンド
         if (version.equals(ver1_8_8_R01)) {
             //機能
-            pm.registerEvents(new Listener_Tab(), this);
+            pm.registerEvents(new Listener_Tab_1_8_R3(), this);
 
             //コマンドリスト
             getCommand("tps").setExecutor(new Command_TPS());

@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -20,13 +21,13 @@ import java.util.Arrays;
 public class Listener_Gomibako implements Listener {
     public static void openGomibako(CommandSender sender){
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Messages.getDenyPrefix() +"ゴミ箱コマンドはゲーム内からのみ実行できます");
+            Msg.warning(sender, "ゴミ箱コマンドはゲーム内からのみ実行できます");
         }
 
         Player player = (Player) sender;
 
         if(! (player.hasPermission(Permissions.getGomibakoPermisson()))){
-            player.sendMessage(Messages.getNoPermissionMessage(Permissions.getGomibakoPermisson()));
+            Msg.noPermissionMessage(sender, Permissions.getGomibakoPermisson());
             return;
         }
 

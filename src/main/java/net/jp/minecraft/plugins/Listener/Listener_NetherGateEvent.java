@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.entity.Player;

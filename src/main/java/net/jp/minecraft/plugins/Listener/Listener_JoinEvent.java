@@ -1,5 +1,7 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

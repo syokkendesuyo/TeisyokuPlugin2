@@ -1,12 +1,14 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -14,21 +16,7 @@ import java.util.UUID;
  *
  * @auther syokkendesuyo
  */
-public class Listener_TPoint implements Listener {
-
-    @EventHandler
-    public void join(PlayerJoinEvent event){
-
-        Player player = event.getPlayer();
-
-        TeisyokuPlugin2.getInstance().TPointConfig.set(event.getPlayer().getUniqueId().toString() + ".Name",event.getPlayer().getName().toString());
-
-        //はじめてログインしたときの設定
-        if(!event.getPlayer().hasPlayedBefore()) {
-            addPoint(1000, player);
-        }
-        TeisyokuPlugin2.getInstance().saveTPointConfig();
-    }
+public class Listener_TPoint {
 
     /**
      * プレイヤーのポイントにポイントを追加します<br />
@@ -36,12 +24,13 @@ public class Listener_TPoint implements Listener {
      * @param player
      */
     public static void addPoint(int point , Player player){
-        //演算
-        int point_before = TeisyokuPlugin2.getInstance().TPointConfig.getInt(player.getPlayer().getUniqueId().toString() + ".Point");
+        FileConfiguration playerData = getPlayerYamlFile(player);
+        int point_before = playerData.getInt("tpoint");
         int point_after = point_before + point;
-        TeisyokuPlugin2.getInstance().TPointConfig.set(player.getUniqueId().toString() + ".Point", point_after);
-        player.sendMessage(Messages.getSuccessPrefix() + point + " TPoint受け取りました");
-        TeisyokuPlugin2.getInstance().saveTPointConfig();
+        Msg.info(player, point_before + " " + point_after);//debug
+        playerData.set("tpoint", point_after);
+        savePlayerYamlFile(player);
+        Msg.success(player, point + " TPoint受け取りました");
         status(player);//ステイタスを表示
         return;
     }
@@ -50,24 +39,27 @@ public class Listener_TPoint implements Listener {
      * プレイヤーのポイントを差し引きます<br />
      * @param point
      * @param player
+     *
+     * @return 成功・不成功の結果を返却
      */
-    public static void subtractPoint(int point , Player player){
-        //演算
-        int point_before = TeisyokuPlugin2.getInstance().TPointConfig.getInt(player.getPlayer().getUniqueId().toString() + ".Point");
+    public static boolean subtractPoint(int point , Player player){
+        FileConfiguration playerData = getPlayerYamlFile(player);
+        int point_before = playerData.getInt("tpoint");
         int point_after = point_before - point;
 
         if(point_after < 0){
             int error = Math.abs(point_after);
-            player.sendMessage(Messages.getDenyPrefix() + point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
+            Msg.warning(player, " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
             status(player);//ステイタスを表示
-            return;
+            return false;
         }
         else{
-            player.sendMessage(Messages.getSuccessPrefix() + point + " TPoint消費しました");
-            TeisyokuPlugin2.getInstance().TPointConfig.set(player.getUniqueId().toString() + ".Point", point_after);
-            TeisyokuPlugin2.getInstance().saveTPointConfig();
+            playerData.set("tpoint", point_after);
+            savePlayerYamlFile(player);
+            Msg.success(player, point + " TPoint消費しました");
+            savePlayerYamlFile(player);
             status(player);//ステイタスを表示
-            return;
+            return true;
         }
     }
 
@@ -77,9 +69,10 @@ public class Listener_TPoint implements Listener {
      * @param player
      */
     public static void setPoint(int point , Player player){
-        TeisyokuPlugin2.getInstance().TPointConfig.set(player.getUniqueId().toString() + ".Point", point);
-        player.sendMessage(Messages.getSuccessPrefix() + point + " TPointにセットしました");
-        TeisyokuPlugin2.getInstance().saveTPointConfig();
+        FileConfiguration playerData = getPlayerYamlFile(player);
+        playerData.set("tpoint", point);
+        Msg.success(player," TPointにセットしました");
+        savePlayerYamlFile(player);
         status(player);//ステイタスを表示
     }
 
@@ -90,14 +83,16 @@ public class Listener_TPoint implements Listener {
     public static void status(Player player){
         try{
             //正常に取得
-            int point = TeisyokuPlugin2.getInstance().TPointConfig.getInt(player.getPlayer().getUniqueId().toString() + ".Point");
-            player.sendMessage(Messages.getNormalPrefix() + "現在の保有ポイント： " + point + " TPoint");
+            FileConfiguration playerData = getPlayerYamlFile(player);
+            int point = playerData.getInt("tpoint");
+            Msg.success(player,"現在の保有ポイント： " + point + " TPoint");
             return;
         }
         catch (Exception e){
             //エラー
-            player.sendMessage(Messages.getDenyPrefix() + "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
-            player.sendMessage(Messages.getDenyPrefix() + "Exception Error : Listener_TPoint.status function");
+            Msg.warning(player, "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
+            Msg.warning(player, "Exception Error : Listener_TPoint.status function");
+            e.printStackTrace();
             return;
         }
     }
@@ -107,24 +102,29 @@ public class Listener_TPoint implements Listener {
      * @param uuid
      * @param sender
      * @param target
+     * @param player
      */
-    public static void status_uuid(UUID uuid , CommandSender sender, String target){
+    public static void status_uuid(UUID uuid , CommandSender sender, String target, Player player){
         try{
             //正常に取得
-
-            if(TeisyokuPlugin2.getInstance().TPointConfig.get(uuid.toString() + ".Point") == null){
-                sender.sendMessage(Messages.getDenyPrefix() + ChatColor.YELLOW + target.toString() +ChatColor.RESET + "は見つかりませんでした。");
+            String playerUniqueId = player.getUniqueId().toString();
+            File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
+            File f = new File(userdata, File.separator + playerUniqueId + ".yml");
+            FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
+            if(!f.exists()){
+                Msg.warning(player, ChatColor.YELLOW + target.toString() +ChatColor.RESET + " は見つかりませんでした。");
                 return;
             }
 
-            int point = TeisyokuPlugin2.getInstance().TPointConfig.getInt(uuid.toString() + ".Point");
-            sender.sendMessage(Messages.getNormalPrefix() + ChatColor.YELLOW + target.toString() +ChatColor.RESET + "の保有ポイント： " + point + " TPoint");
+            int point = playerData.getInt("tpoint");
+            Msg.info(sender, ChatColor.YELLOW + target.toString() +ChatColor.RESET + "の保有ポイント： " + point + " TPoint");
             return;
         }
         catch (Exception e){
             //エラー
-            sender.sendMessage(Messages.getDenyPrefix() + "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
-            sender.sendMessage(Messages.getDenyPrefix() + "Exception Error : Listener_TPoint.status function");
+            Msg.warning(sender, "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
+            Msg.warning(sender, "Exception Error : Listener_TPoint.status function");
+            e.printStackTrace();
             return;
         }
     }
@@ -137,15 +137,37 @@ public class Listener_TPoint implements Listener {
     public static int int_status(Player player){
         try{
             //正常に取得
-            int point = TeisyokuPlugin2.getInstance().TPointConfig.getInt(player.getPlayer().getUniqueId().toString() + ".Point");
+            FileConfiguration playerData = getPlayerYamlFile(player);
+            int point = playerData.getInt("tpoint");
             return point;
         }
         catch (Exception e){
             //エラー
-            player.sendMessage(Messages.getDenyPrefix() + "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
-            player.sendMessage(Messages.getDenyPrefix() + "Exception Error : Listener_TPoint.int_status function");
+            Msg.warning(player, "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
+            Msg.warning(player, "Exception Error : Listener_TPoint.int_status function");
+            e.printStackTrace();
             return -1;
         }
     }
 
+    public static FileConfiguration getPlayerYamlFile(Player player){
+        String playerUniqueId = player.getUniqueId().toString();
+        File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
+        File f = new File(userdata, File.separator + playerUniqueId + ".yml");
+        FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
+        return  playerData;
+    }
+
+    public static void savePlayerYamlFile(Player player){
+        try {
+            String playerUniqueId = player.getUniqueId().toString();
+            File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
+            File f = new File(userdata, File.separator + playerUniqueId + ".yml");
+            FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
+            playerData.save(f);
+        }
+        catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
 }

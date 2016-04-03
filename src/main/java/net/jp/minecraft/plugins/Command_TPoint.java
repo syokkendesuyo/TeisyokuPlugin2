@@ -69,7 +69,7 @@ public class Command_TPoint implements CommandExecutor {
                     UUID uuid = player.getUniqueId();
                     String name = args[1];
 
-                    Listener_TPoint.status_uuid(uuid,sender,name);
+                    Listener_TPoint.status_uuid(uuid,sender,name,(Player)player);
                     return true;
                 }
                 catch (Exception e){

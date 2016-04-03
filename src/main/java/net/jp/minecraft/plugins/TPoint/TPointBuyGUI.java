@@ -115,6 +115,14 @@ public class TPointBuyGUI implements Listener {
                     String mmm = mm.replaceAll("%player%", player.getName());
                     Msg.info(player,mmm);
                 }
+
+                //購入をキャンセルするかどうか
+                int point = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getInt("goods." + goods_number + ".point");
+                if(Listener_TPoint.canBuy(point, player) == false){
+                    Msg.warning(player, "購入がキャンセルされました");
+                    return;
+                }
+
                 List<String> commands = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getStringList("goods." + goods_number + ".commands");
                 for(String s : commands){
                     String ss = color(s);

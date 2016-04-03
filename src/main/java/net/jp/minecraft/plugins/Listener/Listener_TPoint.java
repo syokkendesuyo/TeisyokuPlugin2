@@ -70,6 +70,21 @@ public class Listener_TPoint {
         }
     }
 
+    public static boolean canBuy(int point , Player player){
+        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
+        config = YamlConfiguration.loadConfiguration(cfile);
+        FileConfiguration playerData = config;
+        int point_before = playerData.getInt("tpoint");
+        int point_after = point_before - point;
+
+        if(point_after < 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
     /**
      * プレイヤーのポイントをセットします<br />
      * @param point

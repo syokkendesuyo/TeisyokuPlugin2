@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -60,7 +61,7 @@ public class Command_TPoint implements CommandExecutor {
                     sender.sendMessage(Messages.getNormalPrefix() + "※ゲーム側からのみプレイヤーを省略できます");
                 }
                 else{
-                    Listener_TPoint.status((Player)sender);
+                    Listener_TPoint.status((Player) sender);
                 }
             }
             else if(args.length == 2){

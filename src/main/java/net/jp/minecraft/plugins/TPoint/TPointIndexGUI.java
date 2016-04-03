@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.TPoint;
 
-import net.jp.minecraft.plugins.Listener_TPoint;
+import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

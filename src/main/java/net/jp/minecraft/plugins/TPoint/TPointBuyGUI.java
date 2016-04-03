@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.TPoint;
 
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
-import net.jp.minecraft.plugins.Listener_TPoint;
+import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;

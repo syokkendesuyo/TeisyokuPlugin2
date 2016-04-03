@@ -33,7 +33,6 @@ public class Listener_TPoint {
         FileConfiguration playerData = config;
         int point_before = playerData.getInt("tpoint");
         int point_after = point_before + point;
-        Msg.info(player, point_before + " " + point_after);//debug
         playerData.set("tpoint", point_after);
         save();
         Msg.success(player, point + " TPoint受け取りました");
@@ -178,5 +177,29 @@ public class Listener_TPoint {
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void color_default(Player player){
+        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
+        config = YamlConfiguration.loadConfiguration(cfile);
+        FileConfiguration playerData = config;
+        playerData.set("nick_color","default");
+        save();
+    }
+
+    public static void color_aqua(Player player){
+        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
+        config = YamlConfiguration.loadConfiguration(cfile);
+        FileConfiguration playerData = config;
+        playerData.set("nick_color", "aqua");
+        save();
+    }
+
+    public static void color_pink(Player player){
+        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
+        config = YamlConfiguration.loadConfiguration(cfile);
+        FileConfiguration playerData = config;
+        playerData.set("nick_color", "pink");
+        save();
     }
 }

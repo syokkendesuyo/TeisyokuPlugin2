@@ -109,17 +109,17 @@ public class TPointBuyGUI implements Listener {
         if(event.getInventory().getName().equalsIgnoreCase(TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + goods_number + ".name"))){
             event.setCancelled(true);
             if(event.getRawSlot() == 2){
-                List<String> commands = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getStringList("goods." + goods_number + ".commands");
-                for(String s : commands){
-                    String ss = color(s);
-                    String sss = ss.replaceAll("%player%", player.getName());
-                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), sss);
-                }
                 List<String> messages = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getStringList("goods." + goods_number + ".messages");
                 for(String m : messages){
                     String mm = color(m);
                     String mmm = mm.replaceAll("%player%", player.getName());
                     Msg.info(player,mmm);
+                }
+                List<String> commands = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getStringList("goods." + goods_number + ".commands");
+                for(String s : commands){
+                    String ss = color(s);
+                    String sss = ss.replaceAll("%player%", player.getName());
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), sss);
                 }
                 player.closeInventory();
                 Teisyoku_TPointGUI.remove(player.getUniqueId());

@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -95,6 +96,35 @@ public class Command_Nick implements CommandExecutor {
                     //プレイヤーが居ない場合の処理
                     Msg.warning(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + "さんはオンラインでない為操作できません");
                     return true;
+                }
+            }
+
+            if(args[1].equalsIgnoreCase("color")){
+                if(!(args.length == 4)){
+                    Msg.warning(sender, "引数が多すぎるかまたは少なすぎます");
+                }
+                if (args[2].equalsIgnoreCase("default") || args[2].equalsIgnoreCase("aqua") || args[2].equalsIgnoreCase("pink")){
+                    Player player = Bukkit.getServer().getPlayer(args[3]);
+                    if(player == null){
+                        Msg.warning(sender, ChatColor.YELLOW + args[3] + ChatColor.RESET + "さんはオンラインでない為操作できません");
+                        return true;
+                    }
+                    Msg.success(sender, args[3] + " のニックネーム色を " + args[2] + " にしました");
+                    if(args[2].equalsIgnoreCase("default")){
+                        Listener_TPoint.color_default(player);
+                        return true;
+                    }
+                    if(args[2].equalsIgnoreCase("aqua")){
+                        Listener_TPoint.color_aqua(player);
+                        return true;
+                    }
+                    if(args[2].equalsIgnoreCase("pink")){
+                        Listener_TPoint.color_pink(player);
+                        return true;
+                    }
+                }
+                else{
+                    Msg.warning(sender, args[2] + " は利用できません");
                 }
             }
             return true;

@@ -88,7 +88,7 @@ public class TPointBuyGUI implements Listener {
                 return;
             }
 
-            if(event.getInventory().getType().equals(Material.AIR)){
+            if(event.getCurrentItem().getType().equals(Material.AIR)){
                 return;
             }
 

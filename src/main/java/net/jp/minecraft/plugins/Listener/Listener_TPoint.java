@@ -35,7 +35,7 @@ public class Listener_TPoint {
         int point_after = point_before + point;
         playerData.set("tpoint", point_after);
         save();
-        Msg.success(player, point + " TPoint受け取りました");
+        Msg.success(player, "" + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint"+ ChatColor.RESET +" 受け取りました");
         status(player);//ステイタスを表示
         return;
     }
@@ -111,7 +111,7 @@ public class Listener_TPoint {
             config = YamlConfiguration.loadConfiguration(cfile);
             FileConfiguration playerData = config;
             int point = playerData.getInt("tpoint");
-            Msg.success(player,"現在の保有ポイント： " + point + " TPoint");
+            Msg.info(player, "現在の保有ポイント： " + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint");
             return;
         }
         catch (Exception e){

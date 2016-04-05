@@ -46,9 +46,6 @@ public class Listener_Sign implements Listener {
                 else if (sign.getLine(0).equalsIgnoreCase("[Cart]") || sign.getLine(1).equalsIgnoreCase("[Cart]") || sign.getLine(2).equalsIgnoreCase("[Cart]") || sign.getLine(3).equalsIgnoreCase("[Cart]")) {
                     Msg.success(player, "マインカートをインベントリに追加しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
-                    ItemMeta cartmeta = cart.getItemMeta();
-                    cartmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);//通常のMinecartはLocalとする
-                    cart.setItemMeta(cartmeta);
                     player.getInventory().addItem(cart);
                     return;
                 }
@@ -70,59 +67,8 @@ public class Listener_Sign implements Listener {
                 else if(sign.getLine(0).equalsIgnoreCase("[minecart]")){
                 	
                 	Inventory inv = player.getInventory();
-            		
-            		if(sign.getLine(2).equalsIgnoreCase("shinkansen")){
-            			
-            			ItemStack shinkansen = new ItemStack(Material.MINECART);
-            			
-            			ItemMeta shinkansenmeta = shinkansen.getItemMeta();
-            			
-            			shinkansenmeta.setDisplayName(TeisyokuPlugin2.getInstance().Shinkansen);
-            			
-            			shinkansen.setItemMeta(shinkansenmeta);
-            			
-            			inv.addItem(shinkansen);
-
-                        Msg.success(player, "マインカート(新幹線)をインベントリに追加しました");
-            			
-            			return;
-            			
-            		}
-            		else if(sign.getLine(2).equalsIgnoreCase("express")){
-            			
-            			ItemStack express = new ItemStack(Material.MINECART);
-            			
-            			ItemMeta expressmeta = express.getItemMeta();
-            			
-            			expressmeta.setDisplayName(TeisyokuPlugin2.getInstance().Express);
-            			
-            			express.setItemMeta(expressmeta);
-            			
-            			inv.addItem(express);
-
-                        Msg.success(player, "マインカート(急行)をインベントリに追加しました");
-            			
-            			return;
-            			
-            		}
-            		else if(sign.getLine(2).equalsIgnoreCase("local")){
-            			
-            			ItemStack local = new ItemStack(Material.MINECART);
-            			
-            			ItemMeta localmeta = local.getItemMeta();
-            			
-            			localmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);
-            			
-            			local.setItemMeta(localmeta);
-            			
-            			inv.addItem(local);
-
-                        Msg.success(player, "マインカート(各駅停車)をインベントリに追加しました");
-            			
-            			return;
-            			
-            		}
-            		else if(sign.getLine(2).equalsIgnoreCase("sightseeing")){
+                	
+                	if(sign.getLine(2).equalsIgnoreCase("sightseeing")){
             			
             			ItemStack Sightseeing = new ItemStack(Material.MINECART);
             			
@@ -141,7 +87,7 @@ public class Listener_Sign implements Listener {
             		}
             		else {
 
-                        Msg.success(player, "看板の3行目に Shinkansen Express Local Sightseeing のどれかを記入してください");
+                        Msg.success(player, "看板の3行目に Sightseeing と記入してください");
             			
             			return;
             			

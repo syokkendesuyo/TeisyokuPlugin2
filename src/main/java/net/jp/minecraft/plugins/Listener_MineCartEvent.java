@@ -67,6 +67,19 @@ public class Listener_MineCartEvent implements Listener {
             }
         }
     }
+    
+    @EventHandler
+    public void onVehicleDestroyCancelEvent(VehicleDestroyEvent event){
+    	
+    	if(event.getVehicle() instanceof Minecart){
+    		
+    		event.setCancelled(true);
+    		
+    		return;
+    		
+    	}
+    	
+    }
 
     @EventHandler
     public void onVehicleExitEvent(VehicleExitEvent event) {
@@ -142,7 +155,7 @@ public class Listener_MineCartEvent implements Listener {
     
     /**
      * Minecartの最高速度変化させるところ
-     * MinecartのCustomNameとトロッコの真下のブロックの種類によって速度が変化する
+     * トロッコの真下のブロックの種類によって速度が変化する
      * 
      * アクティベーターレールは最高速度を通常Minecartに戻すことができる
      */
@@ -179,151 +192,138 @@ public class Listener_MineCartEvent implements Listener {
 		DetectorRail d_rail = null;
 		Block block = null;
 		
-		if((cart.getCustomName() == null)||(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Local)||cart.getCustomName().equals(""))){
-			
-			return;
+		if(cart.getCustomName() != null){
+		
+			if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Sightseeing)){
+				
+				cart.setMaxSpeed(0.2);
+				
+				return;
+				
+			}
 			
 		}
-		else if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Shinkansen)){//新幹線
+		
+		
 			
-			if((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))){//下が鉄ブロック、黒曜石であることを確認
-				block = cart.getLocation().getBlock();
-				if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
+		if((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))){//下が鉄ブロック、黒曜石であることを確認
+			block = cart.getLocation().getBlock();
+			if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
+				
+				if(block.getType().equals(Material.RAILS)){
 					
-					if(block.getType().equals(Material.RAILS)){
+					rail = (Rails) block.getState().getData();
+					if(rail.isCurve()){
 						
-						rail = (Rails) block.getState().getData();
-						if(rail.isCurve()){
-							
-							cart.setMaxSpeed(0.1);
-							
-							return;
-							
-						}
-						else if(rail.isOnSlope()){
-							
-							cart.setMaxSpeed(0.4);
-							
-							return;
-							
-						}
-					}
-					else if(block.getType().equals(Material.POWERED_RAIL)){
+						cart.setMaxSpeed(0.4);
 						
-						p_rail = (PoweredRail) block.getState().getData();
-						
-						if(p_rail.isOnSlope()){
-							
-							cart.setMaxSpeed(0.4);
-							
-							return;
-							
-						}
+						return;
 						
 					}
-					else if(block.getType().equals(Material.DETECTOR_RAIL)){
+					else if(rail.isOnSlope()){
 						
-						d_rail = (DetectorRail) block.getState().getData();
+						cart.setMaxSpeed(0.4);
 						
-						if(d_rail.isOnSlope()){
-							
-							cart.setMaxSpeed(0.4);
-							
-							return;
-							
-						}
+						return;
+						
 					}
 				}
-				
-				cart.setMaxSpeed(1.6);
-				
-				return;
-				
-			}
-			else {
-				
-				cart.setMaxSpeed(0.4);
-				
-				return;
-				
-			}
-			
-		}
-		else if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Express)){//エクスプレス
-			
-			if(((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STONE))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.REDSTONE_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.DOUBLE_STEP))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRAVEL)))){
-				
-				//石、レッドストーンブロック、鉄ブロック、ハーフブロック、石レンガ、砂利、黒曜石
-				block = cart.getLocation().getBlock();
-				if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
+				else if(block.getType().equals(Material.POWERED_RAIL)){
 					
-					if(cart.getLocation().getBlock().getType().equals(Material.RAILS)){
+					p_rail = (PoweredRail) block.getState().getData();
+					
+					if(p_rail.isOnSlope()){
 						
-						rail = (Rails) cart.getLocation().getBlock().getState().getData();
-						if(rail.isCurve()){
-							
-							cart.setMaxSpeed(0.4);
-							
-							return;
-							
-						}
+						cart.setMaxSpeed(0.4);
 						
-						else if(rail.isOnSlope()){
-							
-							cart.setMaxSpeed(0.4);
-							
-							return;
-							
-						}
-					}
-					else if(block.getType().equals(Material.POWERED_RAIL)){
-						
-						p_rail = (PoweredRail) block.getState().getData();
-						
-						if(p_rail.isOnSlope()){
-							
-							cart.setMaxSpeed(0.4);
-							
-							return;
-							
-						}
+						return;
 						
 					}
-					else if(block.getType().equals(Material.DETECTOR_RAIL)){
+					
+				}
+				else if(block.getType().equals(Material.DETECTOR_RAIL)){
+					
+					d_rail = (DetectorRail) block.getState().getData();
+					
+					if(d_rail.isOnSlope()){
 						
-						d_rail = (DetectorRail) block.getState().getData();
+						cart.setMaxSpeed(0.4);
 						
-						if(d_rail.isOnSlope()){
-							
-							cart.setMaxSpeed(0.4);
-							
-							return;
-							
-						}
+						return;
+						
 					}
 				}
-				
-				cart.setMaxSpeed(0.8);
-				
-				return;
-				
-			}
-			else {
-				
-				cart.setMaxSpeed(0.4);
-					
-				return;
-					
 			}
 			
-		}
-		else if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Sightseeing)){
-			
-			cart.setMaxSpeed(0.2);
+			cart.setMaxSpeed(1.6);
 			
 			return;
 			
 		}
 		
-	}
+		if(((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STONE))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.REDSTONE_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.DOUBLE_STEP))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRAVEL)))){
+			
+			//石、レッドストーンブロック、ハーフブロック、石レンガ、砂利
+			block = cart.getLocation().getBlock();
+			if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
+				
+				if(cart.getLocation().getBlock().getType().equals(Material.RAILS)){
+					
+					rail = (Rails) cart.getLocation().getBlock().getState().getData();
+					if(rail.isCurve()){
+						
+						cart.setMaxSpeed(0.4);
+						
+						return;
+						
+					}
+					
+					else if(rail.isOnSlope()){
+						
+						cart.setMaxSpeed(0.4);
+						
+						return;
+						
+					}
+				}
+				else if(block.getType().equals(Material.POWERED_RAIL)){
+					
+					p_rail = (PoweredRail) block.getState().getData();
+					
+					if(p_rail.isOnSlope()){
+						
+						cart.setMaxSpeed(0.4);
+						
+						return;
+						
+					}
+					
+				}
+				else if(block.getType().equals(Material.DETECTOR_RAIL)){
+					
+					d_rail = (DetectorRail) block.getState().getData();
+					
+					if(d_rail.isOnSlope()){
+						
+						cart.setMaxSpeed(0.4);
+						
+						return;
+						
+					}
+				}
+			}
+			
+			cart.setMaxSpeed(1.2);
+			
+			return;
+			
+		}
+		else {
+			
+			cart.setMaxSpeed(0.4);
+			
+			return;
+			
+		}
+    }
 }

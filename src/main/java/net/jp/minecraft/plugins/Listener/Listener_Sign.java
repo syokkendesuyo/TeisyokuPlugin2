@@ -37,9 +37,11 @@ public class Listener_Sign implements Listener {
                 Sign sign = (Sign) block.getState();
                 if (sign.getLine(0).equalsIgnoreCase("[GOMI]")){
                     Listener_Gomibako.openGomibako(player);
+                    return;
                 }
                 else if (sign.getLine(0).equalsIgnoreCase("[Teisyoku]") || sign.getLine(1).equalsIgnoreCase("[Teisyoku]")){
                     TeisyokuMenuIndex.getMenu(player);
+                    return;
                 }
                 else if (sign.getLine(0).equalsIgnoreCase("[Cart]") || sign.getLine(1).equalsIgnoreCase("[Cart]") || sign.getLine(2).equalsIgnoreCase("[Cart]") || sign.getLine(3).equalsIgnoreCase("[Cart]")) {
                     Msg.success(player, "マインカートをインベントリに追加しました");
@@ -48,13 +50,16 @@ public class Listener_Sign implements Listener {
                     cartmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);//通常のMinecartはLocalとする
                     cart.setItemMeta(cartmeta);
                     player.getInventory().addItem(cart);
+                    return;
                 }
                 else if(sign.getLine(0).equalsIgnoreCase("[Warp]")){
                     if(sign.getLine(1) != null){
                         Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
+                        return;
                     }
                     else{
                         Bukkit.getServer().dispatchCommand(player, "warp");
+                        return;
                     }
                 }
                 else if(sign.getLine(0).equalsIgnoreCase("[tpoint]") || sign.getLine(0).equalsIgnoreCase("[point]")){

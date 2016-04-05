@@ -57,8 +57,6 @@ public class Command_Cart implements CommandExecutor {
                     player.getInventory().addItem(cart);
                     Msg.success(sender,"プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " にマインカートを渡しました");
                     Msg.success(player,"プレイヤー " + ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " からマインカートを渡されました");
-
-                    player.playSound(player.getLocation(), Sound.WOLF_BARK, 3.0F, 1.8F);
                     return true;
                 }
             }

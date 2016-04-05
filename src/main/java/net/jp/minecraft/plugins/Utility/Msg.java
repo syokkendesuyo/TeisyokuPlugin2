@@ -96,7 +96,7 @@ public final class Msg{
             if(admin.hasPermission("teisyoku.admin")){
                 admin.sendMessage(ChatColor.LIGHT_PURPLE + broadcast + ChatColor.RESET + msg);
                 if(sound == true){
-                    admin.playSound(admin.getLocation() , Sound.NOTE_PLING , 3.0F,1.5F);
+                    Sounds.sound_note(admin);
                 }
             }
         }

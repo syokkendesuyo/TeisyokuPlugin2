@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -54,12 +55,12 @@ public class Command_Call implements CommandExecutor {
             sender.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + player2.getName().toString() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
             player2.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + sender.getName().toString() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
 
-            player2.playSound(player2.getLocation(), Sound.NOTE_PLING, 3.0F, 1.8F);
+            Sounds.sound_note(player2);
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
             if(sender instanceof Player){
                 Player player1 = (Player) sender;
-                player1.playSound(player1.getLocation(), Sound.SHOOT_ARROW, 3.0F, 1.8F);
+                Sounds.sound_arrow(player1);
             }
             return true;
         }

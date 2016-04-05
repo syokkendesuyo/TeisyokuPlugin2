@@ -6,6 +6,7 @@ import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.CoolDown;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -24,7 +25,13 @@ import java.util.Date;
  * Adコマンドを実行時の処理
  */
 public class Command_Ad implements CommandExecutor {
+
+    public String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
+    public String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
+
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+
+        String version = Bukkit.getBukkitVersion();
 
         //コマンドが有効化されているかどうか検出
         if(TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.ad") == false){
@@ -71,7 +78,7 @@ public class Command_Ad implements CommandExecutor {
 
         //オンラインプレイヤー全員に音を鳴らす
         for(Player player : Bukkit.getOnlinePlayers()){
-            player.playSound(player.getLocation() , Sound.NOTE_PLING , 3.0F,1.5F);
+            Sounds.sound_note(player);
         }
 
         //クールタイムを設定

@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
+import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -55,6 +56,10 @@ public class Listener_Sign implements Listener {
                     else{
                         Bukkit.getServer().dispatchCommand(player, "warp");
                     }
+                }
+                else if(sign.getLine(0).equalsIgnoreCase("[tpoint]") || sign.getLine(0).equalsIgnoreCase("[point]")){
+                    TPointIndexGUI.index(player);
+                    return;
                 }
                 //特殊なMinecartをゲットさせる
                 else if(sign.getLine(0).equalsIgnoreCase("[minecart]")){

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @auther syokkendesuyo
  */
-public class Listener_TicksPerSecond_1_8_R3 {
+public class Listener_TicksPerSecond_1_9_R1 {
 
     public static String getTpsString(){
         StringBuilder sb = new StringBuilder( ChatColor.GOLD + "TPS from last 1m, 5m, 15m: " );

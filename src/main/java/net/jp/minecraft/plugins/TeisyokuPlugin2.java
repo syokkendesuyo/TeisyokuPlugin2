@@ -119,22 +119,22 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("ch").setExecutor(new Command_CartHelp());
 
         //1.8のみに対応している機能・コマンド
-        if (version.equals(ver1_8_8_R01)) {
+        if (version.equals(ver1_9_2_R01)) {
             //機能
-            pm.registerEvents(new Listener_Tab_1_8_R3(), this);
+            pm.registerEvents(new Listener_Tab_1_9_R1(), this);
 
             //コマンドリスト
             getCommand("tps").setExecutor(new Command_TPS());
             getCommand("status").setExecutor(new Command_TPS());
             getCommand("s").setExecutor(new Command_TPS());
 
-            getLogger().info("1.8.8-R0.1 用に作成された一部機能が開放されました");
+            getLogger().info("1.9.2-R0.1 用に作成された一部機能が開放されました");
         }
-        else if(version.equals(ver1_9_2_R01)){
-            getLogger().info("1.9.2-R0.1 は現在開発中の為一部機能が制限されています");
+        else if(version.equals(ver1_8_8_R01)){
+            getLogger().info("1.8.8-R0.1 は現在開発中の為一部機能が制限されています");
         }
         else{
-            getLogger().info("1.8.8-R0.1 / 1.9.2-R0.1 は一部の機能が制限されています(サポートの対象外のバージョンをご利用中です)");
+            getLogger().info("1.8.8_R01は一部の機能が制限されています(サポートの対象外のバージョンをご利用中です)");
         }
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();

@@ -1,11 +1,14 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -24,6 +27,8 @@ import org.bukkit.material.Rails;
 
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+
+import java.io.File;
 
 /**
  * TeisyokuPlugin2
@@ -49,9 +54,9 @@ public class Listener_MineCartEvent implements Listener {
         else{
             switch (event.getVehicle().getType()) {
                 case MINECART:
-                    player.sendMessage(Messages.getSuccessPrefix() +"マインカートを回収しました");
-                    
-                    ItemStack cart = new ItemStack(Material.MINECART);
+					player.sendMessage(Messages.getSuccessPrefix() +"マインカートを回収しました");
+
+					ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();
                     cartmeta.setDisplayName(vehicle.getCustomName());
                     cart.setItemMeta(cartmeta);
@@ -94,6 +99,16 @@ public class Listener_MineCartEvent implements Listener {
                 vehicle.remove();
             }
             else{
+                String playerUniqueId = player.getUniqueId().toString();
+                File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
+                File f = new File(userdata, File.separator + playerUniqueId + ".yml");
+                FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
+                if(playerData.getBoolean("auto_cart_remove") == true){
+                    Msg.success(player, "マインカートを削除しました");
+                    vehicle.remove();
+                    return;
+                }
+
                 player.sendMessage(Messages.getSuccessPrefix() +" マインカートを回収しました");
                 
                 ItemStack cart = new ItemStack(Material.MINECART);

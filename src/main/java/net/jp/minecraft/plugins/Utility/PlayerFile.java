@@ -41,6 +41,11 @@ public class PlayerFile implements Listener{
                 playerData.set("nick_color", "default");
             }
 
+            if(playerData.get("auto_cart_remove") == null){
+                playerData.createSection("auto_cart_remove");
+                playerData.set("auto_cart_remove", false);
+            }
+
             playerData.save(f);
         } catch (IOException exception) {
             exception.printStackTrace();

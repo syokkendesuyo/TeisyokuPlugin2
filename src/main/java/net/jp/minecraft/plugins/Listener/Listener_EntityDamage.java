@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.Listener_Horse;
+import net.jp.minecraft.plugins.Listener.Listener_Horse;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -40,7 +40,7 @@ public class Listener_EntityDamage implements Listener {
             return;
         }
 
-        if(player.getItemInHand().getType() == Material.DIAMOND_SWORD){
+        if(player.getInventory().getItemInMainHand().getType() == Material.DIAMOND_SWORD){
             return;
         }
 
@@ -72,9 +72,9 @@ public class Listener_EntityDamage implements Listener {
         }
 
         //ツールではダメージが通らないように
-        if(! player.getItemInHand().getType().equals(Material.AIR)){
+        if(! player.getInventory().getItemInMainHand().getType().equals(Material.AIR)){
             try{
-                if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
+                if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
                     event.setCancelled(true);
                     return;
                 }

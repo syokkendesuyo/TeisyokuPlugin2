@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -21,6 +21,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.DetectorRail;
 import org.bukkit.material.PoweredRail;
 import org.bukkit.material.Rails;
+
+import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 
 /**
  * TeisyokuPlugin2
@@ -201,6 +204,13 @@ public class Listener_MineCartEvent implements Listener {
 				return;
 				
 			}
+			else if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Local)){
+				
+				cart.setMaxSpeed(0.4);
+				
+				return;
+				
+			}
 			
 		}
 		
@@ -261,9 +271,9 @@ public class Listener_MineCartEvent implements Listener {
 			
 		}
 		
-		if(((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STONE))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.REDSTONE_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.DOUBLE_STEP))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRAVEL)))){
+		if(((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STAINED_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.HARD_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STONE))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.REDSTONE_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.DOUBLE_STEP))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRAVEL)))){
 			
-			//石、レッドストーンブロック、ハーフブロック、石レンガ、砂利
+			//石、レッドストーンブロック、ハーフブロック、石レンガ、砂利、堅焼き粘土、色付き堅焼き粘土
 			block = cart.getLocation().getBlock();
 			if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
 				

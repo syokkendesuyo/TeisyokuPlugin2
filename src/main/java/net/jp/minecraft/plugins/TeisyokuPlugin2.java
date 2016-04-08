@@ -39,9 +39,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
     
-
-	public final String Shinkansen = ChatColor.LIGHT_PURPLE + "Shinkansen";
-    public final String Express = ChatColor.RED  + "Express";
     public final String Local = ChatColor.AQUA  + "Local";
     public final String Sightseeing = ChatColor.BLUE  + "Sightseeing";
 

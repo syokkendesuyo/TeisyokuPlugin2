@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

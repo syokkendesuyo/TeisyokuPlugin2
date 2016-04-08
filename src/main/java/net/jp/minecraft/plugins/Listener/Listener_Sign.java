@@ -85,9 +85,26 @@ public class Listener_Sign implements Listener {
             			return;
             			
             		}
+                	else if(sign.getLine(2).equalsIgnoreCase("local")){
+            			
+            			ItemStack local = new ItemStack(Material.MINECART);
+            			
+            			ItemMeta localmeta = local.getItemMeta();
+            			
+            			localmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);
+            			
+            			local.setItemMeta(localmeta);
+            			
+            			inv.addItem(local);
+
+                        Msg.success(player, "マインカート(各駅)をインベントリに追加しました");
+            			
+            			return;
+            			
+            		}
             		else {
 
-                        Msg.success(player, "看板の3行目に Sightseeing と記入してください");
+                        Msg.success(player, "看板の3行目に Local Sightseeing のどちらかを記入してください");
             			
             			return;
             			

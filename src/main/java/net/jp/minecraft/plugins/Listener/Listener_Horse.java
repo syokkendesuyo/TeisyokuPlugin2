@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,20 +29,20 @@ public class Listener_Horse implements Listener{
             UUID entityUUID = event.getRightClicked().getUniqueId();
 
             //棒以外は無視
-            if(!(event.getPlayer().getItemInHand().getType() == Material.STICK)){
+            if(!(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STICK)){
                 return;
             }
-            if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール")){
+            if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール")){
                 HorseRegister(player,entityUUID);
                 event.setCancelled(true);
                 return;
             }
-            if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール")){
+            if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール")){
                 HorseRemove(player,entityUUID);
                 event.setCancelled(true);
                 return;
             }
-            if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
+            if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
                 if(isRegister(entityUUID) == true){
                     Msg.info(player, "この馬は保護されています");
                     getStatus(player,entityUUID);
@@ -65,11 +66,11 @@ public class Listener_Horse implements Listener{
             UUID entityUUID = event.getVehicle().getUniqueId();
             UUID playerUUID =  player.getUniqueId();
 
-            if(player.getItemInHand().getType().equals(Material.STICK)){
+            if(player.getInventory().getItemInMainHand().getType().equals(Material.STICK)){
             	
-            	if((player.getItemInHand().getItemMeta().getDisplayName() != null)||(!(player.getItemInHand().getItemMeta().getDisplayName().equals("")))){
+            	if((player.getInventory().getItemInMainHand().getItemMeta().getDisplayName() != null)||(!(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("")))){
             	
-            		if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
+            		if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
             			
             			event.setCancelled(true);
             			

@@ -1,18 +1,15 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Messages;
-import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * TeisyokuPlugin2
@@ -36,9 +33,6 @@ public class Command_Cart implements CommandExecutor {
             Msg.success(sender,"マインカートをインベントリに追加しました");
             Player player =  (Player) sender;
             ItemStack cart = new ItemStack(Material.MINECART);
-            ItemMeta cartmeta = cart.getItemMeta();
-            cartmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);//通常のMinecartはLocalとする
-            cart.setItemMeta(cartmeta);
             player.getInventory().addItem(cart);
             return true;
         }
@@ -51,9 +45,6 @@ public class Command_Cart implements CommandExecutor {
                 }
                 else{
                 	ItemStack cart = new ItemStack(Material.MINECART);
-                    ItemMeta cartmeta = cart.getItemMeta();
-                    cartmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);//通常のMinecartはLocalとする
-                    cart.setItemMeta(cartmeta);
                     player.getInventory().addItem(cart);
                     Msg.success(sender,"プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " にマインカートを渡しました");
                     Msg.success(player,"プレイヤー " + ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " からマインカートを渡されました");

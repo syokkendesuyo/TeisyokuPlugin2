@@ -1,10 +1,14 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.Permissions;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

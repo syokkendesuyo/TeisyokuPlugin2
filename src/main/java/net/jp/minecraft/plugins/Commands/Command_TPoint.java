@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins;
+package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import org.bukkit.Bukkit;

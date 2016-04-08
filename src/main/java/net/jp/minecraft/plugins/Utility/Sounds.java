@@ -20,7 +20,7 @@ public class Sounds implements Listener{
             return;
         }
         else if(version.equals(ver1_9_2_R01)){
-            player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_NOTE_PLING, 10.0F, 1.0F);
+            player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_NOTE_PLING, 3.0F, 1.5F);
             return;
         }
     }

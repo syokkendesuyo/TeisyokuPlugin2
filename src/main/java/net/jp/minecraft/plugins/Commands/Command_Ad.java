@@ -83,6 +83,10 @@ public class Command_Ad implements CommandExecutor {
         //クールタイムを設定
         if(sender instanceof Player){
             Player player = (Player)sender;
+            //admin権限保有者はクールタイム設定なし
+            if(player.hasPermission("teisyoku.admin")){
+                return true;
+            }
             //現在時刻を取得
             Date nowDate = new Date();
             Calendar calendar = Calendar.getInstance();

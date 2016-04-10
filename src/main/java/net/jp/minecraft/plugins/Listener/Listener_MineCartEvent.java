@@ -38,13 +38,11 @@ import java.io.File;
 public class Listener_MineCartEvent implements Listener {
     @EventHandler
     public void onVehicleDestroyEvent (VehicleDestroyEvent event){
-    	
-    	if(!(event.getAttacker() instanceof Player)){
-    		
-    		return;
-    		
+
+        if(!(event.getAttacker() instanceof Player)){
+            return;
     	}
-    	
+
         Player player = (Player) event.getAttacker();
         Vehicle vehicle = event.getVehicle();
         if(player.getGameMode() != GameMode.SURVIVAL){
@@ -52,28 +50,27 @@ public class Listener_MineCartEvent implements Listener {
             vehicle.remove();
         }
         else {
-        	 switch (event.getVehicle().getType()) {
-             case MINECART:
-					player.sendMessage(Messages.getSuccessPrefix() +"マインカートを回収しました");
-
-					ItemStack cart = new ItemStack(Material.MINECART);
-                 ItemMeta cartmeta = cart.getItemMeta();
-                 cartmeta.setDisplayName(vehicle.getCustomName());
-                 cart.setItemMeta(cartmeta);
-                 //MineCartの名前を保持する
-                 player.getInventory().addItem(cart);
-                 vehicle.remove();
-                 event.setCancelled(true);
-                 break;
-             case MINECART_CHEST:
-             case MINECART_FURNACE:
-             case MINECART_HOPPER:
-             case MINECART_TNT:
-                 player.sendMessage(Messages.getDenyPrefix() +"通常のマインカート以外は回収しない設定になっています");
-                 break;
-             default:
-                 break;
-        	 }
+            switch (event.getVehicle().getType()) {
+                case MINECART:
+                    player.sendMessage(Messages.getSuccessPrefix() +"マインカートを回収しました");
+                    ItemStack cart = new ItemStack(Material.MINECART);
+                    ItemMeta cartmeta = cart.getItemMeta();
+                    cartmeta.setDisplayName(vehicle.getCustomName());
+                    cart.setItemMeta(cartmeta);
+                    //MineCartの名前を保持する
+                    player.getInventory().addItem(cart);
+                    vehicle.remove();
+                    event.setCancelled(true);
+                    break;
+                case MINECART_CHEST:
+                case MINECART_FURNACE:
+                case MINECART_HOPPER:
+                case MINECART_TNT:
+                    player.sendMessage(Messages.getDenyPrefix() +"通常のマインカート以外は回収しない設定になっています");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -117,7 +114,7 @@ public class Listener_MineCartEvent implements Listener {
      */
     @EventHandler
     public void onPlayerVehicleMoveEvent(VehicleMoveEvent event){
-            if(event.getVehicle() instanceof Minecart){
+        if(event.getVehicle() instanceof Minecart){
             if(event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
             Vehicle minecart = event.getVehicle();
             Entity player = minecart.getPassenger();
@@ -165,178 +162,110 @@ public class Listener_MineCartEvent implements Listener {
      * 
      * アクティベーターレールは最高速度を通常Minecartに戻すことができる
      */
-    
+
     @EventHandler
-	public void changeMincartSpeed(VehicleMoveEvent event){
-		
-		if(!(event.getVehicle() instanceof Minecart)){
-			
-			return;
-			
+    public void changeMincartSpeed(VehicleMoveEvent event){
+        if(!(event.getVehicle() instanceof Minecart)){
+            return;
 		}
-		
+
 		Minecart cart = (Minecart) event.getVehicle();
-		
 		if(!(cart.getPassenger() instanceof Player)){
-			
-			cart.setMaxSpeed(0.4);
-			
-			return;
-			
-		}
-		
-		if(cart.getLocation().getBlock().getType().equals(Material.ACTIVATOR_RAIL)){
-			
-			cart.setMaxSpeed(0.4);
-			
-			return;
-			
-		}
-		
-		Rails rail = null;
-		PoweredRail p_rail = null;
-		DetectorRail d_rail = null;
-		Block block = null;
-		
-		if(cart.getCustomName() != null){
-		
-			if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Sightseeing)){
-				
-				cart.setMaxSpeed(0.2);
-				
-				return;
-				
-			}
-			else if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Local)){
-				
-				cart.setMaxSpeed(0.4);
-				
-				return;
-				
-			}
-			
-		}
-		
-		
-			
-		if((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))){//下が鉄ブロック、黒曜石であることを確認
-			block = cart.getLocation().getBlock();
-			if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
-				
-				if(block.getType().equals(Material.RAILS)){
-					
-					rail = (Rails) block.getState().getData();
-					if(rail.isCurve()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-					else if(rail.isOnSlope()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-				}
-				else if(block.getType().equals(Material.POWERED_RAIL)){
-					
-					p_rail = (PoweredRail) block.getState().getData();
-					
-					if(p_rail.isOnSlope()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-					
-				}
-				else if(block.getType().equals(Material.DETECTOR_RAIL)){
-					
-					d_rail = (DetectorRail) block.getState().getData();
-					
-					if(d_rail.isOnSlope()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-				}
-			}
-			
-			cart.setMaxSpeed(1.6);
-			
-			return;
-			
-		}
-		
-		if(((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STAINED_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.HARD_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STONE))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.REDSTONE_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.DOUBLE_STEP))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRAVEL)))){
-			
-			//石、レッドストーンブロック、ハーフブロック、石レンガ、砂利、堅焼き粘土、色付き堅焼き粘土
-			block = cart.getLocation().getBlock();
-			if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
-				
-				if(cart.getLocation().getBlock().getType().equals(Material.RAILS)){
-					
-					rail = (Rails) cart.getLocation().getBlock().getState().getData();
-					if(rail.isCurve()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-					
-					else if(rail.isOnSlope()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-				}
-				else if(block.getType().equals(Material.POWERED_RAIL)){
-					
-					p_rail = (PoweredRail) block.getState().getData();
-					
-					if(p_rail.isOnSlope()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-					
-				}
-				else if(block.getType().equals(Material.DETECTOR_RAIL)){
-					
-					d_rail = (DetectorRail) block.getState().getData();
-					
-					if(d_rail.isOnSlope()){
-						
-						cart.setMaxSpeed(0.4);
-						
-						return;
-						
-					}
-				}
-			}
-			
+            cart.setMaxSpeed(0.4);
+            return;
+        }
+
+        if(cart.getLocation().getBlock().getType().equals(Material.ACTIVATOR_RAIL)){
+            cart.setMaxSpeed(0.4);
+            return;
+        }
+
+        Rails rail = null;
+        PoweredRail p_rail = null;
+        DetectorRail d_rail = null;
+        Block block = null;
+
+        if(cart.getCustomName() != null){
+            if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Sightseeing)){
+                cart.setMaxSpeed(0.2);
+                return;
+            }
+            else if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Local)){
+                cart.setMaxSpeed(0.4);
+                return;
+            }
+        }
+
+        if((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))){//下が鉄ブロック、黒曜石であることを確認
+            block = cart.getLocation().getBlock();
+            if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
+                if(block.getType().equals(Material.RAILS)){
+                    rail = (Rails) block.getState().getData();
+                    if(rail.isCurve()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                    else if(rail.isOnSlope()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                }
+                else if(block.getType().equals(Material.POWERED_RAIL)){
+                    p_rail = (PoweredRail) block.getState().getData();
+                    if(p_rail.isOnSlope()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                }
+                else if(block.getType().equals(Material.DETECTOR_RAIL)){
+                    d_rail = (DetectorRail) block.getState().getData();
+                    if(d_rail.isOnSlope()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                }
+            }
+            cart.setMaxSpeed(1.6);
+            return;
+        }
+
+        if(((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STAINED_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.HARD_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STONE))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.REDSTONE_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.DOUBLE_STEP))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRAVEL)))){
+            //石、レッドストーンブロック、ハーフブロック、石レンガ、砂利、堅焼き粘土、色付き堅焼き粘土
+            block = cart.getLocation().getBlock();
+            if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
+                if(cart.getLocation().getBlock().getType().equals(Material.RAILS)){
+                    rail = (Rails) cart.getLocation().getBlock().getState().getData();
+                    if(rail.isCurve()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                    else if(rail.isOnSlope()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                }
+                else if(block.getType().equals(Material.POWERED_RAIL)){
+                    p_rail = (PoweredRail) block.getState().getData();
+                    if(p_rail.isOnSlope()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                }
+                else if(block.getType().equals(Material.DETECTOR_RAIL)){
+                    d_rail = (DetectorRail) block.getState().getData();
+                    if(d_rail.isOnSlope()){
+                        cart.setMaxSpeed(0.4);
+                        return;
+                    }
+                }
+            }
+
 			cart.setMaxSpeed(1.2);
-			
-			return;
-			
-		}
-		else {
-			
+            return;
+        }
+        else {
 			cart.setMaxSpeed(0.4);
-			
-			return;
-			
-		}
+            return;
+        }
     }
 }

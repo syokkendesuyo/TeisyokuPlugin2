@@ -51,42 +51,30 @@ public class Listener_MineCartEvent implements Listener {
             player.sendMessage(Messages.getNormalPrefix() +"サバイバルモードの場合にのみマインカートをイベントリへ回収します");
             vehicle.remove();
         }
-        else{
-            switch (event.getVehicle().getType()) {
-                case MINECART:
+        else {
+        	 switch (event.getVehicle().getType()) {
+             case MINECART:
 					player.sendMessage(Messages.getSuccessPrefix() +"マインカートを回収しました");
 
 					ItemStack cart = new ItemStack(Material.MINECART);
-                    ItemMeta cartmeta = cart.getItemMeta();
-                    cartmeta.setDisplayName(vehicle.getCustomName());
-                    cart.setItemMeta(cartmeta);
-                    //MineCartの名前を保持する
-                    player.getInventory().addItem(cart);
-                    vehicle.remove();
-                    break;
-                case MINECART_CHEST:
-                case MINECART_FURNACE:
-                case MINECART_HOPPER:
-                case MINECART_TNT:
-                    player.sendMessage(Messages.getDenyPrefix() +"通常のマインカート以外は回収しない設定になっています");
-                    break;
-                default:
-                    break;
-            }
+                 ItemMeta cartmeta = cart.getItemMeta();
+                 cartmeta.setDisplayName(vehicle.getCustomName());
+                 cart.setItemMeta(cartmeta);
+                 //MineCartの名前を保持する
+                 player.getInventory().addItem(cart);
+                 vehicle.remove();
+                 event.setCancelled(true);
+                 break;
+             case MINECART_CHEST:
+             case MINECART_FURNACE:
+             case MINECART_HOPPER:
+             case MINECART_TNT:
+                 player.sendMessage(Messages.getDenyPrefix() +"通常のマインカート以外は回収しない設定になっています");
+                 break;
+             default:
+                 break;
+        	 }
         }
-    }
-    
-    @EventHandler
-    public void onVehicleDestroyCancelEvent(VehicleDestroyEvent event){
-    	
-    	if(event.getVehicle() instanceof Minecart){
-    		
-    		event.setCancelled(true);
-    		
-    		return;
-    		
-    	}
-    	
     }
 
     @EventHandler

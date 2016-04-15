@@ -63,53 +63,6 @@ public class Listener_Sign implements Listener {
                     TPointIndexGUI.index(player);
                     return;
                 }
-                //特殊なMinecartをゲットさせる
-                else if(sign.getLine(0).equalsIgnoreCase("[minecart]")){
-                	
-                	Inventory inv = player.getInventory();
-                	
-                	if(sign.getLine(2).equalsIgnoreCase("sightseeing")){
-            			
-            			ItemStack Sightseeing = new ItemStack(Material.MINECART);
-            			
-            			ItemMeta Sightseeingmeta = Sightseeing.getItemMeta();
-            			
-            			Sightseeingmeta.setDisplayName(TeisyokuPlugin2.getInstance().Sightseeing);
-            			
-            			Sightseeing.setItemMeta(Sightseeingmeta);
-            			
-            			inv.addItem(Sightseeing);
-
-                        Msg.success(player, "マインカート(観光鉄道)をインベントリに追加しました");
-            			
-            			return;
-            			
-            		}
-                	else if(sign.getLine(2).equalsIgnoreCase("local")){
-            			
-            			ItemStack local = new ItemStack(Material.MINECART);
-            			
-            			ItemMeta localmeta = local.getItemMeta();
-            			
-            			localmeta.setDisplayName(TeisyokuPlugin2.getInstance().Local);
-            			
-            			local.setItemMeta(localmeta);
-            			
-            			inv.addItem(local);
-
-                        Msg.success(player, "マインカート(各駅)をインベントリに追加しました");
-            			
-            			return;
-            			
-            		}
-            		else {
-
-                        Msg.success(player, "看板の3行目に Local Sightseeing のどちらかを記入してください");
-            			
-            			return;
-            			
-            		}
-                }
             }
         }
     }

@@ -41,7 +41,7 @@ public class Listener_MineCartEvent implements Listener {
 
         if(!(event.getAttacker() instanceof Player)){
             return;
-    	}
+        }
 
         Player player = (Player) event.getAttacker();
         Vehicle vehicle = event.getVehicle();
@@ -162,18 +162,21 @@ public class Listener_MineCartEvent implements Listener {
      * 
      * アクティベーターレールは最高速度を通常Minecartに戻すことができる
      */
-
+    
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void changeMincartSpeed(VehicleMoveEvent event){
         if(!(event.getVehicle() instanceof Minecart)){
             return;
-		}
+        }
 
-		Minecart cart = (Minecart) event.getVehicle();
-		if(!(cart.getPassenger() instanceof Player)){
+        Minecart cart = (Minecart) event.getVehicle();
+        if(!(cart.getPassenger() instanceof Player)){
             cart.setMaxSpeed(0.4);
             return;
         }
+        
+        cart.getPassenger().sendMessage("速度 " + cart.getMaxSpeed());
 
         if(cart.getLocation().getBlock().getType().equals(Material.ACTIVATOR_RAIL)){
             cart.setMaxSpeed(0.4);
@@ -184,18 +187,7 @@ public class Listener_MineCartEvent implements Listener {
         PoweredRail p_rail = null;
         DetectorRail d_rail = null;
         Block block = null;
-
-        if(cart.getCustomName() != null){
-            if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Sightseeing)){
-                cart.setMaxSpeed(0.2);
-                return;
-            }
-            else if(cart.getCustomName().equals(TeisyokuPlugin2.getInstance().Local)){
-                cart.setMaxSpeed(0.4);
-                return;
-            }
-        }
-
+        
         if((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))){//下が鉄ブロック、黒曜石であることを確認
             block = cart.getLocation().getBlock();
             if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
@@ -228,9 +220,11 @@ public class Listener_MineCartEvent implements Listener {
             cart.setMaxSpeed(1.6);
             return;
         }
-
-        if(((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STAINED_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.HARD_CLAY))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.STONE))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.REDSTONE_BLOCK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.DOUBLE_STEP))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK))||(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRAVEL)))){
-            //石、レッドストーンブロック、ハーフブロック、石レンガ、砂利、堅焼き粘土、色付き堅焼き粘土
+        else if(cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK)){
+            if(cart.getLocation().add(0, -1, 0).getBlock().getState().getRawData() != (byte)3){
+                cart.setMaxSpeed(0.4);
+                return;
+            }
             block = cart.getLocation().getBlock();
             if(((block.getType().equals(Material.POWERED_RAIL))||(block.getType().equals(Material.DETECTOR_RAIL))||(block.getType().equals(Material.RAILS)))){
                 if(cart.getLocation().getBlock().getType().equals(Material.RAILS)){
@@ -259,12 +253,11 @@ public class Listener_MineCartEvent implements Listener {
                     }
                 }
             }
-
-			cart.setMaxSpeed(1.2);
+            cart.setMaxSpeed(1.2);
             return;
         }
         else {
-			cart.setMaxSpeed(0.4);
+            cart.setMaxSpeed(0.4);
             return;
         }
     }

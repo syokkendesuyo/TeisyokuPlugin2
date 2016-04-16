@@ -7,6 +7,7 @@ import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.block.CommandBlock;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +24,6 @@ public class Command_TPoint implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
         //パーミッションの確認
-
         if(! sender.hasPermission("teisyoku.user")){
             sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.user"));
             return true;
@@ -103,20 +103,23 @@ public class Command_TPoint implements CommandExecutor {
             if(!(isNumber(args[2]))){
                 //数字でなかったら拒否
                 sender.sendMessage(Messages.getDenyPrefix() + args[2] +"は数値ではありません");
-                return true;
+                if(sender instanceof CommandBlock){
+                    return false;
+                }
+                else{
+                    return true;
+                }
             }
 
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
-
-            if(offlinePlayer.isOnline()){
-                Player onlinePlayer = (Player) offlinePlayer;
+            Player player = Bukkit.getServer().getPlayer(args[1]);
+            if(!(player == null)){
                 int point = Integer.parseInt(args[2]);
-                Listener_TPoint.addPoint(point, onlinePlayer);
-                if(! (onlinePlayer == sender)){
-                    sender.sendMessage(Messages.getSuccessPrefix() + onlinePlayer.getName() + " さんに " + point + " TPoint与えました");
+                if(Listener_TPoint.addPoint(point, player, sender) == false && sender instanceof CommandBlock){
+                    return false;
                 }
                 return true;
-            } else {
+            }
+            else{
                 //プレイヤーが居ないのでエラー
                 sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
                 return true;
@@ -134,17 +137,19 @@ public class Command_TPoint implements CommandExecutor {
             if(!(isNumber(args[2]))){
                 //数字でなかったら拒否
                 sender.sendMessage(Messages.getDenyPrefix() + args[2] +"は数値ではありません");
-                return true;
+                if(sender instanceof CommandBlock){
+                    return false;
+                }
+                else{
+                    return true;
+                }
             }
 
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
-
-            if(offlinePlayer.isOnline()){
-                Player onlinePlayer = (Player) offlinePlayer;
+            Player player = Bukkit.getServer().getPlayer(args[1]);
+            if(!(player == null)){
                 int point = Integer.parseInt(args[2]);
-                Listener_TPoint.subtractPoint(point, onlinePlayer);
-                if(! (onlinePlayer == sender)){
-                    sender.sendMessage(Messages.getSuccessPrefix() + onlinePlayer.getName() + " さんから " + point + " TPoint差し引きました");
+                if(Listener_TPoint.subtractPoint(point, player, sender) == false && sender instanceof CommandBlock){
+                    return false;
                 }
                 return true;
             } else {
@@ -222,6 +227,7 @@ public class Command_TPoint implements CommandExecutor {
     /**
      * 渡された文字列が数字であるか確認する
      * @param num
+     * @return boolean
      */
     public boolean isNumber(String num) {
         try {

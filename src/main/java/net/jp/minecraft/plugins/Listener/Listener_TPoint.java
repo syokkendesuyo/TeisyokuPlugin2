@@ -52,30 +52,38 @@ public class Listener_TPoint {
     /**
      * プレイヤーのポイントを差し引きます<br />
      * @param point
-     * @param player
-     *
+     * @param target_player
+     * @param sender
      * @return 成功・不成功の結果を返却
      */
-    public static boolean subtractPoint(int point , Player player){
-        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
-        config = YamlConfiguration.loadConfiguration(cfile);
-        FileConfiguration playerData = config;
-        int point_before = playerData.getInt("tpoint");
-        int point_after = point_before - point;
+    public static boolean subtractPoint(int point , Player target_player , CommandSender sender){
+        try{
+            cfile = new File(df, "PlayerDatabase" + File.separator + target_player.getUniqueId() + ".yml");
+            config = YamlConfiguration.loadConfiguration(cfile);
+            FileConfiguration playerData = config;
+            int point_before = playerData.getInt("tpoint");
+            int point_after = point_before - point;
 
-        if(point_after < 0){
-            int error = Math.abs(point_after);
-            Msg.warning(player, point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
-            status(player);//ステイタスを表示
-            return false;
+            if(point_after < 0){
+                int error = Math.abs(point_after);
+                Msg.warning(target_player, point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
+                Msg.warning(sender,  ChatColor.YELLOW + target_player.getName() + ChatColor.RESET + " さんから " + point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
+                status(target_player);//ステイタスを表示
+                return false;
+            }
+            else{
+                playerData.set("tpoint", point_after);
+                save();
+                Msg.success(target_player, point + " TPoint消費しました");
+                Msg.success(sender, target_player.getName() + " さんから " + point + " TPoint差し引きました");
+                status(target_player);//ステイタスを表示
+                return true;
+            }
         }
-        else{
-            playerData.set("tpoint", point_after);
-            save();
-            Msg.success(player, point + " TPoint消費しました");
-            save();
-            status(player);//ステイタスを表示
-            return true;
+        catch (Exception e){
+            Msg.warning(target_player,"不明なエラーが発生しました。 Location: Listener_TPoint >> subtractPoint");
+            Msg.warning(sender,"不明なエラーが発生しました。 Location: Listener_TPoint >> subtractPoint");
+            return false;
         }
     }
 

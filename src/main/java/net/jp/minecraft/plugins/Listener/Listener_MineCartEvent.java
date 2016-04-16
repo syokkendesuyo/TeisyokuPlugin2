@@ -169,20 +169,18 @@ public class Listener_MineCartEvent implements Listener {
         if(!(event.getVehicle() instanceof Minecart)){
             return;
         }
-
+        
         Minecart cart = (Minecart) event.getVehicle();
         if(!(cart.getPassenger() instanceof Player)){
             cart.setMaxSpeed(0.4);
             return;
         }
         
-        cart.getPassenger().sendMessage("速度 " + cart.getMaxSpeed());
-
         if(cart.getLocation().getBlock().getType().equals(Material.ACTIVATOR_RAIL)){
             cart.setMaxSpeed(0.4);
             return;
         }
-
+        
         Rails rail = null;
         PoweredRail p_rail = null;
         DetectorRail d_rail = null;

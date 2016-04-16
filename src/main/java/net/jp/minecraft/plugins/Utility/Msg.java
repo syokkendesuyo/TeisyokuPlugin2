@@ -139,8 +139,9 @@ public final class Msg{
 
     /**
      * コマンドヘルプのフォーマット
-     * @param command コマンドラベル
-     * @param discription コマンドの説明
+     * @param p プレイヤー
+     * @param command コマンド
+     * @param discription 説明
      */
     public static void commandFormat(final CommandSender p , final String command , final String discription){
         String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;

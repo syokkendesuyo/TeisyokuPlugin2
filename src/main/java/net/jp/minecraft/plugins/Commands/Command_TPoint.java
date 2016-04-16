@@ -219,6 +219,10 @@ public class Command_TPoint implements CommandExecutor {
         Msg.commandFormat(sender, cmd.getName() + " <set/add/remove> <ﾌﾟﾚｲﾔｰ名> <数値>","ﾌﾟﾚｲﾔｰのﾎﾟｲﾝﾄ数を変更");
     }
 
+    /**
+     * 渡された文字列が数字であるか確認する
+     * @param num
+     */
     public boolean isNumber(String num) {
         try {
             Integer.parseInt(num);

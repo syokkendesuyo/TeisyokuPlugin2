@@ -25,19 +25,28 @@ public class Listener_TPoint {
     /**
      * プレイヤーのポイントにポイントを追加します<br />
      * @param point
-     * @param player
+     * @param target_player
+     * @param sender
      */
-    public static void addPoint(int point , Player player){
-        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
-        config = YamlConfiguration.loadConfiguration(cfile);
-        FileConfiguration playerData = config;
-        int point_before = playerData.getInt("tpoint");
-        int point_after = point_before + point;
-        playerData.set("tpoint", point_after);
-        save();
-        Msg.success(player, "" + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint"+ ChatColor.RESET +" 受け取りました");
-        status(player);//ステイタスを表示
-        return;
+    public static Boolean addPoint(int point , Player target_player , CommandSender sender){
+        try{
+            cfile = new File(df, "PlayerDatabase" + File.separator + target_player.getUniqueId() + ".yml");
+            config = YamlConfiguration.loadConfiguration(cfile);
+            FileConfiguration playerData = config;
+            int point_before = playerData.getInt("tpoint");
+            int point_after = point_before + point;
+            playerData.set("tpoint", point_after);
+            save();
+            Msg.success(target_player, "" + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint"+ ChatColor.RESET +" 受け取りました");
+            Msg.success(sender, target_player.getName() + " さんに " + point + " TPoint与えました");
+            status(target_player);//ステイタスを表示
+            return true;
+        }
+        catch (Exception e){
+            Msg.warning(target_player,"不明なエラーが発生しました。 Location: Listener_TPoint >> addPoint");
+            Msg.warning(sender,"不明なエラーが発生しました。 Location: Listener_TPoint >> addPoint");
+            return false;
+        }
     }
 
     /**

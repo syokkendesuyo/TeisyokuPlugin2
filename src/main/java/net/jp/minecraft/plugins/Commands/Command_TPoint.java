@@ -190,43 +190,6 @@ public class Command_TPoint implements CommandExecutor {
             return true;
         }
 
-        /*
-        if(args[0].equalsIgnoreCase("convert") || args[0].equalsIgnoreCase("exchange")){
-
-            if(args.length > 2){
-                HelpMessage(sender , cmd);
-            }
-
-            if(!(sender instanceof Player)){
-                sender.sendMessage(Messages.getDenyPrefix() + "コンソールでは引数「"+ args[0] +"」は利用できません");
-                return true;
-            }
-            else {
-                Player player = (Player) sender;
-                if(player.getItemInHand().getType() == Material.AIR||player.getItemInHand().getItemMeta().getLore() == null || !(player.getItemInHand().getItemMeta().getLore().toString().equals("[何かと交換できるらしい･･･]"))){
-                    sender.sendMessage(Messages.getDenyPrefix() + "このアイテムは変換できません");
-                    return true;
-                }
-                else{
-                    ItemStack item = new ItemStack(339, 1);
-                    ItemMeta meta = item.getItemMeta();
-                    meta.setDisplayName("Test");
-                    List<String> lore = new ArrayList<String>();
-                    lore.add()
-                    meta.setLore(("何かと交換できるらしい･･･"));
-
-                    player.getInventory().removeItem(item);
-                    player.updateInventory();
-                    sender.sendMessage(Messages.getSuccessPrefix() + "交換しました");
-                    return true;
-                }
-                //デバッグ用
-                //String lore = player.getItemInHand().getItemMeta().getLore().toString();
-                //player.sendMessage(lore);
-            }
-        }
-        */
-
         HelpMessage(sender , cmd);
         if(sender.hasPermission("teisyoku.admin")){
             AdminHelpMessage(sender , cmd);

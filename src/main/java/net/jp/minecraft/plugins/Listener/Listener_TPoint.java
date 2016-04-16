@@ -128,7 +128,9 @@ public class Listener_TPoint {
             config = YamlConfiguration.loadConfiguration(cfile);
             FileConfiguration playerData = config;
             int point = playerData.getInt("tpoint");
+            int syokken = point /1010;
             Msg.info(player, "現在の保有ポイント： " + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint");
+            Msg.info(player, "食券換算 : " + ChatColor.GREEN + ChatColor.BOLD + syokken + "枚" + ChatColor.RESET +"分");
             return;
         }
         catch (Exception e){
@@ -159,7 +161,9 @@ public class Listener_TPoint {
             }
 
             int point = playerData.getInt("tpoint");
-            Msg.info(sender, ChatColor.YELLOW + target.toString() +ChatColor.RESET + "の保有ポイント： " + point + " TPoint");
+            int syokken = point /1010;
+            Msg.info(sender, ChatColor.YELLOW + target.toString() +ChatColor.RESET + " さんの保有ポイント： " + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint ");
+            Msg.info(sender, "食券換算 : " + ChatColor.GREEN + ChatColor.BOLD + syokken + "枚" + ChatColor.RESET +"分");
             return;
         }
         catch (Exception e){

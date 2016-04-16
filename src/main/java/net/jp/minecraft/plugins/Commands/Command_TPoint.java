@@ -204,14 +204,19 @@ public class Command_TPoint implements CommandExecutor {
      * @param cmd コマンド
      */
     public void HelpMessage(CommandSender sender , Command cmd){
-        Msg.success(sender,cmd.getName() + "コマンドのヘルプ");
+        Msg.success(sender, cmd.getName() + "コマンドのヘルプ");
         Msg.commandFormat(sender, cmd.getName() + " help", "TPointｺﾏﾝﾄﾞのﾍﾙﾌﾟ");
         Msg.commandFormat(sender, cmd.getName() + " status","所持ﾎﾟｲﾝﾄを参照");
         Msg.commandFormat(sender, cmd.getName() + " code <文字列>","ｷﾞﾌﾄｺｰﾄﾞを入力");
     }
 
+    /**
+     * TPointの管理者コマンドヘルプ
+     * @param sender 送信相手
+     * @param cmd
+     */
     public void AdminHelpMessage(CommandSender sender , Command cmd){
-        sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " <set/add/remove> <ﾌﾟﾚｲﾔｰ名> <数値>","ﾌﾟﾚｲﾔｰのﾎﾟｲﾝﾄ数を変更"));
+        Msg.commandFormat(sender, cmd.getName() + " <set/add/remove> <ﾌﾟﾚｲﾔｰ名> <数値>","ﾌﾟﾚｲﾔｰのﾎﾟｲﾝﾄ数を変更");
     }
 
     public boolean isNumber(String num) {

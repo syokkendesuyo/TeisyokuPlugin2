@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Commands;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -197,11 +198,16 @@ public class Command_TPoint implements CommandExecutor {
         return true;
     }
 
+    /**
+     * TPointコマンドのヘルプ
+     * @param sender 送信相手
+     * @param cmd コマンド
+     */
     public void HelpMessage(CommandSender sender , Command cmd){
-        sender.sendMessage(Messages.getSuccessPrefix() + cmd.getName() + "コマンドのヘルプ(現在開発中)");
-        sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " help", "TPointｺﾏﾝﾄﾞのﾍﾙﾌﾟ"));
-        sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " status","所持ﾎﾟｲﾝﾄを参照"));
-        sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " code <文字列>","ｷﾞﾌﾄｺｰﾄﾞを入力"));
+        Msg.success(sender,cmd.getName() + "コマンドのヘルプ");
+        Msg.commandFormat(sender, cmd.getName() + " help", "TPointｺﾏﾝﾄﾞのﾍﾙﾌﾟ");
+        Msg.commandFormat(sender, cmd.getName() + " status","所持ﾎﾟｲﾝﾄを参照");
+        Msg.commandFormat(sender, cmd.getName() + " code <文字列>","ｷﾞﾌﾄｺｰﾄﾞを入力");
     }
 
     public void AdminHelpMessage(CommandSender sender , Command cmd){

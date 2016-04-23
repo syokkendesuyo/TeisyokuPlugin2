@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins.Utility;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
@@ -23,7 +24,7 @@ public class TeisyokuItem {
      * @param lore 詳細(任意 String ※配列)
      * @return アイテム
      */
-    public static org.bukkit.inventory.ItemStack custom_item(String display_name, Integer stack, Material material, Short meta, String... lore){
+    public static ItemStack custom_item(String display_name, Integer stack, Material material, Short meta, String... lore){
         org.bukkit.inventory.ItemStack item = new org.bukkit.inventory.ItemStack(material, stack, meta);
         ItemMeta itemmeta = item.getItemMeta();
         itemmeta.setDisplayName(display_name);

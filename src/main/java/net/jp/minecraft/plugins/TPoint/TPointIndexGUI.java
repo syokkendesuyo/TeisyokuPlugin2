@@ -1,14 +1,15 @@
 package net.jp.minecraft.plugins.TPoint;
 
+import net.jp.minecraft.plugins.GUI.GUI;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,9 +24,6 @@ public class TPointIndexGUI implements Listener {
     public static int invSize = 3;
 
     public static void index(Player player){
-        //Create Inventory
-        Inventory inv = Bukkit.createInventory(player, invSize*9, inventoryName);
-
         //Get Tpoint
         int point = Listener_TPoint.int_status(player);
 
@@ -37,8 +35,7 @@ public class TPointIndexGUI implements Listener {
         String lore_buy[] = {"TPointを使ってお買い物をします"};
         ItemStack item_buy = TeisyokuItem.custom_item(ChatColor.BOLD + "購入", 1, Material.BOOK_AND_QUILL, (short) 0, lore_buy);
 
-        inv.setItem(0, item_status);
-        inv.setItem(12, item_buy);
+        Inventory inv = GUI.create(player, 3, inventoryName, item_status, item_buy);
 
         //Open this GUI
         player.openInventory(inv);
@@ -52,8 +49,18 @@ public class TPointIndexGUI implements Listener {
             //Cancel click event
             event.setCancelled(true);
 
+            if (event.getSlotType() == InventoryType.SlotType.OUTSIDE){
+                return;
+            }
+
+            if (event.getCurrentItem().getType().equals(Material.AIR)){
+                return;
+            }
+
             //Call Functions
-            if (event.getRawSlot() == 12) {
+            String str = event.getCurrentItem().getItemMeta().getDisplayName().toString();
+            str = ChatColor.stripColor(str);
+            if(str.toString().equals("購入")){
                 TPointBuyGUI.index(player);
                 return;
             }

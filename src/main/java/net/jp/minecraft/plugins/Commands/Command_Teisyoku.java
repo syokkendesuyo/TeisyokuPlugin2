@@ -5,6 +5,7 @@ import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,42 +27,66 @@ public class Command_Teisyoku implements CommandExecutor{
             teisyoku(sender);
             return true;
         }
-        else if(args.length == 1){
-            if(args[0].equalsIgnoreCase("help")){
-                if(!(sender.hasPermission(Permissions.getHelpCommandPermisson()))){
-                    sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpCommandPermisson()));
+
+        if(args[0].equalsIgnoreCase("help")){
+            if(!(sender.hasPermission(Permissions.getHelpCommandPermisson()))){
+                sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpCommandPermisson()));
+                return true;
+            }
+            Messages.HelpMessage(sender);
+            return true;
+        }
+
+        if(args[0].equalsIgnoreCase("permission") || args[0].equalsIgnoreCase("perm")){
+            sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(通常利用): " + Permissions.getTeisyokuPermisson());
+            sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(コマンド): " + Permissions.getTeisyokuCommandPermisson());
+            return true;
+        }
+
+        if(args[0].equalsIgnoreCase("reload")||args[0].equalsIgnoreCase("r")||args[0].equalsIgnoreCase("rl")){
+            if(!sender.hasPermission("teisyoku.admin")){
+                Msg.warning(sender, "パーミッションがありません");
+                return true;
+            }
+            TeisyokuPlugin2.getInstance().reloadTeisyokuConfig();
+            TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
+            TeisyokuPlugin2.getInstance().reloadNickConfig();
+            TeisyokuPlugin2.getInstance().reloadTPointConfig();
+            TeisyokuPlugin2.getInstance().reloadCartConfig();
+            TeisyokuPlugin2.getInstance().reloadHorseConfig();
+            TeisyokuPlugin2.getInstance().reloadTPointSettingsConfig();
+            Msg.success(sender, "TeisyokuPlugin2のconfigをリロードしました。");
+            return true;
+        }
+
+        if(args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")){
+            Msg.success(sender,"Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
+            return true;
+        }
+
+        if(args[0].equalsIgnoreCase("flag") || args[0].equalsIgnoreCase("f")){
+            if(!sender.hasPermission("teisyoku.admin")){
+                Msg.warning(sender, "パーミッションがありません");
+                return true;
+            }
+            if(args[1].equalsIgnoreCase("ad")){
+                if(args.length == 4){
+                    Player target_player = Bukkit.getServer().getPlayer(args[2]);
+                    if(!(target_player == null)){
+                        Msg.warning(sender, args[2] + " さんはオンラインではありません");
+                        return true;
+                    }
+                    if(args[3].equalsIgnoreCase("true")){
+
+                    }
                     return true;
                 }
-                Messages.HelpMessage(sender);
-                return true;
+                Msg.warning(sender, "引数が多すぎるか、または少なすぎます");
             }
-            else if(args[0].equalsIgnoreCase("permission") || args[0].equalsIgnoreCase("perm")){
-                sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(通常利用): " + Permissions.getTeisyokuPermisson());
-                sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(コマンド): " + Permissions.getTeisyokuCommandPermisson());
-                return true;
-            }
-            else if(args[0].equalsIgnoreCase("reload")||args[0].equalsIgnoreCase("r")||args[0].equalsIgnoreCase("rl")){
-                TeisyokuPlugin2.getInstance().reloadTeisyokuConfig();
-                TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
-                TeisyokuPlugin2.getInstance().reloadNickConfig();
-                TeisyokuPlugin2.getInstance().reloadTPointConfig();
-                TeisyokuPlugin2.getInstance().reloadCartConfig();
-                TeisyokuPlugin2.getInstance().reloadHorseConfig();
-                TeisyokuPlugin2.getInstance().reloadTPointSettingsConfig();
-                Msg.success(sender,"TeisyokuPlugin2のconfigをリロードしました。");
-                return true;
-            }
-            else if(args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")){
-                Msg.success(sender,"Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
-                return true;
-            }
-            Msg.warning(sender,"引数 " + args[0].toString()  + " は存在しません");
-            return true;
+            Msg.warning(sender, "引数「" + args[1] + "」は存在しません");
         }
-        else{
-            Msg.warning(sender,"引数が多すぎるかまたは少なすぎます");
-            return true;
-        }
+        Msg.warning(sender,"引数 " + args[0].toString()  + " は存在しません");
+        return true;
     }
     public void teisyoku(CommandSender sender){
         if (!(sender instanceof Player)) {

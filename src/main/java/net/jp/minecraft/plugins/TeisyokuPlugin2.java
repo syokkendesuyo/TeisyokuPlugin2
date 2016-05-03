@@ -69,6 +69,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_SignColor(), this);
         pm.registerEvents(new Listener_MobGrief(), this);
         pm.registerEvents(new Listener_Horse(), this);
+        pm.registerEvents(new Listener_SpawnEgg(), this);
 
         pm.registerEvents(new Sounds(), this);
 

@@ -30,13 +30,7 @@ public class Listener_SpawnEgg implements Listener {
 
         //プレイヤー変数
         Player player = event.getPlayer();
-
-        //teisyoku.adminを保有していた場合は利用が可能
-        if(player.hasPermission("teisyoku.admin")){
-            Msg.success(player, "MOBスポナーを操作しました");
-            return;
-        }
-
+        
         //メインハンドの持ち物
         ItemStack item_main = event.getPlayer().getInventory().getItemInMainHand();
 
@@ -46,18 +40,22 @@ public class Listener_SpawnEgg implements Listener {
 
         //1.Egg以外の手持ちで右クリックは無視
         if(!(item_main.getType().toString().equals(Material.MONSTER_EGG.toString()) || item_off.getType().toString().equals(Material.MONSTER_EGG.toString()))){
-            player.sendMessage("手持ちがeggじゃないですよ！！");
             return;
         }
 
         //2.ターゲットがスポナー以外なら無視
         if(!(block.getType().equals(Material.MOB_SPAWNER))){
-            player.sendMessage("スポナー以外なんで無視しました('ω')");
+            return;
+        }
+
+        //teisyoku.adminを保有していた場合は利用が可能
+        if(player.hasPermission("teisyoku.admin")){
+            Msg.success(player, "MOBスポナーを操作しました");
             return;
         }
 
         //3.目的に到着するのでキャンセル
-        Msg.warning(player,"MOBスポナーにモンスターエッグをクリックできません");
+        Msg.warning(player,"MOBスポナーにモンスターエッグをクリックすることはできません");
         event.setCancelled(true);
         return;
     }

@@ -119,6 +119,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("carthelp").setExecutor(new Command_CartHelp());
         getCommand("ch").setExecutor(new Command_CartHelp());
 
+        getCommand("color").setExecutor(new Command_Color());
+
         //1.8のみに対応している機能・コマンド
         if (version.equals(ver1_9_2_R01)) {
             //機能

@@ -86,6 +86,9 @@ commands:
     ch:
         description: charthelp
         usage: /charthelp
+    color:
+        description: color
+        usage: /color
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

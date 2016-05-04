@@ -30,7 +30,7 @@ public class Listener_SpawnEgg implements Listener {
 
         //プレイヤー変数
         Player player = event.getPlayer();
-        
+
         //メインハンドの持ち物
         ItemStack item_main = event.getPlayer().getInventory().getItemInMainHand();
 

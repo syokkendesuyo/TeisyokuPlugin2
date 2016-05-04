@@ -61,6 +61,10 @@ public class Command_RailwayInfo implements CommandExecutor {
             return true;
         }
         else if(args[0].equalsIgnoreCase("edit")||args[0].equalsIgnoreCase("change")||args[0].equalsIgnoreCase("*")){
+            if(!(args.length == 3)){
+                help(cmd,sender);
+                return true;
+            }
             if(isplayer(sender) == false){
                 sender.sendMessage(Messages.getDenyPrefix() + "コンソールから編集はできません");
                 return true;

@@ -64,4 +64,14 @@ public class Listener_Chat implements Listener{
             return;
         }
     }
+
+    @EventHandler
+    public void ChatReplace(AsyncPlayerChatEvent event) {
+        String msg = event.getMessage().replaceAll("Penguin", ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Penguin" + ChatColor.RESET);
+        msg = msg.replaceAll("penguin", ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Penguin" + ChatColor.RESET);
+        msg = msg.replaceAll("rorikon", ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Rorikon" + ChatColor.RESET);
+        msg = msg.replaceAll("Rorikon", ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Rorikon" + ChatColor.RESET);
+        event.setMessage(msg);
+        return;
+    }
 }

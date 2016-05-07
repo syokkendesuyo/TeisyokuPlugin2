@@ -1,11 +1,10 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
-import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -14,9 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * TeisyokuPlugin2
@@ -61,6 +58,15 @@ public class Listener_Sign implements Listener {
                 }
                 else if(sign.getLine(0).equalsIgnoreCase("[tpoint]") || sign.getLine(0).equalsIgnoreCase("[point]")){
                     TPointIndexGUI.index(player);
+                    return;
+                }
+                else{
+                    Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");
+                    for(int cnt=0;cnt<4;cnt++){
+                        if(! (sign.getLine(cnt).length() == 0)){
+                            Msg.info(player,sign.getLine(cnt).toString());
+                        }
+                    }
                     return;
                 }
             }

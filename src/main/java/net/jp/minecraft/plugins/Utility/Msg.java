@@ -147,4 +147,14 @@ public final class Msg{
         String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;
         p.sendMessage(string);
     }
+
+    /**
+     * コマンドヘルプのフォーマット
+     * @param p プレイヤー
+     * @param discription 説明
+     */
+    public static void defaultChatFormat(final CommandSender p , final String discription){
+        String string = p.getName() + ChatColor.GREEN + ": " + ChatColor.RESET + discription;
+        p.sendMessage(string);
+    }
 }

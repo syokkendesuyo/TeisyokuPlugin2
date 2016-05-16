@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -11,6 +12,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.io.File;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * TeisyokuPlugin2
@@ -72,6 +75,41 @@ public class Listener_Chat implements Listener{
         msg = msg.replaceAll("rorikon", ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Rorikon" + ChatColor.RESET);
         msg = msg.replaceAll("Rorikon", ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Rorikon" + ChatColor.RESET);
         event.setMessage(msg);
+        return;
+    }
+
+    @EventHandler
+    public void ChatBP1(AsyncPlayerChatEvent event){
+        String msg = event.getMessage();
+        String regex = "\\d{1,20}BP";
+
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(msg);
+
+        if(m.find()){
+            String match = m.group();
+            String result = msg.replaceAll(msg,match);
+
+            msg = msg.replaceAll(result, ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + "" +  ChatColor.BOLD + result + ChatColor.RESET);
+            event.setMessage(msg);
+        }
+    }
+
+    @EventHandler
+    public void ChatBP2(AsyncPlayerChatEvent event){
+        String msg = event.getMessage();
+        String regex = "[-]\\d{1,20}BP";
+
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(msg);
+
+        if(m.find()){
+            String match = m.group();
+            String result = msg.replaceAll(msg,match);
+
+            msg = msg.replaceAll(result, ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + "" +  ChatColor.BOLD + result + ChatColor.RESET);
+            event.setMessage(msg);
+        }
         return;
     }
 }

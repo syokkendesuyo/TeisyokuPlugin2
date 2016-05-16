@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.jp.minecraft.plugins.Commands.*;
+import net.jp.minecraft.plugins.GUI.GUI_Anvil;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
@@ -75,6 +76,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         pm.registerEvents(new TPointIndexGUI(), this);
         pm.registerEvents(new TPointBuyGUI(), this);
+        pm.registerEvents(new GUI_Anvil(), this);
 
         pm.registerEvents(new PlayerFile(), this);
 
@@ -120,6 +122,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("ch").setExecutor(new Command_CartHelp());
 
         getCommand("color").setExecutor(new Command_Color());
+
+        getCommand("gg").setExecutor(new Command_GoodGame());
+
+        getCommand("bp").setExecutor(new Command_BaiPoint());
+
+        getCommand("se").setExecutor(new Command_SignEdit());
 
         //1.8のみに対応している機能・コマンド
         if (version.equals(ver1_9_2_R01)) {

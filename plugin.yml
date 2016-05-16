@@ -89,6 +89,15 @@ commands:
     color:
         description: color
         usage: /color
+    gg:
+        description: GoodGame
+        usage: /gg
+    bp:
+        description: BaiPoint
+        usage: /bp
+    se:
+        description: SignEdit
+        usage: /se
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

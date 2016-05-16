@@ -155,6 +155,6 @@ public final class Msg{
      */
     public static void defaultChatFormat(final CommandSender p , final String discription){
         String string = p.getName() + ChatColor.GREEN + ": " + ChatColor.RESET + discription;
-        p.sendMessage(string);
+        Bukkit.broadcastMessage(string);
     }
 }

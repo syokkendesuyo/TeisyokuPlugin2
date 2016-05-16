@@ -4,10 +4,10 @@ import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.Utility.Msg;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.block.CommandBlock;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -137,19 +137,42 @@ public class Command_TPoint implements CommandExecutor {
             if(!(isNumber(args[2]))){
                 //数字でなかったら拒否
                 sender.sendMessage(Messages.getDenyPrefix() + args[2] +"は数値ではありません");
-                if(sender instanceof CommandBlock){
+                if(sender instanceof BlockCommandSender){
+                    Location loc  = ((BlockCommandSender) sender).getBlock().getLocation();
+                    World world = loc.getWorld();
+                    long y = loc.getBlockY() + 1;
+                    loc.setY(y);
+                    world.getBlockAt(loc).setType(Material.LAPIS_BLOCK);
                     return false;
                 }
-                else{
-                    return true;
-                }
+                return true;
             }
-
             Player player = Bukkit.getServer().getPlayer(args[1]);
+            //プレイヤーが居るか
             if(!(player == null)){
                 int point = Integer.parseInt(args[2]);
-                if(Listener_TPoint.subtractPoint(point, player, sender) == false && !(sender instanceof Player)){
-                    return false;
+                //ポイントが無かった場合
+                if(Listener_TPoint.subtractPoint(point, player, sender) == false){
+                    if(sender instanceof BlockCommandSender){
+                        Location loc  = ((BlockCommandSender) sender).getBlock().getLocation();
+                        World world = loc.getWorld();
+                        long y = loc.getBlockY() + 2;
+                        loc.setY(y);
+                        world.getBlockAt(loc).setType(Material.LAPIS_BLOCK);
+                        return false;
+                    }
+                    return true;
+                }
+                //ポイントを持っていた場合
+                else{
+                    if(sender instanceof BlockCommandSender){
+                        Location loc  = ((BlockCommandSender) sender).getBlock().getLocation();
+                        World world = loc.getWorld();
+                        long y = loc.getBlockY() + 2;
+                        loc.setY(y);
+                        world.getBlockAt(loc).setType(Material.REDSTONE_BLOCK);
+                        return true;
+                    }
                 }
                 return true;
             } else {
@@ -198,7 +221,7 @@ public class Command_TPoint implements CommandExecutor {
 
         HelpMessage(sender , cmd);
         if(sender.hasPermission("teisyoku.admin")){
-            AdminHelpMessage(sender , cmd);
+            AdminHelpMessage(sender, cmd);
         }
         return true;
     }

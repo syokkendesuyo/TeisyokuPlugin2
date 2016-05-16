@@ -12,7 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -46,6 +48,12 @@ public class Listener_Sign implements Listener {
                     player.getInventory().addItem(cart);
                     return;
                 }
+                else if (sign.getLine(0).toString().indexOf("[Cart]") != -1 || sign.getLine(0).toString().indexOf("[cart]") != -1){
+                    Msg.success(player, "マインカートをインベントリに追加しました");
+                    ItemStack cart = new ItemStack(Material.MINECART);
+                    player.getInventory().addItem(cart);
+                    return;
+                }
                 else if(sign.getLine(0).equalsIgnoreCase("[Warp]")){
                     if(sign.getLine(1) != null){
                         Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
@@ -58,6 +66,11 @@ public class Listener_Sign implements Listener {
                 }
                 else if(sign.getLine(0).equalsIgnoreCase("[tpoint]") || sign.getLine(0).equalsIgnoreCase("[point]")){
                     TPointIndexGUI.index(player);
+                    return;
+                }
+                else if(sign.getLine(0).equalsIgnoreCase("[anvil]") || sign.getLine(0).equalsIgnoreCase("[Anvil]")){
+                    Inventory anvil = Bukkit.createInventory(player, InventoryType.ANVIL);
+                    player.openInventory(anvil);
                     return;
                 }
                 else{

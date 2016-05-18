@@ -39,9 +39,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration TPointSettingsConfig;
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
-    
-    public final String Local = ChatColor.AQUA  + "Local";
-    public final String Sightseeing = ChatColor.BLUE  + "Sightseeing";
 
     public String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
     public String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
@@ -133,11 +130,15 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         if (version.equals(ver1_9_2_R01)) {
             //機能
             pm.registerEvents(new Listener_Tab_1_9_R1(), this);
+            
+            pm.registerEvents(new Listener_Daunii_1_9_R1(), this);
 
             //コマンドリスト
             getCommand("tps").setExecutor(new Command_TPS());
             getCommand("status").setExecutor(new Command_TPS());
             getCommand("s").setExecutor(new Command_TPS());
+            
+            getCommand("daunii").setExecutor(new Command_Daunii());
 
             getLogger().info("1.9.2-R0.1 用に作成された一部機能が開放されました");
         }

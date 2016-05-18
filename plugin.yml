@@ -89,6 +89,7 @@ commands:
     color:
         description: color
         usage: /color
+<<<<<<< HEAD
     gg:
         description: GoodGame
         usage: /gg
@@ -98,6 +99,11 @@ commands:
     se:
         description: SignEdit
         usage: /se
+=======
+    daunii:
+        discription: summon daunii
+        usage: /daunii
+>>>>>>> origin/TeisyokuDevelop
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

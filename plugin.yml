@@ -89,6 +89,9 @@ commands:
     color:
         description: color
         usage: /color
+    daunii:
+        discription: summon daunii
+        usage: /daunii
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

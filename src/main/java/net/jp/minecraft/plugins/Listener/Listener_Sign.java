@@ -68,11 +68,6 @@ public class Listener_Sign implements Listener {
                     TPointIndexGUI.index(player);
                     return;
                 }
-                else if(sign.getLine(0).equalsIgnoreCase("[anvil]") || sign.getLine(0).equalsIgnoreCase("[Anvil]")){
-                    Inventory anvil = Bukkit.createInventory(player, InventoryType.ANVIL);
-                    player.openInventory(anvil);
-                    return;
-                }
                 else{
                     Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");
                     for(int cnt=0;cnt<4;cnt++){

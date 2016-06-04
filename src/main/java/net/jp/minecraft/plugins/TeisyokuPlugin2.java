@@ -170,31 +170,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         TeisyokuConfig();
         saveTeisyokuConfig();
-        Connection_TeisyokuConfig.createConfig("Teisyoku.yml");
-        Connection_TeisyokuConfig.saveConfig();
-        Connection_TeisyokuConfig.nullCheckAndSet("joinMessage","ようこそ～");
-        String s = Connection_TeisyokuConfig.getString("joinMessage");
-        Bukkit.getServer().broadcastMessage(s);
-        Msg.adminBroadcast(s,true);
-
-        List<String> ad = Connection_TeisyokuConfig.getStringList("joinMessage");
-        for (String str : ad){
-            Msg.adminBroadcast(str,true);
-        }
-
-        TeisyokuConfig();
-        saveTeisyokuConfig();
-        //Connection_TeisyokuConfig.createConfig("Teisyoku2.yml");
-        Connection_TeisyokuConfig.saveConfig();
-        Connection_TeisyokuConfig.nullCheckAndSet("joinMessage","ようこそ～");
-        String s2 = Connection_TeisyokuConfig.getString("joinMessage");
-        Bukkit.getServer().broadcastMessage(s);
-        Msg.adminBroadcast(s2,true);
-
-        List<String> ad2 = Connection_TeisyokuConfig.getStringList("joinMessage");
-        for (String str2 : ad2){
-            Msg.adminBroadcast(str2,true);
-        }
 
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();

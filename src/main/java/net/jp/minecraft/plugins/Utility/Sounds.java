@@ -46,4 +46,15 @@ public class Sounds implements Listener{
             return;
         }
     }
+
+    public static void sound_zombie_villager(Player player){
+        String version = Bukkit.getBukkitVersion();
+        if (version.equals(ver1_8_8_R01)) {
+            return;
+        }
+        else if(version.equals(ver1_9_2_R01)){
+            player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F, 1.0F);
+            return;
+        }
+    }
 }

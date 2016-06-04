@@ -15,6 +15,7 @@ import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.Utility.PlayerFile;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
@@ -41,6 +42,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     public String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
     public String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
+    
+    public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
+    public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
 
     public void onEnable()
     {
@@ -124,6 +128,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("bp").setExecutor(new Command_BaiPoint());
 
         getCommand("se").setExecutor(new Command_SignEdit());
+        
+        getCommand("horseticket").setExecutor(new Command_HorseTicket());
+        getCommand("ht").setExecutor(new Command_HorseTicket());
 
         //1.8のみに対応している機能・コマンド
         if (version.equals(ver1_9_2_R01)) {

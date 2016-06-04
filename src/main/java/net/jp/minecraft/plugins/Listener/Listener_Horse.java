@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 
+import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -203,7 +204,7 @@ public class Listener_Horse implements Listener{
                 }
                 horse.setVariant(Variant.UNDEAD_HORSE);
                 Msg.success(player, "ゾンビホースに変換しました");
-                player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1, 1);
+                Sounds.sound_zombie_villager(player);
             }
             else if(item.getItemMeta().getDisplayName().equals(TeisyokuPlugin2.getInstance().SkeletonTicket)){
                 if(!(horse.getVariant().equals(Variant.UNDEAD_HORSE))){
@@ -219,7 +220,7 @@ public class Listener_Horse implements Listener{
                 }
                 horse.setVariant(Variant.SKELETON_HORSE);
                 Msg.success(player, "スケルトンホースに変換しました");
-                player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1, 1);
+                Sounds.sound_zombie_villager(player);
             }
         }
         return;

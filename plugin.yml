@@ -101,6 +101,12 @@ commands:
     daunii:
         discription: summon daunii
         usage: /daunii
+    horseticket:
+        discription: get ticket
+        usage: /horseticket <zombie/skeleton> PlayerName
+    ht:
+        discription: get ticket
+        usage: /ht <zombie/skeleton> PlayerName
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

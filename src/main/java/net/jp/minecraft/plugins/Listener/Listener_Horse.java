@@ -2,15 +2,20 @@ package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
+import org.bukkit.entity.Horse.Variant;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +24,7 @@ import java.util.UUID;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @auther syokkendesuyo azuhata
  */
 public class Listener_Horse implements Listener{
     @EventHandler
@@ -67,19 +72,19 @@ public class Listener_Horse implements Listener{
             UUID playerUUID =  player.getUniqueId();
 
             if(player.getInventory().getItemInMainHand().getType().equals(Material.STICK)){
-            	
-            	if((player.getInventory().getItemInMainHand().getItemMeta().getDisplayName() != null)||(!(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("")))){
-            	
-            		if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
-            			
-            			event.setCancelled(true);
-            			
-            			return;
-            			
-            		}
-            		
-            	}
-            	
+                
+                if((player.getInventory().getItemInMainHand().getItemMeta().getDisplayName() != null)||(!(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("")))){
+                
+                    if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
+                        
+                        event.setCancelled(true);
+                        
+                        return;
+                        
+                        }
+                    
+                }
+                
             }
 
             int temp = isEqual(player,playerUUID,entityUUID);
@@ -153,6 +158,71 @@ public class Listener_Horse implements Listener{
             Msg.warning(player, "不明なエラーが発生しました");
             e.printStackTrace();
         }
+    }
+    
+    /*
+     * ゾンビ馬に変換する
+     */
+    
+    @EventHandler
+    public void ChangeHorse(PlayerInteractAtEntityEvent event){
+        if(!(event.getRightClicked().getType().equals(EntityType.HORSE))){
+            return;
+        }
+        Player player = event.getPlayer();
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(item == null){
+            return;
+        }
+        if(!(item.getType().equals(Material.PAPER))){
+            return;
+        }
+        if(item.getItemMeta().getDisplayName() == null){
+            return;
+        }
+        if((item.getItemMeta().getDisplayName().equals(TeisyokuPlugin2.getInstance().SkeletonTicket))||(item.getItemMeta().getDisplayName().equals(TeisyokuPlugin2.getInstance().ZombieTicket))){
+            event.setCancelled(true);
+            UUID entityUUID = event.getRightClicked().getUniqueId();
+            if(isEqual(player,player.getUniqueId(),entityUUID) == 0){
+                Msg.warning(player,"登録者以外の馬の変換はできません");
+                getStatus(player,entityUUID);
+                return;
+            }
+            Horse horse = (Horse) event.getRightClicked();
+            if(item.getItemMeta().getDisplayName().equals(TeisyokuPlugin2.getInstance().ZombieTicket)){
+                if(!(horse.getVariant().equals(Variant.SKELETON_HORSE))){
+                    Msg.warning(player, "スケルトンホースにのみ有効です");
+                    return;
+                }
+                if(item.getAmount() <= 1){
+                    player.getInventory().removeItem(item);
+                    player.updateInventory();
+                }
+                else {
+                    item.setAmount(item.getAmount() - 1);
+                }
+                horse.setVariant(Variant.UNDEAD_HORSE);
+                Msg.success(player, "ゾンビホースに変換しました");
+                player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1, 1);
+            }
+            else if(item.getItemMeta().getDisplayName().equals(TeisyokuPlugin2.getInstance().SkeletonTicket)){
+                if(!(horse.getVariant().equals(Variant.UNDEAD_HORSE))){
+                    Msg.warning(player, "ゾンビホースにのみ有効です");
+                    return;
+                }
+                if(item.getAmount() <= 1){
+                    player.getInventory().removeItem(item);
+                    player.updateInventory();
+                }
+                else {
+                    item.setAmount(item.getAmount() - 1);
+                }
+                horse.setVariant(Variant.SKELETON_HORSE);
+                Msg.success(player, "スケルトンホースに変換しました");
+                player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1, 1);
+            }
+        }
+        return;
     }
 
     public static int isEqual(Player player , UUID playerUUID , UUID entityUUID){

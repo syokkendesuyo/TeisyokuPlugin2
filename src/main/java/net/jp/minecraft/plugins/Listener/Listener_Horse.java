@@ -67,24 +67,24 @@ public class Listener_Horse implements Listener{
     @EventHandler
     public static void HorseRide(VehicleEnterEvent event){
         if(event.getVehicle() instanceof Horse){
+            //馬に乗る際、プレイヤー以外だった場合は無視する
+            //例:スケルトンホースが自然にスポーンする際にスケルトンが乗る場合、エラーを吐いてしまう
+            if(!(event.getEntered() instanceof Player)){
+                return;
+            }
+
+            //プレイヤーと判定し、処理を継続させる
             Player player = (Player)event.getEntered();
             UUID entityUUID = event.getVehicle().getUniqueId();
             UUID playerUUID =  player.getUniqueId();
 
             if(player.getInventory().getItemInMainHand().getType().equals(Material.STICK)){
-                
                 if((player.getInventory().getItemInMainHand().getItemMeta().getDisplayName() != null)||(!(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("")))){
-                
                     if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
-                        
                         event.setCancelled(true);
-                        
                         return;
-                        
-                        }
-                    
+                    }
                 }
-                
             }
 
             int temp = isEqual(player,playerUUID,entityUUID);

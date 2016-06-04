@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins.Config;
 
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -105,9 +104,17 @@ public class Connection_TeisyokuConfig {
         }
     }
 
-    public static boolean addArrayList(){
+    /**
+     * Teisyoku.ymlにリストを追加
+     * @param path
+     * @param s
+     * @return
+     */
+    public static boolean addArrayList(String path , String s){
         try{
-            
+            List list = TeisyokuConfig2.getList(path);
+            list.add(s);
+            saveConfig();
             return true;
         }
         catch (Exception e){
@@ -115,6 +122,20 @@ public class Connection_TeisyokuConfig {
         }
     }
 
+    /**
+     * Teisyoku.ymlのリスト検索
+     * @param list
+     * @param match
+     * @return
+     */
+    public static boolean listMatch(List<String> list , String match){
+        for(String s : list){
+            if(s.equalsIgnoreCase(match)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Teisyoku.ymlにデータがあるかチェック、無ければ生成

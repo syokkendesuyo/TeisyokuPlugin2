@@ -1,10 +1,13 @@
 TeisyokuPlugin2
 ======================
-定食サーバ用に開発されたプラグインです。  
+TeisyokuPlugin2 developed for Teisyoku Server.  
 WebSite：http://lunch.minecraft.jp.net/   
   
   
 License
 ----------
-Copyright &copy; 2015 [syokkendesuyo](https://twitter.com/syokkendesuyo),[azuhata](https://twitter.com/azuhibiki)  
-ソースを転用・改変する際は商用目的以外であればクレジットの記載で利用できます。  
+GNU General Public License, version 3 (GPL-3.0)
+Copyright &copy; 2016 [syokkendesuyo](https://twitter.com/syokkendesuyo),[azuhata](https://twitter.com/azuhibiki)
+
+-http://www.gnu.org/licenses/gpl-3.0.html  
+-https://opensource.org/licenses/GPL-3.0  

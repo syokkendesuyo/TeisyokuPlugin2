@@ -11,6 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -79,8 +81,13 @@ public class Command_Last implements CommandExecutor {
                 String joinDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".JoinDate");
                 String quitDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".QuitDate");
 
-                Msg.success(sender, ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログイン  " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + joinDate);
-                Msg.success(sender, ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "の最終ログアウト" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + quitDate);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+                String firstPlayed = sdf.format(player.getFirstPlayed());
+
+                Msg.info(sender,ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "さんのデータ");
+                Msg.success(sender, ChatColor.RESET + "最初のログイン " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + firstPlayed);
+                Msg.success(sender, ChatColor.RESET + "最終ログイン   " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + joinDate);
+                Msg.success(sender, ChatColor.RESET + "最終ログアウト " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + quitDate);
                 return true;
             }
             catch(Exception e){

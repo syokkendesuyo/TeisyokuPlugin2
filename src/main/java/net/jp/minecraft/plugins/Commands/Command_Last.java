@@ -4,15 +4,20 @@ import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.NameFetcher;
+import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -70,8 +75,24 @@ public class Command_Last implements CommandExecutor {
 
         //その他の場合プレイヤー名と判定
         else{
-            OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-            UUID uuid = player.getUniqueId();
+            //OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+            //UUID uuid = player.getUniqueId();
+
+            UUIDFetcher fetcher = new UUIDFetcher(Arrays.asList(args[0]));
+
+            Map<String, UUID> response = null;
+            try {
+                response = fetcher.call();
+            } catch (Exception e) {
+                Msg.warning(sender, "Exception while running UUIDFetcher");
+                e.printStackTrace();
+            }
+            UUID uuid = response.get(args[0]);
+
+            OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+
+
+
             try{
                 if(TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null){
                     Msg.warning(sender, ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET  + "のデータはありませんでした");

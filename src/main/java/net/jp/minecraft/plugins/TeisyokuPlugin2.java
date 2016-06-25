@@ -20,6 +20,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -158,8 +159,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new Runnable()
-        {
+        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
                 List<String> ad = TeisyokuConfig.getStringList("ad");
                 for (String s : ad){
@@ -167,6 +167,18 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
                 }
             }
         }, 0L, 54000L);
+
+        BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
+        scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
+            public void run() {
+                Double tps = Listener_TicksPerSecond_1_9_R1.getTps(1);
+                if(Listener_TicksPerSecond_1_9_R1.getTps(1) < 16){
+                    for (Player player : Bukkit.getOnlinePlayers()){
+                        Msg.warning(player,"現在TPSが低下しています："+ ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R1.doubleToString(tps));
+                    }
+                }
+            }
+        }, 0L, 6000L);
 
         TeisyokuConfig();
         saveTeisyokuConfig();

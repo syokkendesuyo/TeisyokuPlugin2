@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Search;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -32,27 +33,26 @@ public class Listener_Sign implements Listener {
         else{
             if(block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)){
                 Sign sign = (Sign) block.getState();
-                if (sign.getLine(0).equalsIgnoreCase("[GOMI]")){
+
+                if (Search.searchKeyword(sign.getLines(), "[gomi]") == true){
                     Listener_Gomibako.openGomibako(player);
                     return;
                 }
-                else if (sign.getLine(0).equalsIgnoreCase("[Teisyoku]") || sign.getLine(1).equalsIgnoreCase("[Teisyoku]")){
+                else if (Search.searchKeyword(sign.getLines() , "[cart]") == true){
+                    Msg.success(player, "マインカートをインベントリに追加しました");
+                    ItemStack cart = new ItemStack(Material.MINECART);
+                    player.getInventory().addItem(cart);
+                    return;
+                }
+                else if (Search.searchKeyword(sign.getLines() , "[teisyoku]") == true){
                     TeisyokuMenuIndex.getMenu(player);
                     return;
                 }
-                else if (sign.getLine(0).equalsIgnoreCase("[Cart]") || sign.getLine(1).equalsIgnoreCase("[Cart]") || sign.getLine(2).equalsIgnoreCase("[Cart]") || sign.getLine(3).equalsIgnoreCase("[Cart]")) {
-                    Msg.success(player, "マインカートをインベントリに追加しました");
-                    ItemStack cart = new ItemStack(Material.MINECART);
-                    player.getInventory().addItem(cart);
+                else if(Search.searchKeyword(sign.getLines() , "[tpoint]") == true || Search.searchKeyword(sign.getLines() , "[point]") == true){
+                    TPointIndexGUI.index(player);
                     return;
                 }
-                else if (sign.getLine(0).toString().indexOf("[Cart]") != -1 || sign.getLine(0).toString().indexOf("[cart]") != -1){
-                    Msg.success(player, "マインカートをインベントリに追加しました");
-                    ItemStack cart = new ItemStack(Material.MINECART);
-                    player.getInventory().addItem(cart);
-                    return;
-                }
-                else if(sign.getLine(0).equalsIgnoreCase("[Warp]")){
+                else if (sign.getLine(0).toLowerCase().indexOf("[warp]") != -1){
                     if(sign.getLine(1) != null){
                         Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
                         return;
@@ -61,10 +61,6 @@ public class Listener_Sign implements Listener {
                         Bukkit.getServer().dispatchCommand(player, "warp");
                         return;
                     }
-                }
-                else if(sign.getLine(0).equalsIgnoreCase("[tpoint]") || sign.getLine(0).equalsIgnoreCase("[point]")){
-                    TPointIndexGUI.index(player);
-                    return;
                 }
                 else{
                     Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");

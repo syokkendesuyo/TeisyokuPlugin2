@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.API.API_Nick;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -35,11 +36,11 @@ public class Listener_Chat implements Listener{
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         try {
-            String NickName = TeisyokuPlugin2.getInstance().NickConfig.getString(uuid + ".nick");
+            String NickName = API_Nick.getNick(player);
             String sender = event.getPlayer().getName().toString();
 
             String Name;
-            if(NickName == null){
+            if(NickName == null || NickName.equals("")){
                 Name = sender;
                 player.setDisplayName(Name);
             }else{

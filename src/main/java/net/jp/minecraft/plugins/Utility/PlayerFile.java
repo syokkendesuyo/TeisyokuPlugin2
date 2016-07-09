@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Utility;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * TeisyokuPlugin2
@@ -16,6 +18,8 @@ import java.io.IOException;
  * @auther syokkendesuyo
  */
 public class PlayerFile implements Listener{
+
+    public static File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
 
     /**
      * プレイヤーがログインすると発動する
@@ -26,7 +30,6 @@ public class PlayerFile implements Listener{
     @EventHandler
     public void CreatePlayerFile(PlayerJoinEvent event){
         String playerUniqueId = event.getPlayer().getUniqueId().toString();
-        File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
         File f = new File(userdata, File.separator + playerUniqueId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
@@ -34,6 +37,11 @@ public class PlayerFile implements Listener{
             if(playerData.get("tpoint") == null){
                 playerData.createSection("tpoint");
                 playerData.set("tpoint", 0);
+            }
+
+            if(playerData.get("nick") == null){
+                playerData.createSection("nick");
+                playerData.set("nick", "");
             }
 
             if(playerData.get("nick_color") == null){
@@ -50,5 +58,16 @@ public class PlayerFile implements Listener{
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    /**
+     * プレイヤーのファイルへアクセスするメソッド
+     * @param uuid プレイヤーのUUID
+     * @return
+     */
+    public static FileConfiguration getPlayerFile(UUID uuid){
+        File f = new File(userdata, File.separator + uuid + ".yml");
+        FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
+        return(playerData);
     }
 }

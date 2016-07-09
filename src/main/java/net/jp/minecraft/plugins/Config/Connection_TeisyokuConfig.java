@@ -19,7 +19,8 @@ public class Connection_TeisyokuConfig {
 
 
     /**
-     * Teisyoku.yml生成
+     * Configを生成するメソッド
+     * @param name 生成するConfig名
      */
     public static void createConfig(String name)
     {

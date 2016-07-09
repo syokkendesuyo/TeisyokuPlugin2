@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.API.API_Nick;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
@@ -196,14 +197,12 @@ public class Command_Nick implements CommandExecutor {
         Msg.commandFormat(sender, cmd.getName() + " admin remove <ﾌﾟﾚｲﾔｰ名>","他ﾌﾟﾚｲﾔｰのﾆｯｸﾈｰﾑを削除します");
     }
 
+
     private void setConfig(Player player, String NickName) {
-        TeisyokuPlugin2.getInstance().NickConfig.set(player.getPlayer().getUniqueId().toString() + ".id", player.getName().toString());
-        TeisyokuPlugin2.getInstance().NickConfig.set(player.getPlayer().getUniqueId().toString() + ".nick", NickName.toString());
-        TeisyokuPlugin2.getInstance().saveNickConfig();
+        API_Nick.setNick(player, NickName);
     }
 
     private void removeConfig(Player player) {
-        TeisyokuPlugin2.getInstance().NickConfig.set(player.getPlayer().getUniqueId().toString(), null);
-        TeisyokuPlugin2.getInstance().saveNickConfig();
+        API_Nick.removeNick(player);
     }
 }

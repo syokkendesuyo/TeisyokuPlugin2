@@ -107,6 +107,9 @@ commands:
     ht:
         discription: get ticket
         usage: /ht <zombie/skeleton> PlayerName
+    yk0:
+        discription: yk0
+        usage: /yk0 on
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

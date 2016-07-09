@@ -135,6 +135,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("horseticket").setExecutor(new Command_HorseTicket());
         getCommand("ht").setExecutor(new Command_HorseTicket());
 
+        getCommand("yk0").setExecutor(new Command_yk0());
+
         //1.8のみに対応している機能・コマンド
         if (version.equals(ver1_9_2_R01)) {
             //機能

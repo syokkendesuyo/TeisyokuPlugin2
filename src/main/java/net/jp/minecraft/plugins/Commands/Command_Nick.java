@@ -3,7 +3,6 @@ package net.jp.minecraft.plugins.Commands;
 import net.jp.minecraft.plugins.API.API_Nick;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Messages;
-import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -21,6 +21,11 @@ public class Command_Discord implements CommandExecutor {
             return true;
         }
 
+        if(!(sender.hasPermission("teisyoku.admin"))){
+            Msg.warning(sender, "パーミッションがありません");
+            return true;
+        }
+
         if(args.length == 0){
             Msg.commandFormat(sender, "dc <メッセージ>", "Discordへメッセージを送信します");
             return true;

@@ -110,6 +110,9 @@ commands:
     yk0:
         discription: yk0
         usage: /yk0 on
+    dc:
+        discription: DiscordMC
+        usage: /discord
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

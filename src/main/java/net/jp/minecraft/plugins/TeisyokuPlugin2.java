@@ -137,6 +137,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("yk0").setExecutor(new Command_yk0());
 
+        getCommand("dc").setExecutor(new Command_Discord());
+
         //1.8のみに対応している機能・コマンド
         if (version.equals(ver1_9_2_R01)) {
             //機能

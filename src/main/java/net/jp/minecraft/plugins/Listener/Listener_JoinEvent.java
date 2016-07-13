@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.API.API_Discord;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Sounds;
@@ -35,6 +36,16 @@ public class Listener_JoinEvent implements Listener {
             player.sendMessage(Messages.getNormalPrefix() + color(s));
         }
         return;
+    }
+
+    @EventHandler
+    public void firstJoin(PlayerJoinEvent event) {
+        if(!event.getPlayer().hasPlayedBefore()) {
+            Player player = event.getPlayer();
+            API_Discord.sendToDiscord(" * * * * * * * * * * * * * * * * * * * * ");
+            API_Discord.sendToDiscord(player.getName() + "さんは新規参加者です");
+            API_Discord.sendToDiscord(" * * * * * * * * * * * * * * * * * * * * ");
+        }
     }
 
     public static String color(String str){

@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.io.File;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +33,6 @@ public class Listener_Chat implements Listener{
         FileConfiguration playerData = config;
 
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         try {
             String NickName = API_Nick.getNick(player);
             String sender = event.getPlayer().getName().toString();

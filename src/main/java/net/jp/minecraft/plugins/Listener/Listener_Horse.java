@@ -6,7 +6,6 @@ import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Horse.Variant;
@@ -14,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -29,7 +27,7 @@ import java.util.UUID;
  */
 public class Listener_Horse implements Listener{
     @EventHandler
-    public void HorseClick (PlayerInteractEntityEvent event){
+    public void HorseClick (PlayerInteractAtEntityEvent event){
         if(event.getRightClicked().getType().equals(EntityType.HORSE)) {
             Player player = event.getPlayer();
             UUID entityUUID = event.getRightClicked().getUniqueId();
@@ -50,6 +48,7 @@ public class Listener_Horse implements Listener{
             }
             if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")){
                 if(isRegister(entityUUID) == true){
+                    event.setCancelled(true);
                     Msg.info(player, "この馬は保護されています");
                     getStatus(player,entityUUID);
                 }
@@ -62,8 +61,9 @@ public class Listener_Horse implements Listener{
         }
     }
 
-    /*
-    馬に乗る時
+    /**
+     * 馬に乗る時のイベント
+     * @param event
      */
     @EventHandler
     public static void HorseRide(VehicleEnterEvent event){
@@ -89,20 +89,20 @@ public class Listener_Horse implements Listener{
             }
 
             int temp = isEqual(player,playerUUID,entityUUID);
-            if(temp == 1){
+            if(temp == 1 || player.isOp()){
                 Msg.success(player, "ロックされた馬に乗りました");
+                getStatus(player,entityUUID);
                 return;
             }
             else if(temp == 2){
                 Msg.info(player, "登録情報の無い馬です");
                 return;
             }
-            else {
-                Msg.warning(player, "この馬はロックされています");
-                event.setCancelled(true);
-                getStatus(player,entityUUID);
-                return;
-            }
+
+            event.setCancelled(true);
+            Msg.warning(player, "この馬はロックされています");
+            getStatus(player,entityUUID);
+            return;
         }
     }
 
@@ -226,6 +226,18 @@ public class Listener_Horse implements Listener{
         return;
     }
 
+    /**
+     * エンティティデータを比較するメソッド
+     * 0:不一致
+     * 1:一致
+     * 2:比較対象が無い
+     * 3:OP
+     *
+     * @param player
+     * @param playerUUID
+     * @param entityUUID
+     * @return
+     */
     public static int isEqual(Player player , UUID playerUUID , UUID entityUUID){
         if(playerUUID.toString().equals(TeisyokuPlugin2.getInstance().HorseConfig.get(entityUUID + ".uuid"))){
             return 1;
@@ -233,6 +245,9 @@ public class Listener_Horse implements Listener{
         else{
             if(TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null){
                 return 2;
+            }
+            if(player.isOp()){
+                return 3;
             }
             return 0;
         }

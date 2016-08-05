@@ -1,17 +1,22 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import sun.text.normalizer.Replaceable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * TeisyokuPlugin2
@@ -33,6 +38,10 @@ public class Command_RailwayInfo implements CommandExecutor {
                 if(isresigter(args[1]) == true){
                     String name = TeisyokuPlugin2.getInstance().CartConfig.getString(args[1] + ".player");
                     sender.sendMessage(Messages.getDenyPrefix() + "既に " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " は登録されています (登録者: " + ChatColor.YELLOW + name + ChatColor.RESET + " )");
+                    return true;
+                }
+                if(args[1].toString().contains("uuid")||args[1].toString().contains("string")){
+                    Msg.warning(sender,ChatColor.YELLOW + args[1] + ChatColor.RESET + " はプラグインの仕様上、登録することができません。");
                     return true;
                 }
                 else{
@@ -58,6 +67,14 @@ public class Command_RailwayInfo implements CommandExecutor {
                 }
             }
             help(cmd,sender);
+            return true;
+        }
+        else if(args[0].equalsIgnoreCase("removeall")||args[0].equalsIgnoreCase("-all")||args[0].equalsIgnoreCase("-//")){
+            removeAll((Player)sender);
+            return true;
+        }
+        else if(args[0].equalsIgnoreCase("get")||args[0].equalsIgnoreCase("!")){
+            getAll((Player)sender);
             return true;
         }
         else if(args[0].equalsIgnoreCase("edit")||args[0].equalsIgnoreCase("change")||args[0].equalsIgnoreCase("*")){
@@ -93,7 +110,10 @@ public class Command_RailwayInfo implements CommandExecutor {
         sender.sendMessage(Messages.getSuccessPrefix() +  "Railway Information 機能のヘルプ");
         sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " + <登録名> <登録する文章>", "文章を設定します"));
         sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " * <登録名> <編集する文章>","文章を編集します"));
+        sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " ! <登録名>","登録情報をすべて出力します"));
         sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " - <登録名>","登録を削除します"));
+        sender.sendMessage(Messages.getCommandFormat(cmd.getName() + " -// <登録名>","登録を全て削除します"));
+
     }
 
     public static boolean isresigter(String string){
@@ -162,6 +182,30 @@ public class Command_RailwayInfo implements CommandExecutor {
         }
     }
 
+    public static void removeAll(Player player){
+        try{
+            //key:パス
+            //value:データ値
+            Configuration config = TeisyokuPlugin2.getInstance().CartConfig;
+            Msg.info(player,"削除を開始しました...");
+            for(String key : config.getKeys(true)){
+                if(key.endsWith(".uuid")){
+                    String path = key.replaceAll(".uuid","");
+                    String uuid = config.getString(path + ".uuid");
+                    if(!(uuid.equals(player.getUniqueId().toString()))){
+                        continue;
+                    }
+                    remove(path,player);
+                }
+            }
+            Msg.info(player,"削除が終了しました");
+        }
+        catch (Exception e){
+            player.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
+            e.printStackTrace();
+        }
+    }
+
     public static void edit(String name , String string , Player player){
         try{
             if(TeisyokuPlugin2.getInstance().CartConfig.getString(name + ".uuid").toString().equalsIgnoreCase(player.getUniqueId().toString()) || player.hasPermission(Permissions.getTeisyokuUserPermisson())){
@@ -174,6 +218,31 @@ public class Command_RailwayInfo implements CommandExecutor {
                 player.sendMessage(Messages.getDenyPrefix() + "編集できるプレイヤーは登録者のみです (登録者: " + ChatColor.YELLOW + register + ChatColor.RESET + " )");
                 return;
             }
+        }
+        catch (Exception e){
+            player.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
+            e.printStackTrace();
+        }
+    }
+
+    public static void getAll(Player player){
+        try{
+            //key:パス
+            //value:データ値
+            Configuration config = TeisyokuPlugin2.getInstance().CartConfig;
+            Msg.info(player,"--- 登録リスト ---");
+            for(String key : config.getKeys(true)){
+                if(key.endsWith(".uuid")){
+                    String path = key.replaceAll(".uuid","");
+                    String str = config.getString(path + ".string");
+                    String uuid = config.getString(path + ".uuid");
+                    if(!(uuid.equals(player.getUniqueId().toString()))){
+                        continue;
+                    }
+                    Msg.info(player, ChatColor.YELLOW + path + ChatColor.RESET + ChatColor.GRAY + " >> " + ChatColor.RESET + str);
+                }
+            }
+            Msg.info(player,"-------------------");
         }
         catch (Exception e){
             player.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");

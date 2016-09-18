@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.Utility;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;

@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,7 +13,6 @@ import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;
-import net.md_5.bungee.api.ChatColor;
 
 public class Command_HorseTicket implements CommandExecutor{
     

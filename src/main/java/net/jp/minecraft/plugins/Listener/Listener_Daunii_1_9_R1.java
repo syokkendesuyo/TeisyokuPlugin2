@@ -16,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -280,6 +281,25 @@ public class Listener_Daunii_1_9_R1 implements Listener{
     }
     
     @EventHandler
+    public void changeName(PlayerInteractEntityEvent event){//名前変更回避
+        if(!(event.getRightClicked().getType().equals(EntityType.IRON_GOLEM))){
+            return;
+        }
+        Entity entity = event.getRightClicked();
+        if(entity.getCustomName() == null){
+            return;
+        }
+        if(!(entity.getCustomName().equals(DauniiName))){
+            return;
+        }
+        Player player = event.getPlayer();
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(item.getType().equals(Material.NAME_TAG)){
+            event.setCancelled(true);
+            return;
+        }
+    }
+    @EventHandler
     public void ClickGUI(InventoryClickEvent event){//だうにーくんのGUIをクリックしたかどうか
         if(!(event.getInventory().getSize() == 9)){
             return;
@@ -360,10 +380,11 @@ public class Listener_Daunii_1_9_R1 implements Listener{
         }
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_DEATH, 4, 1);
         Entity setDaunii = entity.getVehicle();
-        setDaunii.remove();
-        if(entity.getVehicle() == null){
+        if(setDaunii == null){
+            entity.remove();
             return;
         }
+        setDaunii.remove();
         entity.remove();
     }
     

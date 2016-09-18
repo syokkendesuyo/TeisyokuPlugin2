@@ -93,7 +93,7 @@ public class Listener_MineCartEvent implements Listener {
                     vehicle.remove();
                     return;
                 }
-
+                
                 player.sendMessage(Messages.getSuccessPrefix() +" マインカートを回収しました");
                 
                 ItemStack cart = new ItemStack(Material.MINECART);
@@ -124,15 +124,15 @@ public class Listener_MineCartEvent implements Listener {
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();
                 if(sign.getLine(0).equalsIgnoreCase("[alert]")||sign.getLine(0).equalsIgnoreCase("[announce]")||sign.getLine(0).equalsIgnoreCase("[a]") || sign.getLine(0).equalsIgnoreCase("[ri]") || sign.getLine(0).equalsIgnoreCase("[railwayinfo]")){
-                	Player sendplayer =((Player) player);
-                	
-                	
+                    Player sendplayer =((Player) player);
+                    
+                    
                     try{
                         if(sign.getLine(1).equalsIgnoreCase("")){
                             sendplayer.sendMessage(Messages.getDenyPrefix() + "看板2行目が空白になっています");
                             return;
                         }
-
+                        
                         if(TeisyokuPlugin2.getInstance().CartConfig.get(sign.getLine(1).toString()) == null){
                         	sendplayer.sendMessage(Messages.getDenyPrefix() + "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
                             return;
@@ -147,7 +147,7 @@ public class Listener_MineCartEvent implements Listener {
                         }
                     }
                     catch (Exception e){
-                    	sendplayer.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
+                        sendplayer.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
                         e.printStackTrace();
                         return;
                     }
@@ -169,7 +169,6 @@ public class Listener_MineCartEvent implements Listener {
         if(!(event.getVehicle() instanceof Minecart)){
             return;
         }
-        
         Minecart cart = (Minecart) event.getVehicle();
         if(!(cart.getPassenger() instanceof Player)){
             cart.setMaxSpeed(0.4);
@@ -215,6 +214,9 @@ public class Listener_MineCartEvent implements Listener {
                     }
                 }
             }
+            if(cart.getMaxSpeed() == 1.6){
+                return;
+            }
             cart.setMaxSpeed(1.6);
             return;
         }
@@ -251,10 +253,16 @@ public class Listener_MineCartEvent implements Listener {
                     }
                 }
             }
+            if(cart.getMaxSpeed() == 1.2){
+                return;
+            }
             cart.setMaxSpeed(1.2);
             return;
         }
         else {
+            if(cart.getMaxSpeed() == 0.4){
+                return;
+            }
             cart.setMaxSpeed(0.4);
             return;
         }

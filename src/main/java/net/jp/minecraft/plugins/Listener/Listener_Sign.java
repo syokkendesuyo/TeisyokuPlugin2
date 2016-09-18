@@ -4,6 +4,10 @@ import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Search;
+import net.jp.minecraft.plugins.Utility.Sounds;
+
+import java.util.Arrays;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -15,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * TeisyokuPlugin2
@@ -61,6 +66,14 @@ public class Listener_Sign implements Listener {
                         Bukkit.getServer().dispatchCommand(player, "warp");
                         return;
                     }
+                }
+                else if ((Search.searchKeyword(sign.getLines() , "[coffee]"))&&(player.getInventory().getItemInMainHand().getType().equals(Material.POTION))){
+                    ItemStack item = player.getInventory().getItemInMainHand();
+                    ItemMeta meta = item.getItemMeta();
+                    meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Coffee");
+                    meta.setLore(Arrays.asList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
+                    item.setItemMeta(meta);
+                    Sounds.sound_note(player);
                 }
                 else{
                     Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");

@@ -18,29 +18,27 @@ import java.util.List;
  */
 public class Listener_JoinEvent implements Listener {
 
-    public String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
-    public String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
+    private String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
+    private String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
 
     @EventHandler
-    public void onPlayerJoinMessage(PlayerJoinEvent event){
+    public void onPlayerJoinMessage(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         String version = Bukkit.getBukkitVersion();
         if (version.equals(ver1_8_8_R01)) {
             Sounds.sound_villager(player);
-        }
-        else if(version.equals(ver1_9_2_R01)){
+        } else if (version.equals(ver1_9_2_R01)) {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_DEATH, 10.0F, 1.0F);
         }
         List<String> ad = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("joinMessage");
-        for (String s : ad){
+        for (String s : ad) {
             player.sendMessage(Messages.getNormalPrefix() + color(s));
         }
-        return;
     }
 
     @EventHandler
     public void firstJoin(PlayerJoinEvent event) {
-        if(!event.getPlayer().hasPlayedBefore()) {
+        if (!event.getPlayer().hasPlayedBefore()) {
             Player player = event.getPlayer();
             API_Discord.sendToDiscord(" * * * * * * * * * * * * * * * * * * * * ");
             API_Discord.sendToDiscord(player.getName() + "さんは新規参加者です");
@@ -48,7 +46,7 @@ public class Listener_JoinEvent implements Listener {
         }
     }
 
-    public static String color(String str){
-        return str.replaceAll("&","§");
+    private static String color(String str) {
+        return str.replaceAll("&", "§");
     }
 }

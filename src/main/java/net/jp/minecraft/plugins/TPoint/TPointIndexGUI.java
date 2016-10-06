@@ -20,10 +20,9 @@ import org.bukkit.inventory.ItemStack;
  */
 public class TPointIndexGUI implements Listener {
 
-    public static String inventoryName = " TPoint Menu ";
-    public static int invSize = 3;
+    private static String inventoryName = " TPoint Menu ";
 
-    public static void index(Player player){
+    public static void index(Player player) {
         //Get Tpoint
         int point = Listener_TPoint.int_status(player);
 
@@ -49,20 +48,19 @@ public class TPointIndexGUI implements Listener {
             //Cancel click event
             event.setCancelled(true);
 
-            if (event.getSlotType() == InventoryType.SlotType.OUTSIDE){
+            if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
                 return;
             }
 
-            if (event.getCurrentItem().getType().equals(Material.AIR)){
+            if (event.getCurrentItem().getType().equals(Material.AIR)) {
                 return;
             }
 
             //Call Functions
-            String str = event.getCurrentItem().getItemMeta().getDisplayName().toString();
+            String str = event.getCurrentItem().getItemMeta().getDisplayName();
             str = ChatColor.stripColor(str);
-            if(str.toString().equals("購入")){
+            if (str.equals("購入")) {
                 TPointBuyGUI.index(player);
-                return;
             }
         }
     }

@@ -18,27 +18,27 @@ import java.util.Random;
  */
 public class Command_yk0 implements CommandExecutor {
 
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
-        if(!(sender instanceof Player)){
-            Msg.warning(sender,"このコマンドはゲーム内からのみ有効です");
+        if (!(sender instanceof Player)) {
+            Msg.warning(sender, "このコマンドはゲーム内からのみ有効です");
             return true;
         }
 
-        if(args.length == 0){
-            Msg.warning(sender,"???");
+        if (args.length == 0) {
+            Msg.warning(sender, "???");
             return true;
         }
 
-        if(!(args[0].equalsIgnoreCase("on"))){
-            Msg.warning(sender,"???");
+        if (!(args[0].equalsIgnoreCase("on"))) {
+            Msg.warning(sender, "???");
             return true;
         }
 
         int random = new Random().nextInt(Bukkit.getServer().getOnlinePlayers().size());
         Player p = (Player) Bukkit.getServer().getOnlinePlayers().toArray()[random];
-        for (Player player : Bukkit.getOnlinePlayers()){
-            Msg.info(player, "/yk0 on " + ChatColor.DARK_GRAY + ">> " + ChatColor.YELLOW + p.getName().toString());
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            Msg.info(player, "/yk0 on " + ChatColor.DARK_GRAY + ">> " + ChatColor.YELLOW + p.getName());
         }
         Msg.info(p, "「おーん」って言いましょう(強制)");
         Sounds.sound_note(p);

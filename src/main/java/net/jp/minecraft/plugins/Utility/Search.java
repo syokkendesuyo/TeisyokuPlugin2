@@ -13,7 +13,7 @@ public class Search {
      * String配列に対して検索をするメソッド
      * 部分一致でtrueを返します
      *
-     * @param list 検索する文字列型の配列
+     * @param list    検索する文字列型の配列
      * @param keyword 検索する文字列
      * @return boolean
      */

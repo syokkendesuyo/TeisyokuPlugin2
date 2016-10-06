@@ -1,18 +1,11 @@
 package net.jp.minecraft.plugins;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
 import net.jp.minecraft.plugins.Commands.*;
-import net.jp.minecraft.plugins.Config.Connection_TeisyokuConfig;
-import net.jp.minecraft.plugins.GUI.GUI_Anvil;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
 import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
-
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.PlayerFile;
 import net.jp.minecraft.plugins.Utility.Sounds;
@@ -25,6 +18,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public File newConfig_teisyoku;
@@ -45,12 +42,11 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     private String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
     private String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
-    
+
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
 
-    public void onEnable()
-    {
+    public void onEnable() {
         String version = Bukkit.getBukkitVersion();
         getLogger().info("Running on " + version);
 
@@ -121,7 +117,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("tabname").setExecutor(new Command_TabName());
 
         getCommand("horse").setExecutor(new Command_Horse());
-        
+
         getCommand("carthelp").setExecutor(new Command_CartHelp());
         getCommand("ch").setExecutor(new Command_CartHelp());
 
@@ -132,7 +128,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("bp").setExecutor(new Command_BaiPoint());
 
         getCommand("se").setExecutor(new Command_SignEdit());
-        
+
         getCommand("horseticket").setExecutor(new Command_HorseTicket());
         getCommand("ht").setExecutor(new Command_HorseTicket());
 
@@ -144,22 +140,20 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         if (version.equals(ver1_9_2_R01)) {
             //機能
             pm.registerEvents(new Listener_Tab_1_9_R1(), this);
-            
+
             pm.registerEvents(new Listener_Daunii_1_9_R1(), this);
 
             //コマンドリスト
             getCommand("tps").setExecutor(new Command_TPS());
             getCommand("status").setExecutor(new Command_TPS());
             getCommand("s").setExecutor(new Command_TPS());
-            
+
             getCommand("daunii").setExecutor(new Command_Daunii());
 
             getLogger().info("1.9.2-R0.1 用に作成された一部機能が開放されました");
-        }
-        else if(version.equals(ver1_8_8_R01)){
+        } else if (version.equals(ver1_8_8_R01)) {
             getLogger().info("1.8.8-R0.1 は現在開発中の為一部機能が制限されています");
-        }
-        else{
+        } else {
             getLogger().info("1.8.8_R01は一部の機能が制限されています(サポートの対象外のバージョンをご利用中です)");
         }
 
@@ -167,7 +161,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
                 List<String> ad = TeisyokuConfig.getStringList("ad");
-                for (String s : ad){
+                for (String s : ad) {
                     Bukkit.getServer().broadcastMessage(Messages.getNormalPrefix() + color(s));
                 }
             }
@@ -177,9 +171,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
                 Double tps = Listener_TicksPerSecond_1_9_R1.getTps(1);
-                if(Listener_TicksPerSecond_1_9_R1.getTps(1) < 16){
-                    for (Player player : Bukkit.getOnlinePlayers()){
-                        Msg.warning(player,"現在TPSが低下しています："+ ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R1.doubleToString(tps));
+                if (Listener_TicksPerSecond_1_9_R1.getTps(1) < 16) {
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R1.doubleToString(tps));
                     }
                 }
             }
@@ -207,179 +201,153 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         saveTPointSettingsConfig();
 
 
-        if(TeisyokuConfig.get("title") == null){
-            TeisyokuConfig.set("title","§bWelcome to My server");
+        if (TeisyokuConfig.get("title") == null) {
+            TeisyokuConfig.set("title", "§bWelcome to My server");
             saveTeisyokuConfig();
         }
-        if(TeisyokuConfig.get("subtitle") == null){
-            TeisyokuConfig.set("subtitle","§aWebsite:http://example.com/");
+        if (TeisyokuConfig.get("subtitle") == null) {
+            TeisyokuConfig.set("subtitle", "§aWebsite:http://example.com/");
             saveTeisyokuConfig();
         }
-        if(TeisyokuConfig.get("ad") == null){
+        if (TeisyokuConfig.get("ad") == null) {
             List<String> list = Arrays.asList("Welcome to My server", "Github : https://github.com/syokkendesuyo/TeisyokuPlugin2/", "Create by syokkendesuyo");
-            TeisyokuConfig.set("ad",list);
+            TeisyokuConfig.set("ad", list);
             saveTeisyokuConfig();
         }
-        if(TeisyokuConfig.get("joinMessage") == null){
+        if (TeisyokuConfig.get("joinMessage") == null) {
             List<String> list = Arrays.asList("Welcome to My server", "TeisyokuPlugin2 is enabled! ", "Create by syokkendesuyo");
-            TeisyokuConfig.set("joinMessage",list);
+            TeisyokuConfig.set("joinMessage", list);
             saveTeisyokuConfig();
         }
-        if(TeisyokuConfig.get("arrow_summon_wither") == null){
+        if (TeisyokuConfig.get("arrow_summon_wither") == null) {
             List<String> list = Arrays.asList("world_the_end", "the_end");
-            TeisyokuConfig.set("arrow_summon_wither",list);
+            TeisyokuConfig.set("arrow_summon_wither", list);
             saveTeisyokuConfig();
         }
-        if(TeisyokuConfig.get("commands") == null){
-            if(TeisyokuConfig.get("commands.ad") == null){
-                TeisyokuConfig.set("commands.ad",true);
+        if (TeisyokuConfig.get("commands") == null) {
+            if (TeisyokuConfig.get("commands.ad") == null) {
+                TeisyokuConfig.set("commands.ad", true);
             }
             saveTeisyokuConfig();
         }
     }
 
-    public void TeisyokuConfig()
-    {
+    public void TeisyokuConfig() {
         this.newConfig_teisyoku = new File(getDataFolder(), "Teisyoku.yml");
         this.TeisyokuConfig = YamlConfiguration.loadConfiguration(this.newConfig_teisyoku);
         saveTeisyokuConfig();
     }
 
-    public void saveTeisyokuConfig()
-    {
+    public void saveTeisyokuConfig() {
         try {
             this.TeisyokuConfig.save(this.newConfig_teisyoku);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void reloadTeisyokuConfig()
-    {
+    public void reloadTeisyokuConfig() {
         try {
             this.TeisyokuConfig.load(this.newConfig_teisyoku);
             this.TeisyokuConfig.save(this.newConfig_teisyoku);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void LastJoinPlayerConfig()
-    {
+    public void LastJoinPlayerConfig() {
         this.newConfig_last = new File(getDataFolder(), "LastJoinPlayersData.yml");
         this.LastJoinPlayerConfig = YamlConfiguration.loadConfiguration(this.newConfig_last);
         saveLastPlayerJoinConfig();
     }
 
-    public void saveLastPlayerJoinConfig()
-    {
+    public void saveLastPlayerJoinConfig() {
         try {
             this.LastJoinPlayerConfig.save(this.newConfig_last);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void reloadLastPlayerJoinConfig()
-    {
+    public void reloadLastPlayerJoinConfig() {
         try {
             this.LastJoinPlayerConfig.load(this.newConfig_last);
             this.LastJoinPlayerConfig.save(this.newConfig_last);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void NickConfig()
-    {
+    public void NickConfig() {
         this.newConfig_nick = new File(getDataFolder(), "NickData.yml");
         this.NickConfig = YamlConfiguration.loadConfiguration(this.newConfig_nick);
         saveLastPlayerJoinConfig();
     }
 
-    public void saveNickConfig()
-    {
+    public void saveNickConfig() {
         try {
             this.NickConfig.save(this.newConfig_nick);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void reloadNickConfig()
-    {
+    public void reloadNickConfig() {
         try {
             this.NickConfig.load(this.newConfig_nick);
             this.NickConfig.save(this.newConfig_nick);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void TPointSettingsConfig()
-    {
+    public void TPointSettingsConfig() {
         this.newConfig_tpoint_settings = new File(getDataFolder(), "TPoint_Settings.yml");
         this.TPointSettingsConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint_settings);
         saveLastPlayerJoinConfig();
     }
 
-    public void saveTPointSettingsConfig()
-    {
+    public void saveTPointSettingsConfig() {
         try {
             this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void reloadTPointSettingsConfig()
-    {
+    public void reloadTPointSettingsConfig() {
         try {
             this.TPointSettingsConfig.load(this.newConfig_tpoint_settings);
             this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void TPointConfig()
-    {
+    public void TPointConfig() {
         this.newConfig_tpoint = new File(getDataFolder(), "TPoint.yml");
         this.TPointConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint);
         saveLastPlayerJoinConfig();
     }
 
-    public void saveTPointConfig()
-    {
+    public void saveTPointConfig() {
         try {
             this.TPointConfig.save(this.newConfig_tpoint);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void reloadTPointConfig()
-    {
+    public void reloadTPointConfig() {
         try {
             this.TPointConfig.load(this.newConfig_tpoint);
             this.TPointConfig.save(this.newConfig_tpoint);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void CartConfig()
-    {
+    public void CartConfig() {
         this.newConfig_cart = new File(getDataFolder(), "Cart.yml");
         this.CartConfig = YamlConfiguration.loadConfiguration(this.newConfig_cart);
         saveLastPlayerJoinConfig();
@@ -388,8 +356,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public void saveCartConfig() {
         try {
             this.CartConfig.save(this.newConfig_cart);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -398,14 +365,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         try {
             this.CartConfig.load(this.newConfig_cart);
             this.CartConfig.save(this.newConfig_cart);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void HorseConfig()
-    {
+    public void HorseConfig() {
         this.newConfig_horse = new File(getDataFolder(), "Horses.yml");
         this.HorseConfig = YamlConfiguration.loadConfiguration(this.newConfig_horse);
         saveLastPlayerJoinConfig();
@@ -414,8 +379,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public void saveHorseConfig() {
         try {
             this.HorseConfig.save(this.newConfig_horse);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -424,18 +388,16 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         try {
             this.HorseConfig.load(this.newConfig_horse);
             this.HorseConfig.save(this.newConfig_horse);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static TeisyokuPlugin2 getInstance()
-    {
+    public static TeisyokuPlugin2 getInstance() {
         return instance;
     }
 
-    public static String color(String str){
-        return str.replaceAll("&","§");
+    public static String color(String str) {
+        return str.replaceAll("&", "§");
     }
 }

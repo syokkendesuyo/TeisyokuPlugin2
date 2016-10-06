@@ -16,9 +16,9 @@ import java.util.UUID;
  *
  * @auther syokkendesuyo
  */
-public class PlayerFile implements Listener{
+public class PlayerFile implements Listener {
 
-    public static File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
+    private static File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
 
     /**
      * プレイヤーがログインすると発動する
@@ -27,28 +27,28 @@ public class PlayerFile implements Listener{
      * @param event
      */
     @EventHandler
-    public void CreatePlayerFile(PlayerJoinEvent event){
+    public void CreatePlayerFile(PlayerJoinEvent event) {
         String playerUniqueId = event.getPlayer().getUniqueId().toString();
         File f = new File(userdata, File.separator + playerUniqueId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
         try {
-            if(playerData.get("tpoint") == null){
+            if (playerData.get("tpoint") == null) {
                 playerData.createSection("tpoint");
                 playerData.set("tpoint", 0);
             }
 
-            if(playerData.get("nick") == null){
+            if (playerData.get("nick") == null) {
                 playerData.createSection("nick");
                 playerData.set("nick", "");
             }
 
-            if(playerData.get("nick_color") == null){
+            if (playerData.get("nick_color") == null) {
                 playerData.createSection("nick_color");
                 playerData.set("nick_color", "default");
             }
 
-            if(playerData.get("auto_cart_remove") == null){
+            if (playerData.get("auto_cart_remove") == null) {
                 playerData.createSection("auto_cart_remove");
                 playerData.set("auto_cart_remove", false);
             }
@@ -61,12 +61,12 @@ public class PlayerFile implements Listener{
 
     /**
      * プレイヤーのファイルへアクセスするメソッド
+     *
      * @param uuid プレイヤーのUUID
      * @return
      */
-    public static FileConfiguration getPlayerFile(UUID uuid){
+    public static FileConfiguration getPlayerFile(UUID uuid) {
         File f = new File(userdata, File.separator + uuid + ".yml");
-        FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
-        return(playerData);
+        return YamlConfiguration.loadConfiguration(f);
     }
 }

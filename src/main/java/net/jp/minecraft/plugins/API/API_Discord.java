@@ -12,16 +12,14 @@ public class API_Discord {
 
     public static void sendToDiscord(String string){
 
-        if(Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordMC") == false){
+        if(!Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordMC")){
             return;
         }
 
         try{
             MessageAPI.sendToDiscord(" __**[Teisyoku]**__ " + string);
-            return;
         }catch (Exception e){
             e.printStackTrace();
-            return;
         }
     }
 }

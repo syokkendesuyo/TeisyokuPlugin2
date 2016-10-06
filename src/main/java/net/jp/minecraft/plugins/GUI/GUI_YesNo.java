@@ -21,20 +21,21 @@ public class GUI_YesNo implements Listener {
 
     /**
      * <p>はい/いいえを選択するGUIを表示します</p>
-     * @param player プレイヤー
-     * @param yes yesの時の説明文
-     * @param no noの時の説明文
+     *
+     * @param player        プレイヤー
+     * @param yes           yesの時の説明文
+     * @param no            noの時の説明文
      * @param inventoryName インベントリ名
      * @return
      */
-    public static String openGUI(Player player , String yes , String no , String inventoryName){
+    public static String openGUI(Player player, String yes, String no, String inventoryName) {
         Inventory inv = Bukkit.createInventory(player, 9, inventoryName);
 
-        String lore_yes[] = {ChatColor.WHITE + yes.toString()};
+        String lore_yes[] = {ChatColor.WHITE + yes};
         ItemStack item_yes = TeisyokuItem.custom_item(ChatColor.GOLD + "はい", 1, Material.WOOL, (short) 5, lore_yes);
 
-        String lore_no[] = {ChatColor.WHITE + no.toString()};
-        ItemStack item_no = TeisyokuItem.custom_item(ChatColor.GOLD + "いいえ",1,Material.WOOL,(short) 14,lore_no);
+        String lore_no[] = {ChatColor.WHITE + no};
+        ItemStack item_no = TeisyokuItem.custom_item(ChatColor.GOLD + "いいえ", 1, Material.WOOL, (short) 14, lore_no);
 
         inv.setItem(2, item_yes);
         inv.setItem(6, item_no);
@@ -44,23 +45,19 @@ public class GUI_YesNo implements Listener {
     }
 
     @EventHandler
-    public static void getKill(InventoryClickEvent event){
+    public static void getKill(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getInventory().getName().equalsIgnoreCase("自殺を行いますか？")){
-            if(event.getRawSlot() == 2){
+        if (event.getInventory().getName().equalsIgnoreCase("自殺を行いますか？")) {
+            if (event.getRawSlot() == 2) {
                 //実行
                 player.setHealth(0);
                 player.closeInventory();
                 Msg.success(player, "自殺しました");
-                return;
-            }
-            else if(event.getRawSlot() == 6){
+            } else if (event.getRawSlot() == 6) {
                 //拒否
                 Msg.success(player, "自殺をやっぱり辞めました！");
                 player.closeInventory();
-                return;
             }
         }
-        return;
     }
 }

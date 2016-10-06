@@ -1,7 +1,5 @@
 package net.jp.minecraft.plugins.GUI;
 
-import net.jp.minecraft.plugins.GUI.GUI_PlayersList;
-import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -22,16 +20,16 @@ import org.bukkit.event.inventory.InventoryType;
  */
 public class GUI_ClickEvent implements Listener {
     @EventHandler
-    public void onInventoryClickEvent(InventoryClickEvent event){
+    public void onInventoryClickEvent(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
 
         //ゴミ箱
-        if (event.getInventory().getName().equalsIgnoreCase(" ゴミ箱 ")){
-            if(event.getRawSlot() == 0 || event.getRawSlot() == 1){
+        if (event.getInventory().getName().equalsIgnoreCase(" ゴミ箱 ")) {
+            if (event.getRawSlot() == 0 || event.getRawSlot() == 1) {
                 event.setCancelled(true);
             }
-            if(event.getRawSlot() == 1){
+            if (event.getRawSlot() == 1) {
                 player.closeInventory();
                 Msg.success(player, "ゴミを処分しました");
             }
@@ -39,47 +37,37 @@ public class GUI_ClickEvent implements Listener {
 
 
         //定食サーバメニュー
-        else if (event.getInventory().getName().equalsIgnoreCase(" 定食サーバメニュー ")){
-            if(event.getRawSlot() == 0 || event.getRawSlot() == 1){
+        else if (event.getInventory().getName().equalsIgnoreCase(" 定食サーバメニュー ")) {
+            if (event.getRawSlot() == 0 || event.getRawSlot() == 1) {
                 event.setCancelled(true);
             }
-            if(event.getRawSlot() == 10){
+            if (event.getRawSlot() == 10) {
                 Bukkit.getServer().dispatchCommand(player, "warp spawn");
                 player.closeInventory();
-            }
-            else if(event.getRawSlot() == 12){
+            } else if (event.getRawSlot() == 12) {
                 Bukkit.getServer().dispatchCommand(player, "warp material");
                 player.closeInventory();
-            }
-            else if(event.getRawSlot() == 14){
+            } else if (event.getRawSlot() == 14) {
                 Bukkit.getServer().dispatchCommand(player, "warp nether");
                 player.closeInventory();
-            }
-            else if(event.getRawSlot() == 16){
+            } else if (event.getRawSlot() == 16) {
                 player.kickPlayer(ChatColor.YELLOW + " サーバから切断しました。 ");
-            }
-            else if(event.getRawSlot() == 28){
+            } else if (event.getRawSlot() == 28) {
                 Listener_Gomibako.openGomibako(player);
-            }
-            else if(event.getRawSlot() == 30){
+            } else if (event.getRawSlot() == 30) {
                 Bukkit.getServer().dispatchCommand(player, "lock");
                 player.closeInventory();
-            }
-            else if(event.getRawSlot() == 32){
+            } else if (event.getRawSlot() == 32) {
                 Bukkit.getServer().dispatchCommand(player, "cremove");
                 player.closeInventory();
-            }
-            else if(event.getRawSlot() == 34){
+            } else if (event.getRawSlot() == 34) {
                 Bukkit.getServer().dispatchCommand(player, "cpersist");
                 player.closeInventory();
-            }
-            else if(event.getRawSlot() == 2){
+            } else if (event.getRawSlot() == 2) {
                 GUI_PlayersList.getPlayersList(player);
-            }
-            else if(event.getRawSlot() == 4){
+            } else if (event.getRawSlot() == 4) {
                 GUI_YesNo.openGUI(player, "自殺を処理を行います", "自殺をやっぱり辞める！", "自殺を行いますか？");
-            }
-            else if(event.getRawSlot() == 6){
+            } else if (event.getRawSlot() == 6) {
                 Msg.info(player, "投票サイト:" + ChatColor.AQUA + " http://bit.ly/vote_mc");
                 player.closeInventory();
             }
@@ -88,38 +76,37 @@ public class GUI_ClickEvent implements Listener {
 
 
         //プレイヤー一覧
-        else if (event.getInventory().getName().equalsIgnoreCase(" プレイヤー一覧 ")){
-            if(event.getRawSlot() > 0){
+        else if (event.getInventory().getName().equalsIgnoreCase(" プレイヤー一覧 ")) {
+            if (event.getRawSlot() > 0) {
                 event.setCancelled(true);
             }
-            if (event.getSlotType() == InventoryType.SlotType.OUTSIDE){
+            if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
                 return;
             }
-            if (event.getCurrentItem().getType().equals(Material.AIR)){
+            if (event.getCurrentItem().getType().equals(Material.AIR)) {
                 return;
             }
-            if (event.getCurrentItem() == null){
+            if (event.getCurrentItem() == null) {
                 return;
             }
-            if (event.getCurrentItem().hasItemMeta() == false){
+            if (!event.getCurrentItem().hasItemMeta()) {
                 //デフォルトのアイテム名が適応されている場合はキャンセル
                 return;
             }
-            if(!(event.getCurrentItem().getAmount() == 0)){
+            if (!(event.getCurrentItem().getAmount() == 0)) {
                 String name = event.getCurrentItem().getItemMeta().getDisplayName();
                 Player p = Bukkit.getServer().getPlayer(name);
-                try{
+                try {
                     String world = p.getLocation().getWorld().getName();
                     int x = (int) p.getLocation().getX();
                     int y = (int) p.getLocation().getY();
                     int z = (int) p.getLocation().getZ();
-                    if(player.getPlayer().getGameMode() == GameMode.SPECTATOR){
+                    if (player.getPlayer().getGameMode() == GameMode.SPECTATOR) {
                         player.teleport(p.getLocation());
-                        Msg.success(player, ChatColor.YELLOW + p.getName().toString() + ChatColor.RESET + " へテレポートしました");
+                        Msg.success(player, ChatColor.YELLOW + p.getName() + ChatColor.RESET + " へテレポートしました");
                     }
-                    player.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + p.getName().toString() + ChatColor.RESET + " の現在地" + ChatColor.DARK_GRAY + " ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z);
-                }
-                catch(NullPointerException e){
+                    player.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + p.getName() + ChatColor.RESET + " の現在地" + ChatColor.DARK_GRAY + " ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z);
+                } catch (NullPointerException e) {
                     Msg.info(player, "現在地を取得できませんでした。プレイヤーがオフラインの可能性があります。");
                 }
                 event.setCancelled(true);

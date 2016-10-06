@@ -40,7 +40,7 @@ public class Command_yk0 implements CommandExecutor {
         for (Player player : Bukkit.getOnlinePlayers()) {
             Msg.info(player, "/yk0 on " + ChatColor.DARK_GRAY + ">> " + ChatColor.YELLOW + p.getName());
         }
-        Msg.info(p, "「おーん」って言いましょう(強制)");
+        Msg.info(p, "「おーん」って言いましょう" + ChatColor.DARK_GRAY + " (" + sender.getName() + ")");
         Sounds.sound_note(p);
         return true;
     }

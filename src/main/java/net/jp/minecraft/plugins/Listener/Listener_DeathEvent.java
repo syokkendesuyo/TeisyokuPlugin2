@@ -15,13 +15,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
  */
 public class Listener_DeathEvent implements Listener {
     @EventHandler
-    public void death(PlayerDeathEvent event){
-        try{
+    public void death(PlayerDeathEvent event) {
+        try {
             EntityDamageEvent.DamageCause dc = event.getEntity().getLastDamageCause().getCause();
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             event.setDeathMessage(null);
-            Bukkit.broadcastMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + event.getEntity().getName().toString() + ChatColor.RESET + " さんは自殺しました");
+            Bukkit.broadcastMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + event.getEntity().getName() + ChatColor.RESET + " さんは自殺しました");
         }
     }
 }

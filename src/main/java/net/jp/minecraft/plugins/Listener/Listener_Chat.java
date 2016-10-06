@@ -19,11 +19,11 @@ import java.util.regex.Pattern;
  *
  * @auther syokkendesuyo azuhata
  */
-public class Listener_Chat implements Listener{
+public class Listener_Chat implements Listener {
 
-    static File cfile;
-    static FileConfiguration config;
-    static File df = TeisyokuPlugin2.getInstance().getDataFolder();
+    private static File cfile;
+    private static FileConfiguration config;
+    private static File df = TeisyokuPlugin2.getInstance().getDataFolder();
 
     @EventHandler
     public void PlayerChat(AsyncPlayerChatEvent event) {
@@ -35,34 +35,29 @@ public class Listener_Chat implements Listener{
         Player player = event.getPlayer();
         try {
             String NickName = API_Nick.getNick(player);
-            String sender = event.getPlayer().getName().toString();
+            String sender = event.getPlayer().getName();
 
             String Name;
-            if(NickName == null || NickName.equals("")){
+            if (NickName == null || NickName.equals("")) {
                 Name = sender;
                 player.setDisplayName(Name);
-            }else{
+            } else {
                 String color = playerData.getString("nick_color");
-                if(color.equalsIgnoreCase("aqua")){
+                if (color.equalsIgnoreCase("aqua")) {
                     Name = ChatColor.AQUA + "" + NickName + " " + ChatColor.RESET + sender;
                     player.setDisplayName(Name);
                     return;
                 }
-                if(color.equalsIgnoreCase("pink")){
+                if (color.equalsIgnoreCase("pink")) {
                     Name = ChatColor.LIGHT_PURPLE + "" + NickName + " " + ChatColor.RESET + sender;
                     player.setDisplayName(Name);
-                    return;
-                }
-                else{
+                } else {
                     Name = ChatColor.GRAY + "" + NickName + " " + ChatColor.RESET + sender;
                     player.setDisplayName(Name);
-                    return;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return;
         }
     }
 
@@ -73,41 +68,39 @@ public class Listener_Chat implements Listener{
         msg = msg.replaceAll("rorikon", ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Rorikon" + ChatColor.RESET);
         msg = msg.replaceAll("Rorikon", ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Rorikon" + ChatColor.RESET);
         event.setMessage(msg);
-        return;
     }
 
     @EventHandler
-    public void ChatBP1(AsyncPlayerChatEvent event){
+    public void ChatBP1(AsyncPlayerChatEvent event) {
         String msg = event.getMessage();
         String regex = "\\d{1,20}BP";
 
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(msg);
 
-        if(m.find()){
+        if (m.find()) {
             String match = m.group();
-            String result = msg.replaceAll(msg,match);
+            String result = msg.replaceAll(msg, match);
 
-            msg = msg.replaceAll(result, ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + "" +  ChatColor.BOLD + result + ChatColor.RESET);
+            msg = msg.replaceAll(result, ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + result + ChatColor.RESET);
             event.setMessage(msg);
         }
     }
 
     @EventHandler
-    public void ChatBP2(AsyncPlayerChatEvent event){
+    public void ChatBP2(AsyncPlayerChatEvent event) {
         String msg = event.getMessage();
         String regex = "[-]\\d{1,20}BP";
 
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(msg);
 
-        if(m.find()){
+        if (m.find()) {
             String match = m.group();
-            String result = msg.replaceAll(msg,match);
+            String result = msg.replaceAll(msg, match);
 
-            msg = msg.replaceAll(result, ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + "" +  ChatColor.BOLD + result + ChatColor.RESET);
+            msg = msg.replaceAll(result, ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + result + ChatColor.RESET);
             event.setMessage(msg);
         }
-        return;
     }
 }

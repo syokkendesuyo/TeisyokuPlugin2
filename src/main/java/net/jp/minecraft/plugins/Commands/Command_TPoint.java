@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
+import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.*;
@@ -20,105 +20,101 @@ import java.util.UUID;
  * @auther syokkendesuyo
  */
 public class Command_TPoint implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         //パーミッションの確認
-        if(! sender.hasPermission("teisyoku.user")){
+        if (!sender.hasPermission("teisyoku.user")) {
             sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.user"));
             return true;
         }
 
         //引数0の場合
-        if(args.length == 0){
-            if(sender instanceof Player){
+        if (args.length == 0) {
+            if (sender instanceof Player) {
                 TPointIndexGUI.index((Player) sender);
                 return true;
             }
-            HelpMessage(sender , cmd);
-            if(sender.hasPermission("teisyoku.admin")){
-                AdminHelpMessage(sender , cmd);
+            HelpMessage(sender, cmd);
+            if (sender.hasPermission("teisyoku.admin")) {
+                AdminHelpMessage(sender, cmd);
             }
             return true;
         }
 
         //ヘルプ
-        if(args[0].equalsIgnoreCase("help")){
-            if(! (args.length == 1)){
+        if (args[0].equalsIgnoreCase("help")) {
+            if (!(args.length == 1)) {
                 sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎます");
                 return true;
             }
-            HelpMessage(sender , cmd);
-            if(sender.hasPermission("teisyoku.admin")){
-                AdminHelpMessage(sender , cmd);
+            HelpMessage(sender, cmd);
+            if (sender.hasPermission("teisyoku.admin")) {
+                AdminHelpMessage(sender, cmd);
             }
             return true;
         }
 
         //ステイタス
-        if(args[0].equalsIgnoreCase("status")){
-            if(args.length == 1){
-                if(!(sender instanceof Player)){
+        if (args[0].equalsIgnoreCase("status")) {
+            if (args.length == 1) {
+                if (!(sender instanceof Player)) {
                     sender.sendMessage(Messages.getNormalPrefix() + "使い方：/tpoint status <プレイヤー>");
                     sender.sendMessage(Messages.getNormalPrefix() + "※ゲーム側からのみプレイヤーを省略できます");
-                }
-                else{
+                } else {
                     Listener_TPoint.status((Player) sender);
                 }
-            }
-            else if(args.length == 2){
-                try{
+            } else if (args.length == 2) {
+                try {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
                     UUID uuid = player.getUniqueId();
                     String name = args[1];
 
-                    Listener_TPoint.status_uuid(uuid,sender,name,(Player)player);
+                    Listener_TPoint.status_uuid(uuid, sender, name, (Player) player);
                     return true;
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     sender.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました。Location: Command_TPoint --> status");
                     e.printStackTrace();
-                    return true;}
+                    return true;
                 }
+            }
             return true;
         }
 
         //パーミッションの確認(コマンド側)
-        if(!(sender.hasPermission("teisyoku.admin"))){
+        if (!(sender.hasPermission("teisyoku.admin"))) {
             sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
             return true;
         }
 
         //追加
-        if(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("+")){
+        if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("+")) {
             // /tpoint add Player int
             //          0    1     2
 
-            if(!(args.length == 3)){
+            if (!(args.length == 3)) {
                 sender.sendMessage(Messages.getDenyPrefix() + "引数が不正です");
                 sender.sendMessage(Messages.getDenyPrefix() + "使用方法：/tpoint add <ﾌﾟﾚｲﾔｰ> <数値>");
                 return true;
             }
 
-            if(!(isNumber(args[2]))){
+            if (!(isNumber(args[2]))) {
                 //数字でなかったら拒否
-                sender.sendMessage(Messages.getDenyPrefix() + args[2] +"は数値ではありません");
-                if(sender instanceof CommandBlock){
+                sender.sendMessage(Messages.getDenyPrefix() + args[2] + "は数値ではありません");
+                if (sender instanceof CommandBlock) {
                     return false;
-                }
-                else{
+                } else {
                     return true;
                 }
             }
 
             Player player = Bukkit.getServer().getPlayer(args[1]);
-            if(!(player == null)){
+            if (!(player == null)) {
                 int point = Integer.parseInt(args[2]);
-                if(Listener_TPoint.addPoint(point, player, sender) == false && sender instanceof CommandBlock){
+                if (!Listener_TPoint.addPoint(point, player, sender) && sender instanceof CommandBlock) {
                     return false;
                 }
                 return true;
-            }
-            else{
+            } else {
                 //プレイヤーが居ないのでエラー
                 sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
                 return true;
@@ -126,18 +122,18 @@ public class Command_TPoint implements CommandExecutor {
         }
 
         //削減
-        if(args[0].equalsIgnoreCase("subtract") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("-")){
-            if(!(args.length == 3)){
+        if (args[0].equalsIgnoreCase("subtract") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("-")) {
+            if (!(args.length == 3)) {
                 sender.sendMessage(Messages.getDenyPrefix() + "引数が不正です");
                 sender.sendMessage(Messages.getDenyPrefix() + "使用方法：/tpoint remove <ﾌﾟﾚｲﾔｰ> <数値>");
                 return true;
             }
 
-            if(!(isNumber(args[2]))){
+            if (!(isNumber(args[2]))) {
                 //数字でなかったら拒否
-                sender.sendMessage(Messages.getDenyPrefix() + args[2] +"は数値ではありません");
-                if(sender instanceof BlockCommandSender){
-                    Location loc  = ((BlockCommandSender) sender).getBlock().getLocation();
+                sender.sendMessage(Messages.getDenyPrefix() + args[2] + "は数値ではありません");
+                if (sender instanceof BlockCommandSender) {
+                    Location loc = ((BlockCommandSender) sender).getBlock().getLocation();
                     World world = loc.getWorld();
                     long y = loc.getBlockY() + 1;
                     loc.setY(y);
@@ -148,12 +144,12 @@ public class Command_TPoint implements CommandExecutor {
             }
             Player player = Bukkit.getServer().getPlayer(args[1]);
             //プレイヤーが居るか
-            if(!(player == null)){
+            if (!(player == null)) {
                 int point = Integer.parseInt(args[2]);
                 //ポイントが無かった場合
-                if(Listener_TPoint.subtractPoint(point, player, sender) == false){
-                    if(sender instanceof BlockCommandSender){
-                        Location loc  = ((BlockCommandSender) sender).getBlock().getLocation();
+                if (!Listener_TPoint.subtractPoint(point, player, sender)) {
+                    if (sender instanceof BlockCommandSender) {
+                        Location loc = ((BlockCommandSender) sender).getBlock().getLocation();
                         World world = loc.getWorld();
                         long y = loc.getBlockY() + 2;
                         loc.setY(y);
@@ -163,9 +159,9 @@ public class Command_TPoint implements CommandExecutor {
                     return true;
                 }
                 //ポイントを持っていた場合
-                else{
-                    if(sender instanceof BlockCommandSender){
-                        Location loc  = ((BlockCommandSender) sender).getBlock().getLocation();
+                else {
+                    if (sender instanceof BlockCommandSender) {
+                        Location loc = ((BlockCommandSender) sender).getBlock().getLocation();
                         World world = loc.getWorld();
                         long y = loc.getBlockY() + 2;
                         loc.setY(y);
@@ -182,26 +178,26 @@ public class Command_TPoint implements CommandExecutor {
         }
 
         //セット
-        if(args[0].equalsIgnoreCase("set")){
-            if(!(args.length == 3)){
+        if (args[0].equalsIgnoreCase("set")) {
+            if (!(args.length == 3)) {
                 sender.sendMessage(Messages.getDenyPrefix() + "引数が不正です");
                 sender.sendMessage(Messages.getDenyPrefix() + "使用方法：/tpoint set <ﾌﾟﾚｲﾔｰ> <数値>");
                 return true;
             }
 
-            if(!(isNumber(args[2]))){
+            if (!(isNumber(args[2]))) {
                 //数字でなかったら拒否
-                sender.sendMessage(Messages.getDenyPrefix() + args[2] +"は数値ではありません");
+                sender.sendMessage(Messages.getDenyPrefix() + args[2] + "は数値ではありません");
                 return true;
             }
 
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
 
-            if(offlinePlayer.isOnline()){
+            if (offlinePlayer.isOnline()) {
                 Player onlinePlayer = (Player) offlinePlayer;
                 int point = Integer.parseInt(args[2]);
                 Listener_TPoint.setPoint(point, onlinePlayer);
-                if(! (onlinePlayer == sender)){
+                if (!(onlinePlayer == sender)) {
                     sender.sendMessage(Messages.getSuccessPrefix() + onlinePlayer.getName() + " さんによって " + point + " TPointにセットされました");
                 }
                 return true;
@@ -213,13 +209,13 @@ public class Command_TPoint implements CommandExecutor {
         }
 
         //ギフトコード
-        if(args[0].equalsIgnoreCase("code") || args[0].equalsIgnoreCase("giftcode")){
+        if (args[0].equalsIgnoreCase("code") || args[0].equalsIgnoreCase("giftcode")) {
             sender.sendMessage(Messages.getDenyPrefix() + "現在利用できません");
             return true;
         }
 
-        HelpMessage(sender , cmd);
-        if(sender.hasPermission("teisyoku.admin")){
+        HelpMessage(sender, cmd);
+        if (sender.hasPermission("teisyoku.admin")) {
             AdminHelpMessage(sender, cmd);
         }
         return true;
@@ -227,31 +223,34 @@ public class Command_TPoint implements CommandExecutor {
 
     /**
      * TPointコマンドのヘルプ
+     *
      * @param sender 送信相手
-     * @param cmd コマンド
+     * @param cmd    コマンド
      */
-    public void HelpMessage(CommandSender sender , Command cmd){
+    private void HelpMessage(CommandSender sender, Command cmd) {
         Msg.success(sender, cmd.getName() + "コマンドのヘルプ");
         Msg.commandFormat(sender, cmd.getName() + " help", "TPointｺﾏﾝﾄﾞのﾍﾙﾌﾟ");
-        Msg.commandFormat(sender, cmd.getName() + " status","所持ﾎﾟｲﾝﾄを参照");
-        Msg.commandFormat(sender, cmd.getName() + " code <文字列>","ｷﾞﾌﾄｺｰﾄﾞを入力");
+        Msg.commandFormat(sender, cmd.getName() + " status", "所持ﾎﾟｲﾝﾄを参照");
+        Msg.commandFormat(sender, cmd.getName() + " code <文字列>", "ｷﾞﾌﾄｺｰﾄﾞを入力");
     }
 
     /**
      * TPointの管理者コマンドヘルプ
+     *
      * @param sender 送信相手
      * @param cmd
      */
-    public void AdminHelpMessage(CommandSender sender , Command cmd){
-        Msg.commandFormat(sender, cmd.getName() + " <set/add/remove> <ﾌﾟﾚｲﾔｰ名> <数値>","ﾌﾟﾚｲﾔｰのﾎﾟｲﾝﾄ数を変更");
+    private void AdminHelpMessage(CommandSender sender, Command cmd) {
+        Msg.commandFormat(sender, cmd.getName() + " <set/add/remove> <ﾌﾟﾚｲﾔｰ名> <数値>", "ﾌﾟﾚｲﾔｰのﾎﾟｲﾝﾄ数を変更");
     }
 
     /**
      * 渡された文字列が数字であるか確認する
+     *
      * @param num
      * @return boolean
      */
-    public boolean isNumber(String num) {
+    private boolean isNumber(String num) {
         try {
             Integer.parseInt(num);
             return true;

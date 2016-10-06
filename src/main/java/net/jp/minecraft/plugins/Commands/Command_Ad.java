@@ -25,15 +25,12 @@ import java.util.Date;
  */
 public class Command_Ad implements CommandExecutor {
 
-    public String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
-    public String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
-
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
         String version = Bukkit.getBukkitVersion();
 
         //コマンドが有効化されているかどうか検出
-        if(TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.ad") == false){
+        if(!TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.ad")){
             Msg.warning(sender,"「ad」コマンドは有効化されていません");
             return true;
         }
@@ -59,8 +56,8 @@ public class Command_Ad implements CommandExecutor {
         //クールタイムを確認
         if(sender instanceof Player){
             Player player = (Player)sender;
-            if(CoolDown.is(player) == true){
-                if(CoolDown.cooldown(player) == false){
+            if(CoolDown.is(player)){
+                if(!CoolDown.cooldown(player)){
                     return true;
                 }
             }
@@ -73,7 +70,7 @@ public class Command_Ad implements CommandExecutor {
         String argReplace = arg.replaceAll("&","§");
 
         //ブロードキャストでメッセージを送信
-        Bukkit.broadcastMessage(Messages.getAdPrefix(sender.getName().toString()) + argReplace);
+        Bukkit.broadcastMessage(Messages.getAdPrefix(sender.getName()) + argReplace);
 
         //オンラインプレイヤー全員に音を鳴らす
         for(Player player : Bukkit.getOnlinePlayers()){
@@ -102,8 +99,8 @@ public class Command_Ad implements CommandExecutor {
      * @param sender 送信者
      * @param commandLabel コマンドラベル
      */
-    public void help(CommandSender sender , String commandLabel){
+    private void help(CommandSender sender , String commandLabel){
         Msg.success(sender , "コマンドのヘルプ");
-        Msg.commandFormat(sender , commandLabel.toString() + " <メッセージ>", "広告を表示");
+        Msg.commandFormat(sender , commandLabel + " <メッセージ>", "広告を表示");
     }
 }

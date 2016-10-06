@@ -43,8 +43,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
-    public String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
-    public String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
+    private String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
+    private String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
     
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";

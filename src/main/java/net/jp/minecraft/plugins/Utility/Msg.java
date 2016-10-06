@@ -10,91 +10,98 @@ import org.bukkit.entity.Player;
  *
  * @auther syokkendesuyo
  */
-public final class Msg{
+public final class Msg {
 
     //基本のPrefix
-    public final static String prefix = "[Teisyoku] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
-    public final static String broadcast = "[Teisyoku|Broadcast] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
+    private final static String prefix = "[Teisyoku] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
+    private final static String broadcast = "[Teisyoku|Broadcast] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
 
     /**
-     *Successのメッセージをプレイヤーに送信
-     * @param p プレイヤー
-     * @param msg メッセージ
+     * Successのメッセージをプレイヤーに送信
+     *
+     * @param p         プレイヤー
+     * @param msg       メッセージ
      * @param broadcast
      */
-    public static void success(final CommandSender p , final String msg , boolean broadcast){
-        if(broadcast == true){
+    public static void success(final CommandSender p, final String msg, boolean broadcast) {
+        if (broadcast) {
             Bukkit.broadcastMessage(ChatColor.GREEN + prefix + ChatColor.RESET + msg);
-        }else{
+        } else {
             p.sendMessage(ChatColor.GREEN + prefix + ChatColor.RESET + msg);
         }
     }
 
     /**
-     *Successのメッセージをプレイヤーに送信
-     * @param p プレイヤー
+     * Successのメッセージをプレイヤーに送信
+     *
+     * @param p   プレイヤー
      * @param msg メッセージ
      */
-    public static void success(final CommandSender p , final String msg){
-        success(p,msg,false);
+    public static void success(final CommandSender p, final String msg) {
+        success(p, msg, false);
     }
 
     /**
-     *Warningのメッセージをプレイヤーに送信
-     * @param p プレイヤー
-     * @param msg メッセージ
+     * Warningのメッセージをプレイヤーに送信
+     *
+     * @param p         プレイヤー
+     * @param msg       メッセージ
      * @param broadcast
      */
-    public static void warning(final CommandSender p , final String msg , boolean broadcast){
-        if(broadcast == true){
+    public static void warning(final CommandSender p, final String msg, boolean broadcast) {
+        if (broadcast) {
             Bukkit.broadcastMessage(ChatColor.RED + prefix + ChatColor.RESET + msg);
-        }else{
+        } else {
             p.sendMessage(ChatColor.RED + prefix + ChatColor.RESET + msg);
         }
     }
 
     /**
-     *Warningのメッセージをプレイヤーに送信
-     * @param p プレイヤー
+     * Warningのメッセージをプレイヤーに送信
+     *
+     * @param p   プレイヤー
      * @param msg メッセージ
      */
-    public static void warning(final CommandSender p , final String msg){
-        warning(p,msg,false);
+    public static void warning(final CommandSender p, final String msg) {
+        warning(p, msg, false);
     }
 
     /**
-     *Infoのメッセージをプレイヤーに送信
-     * @param p プレイヤー
-     * @param msg メッセージ
+     * Infoのメッセージをプレイヤーに送信
+     *
+     * @param p         プレイヤー
+     * @param msg       メッセージ
      * @param broadcast
      */
-    public static void info(final CommandSender p , final String msg , boolean broadcast){
-        if(broadcast == true){
+    public static void info(final CommandSender p, final String msg, boolean broadcast) {
+        if (broadcast) {
             Bukkit.broadcastMessage(ChatColor.YELLOW + prefix + ChatColor.RESET + msg);
-        }else{
+        } else {
             p.sendMessage(ChatColor.YELLOW + prefix + ChatColor.RESET + msg);
         }
     }
 
     /**
-     *Infoのメッセージをプレイヤーに送信
-     * @param p プレイヤー
+     * Infoのメッセージをプレイヤーに送信
+     *
+     * @param p   プレイヤー
      * @param msg メッセージ
      */
-    public static void info(final CommandSender p , final String msg){
-        info(p,msg,false);
+    public static void info(final CommandSender p, final String msg) {
+        info(p, msg, false);
     }
 
     /**
-     *Adminにのみブロードキャストメッセージを送信
-     * @param msg メッセージ
+     * Adminにのみブロードキャストメッセージを送信
+     *
+     * @param msg   メッセージ
      * @param sound
      */
-    public static void adminBroadcast(final String msg , boolean sound){
-        for(Player admin : Bukkit.getOnlinePlayers()){
-            if(admin.hasPermission("teisyoku.admin")){
+    public static void adminBroadcast(final String msg, boolean sound) {
+        for (Player admin : Bukkit.getOnlinePlayers()) {
+            if (admin.hasPermission("teisyoku.admin")) {
                 admin.sendMessage(ChatColor.LIGHT_PURPLE + broadcast + ChatColor.RESET + msg);
-                if(sound == true){
+                if (sound) {
                     Sounds.sound_note(admin);
                 }
             }
@@ -102,58 +109,63 @@ public final class Msg{
     }
 
     /**
-     *Adminにのみブロードキャストメッセージを送信
+     * Adminにのみブロードキャストメッセージを送信
+     *
      * @param msg メッセージ
      */
     public static void opBroadcast(final String msg) {
-        adminBroadcast(msg , true);
+        adminBroadcast(msg, true);
     }
 
     /**
-     *パーミッションエラーを返す時のスタイル
-     * @param p プレイヤー
+     * パーミッションエラーを返す時のスタイル
+     *
+     * @param p    プレイヤー
      * @param perm パーミッション
      */
-    public static void noPermissionMessage(final CommandSender p , final String perm){
-        Msg.warning(p , "パーミッションがありません" + getPermissionNode(perm));
+    public static void noPermissionMessage(final CommandSender p, final String perm) {
+        Msg.warning(p, "パーミッションがありません" + getPermissionNode(perm));
     }
 
     /**
-     *パーミッションを表示する時のスタイル
-     * @param p プレイヤー
+     * パーミッションを表示する時のスタイル
+     *
+     * @param p    プレイヤー
      * @param perm パーミッション
      */
-    public static void checkPermission(final CommandSender p , final String perm){
-        Msg.info(p , "パーミッション：" + getPermissionNode(perm));
+    public static void checkPermission(final CommandSender p, final String perm) {
+        Msg.info(p, "パーミッション：" + getPermissionNode(perm));
     }
 
     /**
-     *パーミッションノードを灰色で表示
+     * パーミッションノードを灰色で表示
+     *
      * @param permission パーミッション
      * @return パーミッション専用スタイル
      */
-    public static String getPermissionNode(final String permission){
-        String string = ChatColor.GRAY + permission + ChatColor.RESET;
-        return string;
+    public static String getPermissionNode(final String permission) {
+        return ChatColor.GRAY + permission + ChatColor.RESET;
     }
 
     /**
      * コマンドヘルプのフォーマット
-     * @param p プレイヤー
-     * @param command コマンド
+     *
+     * @param p           プレイヤー
+     * @param command     コマンド
      * @param discription 説明
      */
-    public static void commandFormat(final CommandSender p , final String command , final String discription){
-        String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;
+    public static void commandFormat(final CommandSender p, final String command, final String discription) {
+        String string = ChatColor.GRAY + "   > " + ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY + "  : " + ChatColor.RESET + discription;
         p.sendMessage(string);
     }
 
     /**
      * コマンドヘルプのフォーマット
-     * @param p プレイヤー
+     *
+     * @param p           プレイヤー
      * @param discription 説明
      */
-    public static void defaultChatFormat(final CommandSender p , final String discription){
+    public static void defaultChatFormat(final CommandSender p, final String discription) {
         String string = p.getName() + ChatColor.GREEN + ": " + ChatColor.RESET + discription;
         Bukkit.broadcastMessage(string);
     }

@@ -26,11 +26,11 @@ import java.util.UUID;
  */
 public class TPointBuyGUI implements Listener {
 
-    public static String inventoryName = " TPoint - お買い物 ";
-    public static int invSize = 3;
-    public static HashMap<UUID,Integer> Teisyoku_TPointGUI = new HashMap<UUID,Integer>();
+    private static String inventoryName = " TPoint - お買い物 ";
+    private static int invSize = 3;
+    private static HashMap<UUID, Integer> Teisyoku_TPointGUI = new HashMap<UUID, Integer>();
 
-    public static void index(Player player){
+    static void index(Player player) {
         //Create Inventory
         Inventory inv = Bukkit.createInventory(player, invSize * 9, inventoryName);
 
@@ -43,8 +43,8 @@ public class TPointBuyGUI implements Listener {
 
         inv.setItem(0, item_status);
         int cnt = 9;
-        for(;cnt<invSize*9-1;cnt++){
-            if(TeisyokuPlugin2.getInstance().TPointSettingsConfig.get("goods." + cnt + ".name") == null){
+        for (; cnt < invSize * 9 - 1; cnt++) {
+            if (TeisyokuPlugin2.getInstance().TPointSettingsConfig.get("goods." + cnt + ".name") == null) {
                 /*
                  ##  Debug  ##
                 String ItemName = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".name");
@@ -53,21 +53,20 @@ public class TPointBuyGUI implements Listener {
                  */
                 continue;
             }
-            try{
+            try {
                 String ItemName = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".name");
                 String lore0 = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".lore1");
                 String lore1 = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".lore2");
                 String lore2 = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".lore3");
 
                 //TPoint Buy
-                String lore_buy_for[] = {lore0,lore1,lore2};
+                String lore_buy_for[] = {lore0, lore1, lore2};
                 String material = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".material");
                 int meta = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getInt("goods." + cnt + ".meta");
                 ItemStack item_buy_for = TeisyokuItem.custom_item(ItemName, 1, Material.getMaterial(material), (short) meta, lore_buy_for);
                 inv.setItem(cnt, item_buy_for);
-            }
-            catch (Exception e){
-                Msg.warning(player,"不明なエラーが発生しました");
+            } catch (Exception e) {
+                Msg.warning(player, "不明なエラーが発生しました");
                 e.printStackTrace();
             }
         }
@@ -84,64 +83,62 @@ public class TPointBuyGUI implements Listener {
             //Cancel click event
             event.setCancelled(true);
 
-            if(!(event.getRawSlot() >=9 && event.getRawSlot()<=28)){
+            if (!(event.getRawSlot() >= 9 && event.getRawSlot() <= 28)) {
                 return;
             }
 
-            if(event.getCurrentItem().getType().equals(Material.AIR)){
+            if (event.getCurrentItem().getType().equals(Material.AIR)) {
                 return;
             }
 
             String ItemName = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + event.getRawSlot() + ".name");
-            GUI_YesNo.openGUI(player,"購入","キャンセル",ItemName);
-            Teisyoku_TPointGUI.put(player.getUniqueId(),event.getRawSlot());
+            GUI_YesNo.openGUI(player, "購入", "キャンセル", ItemName);
+            Teisyoku_TPointGUI.put(player.getUniqueId(), event.getRawSlot());
             event.setCancelled(true);
         }
     }
 
     @EventHandler
-    public static void buy(InventoryClickEvent event){
+    public static void buy(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if(Teisyoku_TPointGUI.containsKey(player.getUniqueId())==false){
+        if (!Teisyoku_TPointGUI.containsKey(player.getUniqueId())) {
             return;
         }
         int goods_number = Teisyoku_TPointGUI.get(player.getUniqueId());
-        if(event.getInventory().getName().equalsIgnoreCase(TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + goods_number + ".name"))){
+        if (event.getInventory().getName().equalsIgnoreCase(TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + goods_number + ".name"))) {
             event.setCancelled(true);
-            if(event.getRawSlot() == 2){
+            if (event.getRawSlot() == 2) {
                 List<String> messages = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getStringList("goods." + goods_number + ".messages");
-                for(String m : messages){
+                for (String m : messages) {
                     String mm = color(m);
                     String mmm = mm.replaceAll("%player%", player.getName());
-                    Msg.info(player,mmm);
+                    Msg.info(player, mmm);
                 }
 
                 //購入をキャンセルするかどうか
                 int point = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getInt("goods." + goods_number + ".point");
-                if(Listener_TPoint.canBuy(point, player) == false){
+                if (!Listener_TPoint.canBuy(point, player)) {
                     Msg.warning(player, "購入がキャンセルされました");
                     return;
                 }
 
                 List<String> commands = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getStringList("goods." + goods_number + ".commands");
-                for(String s : commands){
+                for (String s : commands) {
                     String ss = color(s);
                     String sss = ss.replaceAll("%player%", player.getName());
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), sss);
                 }
                 player.closeInventory();
                 Teisyoku_TPointGUI.remove(player.getUniqueId());
-            }
-            else if(event.getRawSlot() == 6){
-                Msg.warning(player,"購入をキャンセルしました");
+            } else if (event.getRawSlot() == 6) {
+                Msg.warning(player, "購入をキャンセルしました");
                 player.closeInventory();
                 Teisyoku_TPointGUI.remove(player.getUniqueId());
             }
         }
-        return;
     }
 
-    public static String color(String str){
-        return str.replaceAll("&","§");
+    private static String color(String str) {
+        return str.replaceAll("&", "§");
     }
 }

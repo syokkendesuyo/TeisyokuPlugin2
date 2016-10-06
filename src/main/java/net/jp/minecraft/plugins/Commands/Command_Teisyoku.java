@@ -17,20 +17,20 @@ import org.bukkit.entity.Player;
  *
  * @auther syokkendesuyo
  */
-public class Command_Teisyoku implements CommandExecutor{
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-        if(! (sender.hasPermission(Permissions.getTeisyokuCommandPermisson()))){
+public class Command_Teisyoku implements CommandExecutor {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        if (!(sender.hasPermission(Permissions.getTeisyokuCommandPermisson()))) {
             sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getTeisyokuCommandPermisson()));
             return true;
         }
 
-        if(args.length == 0){
+        if (args.length == 0) {
             teisyoku(sender);
             return true;
         }
 
-        if(args[0].equalsIgnoreCase("help")){
-            if(!(sender.hasPermission(Permissions.getHelpCommandPermisson()))){
+        if (args[0].equalsIgnoreCase("help")) {
+            if (!(sender.hasPermission(Permissions.getHelpCommandPermisson()))) {
                 sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpCommandPermisson()));
                 return true;
             }
@@ -38,14 +38,14 @@ public class Command_Teisyoku implements CommandExecutor{
             return true;
         }
 
-        if(args[0].equalsIgnoreCase("permission") || args[0].equalsIgnoreCase("perm")){
+        if (args[0].equalsIgnoreCase("permission") || args[0].equalsIgnoreCase("perm")) {
             sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(通常利用): " + Permissions.getTeisyokuPermisson());
             sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(コマンド): " + Permissions.getTeisyokuCommandPermisson());
             return true;
         }
 
-        if(args[0].equalsIgnoreCase("reload")||args[0].equalsIgnoreCase("r")||args[0].equalsIgnoreCase("rl")){
-            if(!sender.hasPermission("teisyoku.admin")){
+        if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("r") || args[0].equalsIgnoreCase("rl")) {
+            if (!sender.hasPermission("teisyoku.admin")) {
                 Msg.warning(sender, "パーミッションがありません");
                 return true;
             }
@@ -60,36 +60,35 @@ public class Command_Teisyoku implements CommandExecutor{
             return true;
         }
 
-        if(args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")){
-            Msg.success(sender,"Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion().toString());
+        if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
+            Msg.success(sender, "Version ： " + TeisyokuPlugin2.getInstance().getDescription().getVersion());
             return true;
         }
 
-        if(args[0].equalsIgnoreCase("gift") || args[0].equalsIgnoreCase("giftcode")){
-            if(args.length == 2){
+        if (args[0].equalsIgnoreCase("gift") || args[0].equalsIgnoreCase("giftcode")) {
+            if (args.length == 2) {
                 Msg.info(sender, "手続き中です...");
-                Config_GiftAPI.gift(args[1] , sender);
+                Config_GiftAPI.gift(args[1], sender);
                 return true;
-            }
-            else {
+            } else {
                 Msg.warning(sender, "引数が多すぎるか、または少なすぎます");
                 return true;
             }
         }
 
-        if(args[0].equalsIgnoreCase("flag") || args[0].equalsIgnoreCase("f")){
-            if(!sender.hasPermission("teisyoku.admin")){
+        if (args[0].equalsIgnoreCase("flag") || args[0].equalsIgnoreCase("f")) {
+            if (!sender.hasPermission("teisyoku.admin")) {
                 Msg.warning(sender, "パーミッションがありません");
                 return true;
             }
-            if(args[1].equalsIgnoreCase("ad")){
-                if(args.length == 4){
+            if (args[1].equalsIgnoreCase("ad")) {
+                if (args.length == 4) {
                     Player target_player = Bukkit.getServer().getPlayer(args[2]);
-                    if(!(target_player == null)){
+                    if (!(target_player == null)) {
                         Msg.warning(sender, args[2] + " さんはオンラインではありません");
                         return true;
                     }
-                    if(args[3].equalsIgnoreCase("true")){
+                    if (args[3].equalsIgnoreCase("true")) {
 
                     }
                     return true;
@@ -98,18 +97,19 @@ public class Command_Teisyoku implements CommandExecutor{
             }
             Msg.warning(sender, "引数「" + args[1] + "」は存在しません");
         }
-        Msg.warning(sender,"引数 " + args[0].toString()  + " は存在しません");
+        Msg.warning(sender, "引数 " + args[0] + " は存在しません");
         return true;
     }
-    public void teisyoku(CommandSender sender){
+
+    private void teisyoku(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            Msg.warning(sender,"定食メニューコマンドはゲーム内からのみ実行できます");
+            Msg.warning(sender, "定食メニューコマンドはゲーム内からのみ実行できます");
             return;
         }
 
-        if(!(sender.hasPermission(Permissions.getTeisyokuPermisson()))){
+        if (!(sender.hasPermission(Permissions.getTeisyokuPermisson()))) {
             sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getTeisyokuPermisson()));
-            return ;
+            return;
         }
 
         Player player = (Player) sender;

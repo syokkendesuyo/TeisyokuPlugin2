@@ -5,9 +5,6 @@ import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Search;
 import net.jp.minecraft.plugins.Utility.Sounds;
-
-import java.util.Arrays;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,6 +18,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+
 /**
  * TeisyokuPlugin2
  *
@@ -29,60 +28,44 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class Listener_Sign implements Listener {
     //看板右クリックでゴミ箱を表示
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event){
+    public void onPlayerInteract(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
         if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
-            return;
-        }
-        else{
-            if(block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)){
+        } else {
+            if (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)) {
                 Sign sign = (Sign) block.getState();
 
-                if (Search.searchKeyword(sign.getLines(), "[gomi]") == true){
+                if (Search.searchKeyword(sign.getLines(), "[gomi]")) {
                     Listener_Gomibako.openGomibako(player);
-                    return;
-                }
-                else if (Search.searchKeyword(sign.getLines() , "[cart]") == true){
+                } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
                     Msg.success(player, "マインカートをインベントリに追加しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     player.getInventory().addItem(cart);
-                    return;
-                }
-                else if (Search.searchKeyword(sign.getLines() , "[teisyoku]") == true){
+                } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
                     TeisyokuMenuIndex.getMenu(player);
-                    return;
-                }
-                else if(Search.searchKeyword(sign.getLines() , "[tpoint]") == true || Search.searchKeyword(sign.getLines() , "[point]") == true){
+                } else if (Search.searchKeyword(sign.getLines(), "[tpoint]") || Search.searchKeyword(sign.getLines(), "[point]")) {
                     TPointIndexGUI.index(player);
-                    return;
-                }
-                else if (sign.getLine(0).toLowerCase().indexOf("[warp]") != -1){
-                    if(sign.getLine(1) != null){
+                } else if (sign.getLine(0).toLowerCase().indexOf("[warp]") != -1) {
+                    if (sign.getLine(1) != null) {
                         Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
-                        return;
-                    }
-                    else{
+                    } else {
                         Bukkit.getServer().dispatchCommand(player, "warp");
-                        return;
                     }
-                }
-                else if ((Search.searchKeyword(sign.getLines() , "[coffee]"))&&(player.getInventory().getItemInMainHand().getType().equals(Material.POTION))){
+                } else if ((Search.searchKeyword(sign.getLines(), "[coffee]")) && (player.getInventory().getItemInMainHand().getType().equals(Material.POTION))) {
                     ItemStack item = player.getInventory().getItemInMainHand();
                     ItemMeta meta = item.getItemMeta();
                     meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Coffee");
                     meta.setLore(Arrays.asList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
                     item.setItemMeta(meta);
                     Sounds.sound_note(player);
-                }
-                else{
+                } else {
                     Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");
-                    for(int cnt=0;cnt<4;cnt++){
-                        if(! (sign.getLine(cnt).length() == 0)){
-                            Msg.info(player,sign.getLine(cnt).toString());
+                    for (int cnt = 0; cnt < 4; cnt++) {
+                        if (!(sign.getLine(cnt).length() == 0)) {
+                            Msg.info(player, sign.getLine(cnt));
                         }
                     }
-                    return;
                 }
             }
         }

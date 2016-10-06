@@ -185,18 +185,17 @@ public class Command_Nick implements CommandExecutor {
         return true;
     }
 
-    public void HelpMessage(CommandSender sender , Command cmd){
+    private void HelpMessage(CommandSender sender , Command cmd){
         Msg.success(sender, "コマンドのヘルプ" + ChatColor.GRAY +"(開発協力:azuhataさん)");
         Msg.commandFormat(sender, cmd.getName() + " set <ﾆｯｸﾈｰﾑ>", "自分のﾆｯｸﾈｰﾑをｾｯﾄします");
         Msg.commandFormat(sender, cmd.getName() + " remove","自分のﾆｯｸﾈｰﾑを削除します");
     }
 
-    public void AdminHelpMessage(CommandSender sender , Command cmd){
+    private void AdminHelpMessage(CommandSender sender , Command cmd){
         Msg.commandFormat(sender, cmd.getName() + " admin set <ﾌﾟﾚｲﾔｰ名> <ﾆｯｸﾈｰﾑ>","他ﾌﾟﾚｲﾔｰのﾆｯｸﾈｰﾑをｾｯﾄします");
         Msg.commandFormat(sender, cmd.getName() + " admin remove <ﾌﾟﾚｲﾔｰ名>","他ﾌﾟﾚｲﾔｰのﾆｯｸﾈｰﾑを削除します");
     }
-
-
+    
     private void setConfig(Player player, String NickName) {
         API_Nick.setNick(player, NickName);
     }

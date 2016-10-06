@@ -12,17 +12,13 @@ import org.bukkit.event.block.SignChangeEvent;
  */
 public class Listener_SignColor implements Listener {
     @EventHandler
-    public void onSignChangeEvent(SignChangeEvent event)
-    {
-        if (!event.getPlayer().hasPermission("teisyoku.user")){
+    public void onSignChangeEvent(SignChangeEvent event) {
+        if (!event.getPlayer().hasPermission("teisyoku.user")) {
             return;
         }
-
         event.setLine(0, ChatColor.translateAlternateColorCodes('&', event.getLine(0)));
         event.setLine(1, ChatColor.translateAlternateColorCodes('&', event.getLine(1)));
         event.setLine(2, ChatColor.translateAlternateColorCodes('&', event.getLine(2)));
         event.setLine(3, ChatColor.translateAlternateColorCodes('&', event.getLine(3)));
-
-        return;
     }
 }

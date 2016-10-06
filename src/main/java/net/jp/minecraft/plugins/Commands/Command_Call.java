@@ -47,14 +47,13 @@ public class Command_Call implements CommandExecutor {
         //プレイヤーがオンラインであればメッセージを送信
         if( !(player == null) ){
             String arg = Joiner.on(' ').join(args);
-            String noneName = arg.replaceAll(args[0].toString(),"");
+            String noneName = arg.replaceAll(args[0],"");
             String argReplace = noneName.replaceAll("&","§");
 
-            Player player2 = player;
-            sender.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + player2.getName().toString() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
-            player2.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + sender.getName().toString() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
+            sender.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
+            player.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
 
-            Sounds.sound_note(player2);
+            Sounds.sound_note(player);
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
             if(sender instanceof Player){
@@ -70,8 +69,8 @@ public class Command_Call implements CommandExecutor {
     }
 
     //ヘルプ関数
-    public void help(CommandSender sender , String commandLabel){
+    private void help(CommandSender sender , String commandLabel){
         Msg.success(sender, "コマンドのヘルプ");
-        Msg.commandFormat(sender , commandLabel.toString() + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
+        Msg.commandFormat(sender , commandLabel + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
     }
 }

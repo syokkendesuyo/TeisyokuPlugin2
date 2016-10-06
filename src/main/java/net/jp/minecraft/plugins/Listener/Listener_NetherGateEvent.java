@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
  */
 public class Listener_NetherGateEvent implements Listener {
     @EventHandler
-    public void onNetherGateEnterEvent(PlayerPortalEvent event){
+    public void onNetherGateEnterEvent(PlayerPortalEvent event) {
         Player player = event.getPlayer();
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL) {
             event.setCancelled(true);

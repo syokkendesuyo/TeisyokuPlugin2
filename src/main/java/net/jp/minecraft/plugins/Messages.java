@@ -13,49 +13,50 @@ public class Messages implements Listener {
 
     /**
      * Prefixを提供
+     *
      * @return string
      */
-    public static String getSuccessPrefix(){
-        String string = ChatColor.GREEN + "[Teisyoku] "+ ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+    public static String getSuccessPrefix() {
+        String string = ChatColor.GREEN + "[Teisyoku] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
         return string;
     }
 
-    public static String getDenyPrefix(){
-        String string = ChatColor.RED + "[Teisyoku] "+ ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+    public static String getDenyPrefix() {
+        String string = ChatColor.RED + "[Teisyoku] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
         return string;
     }
 
-    public static String getNormalPrefix(){
-        String string = ChatColor.AQUA + "[Teisyoku] "+ ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+    public static String getNormalPrefix() {
+        String string = ChatColor.AQUA + "[Teisyoku] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
         return string;
     }
 
-    public static String getYellowPrefix(){
-        String string = ChatColor.YELLOW + "[Teisyoku] "+ ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+    public static String getYellowPrefix() {
+        String string = ChatColor.YELLOW + "[Teisyoku] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
         return string;
     }
 
-    public static String getAdPrefix(String name){
-        String string = ChatColor.GOLD + "[お知らせ] "+ChatColor.YELLOW + name + " " + ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+    public static String getAdPrefix(String name) {
+        String string = ChatColor.GOLD + "[お知らせ] " + ChatColor.YELLOW + name + " " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
         return string;
     }
 
-    public static String getCallPrefix(){
-        String string = ChatColor.GOLD + "[お呼び出し] " + ChatColor.DARK_GRAY +">" + ChatColor.GRAY + "> "+ ChatColor.WHITE;
+    public static String getCallPrefix() {
+        String string = ChatColor.GOLD + "[お呼び出し] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
         return string;
     }
 
-    public static String getCommandFormat(String command , String discription){
-        String string = ChatColor.GRAY + "   > "+ ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY  + "  : "+ ChatColor.RESET + discription;
+    public static String getCommandFormat(String command, String discription) {
+        String string = ChatColor.GRAY + "   > " + ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY + "  : " + ChatColor.RESET + discription;
         return string;
     }
 
-    public static String getReset(){
+    public static String getReset() {
         String string = "" + ChatColor.RESET;
         return string;
     }
 
-    public static String getArray(){
+    public static String getArray() {
         String string = ChatColor.GRAY + "   > " + ChatColor.RESET;
         return string;
     }
@@ -63,10 +64,11 @@ public class Messages implements Listener {
 
     /**
      * ヘルプメッセーいを提供
+     *
      * @param sender
      */
-    public static void HelpMessage(CommandSender sender){
-        if(!(sender.hasPermission(Permissions.getHelpPermisson()))){
+    public static void HelpMessage(CommandSender sender) {
+        if (!(sender.hasPermission(Permissions.getHelpPermisson()))) {
             sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpPermisson()));
             return;
         }
@@ -91,20 +93,20 @@ public class Messages implements Listener {
      * パーミッション関連
      */
     //パーミッションを灰色で表示する
-    public static String getPermissionNode(String permission){
+    public static String getPermissionNode(String permission) {
         String string = ChatColor.GRAY + " (" + permission + ")" + ChatColor.RESET;
         return string;
     }
 
     //パーミッションが無い時のメッセージ
-    public static String getNoPermissionMessage(String permission){
+    public static String getNoPermissionMessage(String permission) {
         String permissionFormat = getPermissionNode(permission);
         String string = getDenyPrefix() + "パーミッションがありません" + permissionFormat;
         return string;
     }
 
     //パーミッションの確認コマンド
-    public static String getCheckPermissionMessage(String permission){
+    public static String getCheckPermissionMessage(String permission) {
         String permissionFormat = permission;
         String string = getNormalPrefix() + "パーミッション：" + permissionFormat;
         return string;

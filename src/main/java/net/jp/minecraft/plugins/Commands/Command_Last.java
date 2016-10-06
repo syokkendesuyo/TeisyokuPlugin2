@@ -23,7 +23,7 @@ import java.util.UUID;
  * @auther syokkendesuyo
  */
 public class Command_Last implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
 
         /**
@@ -31,7 +31,7 @@ public class Command_Last implements CommandExecutor {
          */
 
         //パーミッションの確認(コマンド側)
-        if(!(sender.hasPermission(Permissions.getLastCommandPermisson()))){
+        if (!(sender.hasPermission(Permissions.getLastCommandPermisson()))) {
             sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getLastCommandPermisson()));
             return true;
         }
@@ -42,13 +42,13 @@ public class Command_Last implements CommandExecutor {
          */
 
         //引数が0だった場合
-        if(args.length == 0){
+        if (args.length == 0) {
             Msg.info(sender, "利用方法： /last <プレイヤー名>");
             return true;
         }
 
         //引数が1より大きかった場合
-        else if(args.length > 1){
+        else if (args.length > 1) {
             Msg.warning(sender, "引数が多すぎです");
             Msg.warning(sender, "利用方法：/last <プレイヤー名>");
             return true;
@@ -60,18 +60,16 @@ public class Command_Last implements CommandExecutor {
          */
 
         //パーミッションの確認コマンド
-        if(args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")){
+        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")) {
             Messages.getCheckPermissionMessage(Permissions.getLastCommandPermisson());
             return true;
-        }
-
-        else if(args[0].length()<3 || args[0].length() >16){
+        } else if (args[0].length() < 3 || args[0].length() > 16) {
             Msg.warning(sender, "プレイヤー名は3から16文字で入力してください");
             return true;
         }
 
         //その他の場合プレイヤー名と判定
-        else{
+        else {
             //OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
             //UUID uuid = player.getUniqueId();
 
@@ -89,10 +87,9 @@ public class Command_Last implements CommandExecutor {
             OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
 
-
-            try{
-                if(TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null){
-                    Msg.warning(sender, ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET  + "のデータはありませんでした");
+            try {
+                if (TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null) {
+                    Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "のデータはありませんでした");
                     return true;
                 }
 
@@ -102,13 +99,12 @@ public class Command_Last implements CommandExecutor {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
                 String firstPlayed = sdf.format(player.getFirstPlayed());
 
-                Msg.info(sender,ChatColor.YELLOW +  args[0].toString() + ChatColor.RESET + "さんのデータ");
+                Msg.info(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "さんのデータ");
                 Msg.success(sender, ChatColor.RESET + "最初のログイン " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + firstPlayed);
                 Msg.success(sender, ChatColor.RESET + "最終ログイン   " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + joinDate);
                 Msg.success(sender, ChatColor.RESET + "最終ログアウト " + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + quitDate);
                 return true;
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 Msg.warning(sender, "不明なエラーが発生しました");
                 e.printStackTrace();
                 return true;

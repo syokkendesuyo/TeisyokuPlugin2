@@ -16,19 +16,17 @@ import java.util.List;
  */
 public class Listener_WitherSpawmCancel implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onCreatureSpawn(EntitySpawnEvent event){
-        if (event.getEntityType() == EntityType.WITHER){
+    public void onCreatureSpawn(EntitySpawnEvent event) {
+        if (event.getEntityType() == EntityType.WITHER) {
             List<String> worlds = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("arrow_summon_wither");
-            for(String s : worlds){
+            for (String s : worlds) {
                 // ## Debug ##
                 // Bukkit.broadcastMessage("Debug: " + s + " " + event.getLocation().getWorld().getName().toString());
-                if(event.getLocation().getWorld().getName().toString().equals(s)){
+                if (event.getLocation().getWorld().getName().equals(s)) {
                     event.setCancelled(false);
                     return;
-                }
-                else{
+                } else {
                     event.setCancelled(true);
-                    continue;
                 }
             }
         }

@@ -12,28 +12,25 @@ import org.bukkit.event.player.PlayerQuitEvent;
  *
  * @auther syokkendesuyo
  */
-public class Listener_Discord implements Listener{
+public class Listener_Discord implements Listener {
 
     @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event){
+    public void onPlayerJoinEvent(PlayerJoinEvent event) {
         int players = Bukkit.getOnlinePlayers().size();
         sendMsg(players);
     }
 
     @EventHandler
-    public void onPlayerQuitEvent(PlayerQuitEvent event){
+    public void onPlayerQuitEvent(PlayerQuitEvent event) {
         int players = Bukkit.getOnlinePlayers().size();
-        sendMsg(players-1);
+        sendMsg(players - 1);
     }
 
-    public static void sendMsg(int players){
-        if(players == 0){
+    private static void sendMsg(int players) {
+        if (players == 0) {
             API_Discord.sendToDiscord("現在ログインしているプレイヤーは居ません");
-            return;
-        }
-        else {
+        } else {
             API_Discord.sendToDiscord("現在のログイン人数： " + players + " 名");
-            return;
         }
     }
 }

@@ -37,7 +37,7 @@ import java.util.concurrent.Callable;
 
 /**
  * TeisyokuPlugin2
- * 
+ *
  * Thanks!
  * Gist:https://gist.github.com/evilmidget38/26d70114b834f71fb3b4
  *

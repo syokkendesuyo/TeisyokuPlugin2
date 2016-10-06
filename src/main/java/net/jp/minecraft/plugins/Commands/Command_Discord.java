@@ -15,28 +15,28 @@ import org.bukkit.command.CommandSender;
  * @auther syokkendesuyo
  */
 public class Command_Discord implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-        if(Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordMC") == false){
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        if (!Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordMC")) {
             Msg.warning(sender, "DiscordMCがロードされていない為利用できません");
             return true;
         }
 
-        if(!(sender.hasPermission("teisyoku.admin"))){
+        if (!(sender.hasPermission("teisyoku.admin"))) {
             Msg.warning(sender, "パーミッションがありません");
             return true;
         }
 
-        if(args.length == 0){
+        if (args.length == 0) {
             Msg.commandFormat(sender, "dc <メッセージ>", "Discordへメッセージを送信します");
             return true;
         }
 
-        try{
+        try {
             String arg = Joiner.on(' ').join(args);
             MessageAPI.sendToDiscord(" __**[Teisyoku]**__ " + arg);
             Msg.success(sender, ChatColor.YELLOW + "送信しました" + ChatColor.GRAY + " : " + ChatColor.RESET + arg);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             Msg.warning(sender, "不明なエラーが発生しました");
             e.printStackTrace();
             return true;

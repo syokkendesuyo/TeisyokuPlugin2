@@ -21,45 +21,44 @@ import java.lang.reflect.Field;
 public class Listener_Tab_1_9_R1 implements Listener {
 
     @EventHandler
-    public void join (PlayerJoinEvent event){
+    public void join(PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
 
         IChatBaseComponent chatTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("title").toString()) + "\"}");
         IChatBaseComponent chatSubTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("subtitle").toString()) + "\"}");
 
-        sendTabTitle(player,chatTitle,chatSubTitle);
+        sendTabTitle(player, chatTitle, chatSubTitle);
 
     }
 
     @EventHandler
-    public void exit (PlayerQuitEvent event){
+    public void exit(PlayerQuitEvent event) {
 
         Player player = event.getPlayer();
 
         IChatBaseComponent chatTitle = IChatBaseComponent.ChatSerializer.a("");
         IChatBaseComponent chatSubTitle = IChatBaseComponent.ChatSerializer.a("");
 
-        sendTabTitle(player,chatTitle,chatSubTitle);
+        sendTabTitle(player, chatTitle, chatSubTitle);
 
     }
 
-    public static void sendTabTitle(Player player, IChatBaseComponent header, IChatBaseComponent footer) {
-        PlayerConnection connection = ((CraftPlayer)player).getHandle().playerConnection;
+    private static void sendTabTitle(Player player, IChatBaseComponent header, IChatBaseComponent footer) {
+        PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
         PacketPlayOutPlayerListHeaderFooter headerPacket = new PacketPlayOutPlayerListHeaderFooter(header);
         try {
             Field field = headerPacket.getClass().getDeclaredField("b");
             field.setAccessible(true);
             field.set(headerPacket, footer);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             connection.sendPacket(headerPacket);
         }
     }
 
-    public static String color(String str){
-        return str.replaceAll("&","§");
+    private static String color(String str) {
+        return str.replaceAll("&", "§");
     }
 }

@@ -133,19 +133,16 @@ public class Listener_MineCartEvent implements Listener {
 
                         if (TeisyokuPlugin2.getInstance().CartConfig.get(sign.getLine(1)) == null) {
                             sendplayer.sendMessage(Messages.getDenyPrefix() + "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
-                            return;
                         } else {
                             //正常処理
                             String announce = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1) + ".string");
                             String announceReplace = announce.replaceAll("&", "§");
                             String annaunceReplace2 = announceReplace.replaceAll("%%", " ");
                             sendplayer.sendMessage(annaunceReplace2);
-                            return;
                         }
                     } catch (Exception e) {
                         sendplayer.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
                         e.printStackTrace();
-                        return;
                     }
                 }
             }
@@ -158,7 +155,6 @@ public class Listener_MineCartEvent implements Listener {
      * <p>
      * アクティベーターレールは最高速度を通常Minecartに戻すことができる
      */
-
     @SuppressWarnings("deprecation")
     @EventHandler
     public void changeMincartSpeed(VehicleMoveEvent event) {

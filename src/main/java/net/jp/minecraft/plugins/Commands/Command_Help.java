@@ -12,9 +12,9 @@ import org.bukkit.command.CommandSender;
  * @auther syokkendesuyo
  */
 public class Command_Help implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
-        if(!(sender.hasPermission(Permissions.getHelpCommandPermisson()))){
+        if (!(sender.hasPermission(Permissions.getHelpCommandPermisson()))) {
             sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpCommandPermisson()));
             return true;
         }

@@ -16,7 +16,7 @@ public class Command_Daunii implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String cmdlabel, String[] args) {
-        
+
         if (!(sender instanceof Player)) {
             Msg.warning(sender, "コンソールからコマンドを送信することはできません");
             return false;

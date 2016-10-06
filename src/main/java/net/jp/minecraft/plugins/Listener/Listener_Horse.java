@@ -226,7 +226,7 @@ public class Listener_Horse implements Listener {
      * @param entityUUID
      * @return
      */
-    private static int isEqual(Player player, UUID playerUUID, UUID entityUUID) {
+    static int isEqual(Player player, UUID playerUUID, UUID entityUUID) {
         if (playerUUID.toString().equals(TeisyokuPlugin2.getInstance().HorseConfig.get(entityUUID + ".uuid"))) {
             return 1;
         } else {
@@ -240,7 +240,7 @@ public class Listener_Horse implements Listener {
         }
     }
 
-    private static void getStatus(Player player, UUID entityUUID) {
+    static void getStatus(Player player, UUID entityUUID) {
         Msg.info(player, "登録者名 : " + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".player"));
         Msg.info(player, "登録日 : " + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".data"));
     }

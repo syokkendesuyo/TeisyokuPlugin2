@@ -11,24 +11,24 @@ import org.bukkit.event.entity.EntityExplodeEvent;
  *
  * @auther syokkendesuyo
  */
-public class Listener_MobGrief implements Listener{
+public class Listener_MobGrief implements Listener {
     @EventHandler
     public void creeperGrief(EntityExplodeEvent e) {
-        if(!(e.getEntityType().equals(EntityType.CREEPER))){
+        if (!(e.getEntityType().equals(EntityType.CREEPER))) {
             return;
         }
-        if(!(e.getLocation().getWorld().getName().equals("world"))){
+        if (!(e.getLocation().getWorld().getName().equals("world"))) {
             return;
         }
         e.blockList().clear();
     }
 
     @EventHandler
-    public void endermanGrief(EntityChangeBlockEvent e){
-        if(!(e.getEntityType().equals(EntityType.ENDERMAN))){
+    public void endermanGrief(EntityChangeBlockEvent e) {
+        if (!(e.getEntityType().equals(EntityType.ENDERMAN))) {
             return;
         }
-        if(!(e.getBlock().getLocation().getWorld().getName().equals("world"))){
+        if (!(e.getBlock().getLocation().getWorld().getName().equals("world"))) {
             return;
         }
         e.setCancelled(true);

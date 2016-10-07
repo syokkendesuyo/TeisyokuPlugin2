@@ -87,7 +87,15 @@ public class Listener_Horse implements Listener {
             }
 
             int temp = isEqual(player, playerUUID, entityUUID);
-            if (temp == 1 || player.isOp()) {
+
+            if (temp == 3) {
+                Msg.success(player, "ロックされた馬に乗りました");
+                getStatus(player, entityUUID);
+                return;
+            } else if (temp == 4) {
+                Msg.info(player, "この馬はロックされていません");
+                return;
+            } else if (temp == 1 || player.isOp()) {
                 Msg.success(player, "ロックされた馬に乗りました");
                 getStatus(player, entityUUID);
                 return;
@@ -96,6 +104,7 @@ public class Listener_Horse implements Listener {
                 return;
             }
 
+            //tempが0の場合不一致なのでキャンセル処理
             event.setCancelled(true);
             Msg.warning(player, "この馬はロックされています");
             getStatus(player, entityUUID);
@@ -118,7 +127,7 @@ public class Listener_Horse implements Listener {
 
             TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString(), player.toString());
             TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".data", strDate);
-            TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".player", player.getName().toString());
+            TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".player", player.getName());
             TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".uuid", player.getUniqueId().toString());
             TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".mode", "private");
 
@@ -215,11 +224,12 @@ public class Listener_Horse implements Listener {
     }
 
     /**
-     * エンティティデータを比較するメソッド
-     * 0:不一致
-     * 1:一致
-     * 2:比較対象が無い
-     * 3:OP
+     * エンティティデータを比較するメソッド<br />
+     * 0:不一致<br />
+     * 1:一致<br />
+     * 2:比較対象が無い<br />
+     * 3:OP(登録あり)<br />
+     * 4:OP(登録なし)<br />
      *
      * @param player
      * @param playerUUID
@@ -227,15 +237,23 @@ public class Listener_Horse implements Listener {
      * @return
      */
     static int isEqual(Player player, UUID playerUUID, UUID entityUUID) {
+        //OPであり、馬の登録がある場合
+        if (player.isOp() && isRegister(entityUUID)) {
+            return 3;
+        }
+        //OPだが、馬の登録が無い場合
+        if (player.isOp() && !isRegister(entityUUID)) {
+            return 4;
+        }
+        //一般プレイヤーで、UUIDが一致した場合
         if (playerUUID.toString().equals(TeisyokuPlugin2.getInstance().HorseConfig.get(entityUUID + ".uuid"))) {
             return 1;
         } else {
+            //そもそも登録が無い場合
             if (TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null) {
                 return 2;
             }
-            if (player.isOp()) {
-                return 3;
-            }
+            //不一致
             return 0;
         }
     }

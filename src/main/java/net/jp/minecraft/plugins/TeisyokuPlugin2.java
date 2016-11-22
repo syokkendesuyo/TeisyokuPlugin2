@@ -151,6 +151,19 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             getCommand("daunii").setExecutor(new Command_Daunii());
 
             getLogger().info("1.9.2-R0.1 用に作成された一部機能が開放されました");
+
+            BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
+            scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
+                public void run() {
+                    Double tps = Listener_TicksPerSecond_1_9_R1.getTps(1);
+                    if (Listener_TicksPerSecond_1_9_R1.getTps(1) < 16) {
+                        for (Player player : Bukkit.getOnlinePlayers()) {
+                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R1.doubleToString(tps));
+                        }
+                    }
+                }
+            }, 0L, 6000L);
+
         } else if (version.equals(ver1_8_8_R01)) {
             getLogger().info("1.8.8-R0.1 は現在開発中の為一部機能が制限されています");
         } else {
@@ -167,17 +180,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             }
         }, 0L, 54000L);
 
-        BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
-        scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
-            public void run() {
-                Double tps = Listener_TicksPerSecond_1_9_R1.getTps(1);
-                if (Listener_TicksPerSecond_1_9_R1.getTps(1) < 16) {
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R1.doubleToString(tps));
-                    }
-                }
-            }
-        }, 0L, 6000L);
+
 
         TeisyokuConfig();
         saveTeisyokuConfig();

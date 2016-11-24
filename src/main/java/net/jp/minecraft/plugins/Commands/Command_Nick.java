@@ -101,7 +101,7 @@ public class Command_Nick implements CommandExecutor {
                 if(!(args.length == 4)){
                     Msg.warning(sender, "引数が多すぎるかまたは少なすぎます");
                 }
-                if (args[2].equalsIgnoreCase("default") || args[2].equalsIgnoreCase("aqua") || args[2].equalsIgnoreCase("pink")){
+                if (args[2].equalsIgnoreCase("default") || args[2].equalsIgnoreCase("aqua") || args[2].equalsIgnoreCase("pink") || args[2].equalsIgnoreCase("green")){
                     Player player = Bukkit.getServer().getPlayer(args[3]);
                     if(player == null){
                         Msg.warning(sender, ChatColor.YELLOW + args[3] + ChatColor.RESET + "さんはオンラインでない為操作できません");
@@ -118,6 +118,10 @@ public class Command_Nick implements CommandExecutor {
                     }
                     if(args[2].equalsIgnoreCase("pink")){
                         Listener_TPoint.color_pink(player);
+                        return true;
+                    }
+                    if(args[2].equalsIgnoreCase("green")){
+                        Listener_TPoint.color_green(player);
                         return true;
                     }
                 }

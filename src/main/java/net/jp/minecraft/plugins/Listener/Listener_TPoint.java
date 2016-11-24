@@ -233,4 +233,12 @@ public class Listener_TPoint {
         playerData.set("nick_color", "pink");
         save();
     }
+
+    public static void color_green(Player player) {
+        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
+        config = YamlConfiguration.loadConfiguration(cfile);
+        FileConfiguration playerData = config;
+        playerData.set("nick_color", "green");
+        save();
+    }
 }

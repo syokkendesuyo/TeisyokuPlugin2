@@ -51,6 +51,10 @@ public class Listener_Chat implements Listener {
                 if (color.equalsIgnoreCase("pink")) {
                     Name = ChatColor.LIGHT_PURPLE + "" + NickName + " " + ChatColor.RESET + sender;
                     player.setDisplayName(Name);
+                }
+                if (color.equalsIgnoreCase("green")) {
+                    Name = ChatColor.GREEN + "" + NickName + " " + ChatColor.RESET + sender;
+                    player.setDisplayName(Name);
                 } else {
                     Name = ChatColor.GRAY + "" + NickName + " " + ChatColor.RESET + sender;
                     player.setDisplayName(Name);

@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Listener.Listener_Daunii_1_9_R1;
+import net.jp.minecraft.plugins.Listener.Listener_Daunii_1_9_R2;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Location;
@@ -33,7 +33,7 @@ public class Command_Daunii implements CommandExecutor {
         }
         Player player = (Player) sender;
         IronGolem Daunii = (IronGolem) player.getWorld().spawnEntity(player.getLocation(), EntityType.IRON_GOLEM);
-        Daunii.setCustomName(Listener_Daunii_1_9_R1.DauniiName);
+        Daunii.setCustomName(Listener_Daunii_1_9_R2.DauniiName);
         Daunii.setCustomNameVisible(true);
         Daunii.setRemoveWhenFarAway(false);
 

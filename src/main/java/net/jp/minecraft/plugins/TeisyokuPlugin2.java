@@ -40,8 +40,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
-    private String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
-    private String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
+    private String ver1_9_4_R01 = "1.9.4-R0.1-SNAPSHOT";
 
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
@@ -136,38 +135,36 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("dc").setExecutor(new Command_Discord());
 
-        //1.8のみに対応している機能・コマンド
-        if (version.equals(ver1_9_2_R01)) {
-            //機能
-            pm.registerEvents(new Listener_Tab_1_9_R1(), this);
+        //1.9.4
+        if (version.equals(ver1_9_4_R01)) {
 
-            pm.registerEvents(new Listener_Daunii_1_9_R1(), this);
+            //events
+            pm.registerEvents(new Listener_Tab_1_9_R2(), this);
+            pm.registerEvents(new Listener_Daunii_1_9_R2(), this);
 
-            //コマンドリスト
+            //commands
+            getCommand("daunii").setExecutor(new Command_Daunii());
             getCommand("tps").setExecutor(new Command_TPS());
             getCommand("status").setExecutor(new Command_TPS());
             getCommand("s").setExecutor(new Command_TPS());
 
-            getCommand("daunii").setExecutor(new Command_Daunii());
-
-            getLogger().info("1.9.2-R0.1 用に作成された一部機能が開放されました");
-
+            //schedule
             BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
             scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
-                    Double tps = Listener_TicksPerSecond_1_9_R1.getTps(1);
-                    if (Listener_TicksPerSecond_1_9_R1.getTps(1) < 16) {
+                    Double tps = Listener_TicksPerSecond_1_9_R2.getTps(1);
+                    if (Listener_TicksPerSecond_1_9_R2.getTps(1) < 16) {
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R1.doubleToString(tps));
+                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R2.doubleToString(tps));
                         }
                     }
                 }
             }, 0L, 6000L);
 
-        } else if (version.equals(ver1_8_8_R01)) {
-            getLogger().info("1.8.8-R0.1 は現在開発中の為一部機能が制限されています");
+            //message
+            getLogger().info("1.9.4-R0.1 用に作成された一部機能が開放されました");
         } else {
-            getLogger().info("1.8.8_R01は一部の機能が制限されています(サポートの対象外のバージョンをご利用中です)");
+            getLogger().info("サポートの対象外のバージョンをご利用中です");
         }
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();

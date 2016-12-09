@@ -3,13 +3,12 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;
-import net.minecraft.server.v1_9_R2.*;
-import org.apache.logging.log4j.core.net.Priority;
+import net.minecraft.server.v1_11_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
-public class Listener_Daunii_1_9_R2 implements Listener {
+public class Listener_Daunii_1_11_R1 implements Listener {
 
     private int price = 10000;
 
@@ -42,7 +41,7 @@ public class Listener_Daunii_1_9_R2 implements Listener {
     private static Random rand = new Random();
 
     private ItemStack setAttr(ItemStack item) {//Attributeの設定
-        net.minecraft.server.v1_9_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_11_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
         NBTTagList modifiers = new NBTTagList();
         int count = 0;

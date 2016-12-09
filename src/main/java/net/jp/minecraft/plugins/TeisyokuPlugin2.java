@@ -40,7 +40,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
-    private String ver1_9_4_R01 = "1.9.4-R0.1-SNAPSHOT";
+    private String ver1_11_R01 = "1.11-R0.1-SNAPSHOT";
 
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
@@ -135,12 +135,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("dc").setExecutor(new Command_Discord());
 
-        //1.9.4
-        if (version.equals(ver1_9_4_R01)) {
+        //1.11
+        if (version.equals(ver1_11_R01)) {
 
             //events
-            pm.registerEvents(new Listener_Tab_1_9_R2(), this);
-            pm.registerEvents(new Listener_Daunii_1_9_R2(), this);
+            pm.registerEvents(new Listener_Tab_1_11_R1(), this);
+            pm.registerEvents(new Listener_Daunii_1_11_R1(), this);
 
             //commands
             getCommand("daunii").setExecutor(new Command_Daunii());
@@ -152,17 +152,17 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
             scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
-                    Double tps = Listener_TicksPerSecond_1_9_R2.getTps(1);
-                    if (Listener_TicksPerSecond_1_9_R2.getTps(1) < 16) {
+                    Double tps = Listener_TicksPerSecond_1_11_R1.getTps(1);
+                    if (Listener_TicksPerSecond_1_11_R1.getTps(1) < 16) {
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_9_R2.doubleToString(tps));
+                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_11_R1.doubleToString(tps));
                         }
                     }
                 }
             }, 0L, 6000L);
 
             //message
-            getLogger().info("1.9.4-R0.1 用に作成された一部機能が開放されました");
+            getLogger().info("1.11-R0.1 用に作成された一部機能が開放されました");
         } else {
             getLogger().info("サポートの対象外のバージョンをご利用中です");
         }

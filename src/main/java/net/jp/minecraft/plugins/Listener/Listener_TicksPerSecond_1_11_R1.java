@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.minecraft.server.v1_9_R2.MinecraftServer;
+import net.minecraft.server.v1_11_R1.MinecraftServer;
 import org.bukkit.ChatColor;
 
 import java.math.BigDecimal;
@@ -10,8 +10,9 @@ import java.math.BigDecimal;
  *
  * @auther syokkendesuyo
  */
-public class Listener_TicksPerSecond_1_9_R2 {
+public class Listener_TicksPerSecond_1_11_R1 {
 
+    @SuppressWarnings("deprecation")
     public static String getTpsString() {
         StringBuilder sb = new StringBuilder(ChatColor.GOLD + "TPS from last 1m, 5m, 15m: ");
         for (double tps : MinecraftServer.getServer().recentTps) {
@@ -21,6 +22,7 @@ public class Listener_TicksPerSecond_1_9_R2 {
         return sb.substring(0, sb.length() - 2);
     }
 
+    @SuppressWarnings("deprecation")
     public static double getTps(int num) {
         double tps[] = MinecraftServer.getServer().recentTps;
         return tps[num - 1];

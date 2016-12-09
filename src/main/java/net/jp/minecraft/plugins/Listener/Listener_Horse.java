@@ -9,6 +9,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Horse.Variant;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SkeletonHorse;
+import org.bukkit.entity.ZombieHorse;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
@@ -27,7 +29,9 @@ import java.util.UUID;
 public class Listener_Horse implements Listener {
     @EventHandler
     public void HorseClick(PlayerInteractAtEntityEvent event) {
-        if (event.getRightClicked().getType().equals(EntityType.HORSE)) {
+        if ((event.getRightClicked().getType().equals(EntityType.HORSE))||
+                (event.getRightClicked().getType().equals(EntityType.SKELETON_HORSE))||
+                    (event.getRightClicked().getType().equals(EntityType.ZOMBIE_HORSE))) {
             Player player = event.getPlayer();
             UUID entityUUID = event.getRightClicked().getUniqueId();
 
@@ -65,7 +69,7 @@ public class Listener_Horse implements Listener {
      */
     @EventHandler
     public static void HorseRide(VehicleEnterEvent event) {
-        if (event.getVehicle() instanceof Horse) {
+        if ((event.getVehicle() instanceof Horse)||(event.getVehicle() instanceof SkeletonHorse)||(event.getVehicle() instanceof ZombieHorse)) {
             //馬に乗る際、プレイヤー以外だった場合は無視する
             //例:スケルトンホースが自然にスポーンする際にスケルトンが乗る場合、エラーを吐いてしまう
             if (!(event.getEntered() instanceof Player)) {
@@ -163,12 +167,12 @@ public class Listener_Horse implements Listener {
         }
     }
 
-    /*
+    /* 解決策が出るまで保留
      * ゾンビ馬に変換する
      */
-    @EventHandler
+    /*@EventHandler 
     public void ChangeHorse(PlayerInteractAtEntityEvent event) {
-        if (!(event.getRightClicked().getType().equals(EntityType.HORSE))) {
+        if (!(event.getRightClicked().getType().equals(EntityType.SKELETON_HORSE))) {
             return;
         }
         Player player = event.getPlayer();
@@ -190,6 +194,7 @@ public class Listener_Horse implements Listener {
                 getStatus(player, entityUUID);
                 return;
             }
+            
             Horse horse = (Horse) event.getRightClicked();
             if (item.getItemMeta().getDisplayName().equals(TeisyokuPlugin2.getInstance().ZombieTicket)) {
                 if (!(horse.getVariant().equals(Variant.SKELETON_HORSE))) {
@@ -221,7 +226,7 @@ public class Listener_Horse implements Listener {
                 Sounds.sound_zombie_villager(player);
             }
         }
-    }
+    }*/
 
     /**
      * エンティティデータを比較するメソッド<br />

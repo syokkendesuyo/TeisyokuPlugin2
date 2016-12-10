@@ -4,9 +4,11 @@ import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 
@@ -20,38 +22,47 @@ import java.util.UUID;
  * @auther syokkendesuyo azuhata
  */
 public class Listener_Horse implements Listener {
+
+    /**
+     * 馬をクリックしたときのイベント
+     *
+     * @param event
+     */
     @EventHandler
     public void HorseClick(PlayerInteractAtEntityEvent event) {
-        if ((event.getRightClicked().getType().equals(EntityType.HORSE))||
-                (event.getRightClicked().getType().equals(EntityType.SKELETON_HORSE))||
-                    (event.getRightClicked().getType().equals(EntityType.ZOMBIE_HORSE))) {
-            Player player = event.getPlayer();
-            UUID entityUUID = event.getRightClicked().getUniqueId();
 
-            //棒以外は無視
-            if (!(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STICK)) {
-                return;
-            }
-            if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール")) {
-                HorseRegister(player, entityUUID);
+        //馬以外は無視する
+        if (!((event.getRightClicked().getType().equals(EntityType.HORSE)) ||
+                (event.getRightClicked().getType().equals(EntityType.SKELETON_HORSE)) ||
+                (event.getRightClicked().getType().equals(EntityType.ZOMBIE_HORSE)))) {
+            return;
+        }
+        Player player = event.getPlayer();
+        UUID entityUUID = event.getRightClicked().getUniqueId();
+
+        //棒以外は無視
+        if (!(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STICK)) {
+            return;
+        }
+        if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール")) {
+            HorseRegister(player, entityUUID);
+            event.setCancelled(true);
+            return;
+        }
+        if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール")) {
+            HorseRemove(player, entityUUID);
+            event.setCancelled(true);
+            return;
+        }
+        if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
+            if (isRegister(entityUUID)) {
                 event.setCancelled(true);
-                return;
+                Msg.info(player, "この馬は保護されています");
+                getStatus(player, entityUUID);
+            } else {
+                Msg.info(player, "この馬は保護されていません");
             }
-            if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール")) {
-                HorseRemove(player, entityUUID);
-                event.setCancelled(true);
-                return;
-            }
-            if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
-                if (isRegister(entityUUID)) {
-                    event.setCancelled(true);
-                    Msg.info(player, "この馬は保護されています");
-                    getStatus(player, entityUUID);
-                } else {
-                    Msg.info(player, "この馬は保護されていません");
-                }
-                event.setCancelled(true);
-            }
+            event.setCancelled(true);
         }
     }
 
@@ -62,7 +73,7 @@ public class Listener_Horse implements Listener {
      */
     @EventHandler
     public static void HorseRide(VehicleEnterEvent event) {
-        if ((event.getVehicle() instanceof Horse)||(event.getVehicle() instanceof SkeletonHorse)||(event.getVehicle() instanceof ZombieHorse)) {
+        if ((event.getVehicle() instanceof Horse) || (event.getVehicle() instanceof SkeletonHorse) || (event.getVehicle() instanceof ZombieHorse)) {
             //馬に乗る際、プレイヤー以外だった場合は無視する
             //例:スケルトンホースが自然にスポーンする際にスケルトンが乗る場合、エラーを吐いてしまう
             if (!(event.getEntered() instanceof Player)) {
@@ -108,13 +119,35 @@ public class Listener_Horse implements Listener {
         }
     }
 
-    /*
-    馬をロックする
+    /**
+     * 馬が死んだときに登録を解除する
+     *
+     * @param event
+     */
+    @EventHandler
+    private static void HorseDeath(EntityDeathEvent event) {
+        if (!(event.getEntity() instanceof Horse || event.getEntity() instanceof SkeletonHorse || event.getEntity() instanceof SkeletonHorse)) {
+            return;
+        }
+        UUID uuid = event.getEntity().getUniqueId();
+        HorseRemoveWildcard(uuid);
+    }
+
+    /**
+     * 馬をロックする
+     *
+     * @param player
+     * @param uuid
      */
     private static void HorseRegister(Player player, UUID uuid) {
         if (isRegister(uuid)) {
             Msg.warning(player, "この馬は既にロックされた馬です");
             getStatus(player, uuid);
+            Msg.success(player, "現在のロック数：" + getLocks(player));
+            return;
+        }
+        if (getLocks(player) > 2) {
+            Msg.warning(player, "馬は3体以上ロックできません");
             return;
         }
         try {
@@ -137,8 +170,11 @@ public class Listener_Horse implements Listener {
         }
     }
 
-    /*
-    馬のロックを解除する
+    /**
+     * 馬のロックを解除する
+     *
+     * @param player     削除するプレイヤー名
+     * @param entityUUID entityのUUID
      */
     private static void HorseRemove(Player player, UUID entityUUID) {
         if (isEqual(player, player.getUniqueId(), entityUUID) == 2) {
@@ -156,6 +192,23 @@ public class Listener_Horse implements Listener {
             Msg.success(player, "馬のロックを解除しました");
         } catch (Exception e) {
             Msg.warning(player, "不明なエラーが発生しました");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 馬のロックをワイルドカードで削除します
+     *
+     * @param entityUUID entityのUUID
+     */
+    private static void HorseRemoveWildcard(UUID entityUUID) {
+        if (!isRegister(entityUUID)) {
+            return;
+        }
+        try {
+            TeisyokuPlugin2.getInstance().HorseConfig.set(entityUUID.toString(), null);
+            TeisyokuPlugin2.getInstance().saveHorseConfig();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -263,5 +316,17 @@ public class Listener_Horse implements Listener {
 
     private static boolean isRegister(UUID entityUUID) {
         return !(TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null);
+    }
+
+    private static int getLocks(Player player) {
+        int cnt = 0;
+        ConfigurationSection cs = TeisyokuPlugin2.getInstance().HorseConfig.getConfigurationSection("");
+        for (String keys : cs.getKeys(false)) {
+            String uuid = TeisyokuPlugin2.getInstance().HorseConfig.getString(keys + ".uuid");
+            if (player.getUniqueId().toString().equals(uuid)) {
+                cnt++;
+            }
+        }
+        return cnt;
     }
 }

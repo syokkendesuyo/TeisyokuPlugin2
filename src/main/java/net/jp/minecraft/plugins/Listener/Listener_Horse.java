@@ -262,10 +262,6 @@ public class Listener_Horse implements Listener {
     }
 
     private static boolean isRegister(UUID entityUUID) {
-        if (TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null);
     }
 }

@@ -159,7 +159,7 @@ public class Listener_TPoint {
             }
 
             int point = playerData.getInt("tpoint");
-            int syokken = point / 1010;
+            int syokken = point / 1000;
             Msg.info(sender, ChatColor.YELLOW + target + ChatColor.RESET + " さんの保有ポイント： " + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint ");
             Msg.info(sender, "食券換算 : " + ChatColor.GREEN + ChatColor.BOLD + syokken + "枚" + ChatColor.RESET + "分");
         } catch (Exception e) {

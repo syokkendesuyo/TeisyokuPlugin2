@@ -18,9 +18,9 @@ import java.util.UUID;
  */
 public class Listener_TPoint {
 
-    static File cfile;
-    static FileConfiguration config;
-    static File df = TeisyokuPlugin2.getInstance().getDataFolder();
+    private static File cfile;
+    private static FileConfiguration config;
+    private static File df = TeisyokuPlugin2.getInstance().getDataFolder();
 
     /**
      * プレイヤーのポイントにポイントを追加します<br />

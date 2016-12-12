@@ -113,6 +113,9 @@ commands:
     dc:
         discription: DiscordMC
         usage: /discord
+    sign:
+        discription: Sign Edit
+        usage: /sign <String> <LineNo>
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

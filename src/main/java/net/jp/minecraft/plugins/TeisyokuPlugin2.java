@@ -66,6 +66,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new GUI_YesNo(), this);
         pm.registerEvents(new GUI_ClickEvent(), this);
         pm.registerEvents(new Listener_SignColor(), this);
+        pm.registerEvents(new Listener_SignEdit(), this);
         pm.registerEvents(new Listener_MobGrief(), this);
         pm.registerEvents(new Listener_Horse(), this);
         pm.registerEvents(new Listener_SpawnEgg(), this);
@@ -134,6 +135,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("yk0").setExecutor(new Command_yk0());
 
         getCommand("dc").setExecutor(new Command_Discord());
+
+        getCommand("sign").setExecutor(new Command_SignEdit());
 
         //1.11
         if (version.equals(ver1_11_R01)) {

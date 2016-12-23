@@ -42,12 +42,6 @@
       <artifactId>bukkit</artifactId>
       <version>1.11-R0.1-SNAPSHOT</version>
     </dependency>
-    <!--Spigot NMS-->
-    <dependency>
-      <groupId>org.spigotmc</groupId>
-      <artifactId>spigot</artifactId>
-      <version>1.11-R0.1-SNAPSHOT</version>
-    </dependency>
     <!--Craftbukkit NMS-->
     <dependency>
       <groupId>org.bukkit</groupId>

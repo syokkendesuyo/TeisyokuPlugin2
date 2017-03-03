@@ -37,7 +37,7 @@ public class Command_Flymode implements CommandExecutor {
          */
 
         //パーミッションの確認(コマンド側)
-        if (!(player.hasPermission(Permissions.getFlyCommandPermisson()))) {
+        if ( !(player.getWorld().getName().equalsIgnoreCase("flat")) && !(player.hasPermission(Permissions.getFlyCommandPermisson()))) {
             Msg.noPermissionMessage(sender, Permissions.getFlyCommandPermisson());
             return true;
         }
@@ -93,15 +93,24 @@ public class Command_Flymode implements CommandExecutor {
         } else if (args.length == 2) {
             Player target_player = Bukkit.getServer().getPlayer(args[1]);
             if (!(target_player == null)) {
+
+                //パーミッションの確認(コマンド側)
+                if (!(player.hasPermission(Permissions.getFlyCommandPermisson()))) {
+                    Msg.noPermissionMessage(sender, Permissions.getFlyCommandPermisson());
+                    return true;
+                }
+
                 //正常に処理
                 if (args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("enable")) {
                     Listener_Flymode.enable_fly(target_player);
+                    Msg.success(player, ChatColor.YELLOW + args[1] + ChatColor.RESET + " のFlyモードを" + ChatColor.GREEN + " 有効 " + ChatColor.RESET + "にしました");
                     return true;
                 }
 
                 //引数1がfalseまたはdisableだった場合flyモードを終了
                 else if (args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("disable")) {
                     Listener_Flymode.disable_fly(target_player);
+                    Msg.success(player, ChatColor.YELLOW + args[1] + ChatColor.RESET + " のFlyモードを" + ChatColor.RED + " 無効 " + ChatColor.RESET + "にしました");
                     return true;
                 }
                 //その他の場合

@@ -27,8 +27,6 @@ public class Command_Ad implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
-        String version = Bukkit.getBukkitVersion();
-
         //コマンドが有効化されているかどうか検出
         if(!TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.ad")){
             Msg.warning(sender,"「ad」コマンドは有効化されていません");

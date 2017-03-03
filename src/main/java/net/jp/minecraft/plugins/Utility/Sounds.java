@@ -12,13 +12,13 @@ import org.bukkit.event.Listener;
  */
 public class Sounds implements Listener {
     private static String ver1_8_8_R01 = "1.8.8-R0.1-SNAPSHOT";
-    private static String ver1_9_2_R01 = "1.9.2-R0.1-SNAPSHOT";
+    private static String ver1_11_2_R01 = "1.11.2-R0.1-SNAPSHOT";
 
     public static void sound_note(Player player) {
         String version = Bukkit.getBukkitVersion();
         if (version.equals(ver1_8_8_R01)) {
             return;
-        } else if (version.equals(ver1_9_2_R01)) {
+        } else if (version.equals(ver1_11_2_R01)) {
             player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_NOTE_PLING, 3.0F, 1.5F);
         }
     }
@@ -27,7 +27,7 @@ public class Sounds implements Listener {
         String version = Bukkit.getBukkitVersion();
         if (version.equals(ver1_8_8_R01)) {
             return;
-        } else if (version.equals(ver1_9_2_R01)) {
+        } else if (version.equals(ver1_11_2_R01)) {
             player.playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 10.0F, 1.0F);
         }
     }
@@ -36,7 +36,7 @@ public class Sounds implements Listener {
         String version = Bukkit.getBukkitVersion();
         if (version.equals(ver1_8_8_R01)) {
             return;
-        } else if (version.equals(ver1_9_2_R01)) {
+        } else if (version.equals(ver1_11_2_R01)) {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_DEATH, 10.0F, 1.0F);
         }
     }
@@ -45,7 +45,7 @@ public class Sounds implements Listener {
         String version = Bukkit.getBukkitVersion();
         if (version.equals(ver1_8_8_R01)) {
             return;
-        } else if (version.equals(ver1_9_2_R01)) {
+        } else if (version.equals(ver1_11_2_R01)) {
             player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F, 1.0F);
         }
     }

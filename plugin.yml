@@ -116,6 +116,9 @@ commands:
     sign:
         discription: Sign Edit
         usage: /sign <String> <LineNo>
+    tflag:
+        discription: Teisyoku Flags
+        usage: /tflag <flag> <value>
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.

@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins;
 
 import net.jp.minecraft.plugins.Commands.*;
+import net.jp.minecraft.plugins.Config.SaveUUID;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
@@ -40,7 +41,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
-    private String ver1_11_R01 = "1.11-R0.1-SNAPSHOT";
+    private String ver1_11_R01 = "1.11.2-R0.1-SNAPSHOT";
 
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
@@ -71,6 +72,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_Horse(), this);
         pm.registerEvents(new Listener_SpawnEgg(), this);
         pm.registerEvents(new Listener_Discord(), this);
+        pm.registerEvents(new Listener_SkeletonHorse(), this);
+        pm.registerEvents(new Listener_Flymode(), this);
 
         pm.registerEvents(new Sounds(), this);
 
@@ -79,6 +82,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         //pm.registerEvents(new GUI_Anvil(), this);
 
         pm.registerEvents(new PlayerFile(), this);
+
+        pm.registerEvents(new SaveUUID(), this);
 
 
         getCommand("help").setExecutor(new Command_Help());
@@ -137,6 +142,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("dc").setExecutor(new Command_Discord());
 
         getCommand("sign").setExecutor(new Command_SignEdit());
+
+        getCommand("tflag").setExecutor(new Command_TFlag());
 
         //1.11
         if (version.equals(ver1_11_R01)) {
@@ -230,6 +237,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         if (TeisyokuConfig.get("commands") == null) {
             if (TeisyokuConfig.get("commands.ad") == null) {
                 TeisyokuConfig.set("commands.ad", true);
+            }
+            if (TeisyokuConfig.get("commands.gift") == null) {
+                TeisyokuConfig.set("commands.gift", true);
             }
             saveTeisyokuConfig();
         }

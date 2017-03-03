@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -41,6 +42,10 @@ public class Listener_Sign implements Listener {
             if (Search.searchKeyword(sign.getLines(), "[gomi]")) {
                 Listener_Gomibako.openGomibako(player);
             } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
+                //cart看板の利用設定
+                if (!API_Flag.getBoolean(player, "sign_cart")) {
+                    return;
+                }
                 Msg.success(player, "マインカートをインベントリに追加しました");
                 ItemStack cart = new ItemStack(Material.MINECART);
                 player.getInventory().addItem(cart);
@@ -65,6 +70,12 @@ public class Listener_Sign implements Listener {
                 if (Listener_SignEdit.hasData(player)) {
                     return;
                 }
+
+                //看板のデータ照会の利用設定
+                if (!API_Flag.getBoolean(player, "sign_info")) {
+                    return;
+                }
+
                 Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");
                 for (int cnt = 0; cnt < 4; cnt++) {
                     if (!(sign.getLine(cnt).length() == 0)) {

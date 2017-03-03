@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Messages;
-import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,13 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * TeisyokuPlugin2
@@ -30,7 +24,7 @@ public class Command_Cart implements CommandExecutor {
             return true;
         }
 
-        if (args.length > 2) {
+        if (args.length > 1) {
             Msg.warning(sender, "引数が多すぎです");
             return true;
         }
@@ -58,37 +52,6 @@ public class Command_Cart implements CommandExecutor {
                 //プレイヤーが居ないのでエラー
                 sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " はオンラインではありません");
                 return true;
-            }
-        } else if (args.length == 2) {
-            Player player = (Player) sender;
-            String playerUniqueId = player.getUniqueId().toString();
-            File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
-            File f = new File(userdata, File.separator + playerUniqueId + ".yml");
-            FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
-            if (args[0].equalsIgnoreCase("auto_remove")) {
-                if (args[1].equalsIgnoreCase("true")) {
-                    try {
-                        playerData.set("auto_cart_remove", true);
-                        Msg.success(player, "マインカートから降りた時に自動削除する：" + ChatColor.GREEN + " true");
-                        playerData.save(f);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                } else if (args[1].equalsIgnoreCase("false")) {
-                    try {
-                        playerData.set("auto_cart_remove", false);
-                        Msg.success(player, "マインカートから降りた時に自動削除する：" + ChatColor.RED + " false");
-                        playerData.save(f);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                }
-                Msg.warning(player, "引数「" + args[1] + "」は利用できません。trueかfalseを指定して下さい。");
-                return true;
-            } else {
-                Msg.warning(player, "引数「" + args[0] + "」は利用できません。");
             }
         }
         return true;

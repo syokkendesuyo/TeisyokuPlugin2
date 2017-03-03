@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Config;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,6 +20,12 @@ public class Config_GiftAPI {
     }
 
     public static void gift(String gift_code, CommandSender sender) {
+
+        //コマンドが有効化されているかどうか検出
+        if(!TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.gift")){
+            Msg.warning(sender,"ギフトコマンドは有効化されていません");
+            return;
+        }
 
         //ギフトの生成
         create();

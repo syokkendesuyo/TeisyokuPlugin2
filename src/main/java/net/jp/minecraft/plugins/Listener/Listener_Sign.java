@@ -42,13 +42,8 @@ public class Listener_Sign implements Listener {
             if (Search.searchKeyword(sign.getLines(), "[gomi]")) {
                 Listener_Gomibako.openGomibako(player);
             } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
-                //cart看板の利用設定
-                if (!API_Flag.getBoolean(player, "sign_cart")) {
-                    return;
-                }
-                Msg.success(player, "マインカートをインベントリに追加しました");
-                ItemStack cart = new ItemStack(Material.MINECART);
-                player.getInventory().addItem(cart);
+                //マインカートを追加
+                addMinecart(player);
             } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
                 TeisyokuMenuIndex.getMenu(player);
             } else if (Search.searchKeyword(sign.getLines(), "[tpoint]") || Search.searchKeyword(sign.getLines(), "[point]")) {
@@ -66,23 +61,56 @@ public class Listener_Sign implements Listener {
                 meta.setLore(Arrays.asList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
                 item.setItemMeta(meta);
                 Sounds.sound_note(player);
-            } else {
-                if (Listener_SignEdit.hasData(player)) {
-                    return;
-                }
+            }
+            //看板のデータを照会する
+            getSignInfo(player, sign);
+        }
+    }
 
-                //看板のデータ照会の利用設定
-                if (!API_Flag.getBoolean(player, "sign_info")) {
-                    return;
-                }
 
-                Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");
-                for (int cnt = 0; cnt < 4; cnt++) {
-                    if (!(sign.getLine(cnt).length() == 0)) {
-                        Msg.info(player, sign.getLine(cnt));
-                    }
-                }
+    /**
+     * 看板のデータを照会する関数
+     *
+     * @param player ターゲット
+     * @param sign   看板
+     */
+    private void getSignInfo(Player player, Sign sign) {
+
+        //看板の文字更新フラグが立っていれば照会を行わない
+        if (Listener_SignEdit.hasData(player)) {
+            return;
+        }
+
+        //看板のデータ照会を行わない個人設定ならば処理終了
+        if (!API_Flag.getBoolean(player, "sign_info")) {
+            return;
+        }
+
+        //実行
+        Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");
+        for (int cnt = 0; cnt < 4; cnt++) {
+            if (!(sign.getLine(cnt).length() == 0)) {
+                Msg.info(player, sign.getLine(cnt));
             }
         }
+    }
+
+
+    /**
+     * マインカートをプレイヤーに贈与する関数
+     *
+     * @param player ターゲット
+     */
+    private void addMinecart(Player player) {
+
+        //カート看板が個人設定で無効化されていれば処理終了
+        if (!API_Flag.getBoolean(player, "sign_cart")) {
+            return;
+        }
+
+        //実行
+        Msg.success(player, "マインカートをインベントリに追加しました");
+        ItemStack cart = new ItemStack(Material.MINECART);
+        player.getInventory().addItem(cart);
     }
 }

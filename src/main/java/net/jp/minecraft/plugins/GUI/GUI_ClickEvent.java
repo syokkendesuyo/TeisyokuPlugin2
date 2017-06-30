@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.GUI;
 
 import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -105,7 +104,7 @@ public class GUI_ClickEvent implements Listener {
                         player.teleport(p.getLocation());
                         Msg.success(player, ChatColor.YELLOW + p.getName() + ChatColor.RESET + " へテレポートしました");
                     }
-                    player.sendMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + p.getName() + ChatColor.RESET + " の現在地" + ChatColor.DARK_GRAY + " ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z);
+                    Msg.success(player, ChatColor.YELLOW + p.getName() + ChatColor.RESET + " の現在地" + ChatColor.DARK_GRAY + " ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z);
                 } catch (NullPointerException e) {
                     Msg.info(player, "現在地を取得できませんでした。プレイヤーがオフラインの可能性があります。");
                 }

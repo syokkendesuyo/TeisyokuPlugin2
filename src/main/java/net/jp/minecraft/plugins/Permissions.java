@@ -1,5 +1,7 @@
 package net.jp.minecraft.plugins;
 
+import org.bukkit.entity.Player;
+
 /**
  * TeisyokuPlugin2
  *
@@ -76,5 +78,16 @@ public class Permissions {
     public static String getLastCommandPermisson() {
         String string = "teisyoku.user";
         return string;
+    }
+
+    /**
+     * パーミッションの有無を確認します
+     *
+     * @param player プレイヤー
+     * @param perm   パーミッション
+     * @return 結果
+     */
+    public static boolean hasPermission(Player player, String perm) {
+        return player.hasPermission(perm);
     }
 }

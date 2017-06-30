@@ -13,21 +13,22 @@ import org.bukkit.entity.Player;
 public final class Msg {
 
     //基本のPrefix
-    private final static String prefix = "[Teisyoku] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
-    private final static String broadcast = "[Teisyoku|Broadcast] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
+    private static  String prefix (ChatColor color){
+        return ChatColor.GRAY + "[" + color + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
+    }
 
     /**
      * Successのメッセージをプレイヤーに送信
      *
      * @param p         プレイヤー
      * @param msg       メッセージ
-     * @param broadcast
+     * @param broadcast ブロードキャスト
      */
     public static void success(final CommandSender p, final String msg, boolean broadcast) {
         if (broadcast) {
-            Bukkit.broadcastMessage(ChatColor.GREEN + prefix + ChatColor.RESET + msg);
+            Bukkit.broadcastMessage(prefix(ChatColor.GREEN) + ChatColor.RESET + msg);
         } else {
-            p.sendMessage(ChatColor.GREEN + prefix + ChatColor.RESET + msg);
+            p.sendMessage(prefix(ChatColor.GREEN) + ChatColor.RESET + msg);
         }
     }
 
@@ -46,13 +47,13 @@ public final class Msg {
      *
      * @param p         プレイヤー
      * @param msg       メッセージ
-     * @param broadcast
+     * @param broadcast ブロードキャスト
      */
     public static void warning(final CommandSender p, final String msg, boolean broadcast) {
         if (broadcast) {
-            Bukkit.broadcastMessage(ChatColor.RED + prefix + ChatColor.RESET + msg);
+            Bukkit.broadcastMessage(prefix(ChatColor.RED) + ChatColor.RESET + msg);
         } else {
-            p.sendMessage(ChatColor.RED + prefix + ChatColor.RESET + msg);
+            p.sendMessage(prefix(ChatColor.RED) + ChatColor.RESET + msg);
         }
     }
 
@@ -71,13 +72,13 @@ public final class Msg {
      *
      * @param p         プレイヤー
      * @param msg       メッセージ
-     * @param broadcast
+     * @param broadcast プロードキャスト
      */
     public static void info(final CommandSender p, final String msg, boolean broadcast) {
         if (broadcast) {
-            Bukkit.broadcastMessage(ChatColor.YELLOW + prefix + ChatColor.RESET + msg);
+            Bukkit.broadcastMessage(prefix(ChatColor.YELLOW) + ChatColor.RESET + msg);
         } else {
-            p.sendMessage(ChatColor.YELLOW + prefix + ChatColor.RESET + msg);
+            p.sendMessage(prefix(ChatColor.YELLOW) + ChatColor.RESET + msg);
         }
     }
 
@@ -95,12 +96,12 @@ public final class Msg {
      * Adminにのみブロードキャストメッセージを送信
      *
      * @param msg   メッセージ
-     * @param sound
+     * @param sound サウンド
      */
     public static void adminBroadcast(final String msg, boolean sound) {
         for (Player admin : Bukkit.getOnlinePlayers()) {
             if (admin.hasPermission("teisyoku.admin")) {
-                admin.sendMessage(ChatColor.LIGHT_PURPLE + broadcast + ChatColor.RESET + msg);
+                admin.sendMessage(prefix(ChatColor.LIGHT_PURPLE) + ChatColor.RESET + msg);
                 if (sound) {
                     Sounds.sound_note(admin);
                 }
@@ -143,7 +144,7 @@ public final class Msg {
      * @param permission パーミッション
      * @return パーミッション専用スタイル
      */
-    public static String getPermissionNode(final String permission) {
+    private static String getPermissionNode(final String permission) {
         return ChatColor.GRAY + permission + ChatColor.RESET;
     }
 

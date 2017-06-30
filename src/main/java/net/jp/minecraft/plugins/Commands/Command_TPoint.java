@@ -4,6 +4,7 @@ import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.NameFetcher;
 import org.bukkit.*;
 import org.bukkit.block.CommandBlock;
 import org.bukkit.command.BlockCommandSender;
@@ -24,7 +25,7 @@ public class Command_TPoint implements CommandExecutor {
 
         //パーミッションの確認
         if (!sender.hasPermission("teisyoku.user")) {
-            sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.user"));
+            Msg.noPermissionMessage(sender, "teisyoku.user");
             return true;
         }
 
@@ -44,7 +45,7 @@ public class Command_TPoint implements CommandExecutor {
         //ヘルプ
         if (args[0].equalsIgnoreCase("help")) {
             if (!(args.length == 1)) {
-                sender.sendMessage(Messages.getDenyPrefix() + "引数が多すぎます");
+                Msg.warning(sender, "引数が多すぎます");
                 return true;
             }
             HelpMessage(sender, cmd);
@@ -58,14 +59,14 @@ public class Command_TPoint implements CommandExecutor {
         if (args[0].equalsIgnoreCase("status")) {
             if (args.length == 1) {
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage(Messages.getNormalPrefix() + "使い方：/tpoint status <プレイヤー>");
-                    sender.sendMessage(Messages.getNormalPrefix() + "※ゲーム側からのみプレイヤーを省略できます");
+                    Msg.info(sender, "使い方：/tpoint status <プレイヤー>");
                 } else {
                     Listener_TPoint.status((Player) sender);
                 }
             } else if (args.length == 2) {
                 try {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+
                     UUID uuid = player.getUniqueId();
                     String name = args[1];
 

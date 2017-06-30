@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.minecraft.server.v1_11_R1.MinecraftServer;
+import net.minecraft.server.v1_12_R1.MinecraftServer;
 import org.bukkit.ChatColor;
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @auther syokkendesuyo
  */
-public class Listener_TicksPerSecond_1_11_R1 {
+public class Listener_TicksPerSecond_1_12 {
 
     @SuppressWarnings("deprecation")
     public static String getTpsString() {

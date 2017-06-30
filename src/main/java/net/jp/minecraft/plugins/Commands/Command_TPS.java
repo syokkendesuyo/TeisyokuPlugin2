@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Listener.Listener_TicksPerSecond_1_11_R1;
+import net.jp.minecraft.plugins.Listener.Listener_TicksPerSecond_1_12;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -91,14 +91,14 @@ public class Command_TPS implements CommandExecutor {
     }
 
     private static String tps1() {
-        return Listener_TicksPerSecond_1_11_R1.doubleToString(Listener_TicksPerSecond_1_11_R1.getTps(1));
+        return Listener_TicksPerSecond_1_12.doubleToString(Listener_TicksPerSecond_1_12.getTps(1));
     }
 
     private static String tps2() {
-        return Listener_TicksPerSecond_1_11_R1.doubleToString(Listener_TicksPerSecond_1_11_R1.getTps(2));
+        return Listener_TicksPerSecond_1_12.doubleToString(Listener_TicksPerSecond_1_12.getTps(2));
     }
 
     private static String tps3() {
-        return Listener_TicksPerSecond_1_11_R1.doubleToString(Listener_TicksPerSecond_1_11_R1.getTps(3));
+        return Listener_TicksPerSecond_1_12.doubleToString(Listener_TicksPerSecond_1_12.getTps(3));
     }
 }

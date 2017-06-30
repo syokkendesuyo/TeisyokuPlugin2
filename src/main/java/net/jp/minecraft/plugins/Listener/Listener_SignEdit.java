@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -33,6 +34,11 @@ public class Listener_SignEdit implements Listener {
     }
 
     public static void updateSign(Location loc, Player player) {
+        if (!Permissions.hasPermission(player, "teisyoku.sign")) {
+            Msg.noPermissionMessage(player, "teisyoku.sign");
+            return;
+        }
+
         if (!(Listener_TPoint.canBuy(5, player))) {
             Msg.warning(player, "看板を更新するには5TPoint必要です");
             editData.remove(player.getUniqueId());

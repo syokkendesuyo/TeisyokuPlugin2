@@ -13,8 +13,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -61,7 +59,7 @@ public class Command_Last implements CommandExecutor {
 
         //パーミッションの確認コマンド
         if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")) {
-            Messages.getCheckPermissionMessage(Permissions.getLastCommandPermisson());
+            Msg.noPermissionMessage(sender, Permissions.getLastCommandPermisson());
             return true;
         } else if (args[0].length() < 3 || args[0].length() > 16) {
             Msg.warning(sender, "プレイヤー名は3から16文字で入力してください");
@@ -70,29 +68,20 @@ public class Command_Last implements CommandExecutor {
 
         //その他の場合プレイヤー名と判定
         else {
-            //OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-            //UUID uuid = player.getUniqueId();
-
-            UUIDFetcher fetcher = new UUIDFetcher(Arrays.asList(args[0]));
-
-            Map<String, UUID> response = null;
             try {
-                response = fetcher.call();
-            } catch (Exception e) {
-                Msg.warning(sender, "Exception while running UUIDFetcher");
-                e.printStackTrace();
-            }
-            UUID uuid = response.get(args[0]);
+                UUID uuid = UUIDFetcher.getUUIDOf(args[0]);
 
-            OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+                if (uuid == null) {
+                    Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "は存在しないプレイヤーです");
+                    return true;
+                }
 
+                OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
-            try {
                 if (TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null) {
                     Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "のデータはありませんでした");
                     return true;
                 }
-
                 String joinDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".JoinDate");
                 String quitDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".QuitDate");
 
@@ -106,7 +95,6 @@ public class Command_Last implements CommandExecutor {
                 return true;
             } catch (Exception e) {
                 Msg.warning(sender, "不明なエラーが発生しました");
-                e.printStackTrace();
                 return true;
             }
         }

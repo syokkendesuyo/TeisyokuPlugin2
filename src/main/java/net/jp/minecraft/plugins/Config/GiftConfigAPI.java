@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @auther syokkendesuyo
  */
-public class Config_GiftAPI {
+public class GiftConfigAPI {
     private static void create() {
         Connection_TeisyokuConfig.createConfig("Gift.yml");
     }
@@ -22,8 +22,8 @@ public class Config_GiftAPI {
     public static void gift(String gift_code, CommandSender sender) {
 
         //コマンドが有効化されているかどうか検出
-        if(!TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.gift")){
-            Msg.warning(sender,"ギフトコマンドは有効化されていません");
+        if (!TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.gift")) {
+            Msg.warning(sender, "ギフトコマンドは有効化されていません");
             return;
         }
 
@@ -50,6 +50,19 @@ public class Config_GiftAPI {
         if (Connection_TeisyokuConfig.listMatch(players, player.getUniqueId().toString())) {
             Msg.warning(player, "ギフトコード " + ChatColor.YELLOW + gift_code + ChatColor.RESET + " は既に利用されています");
             return;
+        }
+
+        //利用回数の取得
+        if (!(Connection_TeisyokuConfig.getString("gifts." + gift_code + ".limit") == null)) {
+            int limit = Connection_TeisyokuConfig.getInt("gifts." + gift_code + ".limit");
+            if (0 < limit) {
+                Connection_TeisyokuConfig.setConfig("gifts." + gift_code + ".limit", limit - 1);
+                Connection_TeisyokuConfig.saveConfig();
+            } else if (limit == 0) {
+                Msg.warning(sender, "ギフト名 " + ChatColor.YELLOW + gift_code + ChatColor.RESET + " は利用できません");
+                Msg.warning(sender, "理由：利用回数が制限値に達しました");
+                return;
+            }
         }
 
         //コマンドを実行

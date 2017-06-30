@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Config.Config_GiftAPI;
+import net.jp.minecraft.plugins.Config.GiftConfigAPI;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
@@ -68,7 +68,7 @@ public class Command_Teisyoku implements CommandExecutor {
         if (args[0].equalsIgnoreCase("gift") || args[0].equalsIgnoreCase("giftcode")) {
             if (args.length == 2) {
                 Msg.info(sender, "手続き中です...");
-                Config_GiftAPI.gift(args[1], sender);
+                GiftConfigAPI.gift(args[1], sender);
                 return true;
             } else {
                 Msg.warning(sender, "引数が多すぎるか、または少なすぎます");

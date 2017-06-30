@@ -107,12 +107,6 @@ commands:
     ht:
         discription: get ticket
         usage: /ht <zombie/skeleton> PlayerName
-    yk0:
-        discription: yk0
-        usage: /yk0 on
-    dc:
-        discription: DiscordMC
-        usage: /discord
     sign:
         discription: Sign Edit
         usage: /sign <String> <LineNo>

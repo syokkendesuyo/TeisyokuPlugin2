@@ -41,7 +41,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
-    private String ver1_11_R01 = "1.11.2-R0.1-SNAPSHOT";
+    private String ver1_12_R01 = "1.12-R0.1-SNAPSHOT";
 
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
@@ -71,7 +71,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_MobGrief(), this);
         pm.registerEvents(new Listener_Horse(), this);
         pm.registerEvents(new Listener_SpawnEgg(), this);
-        pm.registerEvents(new Listener_Discord(), this);
         pm.registerEvents(new Listener_SkeletonHorse(), this);
         pm.registerEvents(new Listener_Flymode(), this);
 
@@ -137,20 +136,16 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("horseticket").setExecutor(new Command_HorseTicket());
         getCommand("ht").setExecutor(new Command_HorseTicket());
 
-        getCommand("yk0").setExecutor(new Command_yk0());
-
-        getCommand("dc").setExecutor(new Command_Discord());
-
         getCommand("sign").setExecutor(new Command_SignEdit());
 
         getCommand("tflag").setExecutor(new Command_TFlag());
 
-        //1.11
-        if (version.equals(ver1_11_R01)) {
+        //1.12
+        if (version.equals(ver1_12_R01)) {
 
             //events
-            pm.registerEvents(new Listener_Tab_1_11_R1(), this);
-            pm.registerEvents(new Listener_Daunii_1_11_R1(), this);
+            pm.registerEvents(new Listener_Tab(), this);
+            pm.registerEvents(new Listener_Daunii_1_12(), this);
 
             //commands
             getCommand("daunii").setExecutor(new Command_Daunii());
@@ -162,17 +157,17 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
             scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
-                    Double tps = Listener_TicksPerSecond_1_11_R1.getTps(1);
-                    if (Listener_TicksPerSecond_1_11_R1.getTps(1) < 16) {
+                    Double tps = Listener_TicksPerSecond_1_12.getTps(1);
+                    if (Listener_TicksPerSecond_1_12.getTps(1) < 16) {
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_11_R1.doubleToString(tps));
+                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_12.doubleToString(tps));
                         }
                     }
                 }
             }, 0L, 6000L);
 
             //message
-            getLogger().info("1.11-R0.1 用に作成された一部機能が開放されました");
+            getLogger().info("1.12-R0.1 用に作成された一部機能が開放されました");
         } else {
             getLogger().info("サポートの対象外のバージョンをご利用中です");
         }
@@ -186,7 +181,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
                 }
             }
         }, 0L, 54000L);
-
 
 
         TeisyokuConfig();

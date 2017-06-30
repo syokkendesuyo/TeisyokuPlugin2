@@ -1,10 +1,9 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.NameFetcher;
+import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.*;
 import org.bukkit.block.CommandBlock;
 import org.bukkit.command.BlockCommandSender;
@@ -61,19 +60,22 @@ public class Command_TPoint implements CommandExecutor {
                 if (!(sender instanceof Player)) {
                     Msg.info(sender, "使い方：/tpoint status <プレイヤー>");
                 } else {
-                    Listener_TPoint.status((Player) sender);
+                    Listener_TPoint.sendPersonalStatus((Player) sender);
                 }
             } else if (args.length == 2) {
                 try {
-                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+                    UUID uuid = UUIDFetcher.getUUIDOf(args[1]);
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
-                    UUID uuid = player.getUniqueId();
-                    String name = args[1];
+                    if (uuid == null) {
+                        Msg.warning(sender, ChatColor.YELLOW + args[1] + ChatColor.RESET + "というプレイヤーは存在しません");
+                        return true;
+                    }
 
-                    Listener_TPoint.status_uuid(uuid, sender, name, (Player) player);
+                    Listener_TPoint.getOfflinePlayerStatus(sender, player);
                     return true;
                 } catch (Exception e) {
-                    sender.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました。Location: Command_TPoint --> status");
+                    Msg.warning(sender, "不明なエラーが発生しました。Location: Command_TPoint --> status");
                     e.printStackTrace();
                     return true;
                 }
@@ -83,7 +85,7 @@ public class Command_TPoint implements CommandExecutor {
 
         //パーミッションの確認(コマンド側)
         if (!(sender.hasPermission("teisyoku.admin"))) {
-            sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
+            Msg.noPermissionMessage(sender, "teisyoku.admin");
             return true;
         }
 
@@ -93,14 +95,14 @@ public class Command_TPoint implements CommandExecutor {
             //          0    1     2
 
             if (!(args.length == 3)) {
-                sender.sendMessage(Messages.getDenyPrefix() + "引数が不正です");
-                sender.sendMessage(Messages.getDenyPrefix() + "使用方法：/tpoint add <ﾌﾟﾚｲﾔｰ> <数値>");
+                Msg.warning(sender, "引数が不正です");
+                Msg.warning(sender, "使用方法：/tpoint add <ﾌﾟﾚｲﾔｰ> <数値>");
                 return true;
             }
 
             if (!(isNumber(args[2]))) {
                 //数字でなかったら拒否
-                sender.sendMessage(Messages.getDenyPrefix() + args[2] + "は数値ではありません");
+                Msg.warning(sender, args[2] + "は数値ではありません");
                 if (sender instanceof CommandBlock) {
                     return false;
                 } else {
@@ -117,7 +119,7 @@ public class Command_TPoint implements CommandExecutor {
                 return true;
             } else {
                 //プレイヤーが居ないのでエラー
-                sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
+                Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
                 return true;
             }
         }
@@ -125,14 +127,14 @@ public class Command_TPoint implements CommandExecutor {
         //削減
         if (args[0].equalsIgnoreCase("subtract") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("-")) {
             if (!(args.length == 3)) {
-                sender.sendMessage(Messages.getDenyPrefix() + "引数が不正です");
-                sender.sendMessage(Messages.getDenyPrefix() + "使用方法：/tpoint remove <ﾌﾟﾚｲﾔｰ> <数値>");
+                Msg.warning(sender, "引数が不正です");
+                Msg.warning(sender, "使用方法：/tpoint remove <ﾌﾟﾚｲﾔｰ> <数値>");
                 return true;
             }
 
             if (!(isNumber(args[2]))) {
                 //数字でなかったら拒否
-                sender.sendMessage(Messages.getDenyPrefix() + args[2] + "は数値ではありません");
+                Msg.warning(sender, args[2] + "は数値ではありません");
                 if (sender instanceof BlockCommandSender) {
                     Location loc = ((BlockCommandSender) sender).getBlock().getLocation();
                     World world = loc.getWorld();
@@ -173,7 +175,7 @@ public class Command_TPoint implements CommandExecutor {
                 return true;
             } else {
                 //プレイヤーが居ないのでエラー
-                sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
+                Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
                 return true;
             }
         }
@@ -181,37 +183,43 @@ public class Command_TPoint implements CommandExecutor {
         //セット
         if (args[0].equalsIgnoreCase("set")) {
             if (!(args.length == 3)) {
-                sender.sendMessage(Messages.getDenyPrefix() + "引数が不正です");
-                sender.sendMessage(Messages.getDenyPrefix() + "使用方法：/tpoint set <ﾌﾟﾚｲﾔｰ> <数値>");
+                Msg.warning(sender, "引数が不正です");
+                Msg.warning(sender, "使用方法：/tpoint set <ﾌﾟﾚｲﾔｰ> <数値>");
                 return true;
             }
 
             if (!(isNumber(args[2]))) {
                 //数字でなかったら拒否
-                sender.sendMessage(Messages.getDenyPrefix() + args[2] + "は数値ではありません");
+                Msg.warning(sender, args[2] + "は数値ではありません");
                 return true;
             }
 
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
-
-            if (offlinePlayer.isOnline()) {
-                Player onlinePlayer = (Player) offlinePlayer;
-                int point = Integer.parseInt(args[2]);
-                Listener_TPoint.setPoint(point, onlinePlayer);
-                if (!(onlinePlayer == sender)) {
-                    sender.sendMessage(Messages.getSuccessPrefix() + onlinePlayer.getName() + " さんによって " + point + " TPointにセットされました");
+            try{
+                UUID uuid = UUIDFetcher.getUUIDOf(args[1]);
+                OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+                if (player.isOnline()) {
+                    Player onlinePlayer = (Player) player;
+                    int point = Integer.parseInt(args[2]);
+                    Listener_TPoint.setPoint(point, onlinePlayer);
+                    Msg.success(onlinePlayer, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによって " + point + " TPointにセットされました");
+                    if (!(onlinePlayer == sender)) {
+                        Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんを " + point + " TPointにセットしました");
+                    }
+                    Listener_TPoint.sendPersonalStatus(onlinePlayer);
+                    return true;
+                } else {
+                    //プレイヤーが居ないのでエラー
+                    Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
+                    return true;
                 }
-                return true;
-            } else {
-                //プレイヤーが居ないのでエラー
-                sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[1] + ChatColor.RESET + " はオンラインではありません");
-                return true;
+            } catch (Exception e){
+                Msg.warning(sender, "不明なエラーが発生しました。Location: Command_TPoint --> set");
             }
         }
 
         //ギフトコード
         if (args[0].equalsIgnoreCase("code") || args[0].equalsIgnoreCase("giftcode")) {
-            sender.sendMessage(Messages.getDenyPrefix() + "現在利用できません");
+            Msg.warning(sender, "現在利用できません");
             return true;
         }
 

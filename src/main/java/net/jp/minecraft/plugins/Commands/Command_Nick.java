@@ -109,19 +109,19 @@ public class Command_Nick implements CommandExecutor {
                     }
                     Msg.success(sender, args[3] + " のニックネーム色を " + args[2] + " にしました");
                     if(args[2].equalsIgnoreCase("default")){
-                        Listener_TPoint.color_default(player);
+                        Listener_TPoint.colorDefault(player);
                         return true;
                     }
                     if(args[2].equalsIgnoreCase("aqua")){
-                        Listener_TPoint.color_aqua(player);
+                        Listener_TPoint.colorAqua(player);
                         return true;
                     }
                     if(args[2].equalsIgnoreCase("pink")){
-                        Listener_TPoint.color_pink(player);
+                        Listener_TPoint.colorPink(player);
                         return true;
                     }
                     if(args[2].equalsIgnoreCase("green")){
-                        Listener_TPoint.color_green(player);
+                        Listener_TPoint.colorGreen(player);
                         return true;
                     }
                 }

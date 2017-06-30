@@ -3,13 +3,13 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.UUID;
 
 /**
  * TeisyokuPlugin2
@@ -23,27 +23,27 @@ public class Listener_TPoint {
     private static File df = TeisyokuPlugin2.getInstance().getDataFolder();
 
     /**
-     * プレイヤーのポイントにポイントを追加します<br />
+     * プレイヤーにポイントをポイントを追加します<br />
      *
-     * @param point
-     * @param target_player
-     * @param sender
+     * @param point        ポイント
+     * @param targetPlayer ターゲット
+     * @param sender       コマンド送信者
      */
-    public static Boolean addPoint(int point, Player target_player, CommandSender sender) {
+    public static Boolean addPoint(int point, Player targetPlayer, CommandSender sender) {
         try {
-            cfile = new File(df, "PlayerDatabase" + File.separator + target_player.getUniqueId() + ".yml");
+            cfile = new File(df, "PlayerDatabase" + File.separator + targetPlayer.getUniqueId() + ".yml");
             config = YamlConfiguration.loadConfiguration(cfile);
             FileConfiguration playerData = config;
             int point_before = playerData.getInt("tpoint");
             int point_after = point_before + point;
             playerData.set("tpoint", point_after);
             save();
-            Msg.success(target_player, "" + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint" + ChatColor.RESET + " 受け取りました");
-            Msg.success(sender, target_player.getName() + " さんに " + point + " TPoint与えました");
-            status(target_player);//ステイタスを表示
+            Msg.success(targetPlayer, "" + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint" + ChatColor.RESET + " 受け取りました");
+            Msg.success(sender, targetPlayer.getName() + " さんに " + point + " TPoint与えました");
+            sendPersonalStatus(targetPlayer);//ステイタスを表示
             return true;
         } catch (Exception e) {
-            Msg.warning(target_player, "不明なエラーが発生しました。 Location: Listener_TPoint >> addPoint");
+            Msg.warning(targetPlayer, "不明なエラーが発生しました。 Location: Listener_TPoint >> addPoint");
             Msg.warning(sender, "不明なエラーが発生しました。 Location: Listener_TPoint >> addPoint");
             return false;
         }
@@ -52,14 +52,14 @@ public class Listener_TPoint {
     /**
      * プレイヤーのポイントを差し引きます<br />
      *
-     * @param point
-     * @param target_player
-     * @param sender
+     * @param point        ポイント
+     * @param targetPlayer ターゲット
+     * @param sender       コマンド送信者
      * @return 成功・不成功の結果を返却
      */
-    public static boolean subtractPoint(int point, Player target_player, CommandSender sender) {
+    public static boolean subtractPoint(int point, Player targetPlayer, CommandSender sender) {
         try {
-            cfile = new File(df, "PlayerDatabase" + File.separator + target_player.getUniqueId() + ".yml");
+            cfile = new File(df, "PlayerDatabase" + File.separator + targetPlayer.getUniqueId() + ".yml");
             config = YamlConfiguration.loadConfiguration(cfile);
             FileConfiguration playerData = config;
             int point_before = playerData.getInt("tpoint");
@@ -67,25 +67,32 @@ public class Listener_TPoint {
 
             if (point_after < 0) {
                 int error = Math.abs(point_after);
-                Msg.warning(target_player, point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
-                Msg.warning(sender, ChatColor.YELLOW + target_player.getName() + ChatColor.RESET + " さんから " + point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
-                status(target_player);//ステイタスを表示
+                Msg.warning(targetPlayer, point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
+                Msg.warning(sender, ChatColor.YELLOW + targetPlayer.getName() + ChatColor.RESET + " さんから " + point + " TPoint消費しようとしましたが、" + error + " TPoint足りませんでした");
+                sendPersonalStatus(targetPlayer);//ステイタスを表示
                 return false;
             } else {
                 playerData.set("tpoint", point_after);
                 save();
-                Msg.success(target_player, point + " TPoint消費しました");
-                Msg.success(sender, target_player.getName() + " さんから " + point + " TPoint差し引きました");
-                status(target_player);//ステイタスを表示
+                Msg.success(targetPlayer, point + " TPoint消費しました");
+                Msg.success(sender, targetPlayer.getName() + " さんから " + point + " TPoint差し引きました");
+                sendPersonalStatus(targetPlayer);//ステイタスを表示
                 return true;
             }
         } catch (Exception e) {
-            Msg.warning(target_player, "不明なエラーが発生しました。 Location: Listener_TPoint >> subtractPoint");
+            Msg.warning(targetPlayer, "不明なエラーが発生しました。 Location: Listener_TPoint >> subtractPoint");
             Msg.warning(sender, "不明なエラーが発生しました。 Location: Listener_TPoint >> subtractPoint");
             return false;
         }
     }
 
+    /**
+     * プレイヤーが十分なTPointを持っているか確認します<br />
+     *
+     * @param point  ポイント
+     * @param player プレイヤー
+     * @return 購入可能かのBoolean
+     */
     public static boolean canBuy(int point, Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
@@ -103,25 +110,23 @@ public class Listener_TPoint {
     /**
      * プレイヤーのポイントをセットします<br />
      *
-     * @param point
-     * @param player
+     * @param point  ポイント
+     * @param player ターゲット
      */
     public static void setPoint(int point, Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         FileConfiguration playerData = config;
         playerData.set("tpoint", point);
-        Msg.success(player, " TPointにセットしました");
         save();
-        status(player);//ステイタスを表示
     }
 
     /**
-     * Playerを渡すことで現在の保有ポイントを取得できます。<br />
+     * プレイヤーのTPointステイタスを表示します<br />
      *
-     * @param player
+     * @param player ターゲット
      */
-    public static void status(Player player) {
+    public static void sendPersonalStatus(Player player) {
         try {
             //正常に取得
             cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
@@ -140,27 +145,30 @@ public class Listener_TPoint {
     }
 
     /**
-     * uuidとplayer(sender),string(target)を渡すことで現在の保有ポイントを取得できます。<br />
+     * オフラインプレイヤーのTPointステイタスを表示します<br />
      *
-     * @param uuid
-     * @param sender
-     * @param target
-     * @param player
+     * @param sender コマンド送信者
+     * @param target ターゲット
      */
-    public static void status_uuid(UUID uuid, CommandSender sender, String target, Player player) {
+    public static void getOfflinePlayerStatus(CommandSender sender, OfflinePlayer target) {
         try {
+            if (!target.hasPlayedBefore()) {
+                Msg.warning(sender, "ログイン履歴のないプレイヤーです");
+                return;
+            }
+
             //正常に取得
-            cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
+            cfile = new File(df, "PlayerDatabase" + File.separator + target.getUniqueId() + ".yml");
             config = YamlConfiguration.loadConfiguration(cfile);
             FileConfiguration playerData = config;
             if (!cfile.exists()) {
-                Msg.warning(player, ChatColor.YELLOW + target + ChatColor.RESET + " は見つかりませんでした。");
+                Msg.warning(sender, ChatColor.YELLOW + target.getName() + ChatColor.RESET + " は見つかりませんでした。");
                 return;
             }
 
             int point = playerData.getInt("tpoint");
             int syokken = point / 1000;
-            Msg.info(sender, ChatColor.YELLOW + target + ChatColor.RESET + " さんの保有ポイント： " + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint ");
+            Msg.info(sender, ChatColor.YELLOW + target.getName() + ChatColor.RESET + " さんの保有ポイント： " + ChatColor.AQUA + ChatColor.BOLD + point + " TPoint ");
             Msg.info(sender, "食券換算 : " + ChatColor.GREEN + ChatColor.BOLD + syokken + "枚" + ChatColor.RESET + "分");
         } catch (Exception e) {
             //エラー
@@ -173,7 +181,7 @@ public class Listener_TPoint {
     /**
      * Playerを渡すことで現在保有しているポイントをintで返します<br />
      *
-     * @param player
+     * @param player プレイヤー
      * @return 保有ポイント(int)
      */
     public static int int_status(Player player) {
@@ -182,8 +190,7 @@ public class Listener_TPoint {
             cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
             config = YamlConfiguration.loadConfiguration(cfile);
             FileConfiguration playerData = config;
-            int point = playerData.getInt("tpoint");
-            return point;
+            return playerData.getInt("tpoint");
         } catch (Exception e) {
             //エラー
             Msg.warning(player, "ポイント取得時にエラーが発生しました。管理者に以下のエラーをお知らせください。");
@@ -210,7 +217,7 @@ public class Listener_TPoint {
         }
     }
 
-    public static void color_default(Player player) {
+    public static void colorDefault(Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         FileConfiguration playerData = config;
@@ -218,7 +225,7 @@ public class Listener_TPoint {
         save();
     }
 
-    public static void color_aqua(Player player) {
+    public static void colorAqua(Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         FileConfiguration playerData = config;
@@ -226,7 +233,7 @@ public class Listener_TPoint {
         save();
     }
 
-    public static void color_pink(Player player) {
+    public static void colorPink(Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         FileConfiguration playerData = config;
@@ -234,7 +241,7 @@ public class Listener_TPoint {
         save();
     }
 
-    public static void color_green(Player player) {
+    public static void colorGreen(Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         FileConfiguration playerData = config;

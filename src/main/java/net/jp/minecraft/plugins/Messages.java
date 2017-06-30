@@ -16,38 +16,47 @@ public class Messages implements Listener {
      *
      * @return string
      */
+    @Deprecated
     public static String getSuccessPrefix() {
         return ChatColor.GRAY + "[" + ChatColor.GREEN + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
     }
 
+    @Deprecated
     public static String getDenyPrefix() {
         return ChatColor.GRAY + "[" + ChatColor.RED + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
     }
 
+    @Deprecated
     public static String getNormalPrefix() {
         return ChatColor.GRAY + "[" + ChatColor.AQUA + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
     }
 
+    @Deprecated
     public static String getYellowPrefix() {
         return ChatColor.GRAY + "[" + ChatColor.YELLOW + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
     }
 
+    @Deprecated
     public static String getAdPrefix(String name) {
         return ChatColor.GRAY + "[" + ChatColor.GOLD + "お知らせ" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
     }
 
+    @Deprecated
     public static String getCallPrefix() {
         return ChatColor.GRAY + "[" + ChatColor.GOLD + "お呼び出し" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
     }
 
+    @Deprecated
     public static String getCommandFormat(String command, String discription) {
         return ChatColor.GRAY + "   > " + ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY + "  : " + ChatColor.RESET + discription;
     }
 
+    @Deprecated
     public static String getReset() {
         return "" + ChatColor.RESET;
     }
 
+    @Deprecated
     public static String getArray() {
         return ChatColor.GRAY + "   > " + ChatColor.RESET;
     }
@@ -58,6 +67,7 @@ public class Messages implements Listener {
      *
      * @param sender コマンド送信者
      */
+    @Deprecated
     public static void HelpMessage(CommandSender sender) {
         if (!(sender.hasPermission(Permissions.getHelpPermisson()))) {
             sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpPermisson()));
@@ -83,18 +93,22 @@ public class Messages implements Listener {
     /**
      * パーミッション関連
      */
+
     //パーミッションを灰色で表示する
+    @Deprecated
     public static String getPermissionNode(String permission) {
         return ChatColor.GRAY + " (" + permission + ")" + ChatColor.RESET;
     }
 
     //パーミッションが無い時のメッセージ
+    @Deprecated
     public static String getNoPermissionMessage(String permission) {
         String permissionFormat = getPermissionNode(permission);
         return getDenyPrefix() + "パーミッションがありません" + permissionFormat;
     }
 
     //パーミッションの確認コマンド
+    @Deprecated
     public static String getCheckPermissionMessage(String permission) {
         String permissionFormat = permission;
         return getNormalPrefix() + "パーミッション：" + permissionFormat;

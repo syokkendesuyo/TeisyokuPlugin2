@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -39,7 +38,7 @@ public class Command_Cart implements CommandExecutor {
             Player player = Bukkit.getServer().getPlayer(args[0]);
             if (!(player == null)) {
                 if (!(sender.hasPermission("teisyoku.admin"))) {
-                    sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
+                    Msg.noPermissionMessage(sender, "teisyoku.admin");
                     return true;
                 } else {
                     ItemStack cart = new ItemStack(Material.MINECART);
@@ -50,7 +49,7 @@ public class Command_Cart implements CommandExecutor {
                 }
             } else {
                 //プレイヤーが居ないのでエラー
-                sender.sendMessage(Messages.getDenyPrefix() + "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " はオンラインではありません");
+                Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " はオンラインではありません");
                 return true;
             }
         }

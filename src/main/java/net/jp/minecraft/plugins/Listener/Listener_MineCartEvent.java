@@ -1,8 +1,8 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.API.API_Flag;
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -31,6 +31,7 @@ import org.bukkit.material.Rails;
  * @auther syokkendesuyo azuhata
  */
 public class Listener_MineCartEvent implements Listener {
+
     @EventHandler
     public void onVehicleDestroyEvent(VehicleDestroyEvent event) {
 
@@ -41,12 +42,12 @@ public class Listener_MineCartEvent implements Listener {
         Player player = (Player) event.getAttacker();
         Vehicle vehicle = event.getVehicle();
         if (player.getGameMode() != GameMode.SURVIVAL) {
-            player.sendMessage(Messages.getNormalPrefix() + "サバイバルモードの場合にのみマインカートをイベントリへ回収します");
+            Msg.warning(player, "サバイバルモードの場合にのみマインカートをイベントリへ回収します");
             vehicle.remove();
         } else {
             switch (event.getVehicle().getType()) {
                 case MINECART:
-                    player.sendMessage(Messages.getSuccessPrefix() + "マインカートを回収しました");
+                    Msg.success(player, "マインカートを回収しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();
                     cartmeta.setDisplayName(vehicle.getCustomName());
@@ -60,7 +61,7 @@ public class Listener_MineCartEvent implements Listener {
                 case MINECART_FURNACE:
                 case MINECART_HOPPER:
                 case MINECART_TNT:
-                    player.sendMessage(Messages.getDenyPrefix() + "通常のマインカート以外は回収しない設定になっています");
+                    Msg.warning(player, "通常のマインカート以外は回収しない設定になっています");
                     break;
                 default:
                     break;
@@ -74,12 +75,11 @@ public class Listener_MineCartEvent implements Listener {
             Vehicle vehicle = event.getVehicle();
             Player player = (Player) event.getExited();
             if (player.getGameMode() != GameMode.SURVIVAL) {
-                player.sendMessage(Messages.getNormalPrefix() + " サバイバルモードの場合にのみマインカートをイベントリへ回収します");
+                Msg.warning(player, "サバイバルモードの場合にのみマインカートをイベントリへ回収します");
                 vehicle.remove();
             } else {
                 if (API_Flag.getBoolean(player, "cart_auto_collect")) {
-                    player.sendMessage(Messages.getSuccessPrefix() + " マインカートを回収しました");
-
+                    Msg.success(player, "マインカートを回収しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();
                     cartmeta.setDisplayName(vehicle.getCustomName());
@@ -95,9 +95,7 @@ public class Listener_MineCartEvent implements Listener {
     }
 
     /**
-     * マインカートに乗っている場合にレール下に看板があると発動
-     *
-     * @param event
+     * マインカートに乗っている場合にレール下に看板があると発動<br />
      */
     @EventHandler
     public void onPlayerVehicleMoveEvent(VehicleMoveEvent event) {
@@ -112,16 +110,14 @@ public class Listener_MineCartEvent implements Listener {
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();
                 if (sign.getLine(0).equalsIgnoreCase("[alert]") || sign.getLine(0).equalsIgnoreCase("[announce]") || sign.getLine(0).equalsIgnoreCase("[a]") || sign.getLine(0).equalsIgnoreCase("[ri]") || sign.getLine(0).equalsIgnoreCase("[railwayinfo]")) {
                     Player sendplayer = ((Player) player);
-
-
                     try {
                         if (sign.getLine(1).equalsIgnoreCase("")) {
-                            sendplayer.sendMessage(Messages.getDenyPrefix() + "看板2行目が空白になっています");
+                            Msg.warning(sendplayer, "看板2行目が空白になっています");
                             return;
                         }
 
                         if (TeisyokuPlugin2.getInstance().CartConfig.get(sign.getLine(1)) == null) {
-                            sendplayer.sendMessage(Messages.getDenyPrefix() + "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
+                            Msg.warning(sendplayer, "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
                         } else {
                             //正常処理
                             String announce = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1) + ".string");
@@ -130,7 +126,7 @@ public class Listener_MineCartEvent implements Listener {
                             sendplayer.sendMessage(annaunceReplace2);
                         }
                     } catch (Exception e) {
-                        sendplayer.sendMessage(Messages.getDenyPrefix() + "不明なエラーが発生しました");
+                        Msg.warning(sendplayer, "不明なエラーが発生しました");
                         e.printStackTrace();
                     }
                 }
@@ -139,10 +135,9 @@ public class Listener_MineCartEvent implements Listener {
     }
 
     /**
-     * Minecartの最高速度変化させるところ
-     * トロッコの真下のブロックの種類によって速度が変化する
-     * <p>
-     * アクティベーターレールは最高速度を通常Minecartに戻すことができる
+     * Minecartの最高速度変化させるところ<br />
+     * トロッコの真下のブロックの種類によって速度が変化する<br />
+     * アクティベーターレールは最高速度を通常Minecartに戻すことができる<br />
      */
     @SuppressWarnings("deprecation")
     @EventHandler

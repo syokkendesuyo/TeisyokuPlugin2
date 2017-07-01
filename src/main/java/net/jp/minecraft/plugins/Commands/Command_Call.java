@@ -16,61 +16,60 @@ import org.bukkit.entity.Player;
  * TeisyokuPlugin2
  *
  * @auther syokkendesuyo
- *
+ * <p>
  * Callコマンドを実行時の処理
  */
 public class Command_Call implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         //引数が0だった場合
-        if(args.length == 0){
-            help(sender,commandLabel);
+        if (args.length == 0) {
+            help(sender, commandLabel);
             return true;
         }
 
         //パーミッションの確認コマンド
-        if(args[0].equalsIgnoreCase("perm")||args[0].equalsIgnoreCase("perms")||args[0].equalsIgnoreCase("permission")){
-            Msg.checkPermission(sender , Permissions.getTeisyokuUserPermisson());
+        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
+            Msg.checkPermission(sender, Permissions.getTeisyokuUserPermisson());
             return true;
         }
 
         //引数が1だった場合
-        if(args.length == 1){
-            Msg.warning(sender , "メッセージがありません！");
+        if (args.length == 1) {
+            Msg.warning(sender, "メッセージがありません！");
             help(sender, commandLabel);
             return true;
         }
 
         //プレイヤーの変数を作成
-        Player player =  Bukkit.getServer().getPlayer(args[0]);
+        Player player = Bukkit.getServer().getPlayer(args[0]);
 
         //プレイヤーがオンラインであればメッセージを送信
-        if( !(player == null) ){
+        if (!(player == null)) {
             String arg = Joiner.on(' ').join(args);
-            String noneName = arg.replaceAll(args[0],"");
-            String argReplace = noneName.replaceAll("&","§");
+            String noneName = arg.replaceAll(args[0], "");
+            String argReplace = noneName.replaceAll("&", "§");
 
-            sender.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
-            player.sendMessage(Messages.getCallPrefix() + ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
+            Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
+            Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
 
             Sounds.sound_note(player);
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
-            if(sender instanceof Player){
+            if (sender instanceof Player) {
                 Player player1 = (Player) sender;
                 Sounds.sound_arrow(player1);
             }
             return true;
-        }
-        else{
-            sender.sendMessage(Messages.getDenyPrefix() + ChatColor.YELLOW + args[0] + ChatColor.RESET + " さんは現在オフラインです");
+        } else {
+            Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + " さんは現在オフラインです");
             return true;
         }
     }
 
     //ヘルプ関数
-    private void help(CommandSender sender , String commandLabel){
+    private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "コマンドのヘルプ");
-        Msg.commandFormat(sender , commandLabel + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
+        Msg.commandFormat(sender, commandLabel + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
     }
 }

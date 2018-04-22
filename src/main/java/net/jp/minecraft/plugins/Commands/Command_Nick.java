@@ -100,6 +100,7 @@ public class Command_Nick implements CommandExecutor {
             if(args[1].equalsIgnoreCase("color")){
                 if(!(args.length == 4)){
                     Msg.warning(sender, "引数が多すぎるかまたは少なすぎます");
+                    return true;
                 }
                 if (args[2].equalsIgnoreCase("default") || args[2].equalsIgnoreCase("aqua") || args[2].equalsIgnoreCase("pink") || args[2].equalsIgnoreCase("green")){
                     Player player = Bukkit.getServer().getPlayer(args[3]);

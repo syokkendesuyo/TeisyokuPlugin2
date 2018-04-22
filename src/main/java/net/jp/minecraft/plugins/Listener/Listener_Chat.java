@@ -43,22 +43,13 @@ public class Listener_Chat implements Listener {
                 player.setDisplayName(Name);
             } else {
                 String color = playerData.getString("nick_color");
-                if (color.equalsIgnoreCase("aqua")) {
-                    Name = ChatColor.AQUA + "" + NickName + " " + ChatColor.RESET + sender;
+                if (color.equalsIgnoreCase("default")) {
+                    Name = ChatColor.GRAY + "" + NickName + " " + ChatColor.RESET + sender;
                     player.setDisplayName(Name);
                     return;
                 }
-                if (color.equalsIgnoreCase("pink")) {
-                    Name = ChatColor.LIGHT_PURPLE + "" + NickName + " " + ChatColor.RESET + sender;
-                    player.setDisplayName(Name);
-                }
-                if (color.equalsIgnoreCase("green")) {
-                    Name = ChatColor.GREEN + "" + NickName + " " + ChatColor.RESET + sender;
-                    player.setDisplayName(Name);
-                } else {
-                    Name = ChatColor.GRAY + "" + NickName + " " + ChatColor.RESET + sender;
-                    player.setDisplayName(Name);
-                }
+                Name = "§" + color + "" + NickName + " " + ChatColor.RESET + sender;
+                player.setDisplayName(Name);
             }
         } catch (Exception e) {
             e.printStackTrace();

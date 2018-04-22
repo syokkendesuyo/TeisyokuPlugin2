@@ -217,7 +217,7 @@ public class Listener_TPoint {
         }
     }
 
-    public static void colorDefault(Player player) {
+    public static void setDefault(Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         FileConfiguration playerData = config;
@@ -225,27 +225,12 @@ public class Listener_TPoint {
         save();
     }
 
-    public static void colorAqua(Player player) {
+    public static void setNickColor(Player player, ChatColor color) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         FileConfiguration playerData = config;
-        playerData.set("nick_color", "aqua");
+        playerData.set("nick_color", color.getChar());
         save();
-    }
-
-    public static void colorPink(Player player) {
-        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
-        config = YamlConfiguration.loadConfiguration(cfile);
-        FileConfiguration playerData = config;
-        playerData.set("nick_color", "pink");
-        save();
-    }
-
-    public static void colorGreen(Player player) {
-        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
-        config = YamlConfiguration.loadConfiguration(cfile);
-        FileConfiguration playerData = config;
-        playerData.set("nick_color", "green");
-        save();
+        Msg.success(player, "" + ChatColor.YELLOW + ChatColor.BOLD + player.getName() + ChatColor.RESET + " のニックネーム色を " + color + ChatColor.BOLD + color.name() + ChatColor.RESET + " に設定しました");
     }
 }

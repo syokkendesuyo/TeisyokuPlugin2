@@ -1,6 +1,6 @@
 .idea/
 .gitattributes
-TeisyokuPlugin2.iml
+*.iml
 target/
 
 *.class

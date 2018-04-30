@@ -1,9 +1,12 @@
-.idea/
+# Custom
 .gitattributes
-*.iml
+.idea/
 target/
-
+libs/
+out/
+*.iml
 *.class
+*.MF
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

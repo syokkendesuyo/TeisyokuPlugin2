@@ -18,37 +18,37 @@ public class Messages implements Listener {
      */
     @Deprecated
     public static String getSuccessPrefix() {
-        return ChatColor.GRAY + "[" + ChatColor.GREEN + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
+        return ChatColor.DARK_GRAY + "[" + ChatColor.GREEN + ChatColor.BOLD +  "Teisyoku" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">> " + ChatColor.WHITE;
     }
 
     @Deprecated
     public static String getDenyPrefix() {
-        return ChatColor.GRAY + "[" + ChatColor.RED + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
+        return ChatColor.DARK_GRAY + "[" + ChatColor.RED + ChatColor.BOLD + "Teisyoku" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">> " + ChatColor.WHITE;
     }
 
     @Deprecated
     public static String getNormalPrefix() {
-        return ChatColor.GRAY + "[" + ChatColor.AQUA + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
+        return ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + ChatColor.BOLD + "Teisyoku" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">> " + ChatColor.WHITE;
     }
 
     @Deprecated
     public static String getYellowPrefix() {
-        return ChatColor.GRAY + "[" + ChatColor.YELLOW + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
+        return ChatColor.DARK_GRAY + "[" + ChatColor.YELLOW + ChatColor.BOLD + "Teisyoku" + ChatColor.DARK_GRAY + "] "+ ChatColor.GRAY + ">> " + ChatColor.WHITE;
     }
 
     @Deprecated
     public static String getAdPrefix(String name) {
-        return ChatColor.GRAY + "[" + ChatColor.GOLD + "お知らせ" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
+        return ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + ChatColor.BOLD + "お知らせ" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">> " + ChatColor.WHITE;
     }
 
     @Deprecated
     public static String getCallPrefix() {
-        return ChatColor.GRAY + "[" + ChatColor.GOLD + "お呼び出し" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + "> " + ChatColor.WHITE;
+        return ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + ChatColor.BOLD + "お呼び出し" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">> " + ChatColor.WHITE;
     }
 
     @Deprecated
     public static String getCommandFormat(String command, String discription) {
-        return ChatColor.GRAY + "   > " + ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY + "  : " + ChatColor.RESET + discription;
+        return ChatColor.DARK_GRAY + "   > " + ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY + "  : " + ChatColor.RESET + discription;
     }
 
     @Deprecated

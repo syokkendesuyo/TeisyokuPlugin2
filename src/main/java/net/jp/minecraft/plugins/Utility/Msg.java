@@ -14,7 +14,7 @@ public final class Msg {
 
     //基本のPrefix
     private static  String prefix (ChatColor color){
-        return ChatColor.GRAY + "[" + color + "Teisyoku" + ChatColor.GRAY + "] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
+        return ChatColor.DARK_GRAY + "[" + color + ChatColor.BOLD + "Teisyoku" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">>" + " ";
     }
 
     /**

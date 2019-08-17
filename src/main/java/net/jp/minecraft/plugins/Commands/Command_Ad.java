@@ -8,6 +8,7 @@ import net.jp.minecraft.plugins.Utility.CoolDown;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -68,7 +69,7 @@ public class Command_Ad implements CommandExecutor {
         String argReplace = arg.replaceAll("&","§");
 
         //ブロードキャストでメッセージを送信
-        Bukkit.broadcastMessage(Messages.getAdPrefix(sender.getName()) + argReplace);
+        Msg.info(sender, ChatColor.GOLD + "" + ChatColor.BOLD +  "お知らせ" + ChatColor.GRAY + " >> " + ChatColor.RESET + argReplace, true);
 
         //オンラインプレイヤー全員に音を鳴らす
         for(Player player : Bukkit.getOnlinePlayers()){

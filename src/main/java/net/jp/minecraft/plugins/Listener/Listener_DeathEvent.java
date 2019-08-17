@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -20,7 +21,7 @@ public class Listener_DeathEvent implements Listener {
             EntityDamageEvent.DamageCause dc = event.getEntity().getLastDamageCause().getCause();
         } catch (NullPointerException e) {
             event.setDeathMessage(null);
-            Bukkit.broadcastMessage(Messages.getSuccessPrefix() + ChatColor.YELLOW + event.getEntity().getName() + ChatColor.RESET + " さんは自殺しました");
+            Msg.info(Bukkit.getConsoleSender(), ChatColor.YELLOW + event.getEntity().getName() + ChatColor.RESET + " さんは自殺しました", true);
         }
     }
 }

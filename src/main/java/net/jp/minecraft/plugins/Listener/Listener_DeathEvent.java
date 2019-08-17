@@ -21,7 +21,7 @@ public class Listener_DeathEvent implements Listener {
             EntityDamageEvent.DamageCause dc = event.getEntity().getLastDamageCause().getCause();
         } catch (NullPointerException e) {
             event.setDeathMessage(null);
-            Msg.info(Bukkit.getConsoleSender(), ChatColor.YELLOW + event.getEntity().getName() + ChatColor.RESET + " さんは自殺しました", true);
+            Msg.warning(Bukkit.getConsoleSender(), ChatColor.YELLOW + event.getEntity().getName() + ChatColor.RESET + " さんは自殺しました", true);
         }
     }
 }

@@ -41,19 +41,24 @@ public class Listener_Sign implements Listener {
 
             if (Search.searchKeyword(sign.getLines(), "[gomi]")) {
                 Listener_Gomibako.openGomibako(player);
+                return;
             } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
                 //マインカートを追加
                 addMinecart(player);
+                return;
             } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
                 TeisyokuMenuIndex.getMenu(player);
+                return;
             } else if (Search.searchKeyword(sign.getLines(), "[tpoint]") || Search.searchKeyword(sign.getLines(), "[point]")) {
                 TPointIndexGUI.index(player);
+                return;
             } else if (sign.getLine(0).toLowerCase().indexOf("[warp]") != -1) {
                 if (sign.getLine(1) != null) {
                     Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
                 } else {
                     Bukkit.getServer().dispatchCommand(player, "warp");
                 }
+                return;
             } else if ((Search.searchKeyword(sign.getLines(), "[coffee]")) && (player.getInventory().getItemInMainHand().getType().equals(Material.POTION))) {
                 ItemStack item = player.getInventory().getItemInMainHand();
                 ItemMeta meta = item.getItemMeta();
@@ -61,6 +66,7 @@ public class Listener_Sign implements Listener {
                 meta.setLore(Arrays.asList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
                 item.setItemMeta(meta);
                 Sounds.sound_note(player);
+                return;
             }
             //看板のデータを照会する
             getSignInfo(player, sign);

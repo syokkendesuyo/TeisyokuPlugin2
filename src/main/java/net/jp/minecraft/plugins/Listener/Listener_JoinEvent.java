@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ public class Listener_JoinEvent implements Listener {
         Player player = event.getPlayer();
         List<String> ad = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("joinMessage");
         for (String s : ad) {
-            player.sendMessage(Messages.getNormalPrefix() + color(s));
+            Msg.info(player, color(s));
         }
         if (TeisyokuPlugin2.getInstance().TeisyokuConfig.getString("debug.SpawnFixed") == null) {
             TeisyokuPlugin2.getInstance().TeisyokuConfig.set("debug.SpawnFixed", false);

@@ -47,7 +47,7 @@ public class GUI_YesNo implements Listener {
     @EventHandler
     public static void getKill(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getInventory().getName().equalsIgnoreCase("自殺を行いますか？")) {
+        if (event.getInventory().getName().equalsIgnoreCase("自殺しますか？")) {
             if (event.getRawSlot() == 2) {
                 //実行
                 player.setHealth(0);

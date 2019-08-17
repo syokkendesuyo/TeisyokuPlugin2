@@ -65,7 +65,7 @@ public class GUI_ClickEvent implements Listener {
             } else if (event.getRawSlot() == 2) {
                 GUI_PlayersList.getPlayersList(player);
             } else if (event.getRawSlot() == 4) {
-                GUI_YesNo.openGUI(player, "自殺を処理を行います", "自殺をやっぱり辞める！", "自殺を行いますか？");
+                GUI_YesNo.openGUI(player, "この操作は元には戻せません", "自殺をやっぱり辞める！", "自殺しますか？");
             } else if (event.getRawSlot() == 6) {
                 Msg.info(player, "投票サイト:" + ChatColor.AQUA + " http://bit.ly/vote_mc");
                 player.closeInventory();

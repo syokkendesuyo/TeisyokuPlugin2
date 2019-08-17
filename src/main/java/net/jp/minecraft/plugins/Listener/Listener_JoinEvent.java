@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,10 @@ public class Listener_JoinEvent implements Listener {
     @EventHandler
     public void onPlayerJoinMessage(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
+        event.setJoinMessage("");
+        Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームに参加しました", true);
+
         List<String> ad = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("joinMessage");
         for (String s : ad) {
             Msg.info(player, color(s));

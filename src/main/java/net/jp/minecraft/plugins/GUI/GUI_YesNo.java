@@ -52,7 +52,7 @@ public class GUI_YesNo implements Listener {
                 //実行
                 player.setHealth(0);
                 player.closeInventory();
-                Msg.success(player, "自殺しました");
+                //Msg.success(player, "自殺しました");
             } else if (event.getRawSlot() == 6) {
                 //拒否
                 Msg.success(player, "自殺をやっぱり辞めました！");

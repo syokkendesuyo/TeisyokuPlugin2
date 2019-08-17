@@ -177,7 +177,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             public void run() {
                 List<String> ad = TeisyokuConfig.getStringList("ad");
                 for (String s : ad) {
-                    Bukkit.getServer().broadcastMessage(Messages.getNormalPrefix() + color(s));
+                    Msg.info(Bukkit.getConsoleSender(), color(s), true);
                 }
             }
         }, 0L, 54000L);

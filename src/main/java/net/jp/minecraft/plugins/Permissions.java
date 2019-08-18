@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -83,11 +84,11 @@ public class Permissions {
     /**
      * パーミッションの有無を確認します
      *
-     * @param player プレイヤー
+     * @param sender プレイヤー/コンソール
      * @param perm   パーミッション
      * @return 結果
      */
-    public static boolean hasPermission(Player player, String perm) {
-        return player.hasPermission(perm);
+    public static boolean hasPermission(CommandSender sender, String perm) {
+        return sender.hasPermission(perm);
     }
 }

@@ -338,32 +338,30 @@ public class Listener_Daunii_1_12 implements Listener {
 
     @EventHandler
     public void removedaunii(PlayerInteractAtEntityEvent event) {//もし鉄インゴットで右クリックしたら
-        if (!(event.getRightClicked().getType().equals(EntityType.IRON_GOLEM))) {
-            return;
-        }
         Entity entity = event.getRightClicked();
-        if (entity.getCustomName() == null) {
+        if (!(event.getRightClicked().getType().equals(EntityType.IRON_GOLEM)) || !(entity.getCustomName().equals(DauniiName)) || entity.getCustomName() == null) {
             return;
         }
-        if (!(entity.getCustomName().equals(DauniiName))) {
-            return;
-        }
+
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         if ((item == null) || (!(item.getType().equals(Material.IRON_INGOT)))) {
             return;
         }
+
         if (!(player.hasPermission("teisyoku.admin"))) {
             Msg.warning(player, "だうにー君を鉄インゴットで持った状態で右クリックすると削除できます");
             Msg.noPermissionMessage(player, "teisyoku.admin");
             return;
         }
+
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_DEATH, 4, 1);
         Entity setDaunii = entity.getVehicle();
         if (setDaunii == null) {
             entity.remove();
             return;
         }
+
         setDaunii.remove();
         entity.remove();
     }

@@ -354,8 +354,8 @@ public class Listener_Daunii_1_12 implements Listener {
             return;
         }
         if (!(player.hasPermission("teisyoku.admin"))) {
-            player.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
-            Msg.warning(player, "鉄インゴットを持って右クリックしないで下さい");
+            Msg.warning(player, "だうにー君を鉄インゴットで持った状態で右クリックすると削除できます");
+            Msg.noPermissionMessage(player, "teisyoku.admin");
             return;
         }
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_DEATH, 4, 1);

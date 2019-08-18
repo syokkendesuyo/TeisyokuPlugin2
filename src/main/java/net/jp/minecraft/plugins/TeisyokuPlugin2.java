@@ -41,7 +41,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
-    private String ver1_12_R01 = "1.12-R0.1-SNAPSHOT";
+    private String ver1_12_R1 = "1.12.2-R0.1-SNAPSHOT";
 
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
@@ -141,7 +141,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("tflag").setExecutor(new Command_TFlag());
 
         //1.12
-        if (version.equals(ver1_12_R01)) {
+        if (version.equals(ver1_12_R1)) {
 
             //events
             pm.registerEvents(new Listener_Tab(), this);
@@ -159,17 +159,15 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
                 public void run() {
                     Double tps = Listener_TicksPerSecond_1_12.getTps(1);
                     if (Listener_TicksPerSecond_1_12.getTps(1) < 16) {
-                        for (Player player : Bukkit.getOnlinePlayers()) {
-                            Msg.warning(player, "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_12.doubleToString(tps));
-                        }
+                        Msg.warning(Bukkit.getConsoleSender(), "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_12.doubleToString(tps), true);
                     }
                 }
             }, 0L, 6000L);
 
             //message
-            getLogger().info("1.12-R0.1 用に作成された一部機能が開放されました");
+            Msg.success(Bukkit.getConsoleSender(),version + "用に作成された一部機能が開放されました" );
         } else {
-            getLogger().info("サポートの対象外のバージョンをご利用中です");
+            Msg.warning(Bukkit.getConsoleSender(), version + "はサポート対象外のバージョンです");
         }
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();

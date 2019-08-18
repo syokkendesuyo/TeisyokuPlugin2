@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
 public class Command_Teisyoku implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!(sender.hasPermission(Permissions.getTeisyokuCommandPermisson()))) {
-            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getTeisyokuCommandPermisson()));
+            Msg.noPermissionMessage(sender, Permissions.getTeisyokuUserPermisson());
             return true;
         }
 
@@ -31,7 +31,7 @@ public class Command_Teisyoku implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("help")) {
             if (!(sender.hasPermission(Permissions.getHelpCommandPermisson()))) {
-                sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getHelpCommandPermisson()));
+                Msg.noPermissionMessage(sender, Permissions.getTeisyokuUserPermisson());
                 return true;
             }
             Messages.HelpMessage(sender);
@@ -39,8 +39,7 @@ public class Command_Teisyoku implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("permission") || args[0].equalsIgnoreCase("perm")) {
-            sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(通常利用): " + Permissions.getTeisyokuPermisson());
-            sender.sendMessage(Messages.getNormalPrefix() + "パーミッション(コマンド): " + Permissions.getTeisyokuCommandPermisson());
+            Msg.checkPermission(sender, Permissions.getTeisyokuUserPermisson());
             return true;
         }
 
@@ -77,8 +76,8 @@ public class Command_Teisyoku implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("flag") || args[0].equalsIgnoreCase("f")) {
-            if (!sender.hasPermission("teisyoku.admin")) {
-                Msg.warning(sender, "パーミッションがありません");
+            if (!Permissions.hasPermission(sender, Permissions.getTeisyokuAdminPermisson())) {
+                Msg.noPermissionMessage(sender, Permissions.getTeisyokuAdminPermisson());
                 return true;
             }
             if (args[1].equalsIgnoreCase("ad")) {
@@ -94,8 +93,10 @@ public class Command_Teisyoku implements CommandExecutor {
                     return true;
                 }
                 Msg.warning(sender, "引数が多すぎるか、または少なすぎます");
+                return true;
             }
             Msg.warning(sender, "引数「" + args[1] + "」は存在しません");
+            return true;
         }
         Msg.warning(sender, "引数 " + args[0] + " は存在しません");
         return true;
@@ -107,8 +108,8 @@ public class Command_Teisyoku implements CommandExecutor {
             return;
         }
 
-        if (!(sender.hasPermission(Permissions.getTeisyokuPermisson()))) {
-            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getTeisyokuPermisson()));
+        if (!Permissions.hasPermission(sender, Permissions.getTeisyokuUserPermisson())) {
+            Msg.noPermissionMessage(sender, Permissions.getTeisyokuUserPermisson());
             return;
         }
 

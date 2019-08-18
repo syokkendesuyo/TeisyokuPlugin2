@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;
 import net.minecraft.server.v1_12_R1.*;

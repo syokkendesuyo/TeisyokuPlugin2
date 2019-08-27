@@ -60,7 +60,7 @@ public class GiftConfigAPI {
                 Connection_TeisyokuConfig.saveConfig();
             } else if (limit == 0) {
                 Msg.warning(sender, "ギフト名 " + ChatColor.YELLOW + gift_code + ChatColor.RESET + " は利用できません");
-                Msg.warning(sender, "理由：利用回数が制限値に達しました");
+                Msg.warning(sender, "理由： 利用回数が制限値に達しました");
                 return;
             }
         }

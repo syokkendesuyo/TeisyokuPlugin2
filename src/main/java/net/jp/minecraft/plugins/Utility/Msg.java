@@ -125,7 +125,7 @@ public final class Msg {
      * @param perm パーミッション
      */
     public static void noPermissionMessage(final CommandSender p, final String perm) {
-        Msg.warning(p, "パーミッションがありません" + getPermissionNode(perm));
+        Msg.warning(p, "パーミッションがありません " + ChatColor.RED + perm);
     }
 
     /**
@@ -135,17 +135,13 @@ public final class Msg {
      * @param perm パーミッション
      */
     public static void checkPermission(final CommandSender p, final String perm) {
-        Msg.info(p, "パーミッション：" + getPermissionNode(perm));
-    }
-
-    /**
-     * パーミッションノードを灰色で表示
-     *
-     * @param permission パーミッション
-     * @return パーミッション専用スタイル
-     */
-    private static String getPermissionNode(final String permission) {
-        return ChatColor.GRAY + permission + ChatColor.RESET;
+        ChatColor color = ChatColor.RED;
+        String hasPerm = "使用不可";
+        if (p.hasPermission(perm)) {
+            color = ChatColor.GREEN;
+            hasPerm = "使用可能";
+        }
+        Msg.info(p, "パーミッション" + ChatColor.DARK_GRAY + ": " + color + hasPerm + " " + perm);
     }
 
     /**

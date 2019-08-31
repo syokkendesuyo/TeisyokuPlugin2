@@ -119,7 +119,13 @@ permissions:
         default: op
     teisyoku.user:
         description: Teisyoku.
-        default: op
+        default: true
     teisyoku.admin:
-        description: Teisyoku.
+        description: Teisyoku admin
+        default: op
+    teisyoku.ad:
+        description: Teisyoku ad command
+        default: false
+    teisyoku.ad.cooltime:
+        description: Teisyoku ad command bypass cooltime
         default: op

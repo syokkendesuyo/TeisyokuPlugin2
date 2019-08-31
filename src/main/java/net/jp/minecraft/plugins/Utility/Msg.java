@@ -128,20 +128,44 @@ public final class Msg {
         Msg.warning(p, "パーミッションがありません " + ChatColor.RED + perm);
     }
 
+    public static void noPermissionMessage(final CommandSender sender, final Permission perm){
+        noPermissionMessage(sender, perm.toString());
+    }
+
     /**
      * パーミッションを表示する時のスタイル
      *
      * @param p    プレイヤー
      * @param perm パーミッション
      */
+    @Deprecated
     public static void checkPermission(final CommandSender p, final String perm) {
         ChatColor color = ChatColor.RED;
-        String hasPerm = "使用不可";
+        String hasPerm = "無効";
         if (p.hasPermission(perm)) {
             color = ChatColor.GREEN;
-            hasPerm = "使用可能";
+            hasPerm = "有効";
         }
         Msg.info(p, "パーミッション" + ChatColor.DARK_GRAY + ": " + color + hasPerm + " " + perm);
+    }
+
+    /**
+     * パーミッションを確認するメソッド
+     *
+     * @param sender 送信者
+     * @param perms  パーミッション(権限)...
+     */
+    public static void checkPermission(final CommandSender sender, final Permission... perms) {
+        Msg.info(sender, "パーミッション ");
+        for (Permission perm: perms) {
+            ChatColor color = ChatColor.RED;
+            String hasPerm = "無効";
+            if (sender.hasPermission(perm.toString())) {
+                color = ChatColor.GREEN;
+                hasPerm = "有効";
+            }
+            Msg.info(sender, color + "・" + ChatColor.RESET + perm + ChatColor.DARK_GRAY +" (" + color + hasPerm + ChatColor.DARK_GRAY + ")");
+        }
     }
 
     /**

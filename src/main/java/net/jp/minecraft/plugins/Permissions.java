@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 /**
  * TeisyokuPlugin2
@@ -44,11 +43,6 @@ public class Permissions {
 
     //定食メニューパーミッション
     public static String getTeisyokuCommandPermisson() {
-        String permisson = "teisyoku.user";
-        return permisson;
-    }
-
-    public static String getTeisyokuPermisson() {
         String permisson = "teisyoku.user";
         return permisson;
     }

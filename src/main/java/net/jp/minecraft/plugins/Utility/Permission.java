@@ -7,7 +7,9 @@ public enum Permission {
     ADMIN("teisyoku.admin"),
 
     AD("teisyoku.ad"),
-    AD_COOLTIME("teisyoku.ad.cooltime")
+    AD_COOLTIME("teisyoku.ad.cooltime"),
+
+    CALL("teisyoku.call")
 
     ;
 

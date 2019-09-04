@@ -2,12 +2,10 @@ package net.jp.minecraft.plugins.Commands;
 
 import com.google.common.base.Joiner;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.Utility.CoolDown;
-import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.Permission;
-import net.jp.minecraft.plugins.Utility.Sounds;
+import net.jp.minecraft.plugins.Utility.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -76,15 +74,12 @@ public class Command_Ad implements CommandExecutor {
         //コマンドの引数を結合する
         String arg = Joiner.on(' ').join(args);
 
-        //カラーコードを適用
-        String argReplace = arg.replaceAll("&", "§");
-
         //ブロードキャストでメッセージを送信
-        Msg.info(sender, ChatColor.GOLD + "" + ChatColor.BOLD + "お知らせ" + ChatColor.GRAY + " >> " + ChatColor.RESET + argReplace, true);
+        Msg.info(sender, ChatColor.GOLD + "" + ChatColor.BOLD + "お知らせ" + ChatColor.GRAY + " >> " + ChatColor.RESET + Color.convert(arg), true);
 
         //オンラインプレイヤー全員に音を鳴らす
         for (Player player : Bukkit.getOnlinePlayers()) {
-            Sounds.sound_note(player);
+            Sounds.play(player, Sound.BLOCK_NOTE_PLING);
         }
 
         //クールタイムを設定

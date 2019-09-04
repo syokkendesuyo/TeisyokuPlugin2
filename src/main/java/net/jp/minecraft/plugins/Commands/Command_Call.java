@@ -1,12 +1,14 @@
 package net.jp.minecraft.plugins.Commands;
 
 import com.google.common.base.Joiner;
-import net.jp.minecraft.plugins.Messages;
-import net.jp.minecraft.plugins.Permissions;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,13 +16,20 @@ import org.bukkit.entity.Player;
 
 /**
  * TeisyokuPlugin2
+ * callコマンド
  *
- * @auther syokkendesuyo
- * <p>
- * Callコマンドを実行時の処理
+ * @author syokkendesuyo
  */
 public class Command_Call implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
+        //コマンドが有効化されているかどうか検出
+        if (!plugin.TeisyokuConfig.getBoolean("commands.call")) {
+            Msg.warning(sender, "adコマンドは有効化されていません");
+            return true;
+        }
 
         //引数が0だった場合
         if (args.length == 0) {
@@ -30,13 +39,22 @@ public class Command_Call implements CommandExecutor {
 
         //パーミッションの確認コマンド
         if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
-            Msg.checkPermission(sender, Permissions.getTeisyokuUserPermisson());
+            Msg.checkPermission(sender,
+                    Permission.USER,
+                    Permission.CALL,
+                    Permission.ADMIN
+            );
+            return true;
+        }
+
+        //実行コマンドのパーミッションを確認
+        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.CALL.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(sender, Permission.CALL);
             return true;
         }
 
         //引数が1だった場合
         if (args.length == 1) {
-            Msg.warning(sender, "メッセージがありません！");
             help(sender, commandLabel);
             return true;
         }
@@ -47,18 +65,17 @@ public class Command_Call implements CommandExecutor {
         //プレイヤーがオンラインであればメッセージを送信
         if (!(player == null)) {
             String arg = Joiner.on(' ').join(args);
-            String noneName = arg.replaceAll(args[0], "");
-            String argReplace = noneName.replaceAll("&", "§");
+            String removeName = arg.replaceAll(args[0], "");
 
-            Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
-            Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + argReplace);
+            Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(removeName));
+            Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(removeName));
 
-            Sounds.sound_note(player);
+            Sounds.play(player, Sound.BLOCK_NOTE_PLING);
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
             if (sender instanceof Player) {
-                Player player1 = (Player) sender;
-                Sounds.sound_arrow(player1);
+                Player receiver = (Player) sender;
+                Sounds.play(receiver, Sound.ENTITY_ARROW_SHOOT);
             }
             return true;
         } else {

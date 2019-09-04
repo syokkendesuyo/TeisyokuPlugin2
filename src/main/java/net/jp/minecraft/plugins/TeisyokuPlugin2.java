@@ -7,6 +7,7 @@ import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
 import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
+import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.PlayerFile;
 import net.jp.minecraft.plugins.Utility.Sounds;
@@ -175,7 +176,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             public void run() {
                 List<String> ad = TeisyokuConfig.getStringList("ad");
                 for (String s : ad) {
-                    Msg.info(Bukkit.getConsoleSender(), color(s), true);
+                    Msg.info(Bukkit.getConsoleSender(), Color.convert(s), true);
                 }
             }
         }, 0L, 54000L);
@@ -400,9 +401,5 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     public static TeisyokuPlugin2 getInstance() {
         return instance;
-    }
-
-    public static String color(String str) {
-        return str.replaceAll("&", "§");
     }
 }

@@ -15,7 +15,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -49,7 +48,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     public void onEnable() {
         String version = Bukkit.getBukkitVersion();
-        getLogger().info("Running on " + version);
+        Msg.info(Bukkit.getConsoleSender(), "Running on " + version);
 
         PluginManager pm = Bukkit.getServer().getPluginManager();
 
@@ -166,7 +165,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             }, 0L, 6000L);
 
             //message
-            Msg.success(Bukkit.getConsoleSender(),version + "用に作成された一部機能が開放されました" );
+            Msg.success(Bukkit.getConsoleSender(), version + "用に作成された一部機能が開放されました");
         } else {
             Msg.warning(Bukkit.getConsoleSender(), version + "はサポート対象外のバージョンです");
         }

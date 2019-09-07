@@ -64,7 +64,7 @@ public class API_Flag {
             }
             return true;
         }
-        Msg.warning(sender, "引数「" + args[1] + "」は利用できません。trueかfalseを指定して下さい。");
+        Msg.warning(sender, "引数「" + args[1] + "」は利用できません。trueまたはfalseを指定して下さい。");
         return false;
     }
 

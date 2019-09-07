@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Command_TFlag implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -18,28 +18,32 @@ public class Command_TFlag implements CommandExecutor {
         //コンソールからのコマンドを拒否
         if (!(sender instanceof Player)) {
             Msg.warning(sender, "コンソールからコマンドを送信することはできません");
+            // TODO: フラグ設定をコンソールまたは管理者が設定可能にする
             return true;
         }
 
         //引数が多い場合
         if (args.length > 2) {
-            Msg.warning(sender, "引数が多すぎます");
+            help(sender, commandLabel);
             return true;
         }
 
         //引数が少ない場合
         if (args.length == 0) {
-            Msg.warning(sender, "引数が少なすぎます");
+            help(sender, commandLabel);
             return true;
         } else if (args.length == 1) {
-            Msg.warning(sender, "引数が少なすぎます");
+            help(sender, commandLabel);
             return true;
         }
 
         //正常実行
         else if (args.length == 2) {
             Player player = (Player) sender;
-            if (args[0].equalsIgnoreCase("cart_auto_collect")) {
+            if (args[0].equalsIgnoreCase("call_sounds")) {
+                API_Flag.updateFlagBoolean(sender, player, args, "callコマンドの呼び出し音設定");
+                return true;
+            } else if (args[0].equalsIgnoreCase("cart_auto_collect")) {
                 API_Flag.updateFlagBoolean(sender, player, args, "マインカートを自動でインベントリに保存");
                 return true;
             } else if (args[0].equalsIgnoreCase("sign_info")) {
@@ -53,5 +57,11 @@ public class Command_TFlag implements CommandExecutor {
             }
         }
         return true;
+    }
+
+    //ヘルプ関数
+    private void help(CommandSender sender, String commandLabel) {
+        Msg.success(sender, "コマンドのヘルプ");
+        Msg.commandFormat(sender, commandLabel + " <フラグ名> <true/false>", "フラグ名を指定してフラグを設定");
     }
 }

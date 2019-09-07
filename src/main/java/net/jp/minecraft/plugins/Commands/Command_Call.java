@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
 import com.google.common.base.Joiner;
+import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -62,24 +63,37 @@ public class Command_Call implements CommandExecutor {
         //プレイヤーの変数を作成
         Player player = Bukkit.getServer().getPlayer(args[0]);
 
+        //プレイヤー名を一時保存
+        String playerName = args[0];
+
         //プレイヤーがオンラインであればメッセージを送信
         if (!(player == null)) {
+
+            //プレイヤー名を削除
+            args[0] = "";
+
+            //引数を全て接続
             String arg = Joiner.on(' ').join(args);
-            String removeName = arg.replaceAll(args[0], "");
 
-            Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(removeName));
-            Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(removeName));
+            //メッセージを送信
+            Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " さんにメッセージを送信しました" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(arg));
+            Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(arg));
 
-            Sounds.play(player, Sound.BLOCK_NOTE_PLING);
+            //サウンドを再生
+            if (API_Flag.getBoolean(player, "call_sounds")) {
+                Sounds.play(player, Sound.BLOCK_NOTE_PLING);
+            }
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
             if (sender instanceof Player) {
                 Player receiver = (Player) sender;
-                Sounds.play(receiver, Sound.ENTITY_ARROW_SHOOT);
+                if (API_Flag.getBoolean(receiver, "call_sounds")) {
+                    Sounds.play(receiver, Sound.ENTITY_ARROW_SHOOT);
+                }
             }
             return true;
         } else {
-            Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + " さんは現在オフラインです");
+            Msg.warning(sender, ChatColor.YELLOW + playerName + ChatColor.RESET + " さんは現在オフラインです");
             return true;
         }
     }

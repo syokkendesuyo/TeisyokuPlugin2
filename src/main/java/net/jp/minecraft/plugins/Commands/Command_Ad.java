@@ -39,7 +39,7 @@ public class Command_Ad implements CommandExecutor {
         }
 
         //ヘルプ
-        if (args[0].equalsIgnoreCase("help")) {
+        if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
             help(sender, commandLabel);
             return true;
         }
@@ -97,7 +97,6 @@ public class Command_Ad implements CommandExecutor {
             calendar.setTime(nowDate);
             CoolDown.put(player, calendar);
         }
-
         return true;
     }
 
@@ -108,7 +107,7 @@ public class Command_Ad implements CommandExecutor {
      * @param commandLabel コマンドラベル
      */
     private void help(CommandSender sender, String commandLabel) {
-        Msg.info(sender, "コマンドのヘルプ");
+        Msg.success(sender, "コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel + " <メッセージ>", "広告を表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }

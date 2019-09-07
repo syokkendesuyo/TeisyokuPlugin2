@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 public final class Msg {
 
     //基本のPrefix
-    private static  String prefix (ChatColor color){
+    private static String prefix(ChatColor color) {
         return ChatColor.DARK_GRAY + "[" + color + ChatColor.BOLD + "Teisyoku" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">>" + " ";
     }
 
@@ -125,10 +125,10 @@ public final class Msg {
      * @param perm パーミッション
      */
     public static void noPermissionMessage(final CommandSender p, final String perm) {
-        Msg.warning(p, "パーミッションがありません " + ChatColor.RED + perm);
+        Msg.warning(p, "パーミッションがありません" + ChatColor.DARK_GRAY + ": " + ChatColor.RED + perm);
     }
 
-    public static void noPermissionMessage(final CommandSender sender, final Permission perm){
+    public static void noPermissionMessage(final CommandSender sender, final Permission perm) {
         noPermissionMessage(sender, perm.toString());
     }
 
@@ -156,15 +156,15 @@ public final class Msg {
      * @param perms  パーミッション(権限)...
      */
     public static void checkPermission(final CommandSender sender, final Permission... perms) {
-        Msg.info(sender, "パーミッション ");
-        for (Permission perm: perms) {
+        Msg.success(sender, "パーミッション状態 ");
+        for (Permission perm : perms) {
             ChatColor color = ChatColor.RED;
             String hasPerm = "無効";
             if (sender.hasPermission(perm.toString())) {
                 color = ChatColor.GREEN;
                 hasPerm = "有効";
             }
-            Msg.info(sender, color + "・" + ChatColor.RESET + perm + ChatColor.DARK_GRAY +" (" + color + hasPerm + ChatColor.DARK_GRAY + ")");
+            Msg.info(sender, color + "・" + ChatColor.RESET + perm + ChatColor.DARK_GRAY + " (" + color + hasPerm + ChatColor.DARK_GRAY + ")");
         }
     }
 

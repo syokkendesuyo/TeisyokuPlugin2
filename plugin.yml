@@ -129,3 +129,9 @@ permissions:
     teisyoku.ad.cooltime:
         description: Teisyoku ad command bypass cooltime
         default: op
+    teisyoku.cart:
+        description: Teisyoku cart command
+        default: true
+    teisyoku.cart.give:
+        description: Teisyoku cart command
+        default: false

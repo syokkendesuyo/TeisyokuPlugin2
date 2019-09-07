@@ -38,6 +38,12 @@ public class Command_Call implements CommandExecutor {
             return true;
         }
 
+        //ヘルプ
+        if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
+            help(sender, commandLabel);
+            return true;
+        }
+
         //パーミッションの確認コマンド
         if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
             Msg.checkPermission(sender,
@@ -98,9 +104,15 @@ public class Command_Call implements CommandExecutor {
         }
     }
 
-    //ヘルプ関数
+    /**
+     * callコマンドのヘルプ
+     *
+     * @param sender       送信者
+     * @param commandLabel コマンドラベル
+     */
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
+        Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

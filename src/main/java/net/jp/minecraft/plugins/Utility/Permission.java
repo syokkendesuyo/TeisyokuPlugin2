@@ -9,7 +9,10 @@ public enum Permission {
     AD("teisyoku.ad"),
     AD_COOLTIME("teisyoku.ad.cooltime"),
 
-    CALL("teisyoku.call")
+    CALL("teisyoku.call"),
+
+    CART("teisyoku.cart"),
+    CART_GIVE("teisyoku.cart.give")
 
     ;
 

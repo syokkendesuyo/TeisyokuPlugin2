@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.API.API_Players;
+import net.jp.minecraft.plugins.API.API_PlayerDatabase;
 import net.jp.minecraft.plugins.GUI.GUI_PlayersList;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -40,7 +40,7 @@ public class Command_Players implements CommandExecutor {
                 GUI_PlayersList.getPlayersList(player);
                 return true;
             }
-            Msg.info(sender, "総計 " + API_Players.getTotalPlayers() + " 名のプレイヤーがこのサーバで遊びました");
+            Msg.info(sender, "総計 " + API_PlayerDatabase.getTotalPlayers() + " 名のプレイヤーがこのサーバで遊びました");
             return true;
         }
 

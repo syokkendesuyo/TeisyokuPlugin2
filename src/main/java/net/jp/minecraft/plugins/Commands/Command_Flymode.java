@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Listener.Listener_Flymode;
+import net.jp.minecraft.plugins.API.API_FlyMode;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
@@ -60,20 +60,17 @@ public class Command_Flymode implements CommandExecutor {
             return true;
         }
 
-
-        /**
-         * 引数が1つの場合の処理
-         */
+        //引数が1だった場合の処理
         if (args.length == 1) {
             //引数1がtrueまたはenableだった場合flyモードを開始
             if (args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("enable")) {
-                Listener_Flymode.enable_fly(player);
+                API_FlyMode.enableFly(player);
                 return true;
             }
 
             //引数1がfalseまたはdisableだった場合flyモードを終了
             else if (args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("disable")) {
-                Listener_Flymode.disable_fly(player);
+                API_FlyMode.disableFly(player);
                 return true;
             }
 
@@ -102,15 +99,13 @@ public class Command_Flymode implements CommandExecutor {
 
                 //正常に処理
                 if (args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("enable")) {
-                    Listener_Flymode.enable_fly(target_player);
-                    Msg.success(player, ChatColor.YELLOW + args[1] + ChatColor.RESET + " のFlyモードを" + ChatColor.GREEN + " 有効 " + ChatColor.RESET + "にしました");
+                    API_FlyMode.enableFly(player);
                     return true;
                 }
 
                 //引数1がfalseまたはdisableだった場合flyモードを終了
                 else if (args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("disable")) {
-                    Listener_Flymode.disable_fly(target_player);
-                    Msg.success(player, ChatColor.YELLOW + args[1] + ChatColor.RESET + " のFlyモードを" + ChatColor.RED + " 無効 " + ChatColor.RESET + "にしました");
+                    API_FlyMode.disableFly(player);
                     return true;
                 }
                 //その他の場合

@@ -1,7 +1,11 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.API.API_Flag;
+import net.jp.minecraft.plugins.API.API_FlyMode;
+import net.jp.minecraft.plugins.API.API_PlayerDatabase;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,8 +25,16 @@ public class Listener_JoinEvent implements Listener {
     public void onPlayerJoinMessage(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        //ログイン時のメッセージを日本語化
         event.setJoinMessage("");
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームに参加しました", true);
+
+        //飛行モードを継続
+        if (API_PlayerDatabase.getBoolean(player,"fly") && API_Flag.getBoolean(player, "fly_save_state")) {
+            API_FlyMode.enableFly(player);
+        } else {
+            API_FlyMode.disableFly(player);
+        }
 
         List<String> ad = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("joinMessage");
         for (String s : ad) {

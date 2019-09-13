@@ -46,6 +46,9 @@ public class Command_TFlag implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("cart_auto_collect")) {
                 API_Flag.updateFlagBoolean(sender, player, args, "マインカートを自動でインベントリに保存");
                 return true;
+            } else if (args[0].equalsIgnoreCase("fly_save_state")) {
+                API_Flag.updateFlagBoolean(sender, player, args, "飛行モードの状態をログイン時に継承する設定");
+                return true;
             } else if (args[0].equalsIgnoreCase("sign_info")) {
                 API_Flag.updateFlagBoolean(sender, player, args, "看板データの照会機能利用設定");
                 return true;

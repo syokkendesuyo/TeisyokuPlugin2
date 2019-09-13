@@ -68,6 +68,14 @@ public class API_Flag {
         return false;
     }
 
+    /**
+     * フラグ状態を取得します。<br />
+     * 設定が存在しない場合は有効状態を示します。
+     *
+     * @param player プレイヤー
+     * @param flag   フラグ名
+     * @return 状態
+     */
     public static Boolean getBoolean(Player player, String flag) {
         String playerUniqueId = player.getUniqueId().toString();
         File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");

@@ -57,6 +57,7 @@ public class API_PlayerDatabase {
      */
     public static String getString(Player player, String path) {
         FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
+        //TODO: スタックトレースを表示するように変更
         return file.get(path).toString();
     }
 
@@ -68,6 +69,7 @@ public class API_PlayerDatabase {
      */
     public static Integer getInt(Player player, String path) {
         FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
+        //TODO: スタックトレースを表示するように変更
         return file.getInt(path);
     }
 
@@ -79,6 +81,7 @@ public class API_PlayerDatabase {
      */
     public static Boolean getBoolean(Player player, String path) {
         FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
+        //TODO: スタックトレースを表示するように変更
         return file.getBoolean(path);
     }
 }

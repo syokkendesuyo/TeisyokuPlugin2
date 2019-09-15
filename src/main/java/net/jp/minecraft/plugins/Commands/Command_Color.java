@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.command.Command;
@@ -13,6 +14,15 @@ import org.bukkit.command.CommandSender;
  */
 public class Command_Color implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
+        //コマンドが有効化されているかどうか検出
+        if (!plugin.TeisyokuConfig.getBoolean("functions.color")) {
+            Msg.warning(sender, "colorコマンドは有効化されていません");
+            return true;
+        }
+
         if (args.length > 0) {
             //ヘルプ
             if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {

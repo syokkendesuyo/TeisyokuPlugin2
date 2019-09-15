@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Listener.Listener_Daunii_1_12;
 import net.jp.minecraft.plugins.Messages;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.Location;
@@ -17,6 +18,14 @@ public class Command_Daunii implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
+        //コマンドが有効化されているかどうか検出
+        if (!plugin.TeisyokuConfig.getBoolean("functions.daunii")) {
+            Msg.warning(sender, "dauniiコマンドは有効化されていません");
+            return true;
+        }
 
         if (!(sender instanceof Player)) {
             help(sender, commandLabel);

@@ -27,7 +27,7 @@ public class Command_Call implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("commands.call")) {
+        if (!plugin.TeisyokuConfig.getBoolean("functions.call")) {
             Msg.warning(sender, "adコマンドは有効化されていません");
             return true;
         }

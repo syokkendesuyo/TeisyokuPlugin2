@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.Sounds;
@@ -257,6 +258,14 @@ public class Listener_Daunii_1_12 implements Listener {
         }
 
         Player player = event.getPlayer();
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
+        //コマンドが有効化されているかどうか検出
+        if (!plugin.TeisyokuConfig.getBoolean("function.daunii")) {
+            Msg.warning(player, "だうにー君は有効化されていません");
+            return;
+        }
 
         //実行コマンドのパーミッションを確認
         if (!(player.hasPermission(Permission.DAUNII_USE.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {

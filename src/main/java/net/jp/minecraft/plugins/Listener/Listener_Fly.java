@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.API.API_FlyMode;
+import net.jp.minecraft.plugins.API.API_Fly;
 import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
  *
  * @author syokkendesuyo
  */
-public class Listener_Flymode implements Listener {
+public class Listener_Fly implements Listener {
 
     @EventHandler
     public void onPlayerChangedWorldEvent(PlayerChangedWorldEvent event) {
@@ -27,7 +27,7 @@ public class Listener_Flymode implements Listener {
     public void onPlayerFlatWorldEnterEvent(PlayerChangedWorldEvent event) {
         // TODO: configで設定できるように変更
         if (event.getPlayer().getWorld().getName().equalsIgnoreCase("flat")) {
-            API_FlyMode.enableFly(event.getPlayer());
+            API_Fly.setFlying(event.getPlayer(), true);
             return;
         }
         event.getPlayer().setAllowFlight(false);

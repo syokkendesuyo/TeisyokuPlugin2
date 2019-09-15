@@ -72,7 +72,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_Horse(), this);
         pm.registerEvents(new Listener_SpawnEgg(), this);
         pm.registerEvents(new Listener_SkeletonHorse(), this);
-        pm.registerEvents(new Listener_Flymode(), this);
+        pm.registerEvents(new Listener_Fly(), this);
 
         pm.registerEvents(new Sounds(), this);
 
@@ -87,7 +87,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("help").setExecutor(new Command_Help());
 
-        getCommand("fly").setExecutor(new Command_Flymode());
+        getCommand("fly").setExecutor(new Command_Fly());
 
         getCommand("t").setExecutor(new Command_Teisyoku());
         getCommand("teisyoku").setExecutor(new Command_Teisyoku());
@@ -224,15 +224,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         if (TeisyokuConfig.get("arrow_summon_wither") == null) {
             List<String> list = Arrays.asList("world_the_end", "the_end");
             TeisyokuConfig.set("arrow_summon_wither", list);
-            saveTeisyokuConfig();
-        }
-        if (TeisyokuConfig.get("commands") == null) {
-            if (TeisyokuConfig.get("commands.ad") == null) {
-                TeisyokuConfig.set("commands.ad", true);
-            }
-            if (TeisyokuConfig.get("commands.gift") == null) {
-                TeisyokuConfig.set("commands.gift", true);
-            }
             saveTeisyokuConfig();
         }
     }

@@ -22,7 +22,7 @@ public class GiftConfigAPI {
     public static void gift(String gift_code, CommandSender sender) {
 
         //コマンドが有効化されているかどうか検出
-        if (!TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("commands.gift")) {
+        if (!TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("functions.gift")) {
             Msg.warning(sender, "ギフトコマンドは有効化されていません");
             return;
         }

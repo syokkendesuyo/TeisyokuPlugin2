@@ -23,7 +23,7 @@ public class Command_Cart implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("commands.cart")) {
+        if (!plugin.TeisyokuConfig.getBoolean("functions.cart")) {
             Msg.warning(sender, "cartコマンドは有効化されていません");
             return true;
         }
@@ -35,7 +35,11 @@ public class Command_Cart implements CommandExecutor {
                 help(sender, commandLabel);
                 return true;
             }
-            giveCart(sender, (Player) sender);
+            if (sender.hasPermission(Permission.CART.toString())) {
+                giveCart(sender, (Player) sender);
+                return true;
+            }
+            Msg.noPermissionMessage(sender, Permission.CART);
             return true;
         }
 

@@ -17,7 +17,10 @@ public enum Permission {
     COLOR("teisyoku.color"),
 
     DAUNII_USE("teisyoku.daunii.use"),
-    DAUNII_SUMMON("teisyoku.daunii.summon")
+    DAUNII_SUMMON("teisyoku.daunii.summon"),
+
+    FLY_ME("teisyoku.fly.me"),
+    FLY_OTHERS("teisyoku.fly.others")
 
     ;
 

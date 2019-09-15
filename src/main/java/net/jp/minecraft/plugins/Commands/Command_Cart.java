@@ -28,16 +28,6 @@ public class Command_Cart implements CommandExecutor {
             return true;
         }
 
-        //コンソールからの要求があった場合
-//        if (!(sender instanceof Player)) {
-//            if (args.length != 1) {
-//                help(sender, commandLabel);
-//            } else {
-//                giveCart(sender, args[0]);
-//            }
-//            return true;
-//        }
-
         //引数がない場合
         if (args.length == 0) {
             //コンソールからの送信は弾く

@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Commands;
 import net.jp.minecraft.plugins.Listener.Listener_Daunii_1_12;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,23 +16,51 @@ import org.bukkit.entity.Player;
 public class Command_Daunii implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String cmdlabel, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         if (!(sender instanceof Player)) {
-            Msg.warning(sender, "コンソールからコマンドを送信することはできません");
+            help(sender, commandLabel);
+            return true;
+        }
+
+        if (args.length == 0) {
+            summon((Player)sender);
+            return true;
+        }
+
+        //ヘルプ
+        if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
+            help(sender, commandLabel);
+            return true;
+        }
+
+        //パーミッションの確認コマンドを追加
+        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
+            Msg.checkPermission(sender,
+                    Permission.USER,
+                    Permission.DAUNII_USE,
+                    Permission.DAUNII_SUMMON,
+                    Permission.ADMIN
+            );
+            return true;
+        }
+        help(sender, commandLabel);
+        return true;
+    }
+
+    /**
+     * だうにーくんを召喚します
+     *
+     * @param player プレイヤー
+     * @return 結果
+     */
+    private boolean summon(Player player) {
+        //実行コマンドのパーミッションを確認
+        if (!(player.hasPermission(Permission.USER.toString()) || player.hasPermission(Permission.DAUNII_SUMMON.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(player, Permission.DAUNII_SUMMON);
             return false;
         }
 
-        if (!(sender.hasPermission("teisyoku.admin"))) {
-            sender.sendMessage(Messages.getNoPermissionMessage("teisyoku.admin"));
-            return false;
-        }
-
-        if (!(args.length == 0)) {
-            Msg.warning(sender, "引数が多すぎです");
-            return false;
-        }
-        Player player = (Player) sender;
         IronGolem Daunii = (IronGolem) player.getWorld().spawnEntity(player.getLocation(), EntityType.IRON_GOLEM);
         Daunii.setCustomName(Listener_Daunii_1_12.DauniiName);
         Daunii.setCustomNameVisible(true);
@@ -44,11 +73,26 @@ public class Command_Daunii implements CommandExecutor {
         setDaunii.setGravity(false);
         setDaunii.setSmall(true);
         setDaunii.setVisible(false);
-        setDaunii.setPassenger(Daunii);
+        setDaunii.addPassenger(Daunii);
 
         Msg.success(player, "だうにーくんを召喚しました");
         return true;
-
     }
 
+    /**
+     * dauniiコマンドのヘルプ
+     *
+     * @param sender       送信者
+     * @param commandLabel コマンドラベル
+     */
+    private void help(CommandSender sender, String commandLabel) {
+        String description = "だうにーくんを召喚する";
+        if (!(sender instanceof Player)) {
+            description = "ヘルプを表示 (ゲーム内から使用した場合、だうにーくんを召喚)";
+        }
+        Msg.success(sender, "コマンドのヘルプ");
+        Msg.commandFormat(sender, commandLabel + "", description);
+        Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
+        Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
+    }
 }

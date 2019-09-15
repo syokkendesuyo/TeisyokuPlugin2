@@ -138,3 +138,9 @@ permissions:
     teisyoku.color:
         description: Teisyoku color command
         default: true
+    teisyoku.daunii.use:
+        description: Teisyoku daunii command
+        default: true
+    teisyoku.daunii.summon:
+        description: Teisyoku daunii command
+        default: op

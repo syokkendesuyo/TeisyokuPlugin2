@@ -14,7 +14,10 @@ public enum Permission {
     CART("teisyoku.cart"),
     CART_GIVE("teisyoku.cart.give"),
 
-    COLOR("teisyoku.color")
+    COLOR("teisyoku.color"),
+
+    DAUNII_USE("teisyoku.daunii.use"),
+    DAUNII_SUMMON("teisyoku.daunii.summon")
 
     ;
 

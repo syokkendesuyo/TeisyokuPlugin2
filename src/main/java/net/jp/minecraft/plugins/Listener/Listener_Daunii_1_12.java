@@ -1,6 +1,8 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
+import net.jp.minecraft.plugins.Utility.Sounds;
 import net.jp.minecraft.plugins.Utility.TeisyokuItem;
 import net.minecraft.server.v1_12_R1.*;
 import org.bukkit.Bukkit;
@@ -253,7 +255,15 @@ public class Listener_Daunii_1_12 implements Listener {
         if (!(entity.getCustomName().equals(DauniiName))) {
             return;
         }
+
         Player player = event.getPlayer();
+
+        //実行コマンドのパーミッションを確認
+        if (!(player.hasPermission(Permission.DAUNII_USE.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(player, Permission.DAUNII_USE);
+            return;
+        }
+
         ItemStack item = player.getInventory().getItemInMainHand();
         if ((item != null) && (item.getType().equals(Material.IRON_INGOT))) {
             return;
@@ -348,13 +358,13 @@ public class Listener_Daunii_1_12 implements Listener {
             return;
         }
 
-        if (!(player.hasPermission("teisyoku.admin"))) {
-            Msg.warning(player, "だうにー君を鉄インゴットで持った状態で右クリックすると削除できます");
-            Msg.noPermissionMessage(player, "teisyoku.admin");
+        //実行コマンドのパーミッションを確認
+        if (!(player.hasPermission(Permission.DAUNII_SUMMON.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(player, Permission.DAUNII_SUMMON);
             return;
         }
 
-        player.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_DEATH, 4, 1);
+        Sounds.play(player, Sound.ENTITY_ENDERDRAGON_DEATH);
         Entity setDaunii = entity.getVehicle();
         if (setDaunii == null) {
             entity.remove();

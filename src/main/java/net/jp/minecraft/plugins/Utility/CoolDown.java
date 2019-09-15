@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class CoolDown {
 
@@ -43,10 +43,7 @@ public class CoolDown {
     }
 
     public static boolean is(Player player) {
-        if (map.containsKey(player.getUniqueId())) {
-            return true;
-        }
-        return false;
+        return map.containsKey(player.getUniqueId());
     }
 
     public static void put(Player player, Calendar end) {
@@ -55,6 +52,7 @@ public class CoolDown {
     }
 
     //クールダウンの初期値を設定
+    //TODO: configから変更できるように
     private static int getCoolDownTime() {
         return 60;
     }

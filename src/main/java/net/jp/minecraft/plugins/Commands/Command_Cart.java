@@ -139,7 +139,7 @@ public class Command_Cart implements CommandExecutor {
         }
         Msg.success(sender, "コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel + "", description);
-        Msg.commandFormat(sender, commandLabel + " <フレイヤー>", "指定したプレイヤーにマインカートを追加");
+        Msg.commandFormat(sender, commandLabel + " <プレイヤー>", "指定したプレイヤーにマインカートを追加");
         Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }

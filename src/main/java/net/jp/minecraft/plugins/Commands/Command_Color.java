@@ -39,7 +39,7 @@ public class Command_Color implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.COLOR.toString()))) {
+        if (!sender.hasPermission(Permission.COLOR.toString())) {
             Msg.noPermissionMessage(sender, Permission.COLOR);
             return true;
         }

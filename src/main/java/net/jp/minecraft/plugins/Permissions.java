@@ -5,8 +5,9 @@ import org.bukkit.command.CommandSender;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
+@Deprecated
 public class Permissions {
 
     //管理者の定義

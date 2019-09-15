@@ -21,11 +21,11 @@ public enum Permission {
     private final String perm;
 
     /**
-     *
+     * パーミッションを定義
      *
      * @param permission パーミッション
      */
-    private Permission(String permission) {
+    Permission(String permission) {
         this.perm = permission;
     }
 

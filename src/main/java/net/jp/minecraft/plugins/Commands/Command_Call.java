@@ -113,6 +113,7 @@ public class Command_Call implements CommandExecutor {
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel + " <プレイヤー> <メッセージ>", "音付きで個人メッセージを送信");
+        Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

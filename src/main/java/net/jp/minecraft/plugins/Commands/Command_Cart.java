@@ -29,17 +29,22 @@ public class Command_Cart implements CommandExecutor {
         }
 
         //コンソールからの要求があった場合
-        if (!(sender instanceof Player)) {
-            if (args.length != 1) {
-                help(sender, commandLabel);
-            } else {
-                giveCart(sender, args[0]);
-            }
-            return true;
-        }
+//        if (!(sender instanceof Player)) {
+//            if (args.length != 1) {
+//                help(sender, commandLabel);
+//            } else {
+//                giveCart(sender, args[0]);
+//            }
+//            return true;
+//        }
 
         //引数がない場合
         if (args.length == 0) {
+            //コンソールからの送信は弾く
+            if (!(sender instanceof Player)) {
+                help(sender, commandLabel);
+                return true;
+            }
             giveCart(sender, (Player) sender);
             return true;
         }
@@ -73,7 +78,7 @@ public class Command_Cart implements CommandExecutor {
             return true;
         }
 
-        //引数1のみの場合
+        //引数1の場合,
         giveCart(sender, args[0]);
         return true;
     }
@@ -128,9 +133,14 @@ public class Command_Cart implements CommandExecutor {
      * @param commandLabel コマンドラベル
      */
     private void help(CommandSender sender, String commandLabel) {
+        String description = "マインカートをインベントリに追加";
+        if (!(sender instanceof Player)) {
+            description = "ヘルプを表示 (ゲーム内から使用した場合、自分にマインカートを追加)";
+        }
         Msg.success(sender, "コマンドのヘルプ");
-        Msg.commandFormat(sender, commandLabel + "", "マインカートをインベントリに追加");
+        Msg.commandFormat(sender, commandLabel + "", description);
         Msg.commandFormat(sender, commandLabel + " <フレイヤー>", "指定したプレイヤーにマインカートを追加");
+        Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

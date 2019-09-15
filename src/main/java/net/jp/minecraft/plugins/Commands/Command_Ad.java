@@ -109,6 +109,7 @@ public class Command_Ad implements CommandExecutor {
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel + " <メッセージ>", "広告を表示");
+        Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

@@ -12,7 +12,9 @@ public enum Permission {
     CALL("teisyoku.call"),
 
     CART("teisyoku.cart"),
-    CART_GIVE("teisyoku.cart.give")
+    CART_GIVE("teisyoku.cart.give"),
+
+    COLOR("teisyoku.color")
 
     ;
 

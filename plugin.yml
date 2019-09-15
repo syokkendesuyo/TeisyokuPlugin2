@@ -125,7 +125,7 @@ permissions:
         default: op
     teisyoku.ad:
         description: Teisyoku ad command
-        default: false
+        default: op
     teisyoku.ad.cooltime:
         description: Teisyoku ad command bypass cooltime
         default: op
@@ -134,4 +134,7 @@ permissions:
         default: true
     teisyoku.cart.give:
         description: Teisyoku cart command
-        default: false
+        default: op
+    teisyoku.color:
+        description: Teisyoku color command
+        default: true

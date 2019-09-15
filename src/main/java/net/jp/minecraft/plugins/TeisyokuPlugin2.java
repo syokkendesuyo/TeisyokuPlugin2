@@ -214,7 +214,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             saveTeisyokuConfig();
         }
         if (TeisyokuConfig.get("ad") == null) {
-            List<String> list = Arrays.asList("Welcome to My server", "Github : https://github.com/syokkendesuyo/TeisyokuPlugin2/", "Create by syokkendesuyo");
+            List<String> list = Arrays.asList("Welcome to My server", "GitHub : https://github.com/syokkendesuyo/TeisyokuPlugin2/", "Create by syokkendesuyo");
             TeisyokuConfig.set("ad", list);
             saveTeisyokuConfig();
         }

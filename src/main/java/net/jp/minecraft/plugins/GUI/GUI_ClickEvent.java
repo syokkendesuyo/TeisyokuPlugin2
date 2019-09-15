@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.GUI;
 
-import net.jp.minecraft.plugins.Listener.Listener_Gomibako;
+import net.jp.minecraft.plugins.API.API_Trash;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -52,7 +52,7 @@ public class GUI_ClickEvent implements Listener {
             } else if (event.getRawSlot() == 16) {
                 player.kickPlayer(ChatColor.YELLOW + " サーバから切断しました。 ");
             } else if (event.getRawSlot() == 28) {
-                Listener_Gomibako.openGomibako(player);
+                API_Trash.open(player);
             } else if (event.getRawSlot() == 30) {
                 Bukkit.getServer().dispatchCommand(player, "lock");
                 player.closeInventory();

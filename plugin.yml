@@ -2,33 +2,6 @@ name: TeisyokuPlugin2
 version: 2.10.0
 main: net.jp.minecraft.plugins.TeisyokuPlugin2
 commands:
-    help:
-        description: Teisyoku Help Command
-        usage: /help
-    fly:
-        description: Teisyoku Fly Command
-        usage: /fly (true/false)
-    gomi:
-        description: Gomibako.
-        usage: /gomi
-    gomibako:
-        description: Gomibako.
-        usage: /gomi
-    teisyoku:
-        description: teisyoku.
-        usage: /teisyoku
-    t:
-        description: teisyoku.
-        usage: /t
-    players:
-        description: show players list.
-        usage: /players
-    p:
-        description: show players list.
-        usage: /p
-    last:
-        description: show player last login date.
-        usage: /last <Player>
     ad:
         description: Teisyoku Ad.
         usage: /ad <Messages>
@@ -44,6 +17,33 @@ commands:
     minecart:
         description: Give to Minecart.
         usage: /minecart
+    color:
+        description: color
+        usage: /color
+    daunii:
+        discription: summon daunii
+        usage: /daunii
+    fly:
+        description: Teisyoku Fly Command
+        usage: /fly <Player> <true|false>
+    help:
+        description: Teisyoku Help Command
+        usage: /help
+    teisyoku:
+        description: teisyoku.
+        usage: /teisyoku
+    t:
+        description: teisyoku.
+        usage: /t
+    players:
+        description: show players list.
+        usage: /players
+    p:
+        description: show players list.
+        usage: /p
+    last:
+        description: show player last login date.
+        usage: /last <Player>
     nick:
         description: Nick
         usage: /nick
@@ -86,9 +86,6 @@ commands:
     ch:
         description: charthelp
         usage: /charthelp
-    color:
-        description: color
-        usage: /color
     gg:
         description: GoodGame
         usage: /gg
@@ -98,9 +95,6 @@ commands:
     se:
         description: SignEdit
         usage: /se
-    daunii:
-        discription: summon daunii
-        usage: /daunii
     horseticket:
         discription: get ticket
         usage: /horseticket <zombie/skeleton> PlayerName
@@ -113,6 +107,15 @@ commands:
     tflag:
         discription: Teisyoku Flags
         usage: /tflag <flag> <value>
+    trash:
+        description: Gomibako.
+        usage: /trash
+    gomi:
+        description: Gomibako.
+        usage: /gomi
+    gomibako:
+        description: Gomibako.
+        usage: /gomibako
 permissions:
     teisyoku.*:
         description: Allow using TeisyokuPlugin2.
@@ -144,3 +147,12 @@ permissions:
     teisyoku.daunii.summon:
         description: Teisyoku daunii command
         default: op
+    teisyoku.fly.me:
+        description: Teisyoku fly command
+        default: op
+    teisyoku.fly.others:
+        description: Teisyoku fly command
+        default: op
+    teisyoku.trash:
+        description: Teisyoku trash command
+        default: true

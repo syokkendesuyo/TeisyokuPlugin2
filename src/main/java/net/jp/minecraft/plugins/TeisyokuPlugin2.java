@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.API.API_Trash;
 import net.jp.minecraft.plugins.Commands.*;
 import net.jp.minecraft.plugins.Config.SaveUUID;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
@@ -60,7 +61,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_EntityDamage(), this);
         pm.registerEvents(new Listener_WitherSpawmCancel(), this);
         pm.registerEvents(new Listener_MineCartEvent(), this);
-        pm.registerEvents(new Listener_Gomibako(), this);
+        pm.registerEvents(new API_Trash(), this);
         pm.registerEvents(new Listener_LastJoin(), this);
         pm.registerEvents(new Listener_Chat(), this);
         pm.registerEvents(new Listener_Sign(), this);
@@ -91,9 +92,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         getCommand("t").setExecutor(new Command_Teisyoku());
         getCommand("teisyoku").setExecutor(new Command_Teisyoku());
-
-        getCommand("gomi").setExecutor(new Command_Gomibako());
-        getCommand("gomibako").setExecutor(new Command_Gomibako());
 
         getCommand("p").setExecutor(new Command_Players());
         getCommand("players").setExecutor(new Command_Players());
@@ -139,6 +137,10 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("sign").setExecutor(new Command_SignEdit());
 
         getCommand("tflag").setExecutor(new Command_TFlag());
+
+        getCommand("trash").setExecutor(new Command_Trash());
+        getCommand("gomi").setExecutor(new Command_Trash());
+        getCommand("gomibako").setExecutor(new Command_Trash());
 
         //1.12
         if (version.equals(ver1_12_R1)) {

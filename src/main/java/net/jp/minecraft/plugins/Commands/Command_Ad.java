@@ -28,7 +28,7 @@ public class Command_Ad implements CommandExecutor {
 
         //コマンドが有効化されているかどうか検出
         if (!plugin.TeisyokuConfig.getBoolean("functions.ad")) {
-            Msg.warning(sender, "adコマンドは有効化されていません");
+            Msg.warning(sender, "ad,noticeコマンドは有効化されていません");
             return true;
         }
 

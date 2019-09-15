@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins.Listener;
+package net.jp.minecraft.plugins.API;
 
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -17,10 +17,10 @@ import java.util.Arrays;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
-public class Listener_Gomibako implements Listener {
-    public static void openGomibako(CommandSender sender) {
+public class API_Trash implements Listener {
+    public static void open(CommandSender sender) {
         if (!(sender instanceof Player)) {
             Msg.warning(sender, "ゴミ箱コマンドはゲーム内からのみ実行できます");
         }

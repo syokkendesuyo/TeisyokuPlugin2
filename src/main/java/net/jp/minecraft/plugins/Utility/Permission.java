@@ -20,7 +20,9 @@ public enum Permission {
     DAUNII_SUMMON("teisyoku.daunii.summon"),
 
     FLY_ME("teisyoku.fly.me"),
-    FLY_OTHERS("teisyoku.fly.others")
+    FLY_OTHERS("teisyoku.fly.others"),
+
+    TRASH("teisyoku.trash")
 
     ;
 

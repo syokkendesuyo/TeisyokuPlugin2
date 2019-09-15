@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.API.API_Flag;
+import net.jp.minecraft.plugins.API.API_Trash;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -9,6 +10,7 @@ import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -39,11 +41,10 @@ public class Listener_Sign implements Listener {
         if (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)) {
             Sign sign = (Sign) block.getState();
 
-            if (Search.searchKeyword(sign.getLines(), "[gomi]")) {
-                Listener_Gomibako.openGomibako(player);
+            if (Search.searchKeyword(sign.getLines(), "[trash]") || Search.searchKeyword(sign.getLines(), "[gomi]") || Search.searchKeyword(sign.getLines(), "[gomibako]")) {
+                API_Trash.open(player);
                 return;
             } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
-                //マインカートを追加
                 addMinecart(player);
                 return;
             } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
@@ -65,7 +66,7 @@ public class Listener_Sign implements Listener {
                 meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Coffee");
                 meta.setLore(Arrays.asList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
                 item.setItemMeta(meta);
-                Sounds.sound_note(player);
+                Sounds.play(player, Sound.BLOCK_NOTE_BELL);
                 return;
             }
             //看板のデータを照会する

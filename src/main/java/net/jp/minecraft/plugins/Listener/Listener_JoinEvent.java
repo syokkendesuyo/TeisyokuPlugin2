@@ -4,6 +4,7 @@ import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.API.API_Fly;
 import net.jp.minecraft.plugins.API.API_PlayerDatabase;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,7 +31,7 @@ public class Listener_JoinEvent implements Listener {
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームに参加しました", true);
 
         //飛行モードを継続
-        if (!plugin.TeisyokuConfig.getBoolean("functions.fly") && API_PlayerDatabase.getBoolean(player,"fly") && API_Flag.get(player, "fly_save_state")) {
+        if (!plugin.TeisyokuConfig.getBoolean("functions.fly") && API_PlayerDatabase.getBoolean(player, "fly") && API_Flag.get(player, "fly_save_state")) {
             API_Fly.setFlying(player, true);
         } else {
             API_Fly.setFlying(player, false);
@@ -38,7 +39,7 @@ public class Listener_JoinEvent implements Listener {
 
         List<String> ad = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("joinMessage");
         for (String s : ad) {
-            Msg.info(player, color(s));
+            Msg.info(player, Color.convert(s));
         }
         if (TeisyokuPlugin2.getInstance().TeisyokuConfig.getString("debug.SpawnFixed") == null) {
             TeisyokuPlugin2.getInstance().TeisyokuConfig.set("debug.SpawnFixed", false);
@@ -46,8 +47,5 @@ public class Listener_JoinEvent implements Listener {
         if (TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("debug.SpawnFixed")) {
             player.teleport(new Location(Bukkit.getWorld("world"), 0, 72, 0));
         }
-    }
-    private static String color(String str) {
-        return str.replaceAll("&", "§");
     }
 }

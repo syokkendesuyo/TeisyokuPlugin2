@@ -86,14 +86,14 @@ public class Command_Call implements CommandExecutor {
             Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(arg));
 
             //サウンドを再生
-            if (API_Flag.getBoolean(player, "call_sounds")) {
+            if (API_Flag.get(player, "call_sounds")) {
                 Sounds.play(player, Sound.BLOCK_NOTE_PLING);
             }
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
             if (sender instanceof Player) {
                 Player receiver = (Player) sender;
-                if (API_Flag.getBoolean(receiver, "call_sounds")) {
+                if (API_Flag.get(receiver, "call_sounds")) {
                     Sounds.play(receiver, Sound.ENTITY_ARROW_SHOOT);
                 }
             }

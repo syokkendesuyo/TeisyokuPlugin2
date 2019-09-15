@@ -88,7 +88,7 @@ public class Listener_Sign implements Listener {
         }
 
         //看板のデータ照会を行わない個人設定ならば処理終了
-        if (!API_Flag.getBoolean(player, "sign_info")) {
+        if (!API_Flag.get(player, "sign_info")) {
             return;
         }
 
@@ -110,7 +110,7 @@ public class Listener_Sign implements Listener {
     private void addMinecart(Player player) {
 
         //カート看板が個人設定で無効化されていれば処理終了
-        if (!API_Flag.getBoolean(player, "sign_cart")) {
+        if (!API_Flag.get(player, "sign_cart")) {
             return;
         }
 

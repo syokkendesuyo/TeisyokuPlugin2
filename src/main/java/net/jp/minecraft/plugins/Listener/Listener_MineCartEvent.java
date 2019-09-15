@@ -78,7 +78,7 @@ public class Listener_MineCartEvent implements Listener {
                 Msg.warning(player, "サバイバルモードの場合にのみマインカートをイベントリへ回収します");
                 vehicle.remove();
             } else {
-                if (API_Flag.getBoolean(player, "cart_auto_collect")) {
+                if (API_Flag.get(player, "cart_auto_collect")) {
                     Msg.success(player, "マインカートを回収しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();

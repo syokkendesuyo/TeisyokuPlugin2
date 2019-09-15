@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class API_Flag {
 
@@ -25,14 +25,29 @@ public class API_Flag {
      * @param player  対象プレイヤー
      * @param args    コマンド引数
      * @param flagMsg メッセージ
-     * @return
+     * @return フラグ状態
      */
-    public static Boolean updateFlagBoolean(CommandSender sender, Player player, String[] args, String flagMsg) {
-
+    public static Boolean update(CommandSender sender, Player player, String[] args, String flagMsg) {
         //オンライン時のみ更新可能
+        //TODO: オフライン状態でも変更可能にする
         if (!player.isOnline()) {
             Msg.warning(sender, "プレイヤー" + ChatColor.YELLOW + sender + ChatColor.RESET + "はオンラインではありません。");
             return false;
+        }
+
+        //引数に不正な文字列があった場合は処理を終了する
+        if (!(args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("false"))) {
+            Msg.warning(sender, "引数「" + args[1] + "」は利用できません。trueまたはfalseを指定して下さい。");
+            return false;
+        }
+
+        //引数をBoolean型にキャスト
+        Boolean value = Boolean.valueOf(args[1]);
+
+        //ChatColorを設定
+        ChatColor color = ChatColor.RED;
+        if (value) {
+            color = ChatColor.GREEN;
         }
 
         //ファイル生成
@@ -45,26 +60,17 @@ public class API_Flag {
         playerData.set("auto_cart_remove", null);
         playerData.set("flag.auto_cart_remove", null);
 
-        if (args[1].equalsIgnoreCase("true")) {
-            try {
-                playerData.set("flags." + args[0], true);
-                Msg.success(sender, flagMsg + "： " + ChatColor.GREEN + args[1]);
-                playerData.save(f);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        //設定を保存
+        playerData.set("flags." + args[0], value);
+
+        //保存
+        try {
+            playerData.save(f);
+            Msg.success(sender, flagMsg + "： " + color + value);
             return true;
-        } else if (args[1].equalsIgnoreCase("false")) {
-            try {
-                playerData.set("flags." + args[0], false);
-                Msg.success(sender, flagMsg + "： " + ChatColor.RED + args[1]);
-                playerData.save(f);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        Msg.warning(sender, "引数「" + args[1] + "」は利用できません。trueまたはfalseを指定して下さい。");
         return false;
     }
 
@@ -74,9 +80,9 @@ public class API_Flag {
      *
      * @param player プレイヤー
      * @param flag   フラグ名
-     * @return 状態
+     * @return フラグ状態
      */
-    public static Boolean getBoolean(Player player, String flag) {
+    public static Boolean get(Player player, String flag) {
         String playerUniqueId = player.getUniqueId().toString();
         File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
         File f = new File(userdata, File.separator + playerUniqueId + ".yml");

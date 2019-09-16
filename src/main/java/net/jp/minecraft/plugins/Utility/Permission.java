@@ -24,7 +24,10 @@ public enum Permission {
 
     TRASH("teisyoku.trash"),
 
-    HELP("teisyoku.help")
+    HELP("teisyoku.help"),
+
+    HORSE("teisyoku.horse"),
+    HORSE_ADMIN("teisyoku.horse.admin")
 
     ;
 

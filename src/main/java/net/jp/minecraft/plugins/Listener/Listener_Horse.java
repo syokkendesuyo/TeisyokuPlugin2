@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,14 +20,14 @@ import java.util.UUID;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo azuhata
+ * @author syokkendesuyo azuhata
  */
 public class Listener_Horse implements Listener {
 
     /**
      * 馬をクリックしたときのイベント
      *
-     * @param event
+     * @param event イベント
      */
     @EventHandler
     public void HorseClick(PlayerInteractAtEntityEvent event) {
@@ -69,7 +70,7 @@ public class Listener_Horse implements Listener {
     /**
      * 馬に乗る時のイベント
      *
-     * @param event
+     * @param event イベント
      */
     @EventHandler
     public static void HorseRide(VehicleEnterEvent event) {
@@ -122,7 +123,7 @@ public class Listener_Horse implements Listener {
     /**
      * 馬が死んだときに登録を解除する
      *
-     * @param event
+     * @param event イベント
      */
     @EventHandler
     private static void HorseDeath(EntityDeathEvent event) {
@@ -136,8 +137,8 @@ public class Listener_Horse implements Listener {
     /**
      * 馬をロックする
      *
-     * @param player
-     * @param uuid
+     * @param player プレイヤー
+     * @param uuid   UUID
      */
     private static void HorseRegister(Player player, UUID uuid) {
         if (isRegister(uuid)) {
@@ -279,21 +280,21 @@ public class Listener_Horse implements Listener {
      * 0:不一致<br />
      * 1:一致<br />
      * 2:比較対象が無い<br />
-     * 3:OP(登録あり)<br />
-     * 4:OP(登録なし)<br />
+     * 3:権限あり(登録あり)<br />
+     * 4:権限あり(登録なし)<br />
      *
-     * @param player
-     * @param playerUUID
-     * @param entityUUID
-     * @return
+     * @param player     　プレイヤー
+     * @param playerUUID プレイヤーのUUID
+     * @param entityUUID EntityのUUID
+     * @return 状態
      */
     static int isEqual(Player player, UUID playerUUID, UUID entityUUID) {
-        //OPであり、馬の登録がある場合
-        if (player.isOp() && isRegister(entityUUID)) {
+        //権限があり、馬の登録がある場合
+        if ((player.hasPermission(Permission.ADMIN.toString()) || player.isOp()) && isRegister(entityUUID)) {
             return 3;
         }
-        //OPだが、馬の登録が無い場合
-        if (player.isOp() && !isRegister(entityUUID)) {
+        //権限があるが、馬の登録が無い場合
+        if ((player.hasPermission(Permission.ADMIN.toString()) || player.isOp()) && !isRegister(entityUUID)) {
             return 4;
         }
         //一般プレイヤーで、UUIDが一致した場合

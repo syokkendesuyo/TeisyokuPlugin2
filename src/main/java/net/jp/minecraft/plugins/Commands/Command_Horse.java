@@ -1,17 +1,16 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Item;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Arrays;
 
 /**
  * TeisyokuPlugin2
@@ -19,9 +18,20 @@ import java.util.Arrays;
  * @author syokkendesuyo
  */
 public class Command_Horse implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
+        //コマンドが有効化されているかどうか検出
+        if (!plugin.TeisyokuConfig.getBoolean("functions.horse")) {
+            Msg.warning(sender, "horseコマンドは有効化されていません");
+            return true;
+        }
+
         if (!(sender instanceof Player)) {
-            Msg.warning(sender, "/horse コマンドはゲーム内で実行してください");
+            //TODO: コンソールから保護数等確認可能に
+            Msg.warning(sender, "/" + commandLabel + " コマンドはゲーム内でのみ有効です");
+            help(sender, commandLabel);
             return true;
         }
 
@@ -29,42 +39,52 @@ public class Command_Horse implements CommandExecutor {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            help(sender, label);
+            help(sender, commandLabel);
             return true;
         }
-        if (args[0].equalsIgnoreCase("help")) {
-            help(sender, label);
+
+        //ヘルプ
+        if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
+            help(sender, commandLabel);
             return true;
         }
+
+        //パーミッションの確認コマンドを追加
+        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
+            Msg.checkPermission(sender,
+                    Permission.USER,
+                    Permission.HORSE,
+                    Permission.HORSE_ADMIN,
+                    Permission.ADMIN
+            );
+            return true;
+        }
+
+        //実行コマンドのパーミッションを確認
+        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.HORSE.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(sender, Permission.HORSE);
+            return true;
+        }
+
         if (args[0].equals("+")) {
-            ItemStack item = new ItemStack(Material.STICK);
-            ItemMeta itemmeta = item.getItemMeta();
-            itemmeta.setDisplayName(ChatColor.GOLD + "馬保護ツール");
-            itemmeta.setLore(Arrays.asList(ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬をロックできます"));
-            itemmeta.addEnchant(Enchantment.DURABILITY, 1, true);
-            item.setItemMeta(itemmeta);
+            String[] lore = {ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬をロックできます"};
+            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護ツール", 1, Material.STICK, (short) 0, true, lore);
             player.getInventory().addItem(item);
             Msg.success(player, "馬保護ツールを交付しました");
             return true;
         }
+
         if (args[0].equals("-")) {
-            ItemStack item = new ItemStack(Material.STICK);
-            ItemMeta itemmeta = item.getItemMeta();
-            itemmeta.setDisplayName(ChatColor.GOLD + "馬保護解除ツール");
-            itemmeta.setLore(Arrays.asList(ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬のロックを解除できます"));
-            itemmeta.addEnchant(Enchantment.DURABILITY, 1, true);
-            item.setItemMeta(itemmeta);
+            String[] lore = {ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬のロックを解除できます"};
+            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護解除ツール", 1, Material.STICK, (short) 0, true, lore);
             player.getInventory().addItem(item);
             Msg.success(player, "馬保護解除ツールを交付しました");
             return true;
         }
+
         if (args[0].equals("?")) {
-            ItemStack item = new ItemStack(Material.STICK);
-            ItemMeta itemmeta = item.getItemMeta();
-            itemmeta.setDisplayName(ChatColor.GOLD + "馬保護情報確認ツール");
-            itemmeta.setLore(Arrays.asList(ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬のロック情報を確認できます"));
-            itemmeta.addEnchant(Enchantment.DURABILITY, 1, true);
-            item.setItemMeta(itemmeta);
+            String[] lore = {ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬のロック情報を確認できます"};
+            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護情報確認ツール", 1, Material.STICK, (short) 0, true, lore);
             player.getInventory().addItem(item);
             Msg.success(player, "馬保護情報確認ツールを交付しました");
             return true;
@@ -74,9 +94,10 @@ public class Command_Horse implements CommandExecutor {
 
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, commandLabel + " コマンドのヘルプ");
-        Msg.commandFormat(sender, commandLabel + " help", "このヘルプ");
         Msg.commandFormat(sender, commandLabel + " +", "馬保護ツールを入手");
         Msg.commandFormat(sender, commandLabel + " -", "馬保護解除ツールを入手");
         Msg.commandFormat(sender, commandLabel + " ?", "馬保護情報確認ツールを入手");
+        Msg.commandFormat(sender, commandLabel + " help", "ヘルプを表示");
+        Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

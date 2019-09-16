@@ -279,7 +279,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public void NickConfig() {
         this.newConfig_nick = new File(getDataFolder(), "NickData.yml");
         this.NickConfig = YamlConfiguration.loadConfiguration(this.newConfig_nick);
-        saveLastPlayerJoinConfig();
+        saveNickConfig();
     }
 
     public void saveNickConfig() {
@@ -302,7 +302,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public void TPointSettingsConfig() {
         this.newConfig_tpoint_settings = new File(getDataFolder(), "TPoint_Settings.yml");
         this.TPointSettingsConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint_settings);
-        saveLastPlayerJoinConfig();
+        saveTPointSettingsConfig();
     }
 
     public void saveTPointSettingsConfig() {
@@ -325,7 +325,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public void TPointConfig() {
         this.newConfig_tpoint = new File(getDataFolder(), "TPoint.yml");
         this.TPointConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint);
-        saveLastPlayerJoinConfig();
+        saveTPointConfig();
     }
 
     public void saveTPointConfig() {
@@ -348,7 +348,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public void CartConfig() {
         this.newConfig_cart = new File(getDataFolder(), "Cart.yml");
         this.CartConfig = YamlConfiguration.loadConfiguration(this.newConfig_cart);
-        saveLastPlayerJoinConfig();
+        saveCartConfig();
     }
 
     public void saveCartConfig() {
@@ -371,7 +371,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public void HorseConfig() {
         this.newConfig_horse = new File(getDataFolder(), "Horses.yml");
         this.HorseConfig = YamlConfiguration.loadConfiguration(this.newConfig_horse);
-        saveLastPlayerJoinConfig();
+        saveHorseConfig();
     }
 
     public void saveHorseConfig() {

@@ -10,9 +10,9 @@ import java.util.Arrays;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
-public class TeisyokuItem {
+public class Item {
     /**
      * <p>アイテムのカスタマイズを行う関数<br/>
      * GUIに置くアイテムのカスタマイズに重宝します<br/>
@@ -25,7 +25,7 @@ public class TeisyokuItem {
      * @param lore         詳細(任意 String ※配列)
      * @return アイテム
      */
-    public static ItemStack custom_item(String display_name, Integer stack, Material material, Short meta, String... lore) {
+    public static ItemStack customItem(String display_name, Integer stack, Material material, Short meta, String... lore) {
         org.bukkit.inventory.ItemStack item = new org.bukkit.inventory.ItemStack(material, stack, meta);
         ItemMeta itemmeta = item.getItemMeta();
         itemmeta.setDisplayName(display_name);

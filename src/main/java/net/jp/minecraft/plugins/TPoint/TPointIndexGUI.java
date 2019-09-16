@@ -2,7 +2,7 @@ package net.jp.minecraft.plugins.TPoint;
 
 import net.jp.minecraft.plugins.GUI.GUI;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
-import net.jp.minecraft.plugins.Utility.TeisyokuItem;
+import net.jp.minecraft.plugins.Utility.Item;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -28,11 +28,11 @@ public class TPointIndexGUI implements Listener {
 
         //TPoint Status
         String lore_status[] = {};
-        ItemStack item_status = TeisyokuItem.custom_item(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COOKED_FISH, (short) 0, lore_status);
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COOKED_FISH, (short) 0, lore_status);
 
         //TPoint Buy
         String lore_buy[] = {"TPointを使ってお買い物をします"};
-        ItemStack item_buy = TeisyokuItem.custom_item(ChatColor.BOLD + "購入", 1, Material.BOOK_AND_QUILL, (short) 0, lore_buy);
+        ItemStack item_buy = Item.customItem(ChatColor.BOLD + "購入", 1, Material.BOOK_AND_QUILL, (short) 0, lore_buy);
 
         Inventory inv = GUI.create(player, 3, inventoryName, item_status, item_buy);
 

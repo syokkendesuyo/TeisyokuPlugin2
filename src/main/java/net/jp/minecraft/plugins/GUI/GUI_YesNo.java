@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.GUI;
 
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.TeisyokuItem;
+import net.jp.minecraft.plugins.Utility.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -32,10 +32,10 @@ public class GUI_YesNo implements Listener {
         Inventory inv = Bukkit.createInventory(player, 9, inventoryName);
 
         String lore_yes[] = {ChatColor.WHITE + yes};
-        ItemStack item_yes = TeisyokuItem.custom_item(ChatColor.GOLD + "はい", 1, Material.WOOL, (short) 5, lore_yes);
+        ItemStack item_yes = Item.customItem(ChatColor.GOLD + "はい", 1, Material.WOOL, (short) 5, lore_yes);
 
         String lore_no[] = {ChatColor.WHITE + no};
-        ItemStack item_no = TeisyokuItem.custom_item(ChatColor.GOLD + "いいえ", 1, Material.WOOL, (short) 14, lore_no);
+        ItemStack item_no = Item.customItem(ChatColor.GOLD + "いいえ", 1, Material.WOOL, (short) 14, lore_no);
 
         inv.setItem(2, item_yes);
         inv.setItem(6, item_no);

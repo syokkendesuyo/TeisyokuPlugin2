@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.GUI;
 
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.TeisyokuItem;
+import net.jp.minecraft.plugins.Utility.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -51,7 +51,7 @@ public class GUI_Anvil implements Listener {
             Inventory inventory = Bukkit.createInventory(player, InventoryType.ANVIL, invName);
 
             String lore0[] = {ChatColor.GOLD + "編集ライン番号：" + line};
-            ItemStack item0 = TeisyokuItem.custom_item("文字列を入力", 1, Material.NAME_TAG, (short) 0, lore0);
+            ItemStack item0 = Item.customItem("文字列を入力", 1, Material.NAME_TAG, (short) 0, lore0);
 
             inventory.setItem(0, item0);
             event.getPlayer().openInventory(inventory);
@@ -107,7 +107,7 @@ public class GUI_Anvil implements Listener {
             Inventory inventory = event.getInventory();
 
             String lore0[] = {ChatColor.GOLD + "編集ライン番号 : " + line};
-            ItemStack item0 = TeisyokuItem.custom_item("文字列を入力", 1, Material.NAME_TAG, (short) 0, lore0);
+            ItemStack item0 = Item.customItem("文字列を入力", 1, Material.NAME_TAG, (short) 0, lore0);
 
 
             inventory.setItem(0, item0);

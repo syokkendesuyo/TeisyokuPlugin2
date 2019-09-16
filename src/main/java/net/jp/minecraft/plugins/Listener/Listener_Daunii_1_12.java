@@ -4,7 +4,7 @@ import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.Sounds;
-import net.jp.minecraft.plugins.Utility.TeisyokuItem;
+import net.jp.minecraft.plugins.Utility.Item;
 import net.minecraft.server.v1_12_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -225,13 +225,13 @@ public class Listener_Daunii_1_12 implements Listener {
         Inventory GUI = Bukkit.createInventory(null, 9, GUIName);
 
         String lore_otheritem[] = {ChatColor.GRAY + "真ん中にアイテムを置いてね!!"};
-        ItemStack otheritem = TeisyokuItem.custom_item(ChatColor.GRAY + "外枠", 1, Material.STAINED_GLASS_PANE, (short) 8, lore_otheritem);
+        ItemStack otheritem = Item.customItem(ChatColor.GRAY + "外枠", 1, Material.STAINED_GLASS_PANE, (short) 8, lore_otheritem);
 
         String lore_status[] = {ChatColor.GREEN + "" + ChatColor.BOLD + price + " TPoint" + ChatColor.RESET + "" + ChatColor.BLUE + "でダイヤ防具を強化できるよ!!"};
-        ItemStack item_status = TeisyokuItem.custom_item(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COOKED_FISH, (short) 0, lore_status);
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COOKED_FISH, (short) 0, lore_status);
 
         String lore_closeitem[] = {ChatColor.GRAY + "クリックすると閉じるよ!!"};
-        ItemStack closeitem = TeisyokuItem.custom_item(ChatColor.AQUA + "インベントリを閉じる", 1, Material.BARRIER, (short) 0, lore_closeitem);
+        ItemStack closeitem = Item.customItem(ChatColor.AQUA + "インベントリを閉じる", 1, Material.BARRIER, (short) 0, lore_closeitem);
 
         GUI.setItem(0, item_status);
         GUI.setItem(1, otheritem);

@@ -3,7 +3,7 @@ package net.jp.minecraft.plugins.Commands;
 import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.TeisyokuItem;
+import net.jp.minecraft.plugins.Utility.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -72,12 +72,12 @@ public class Command_HorseTicket implements CommandExecutor {
 
     private ItemStack Z_Ticket() {
         String lore[] = {ChatColor.GOLD + "スケルトンホースに", ChatColor.GOLD + "対して右クリックすると", ChatColor.GOLD + "ゾンビホースに変換します"};
-        return TeisyokuItem.custom_item(TeisyokuPlugin2.getInstance().ZombieTicket, 1, Material.PAPER, (short) 0, lore);
+        return Item.customItem(TeisyokuPlugin2.getInstance().ZombieTicket, 1, Material.PAPER, (short) 0, lore);
     }
 
     private ItemStack S_Ticket() {
         String lore[] = {ChatColor.GOLD + "ゾンビホースに対して", ChatColor.GOLD + "右クリックすると", ChatColor.GOLD + "スケルトンホースに変換します"};
-        return TeisyokuItem.custom_item(TeisyokuPlugin2.getInstance().SkeletonTicket, 1, Material.PAPER, (short) 0, lore);
+        return Item.customItem(TeisyokuPlugin2.getInstance().SkeletonTicket, 1, Material.PAPER, (short) 0, lore);
     }
 
 }

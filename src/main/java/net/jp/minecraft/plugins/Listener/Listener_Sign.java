@@ -43,10 +43,10 @@ public class Listener_Sign implements Listener {
 
             if (Search.searchKeyword(sign.getLines(), "[trash]") || Search.searchKeyword(sign.getLines(), "[gomi]") || Search.searchKeyword(sign.getLines(), "[gomibako]")) {
                 API_Trash.open(player);
-                return;
             } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
                 addMinecart(player);
-                return;
+                if(!API_Flag.get(player, "sign_info_cart"))
+                    return;
             } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
                 TeisyokuMenuIndex.getMenu(player);
                 return;

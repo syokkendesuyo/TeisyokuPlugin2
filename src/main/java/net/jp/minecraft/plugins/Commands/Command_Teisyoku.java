@@ -34,7 +34,7 @@ public class Command_Teisyoku implements CommandExecutor {
                 Msg.noPermissionMessage(sender, Permissions.getTeisyokuUserPermisson());
                 return true;
             }
-            Messages.HelpMessage(sender);
+            Msg.sendTeisyokuHelp(sender);
             return true;
         }
 

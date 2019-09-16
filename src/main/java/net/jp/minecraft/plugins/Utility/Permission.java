@@ -22,7 +22,9 @@ public enum Permission {
     FLY_ME("teisyoku.fly.me"),
     FLY_OTHERS("teisyoku.fly.others"),
 
-    TRASH("teisyoku.trash")
+    TRASH("teisyoku.trash"),
+
+    HELP("teisyoku.help")
 
     ;
 

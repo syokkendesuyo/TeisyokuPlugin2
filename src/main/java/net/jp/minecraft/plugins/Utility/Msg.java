@@ -2,13 +2,14 @@ package net.jp.minecraft.plugins.Utility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public final class Msg {
 
@@ -100,10 +101,10 @@ public final class Msg {
      */
     public static void adminBroadcast(final String msg, boolean sound) {
         for (Player admin : Bukkit.getOnlinePlayers()) {
-            if (admin.hasPermission("teisyoku.admin")) {
+            if (admin.hasPermission(Permission.ADMIN.toString())) {
                 admin.sendMessage(prefix(ChatColor.LIGHT_PURPLE) + ChatColor.RESET + msg);
                 if (sound) {
-                    Sounds.sound_note(admin);
+                    Sounds.play(admin, Sound.BLOCK_NOTE_PLING);
                 }
             }
         }
@@ -121,11 +122,11 @@ public final class Msg {
     /**
      * パーミッションエラーを返す時のスタイル
      *
-     * @param p    プレイヤー
-     * @param perm パーミッション
+     * @param sender プレイヤー
+     * @param perm   パーミッション
      */
-    public static void noPermissionMessage(final CommandSender p, final String perm) {
-        Msg.warning(p, "パーミッションがありません" + ChatColor.DARK_GRAY + ": " + ChatColor.RED + perm);
+    public static void noPermissionMessage(final CommandSender sender, final String perm) {
+        Msg.warning(sender, "パーミッションがありません" + ChatColor.DARK_GRAY + ": " + ChatColor.RED + perm);
     }
 
     public static void noPermissionMessage(final CommandSender sender, final Permission perm) {
@@ -189,5 +190,30 @@ public final class Msg {
     public static void defaultChatFormat(final CommandSender p, final String discription) {
         String string = p.getName() + ChatColor.GREEN + ": " + ChatColor.RESET + discription;
         Bukkit.broadcastMessage(string);
+    }
+
+    /**
+     * ヘルプを表示
+     *
+     * @param sender 送信先
+     */
+    public static void sendTeisyokuHelp(CommandSender sender) {
+        success(sender, "TeisyokuPlugin2のヘルプ");
+        commandFormat(sender, "ad", "広告をサーバー全体に送信");
+        commandFormat(sender, "call", "プレイヤーサウンド付きで呼び出し");
+        commandFormat(sender, "cart", "マインカートをインベントリに追加");
+        commandFormat(sender, "color", "カラーコード表示");
+        commandFormat(sender, "fly", "飛行モード");
+        commandFormat(sender, "help", "ヘルプを開く");
+        commandFormat(sender, "horse", "馬の保護");
+        commandFormat(sender, "last", "最終ログイン日時等を表示");
+        commandFormat(sender, "nick", "ニックネームを設定");
+        commandFormat(sender, "players", "ログイン中のプレイヤーを表示");
+        commandFormat(sender, "ri", "RailwaysInfoに関するコマンド");
+        commandFormat(sender, "se", "看板編集コマンド");
+        commandFormat(sender, "t", "便利機能GUIを開く");
+        commandFormat(sender, "tflag", "個人設定コマンド");
+        commandFormat(sender, "tpoint", "TPointに関するコマンド");
+        commandFormat(sender, "trash", "ゴミ箱を開く");
     }
 }

@@ -153,6 +153,9 @@ permissions:
     teisyoku.fly.others:
         description: Teisyoku fly command
         default: op
+    teisyoku.help:
+        description: Teisyoku help command
+        default: true
     teisyoku.trash:
         description: Teisyoku trash command
         default: true

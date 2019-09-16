@@ -22,12 +22,14 @@ public enum Permission {
     FLY_ME("teisyoku.fly.me"),
     FLY_OTHERS("teisyoku.fly.others"),
 
-    TRASH("teisyoku.trash"),
-
     HELP("teisyoku.help"),
 
     HORSE("teisyoku.horse"),
-    HORSE_ADMIN("teisyoku.horse.admin")
+    HORSE_ADMIN("teisyoku.horse.admin"),
+
+    TRASH("teisyoku.trash"),
+
+    PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),
 
     ;
 

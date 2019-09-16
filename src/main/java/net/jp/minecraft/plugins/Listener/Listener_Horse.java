@@ -147,10 +147,20 @@ public class Listener_Horse implements Listener {
             Msg.success(player, "現在のロック数：" + getLocks(player));
             return;
         }
-        if (getLocks(player) > 2) {
-            Msg.warning(player, "馬は3体以上ロックできません");
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+        int limits = plugin.TeisyokuConfig.getInt("horse.limits");
+
+        if (limits <= 0) {
+            Msg.warning(player, "保護数の上限が0以下に設定されています");
             return;
         }
+
+        if (getLocks(player) > limits - 1) {
+            Msg.warning(player, limits + "体以上の馬をロックすることはできません");
+            return;
+        }
+
         try {
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
@@ -178,7 +188,7 @@ public class Listener_Horse implements Listener {
      * @param entityUUID entityのUUID
      */
     private static void HorseRemove(Player player, UUID entityUUID) {
-        if (isEqual(player, player.getUniqueId(), entityUUID) == 2) {
+        if (isEqual(player, player.getUniqueId(), entityUUID) == 2 || isEqual(player, player.getUniqueId(), entityUUID) == 4) {
             Msg.warning(player, "この馬は保護されていません");
             return;
         } else if (isEqual(player, player.getUniqueId(), entityUUID) == 0) {

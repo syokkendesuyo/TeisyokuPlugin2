@@ -45,8 +45,9 @@ public class Listener_Sign implements Listener {
                 API_Trash.open(player);
             } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
                 addMinecart(player);
-                if(!API_Flag.get(player, "sign_info_cart"))
+                if (!API_Flag.get(player, "sign_info_cart")) {
                     return;
+                }
             } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
                 TeisyokuMenuIndex.getMenu(player);
                 return;

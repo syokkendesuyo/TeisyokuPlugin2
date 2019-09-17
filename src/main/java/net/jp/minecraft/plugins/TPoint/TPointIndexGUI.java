@@ -27,12 +27,12 @@ public class TPointIndexGUI implements Listener {
         int point = Listener_TPoint.int_status(player);
 
         //TPoint Status
-        String lore_status[] = {};
-        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COOKED_FISH, (short) 0, lore_status);
+        String[] lore_status = {};
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, (short) 0, lore_status);
 
         //TPoint Buy
-        String lore_buy[] = {"TPointを使ってお買い物をします"};
-        ItemStack item_buy = Item.customItem(ChatColor.BOLD + "購入", 1, Material.BOOK_AND_QUILL, (short) 0, lore_buy);
+        String[] lore_buy = {"TPointを使ってお買い物をします"};
+        ItemStack item_buy = Item.customItem(ChatColor.BOLD + "購入", 1, Material.WRITABLE_BOOK, (short) 0, lore_buy);
 
         Inventory inv = GUI.create(player, 3, inventoryName, item_status, item_buy);
 

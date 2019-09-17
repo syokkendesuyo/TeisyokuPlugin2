@@ -47,7 +47,7 @@ public class GUI_Anvil implements Listener {
         }
 
         Block block = event.getClickedBlock();
-        if (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)) {
+        if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
             Inventory inventory = Bukkit.createInventory(player, InventoryType.ANVIL, invName);
 
             String lore0[] = {ChatColor.GOLD + "編集ライン番号：" + line};

@@ -47,8 +47,8 @@ public class GUI_PlayersList {
             if (!(player.isOp()) && p.getGameMode() == GameMode.SPECTATOR) {
                 continue;
             }
-            ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-            SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
+            ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+            SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKELETON_SKULL);
             meta.setDisplayName(p.getName());
             meta.setOwner(p.getName());
 

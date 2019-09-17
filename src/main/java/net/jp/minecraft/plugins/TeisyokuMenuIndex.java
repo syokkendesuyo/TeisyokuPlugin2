@@ -23,7 +23,7 @@ public class TeisyokuMenuIndex {
         itemmeta0.setLore(Arrays.asList(ChatColor.WHITE + "アイテムをクリックすると", ChatColor.WHITE + "何かアクションが発動します。"));
         item0.setItemMeta(itemmeta0);
 
-        ItemStack item1 = new ItemStack(Material.COOKED_FISH);
+        ItemStack item1 = new ItemStack(Material.COD);
         ItemMeta itemmeta1 = item1.getItemMeta();
         itemmeta1.setDisplayName(ChatColor.GOLD + "初期スポーン地点へワープ");
         itemmeta1.setLore(Arrays.asList(ChatColor.GRAY + "/warp spawn コマンドと同様"));
@@ -41,7 +41,7 @@ public class TeisyokuMenuIndex {
         itemmeta3.setLore(Arrays.asList(ChatColor.GRAY + "/warp nether コマンドと同様"));
         item3.setItemMeta(itemmeta3);
 
-        ItemStack item4 = new ItemStack(Material.BED);
+        ItemStack item4 = new ItemStack(Material.RED_BED);
         ItemMeta itemmeta4 = item4.getItemMeta();
         itemmeta4.setDisplayName(ChatColor.GOLD + "サーバから切断");
         itemmeta4.setLore(Arrays.asList(ChatColor.GRAY + "当サーバから切断"));
@@ -71,7 +71,7 @@ public class TeisyokuMenuIndex {
         itemmeta8.setLore(Arrays.asList(ChatColor.GRAY + "保護を連続して行う場合に利用", ChatColor.GRAY + "保護コマンドを実行後利用し、", ChatColor.GRAY + "利用を終了する場合もクリックが必要です"));
         item8.setItemMeta(itemmeta8);
 
-        ItemStack item9 = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        ItemStack item9 = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
         ItemMeta itemmeta9 = item9.getItemMeta();
         itemmeta9.setDisplayName(ChatColor.GOLD + "プレイヤー一覧を表示");
         itemmeta9.setLore(Arrays.asList(ChatColor.GRAY + "オンラインプレイヤーの一覧を表示し、", ChatColor.GRAY + "頭をクリックすることで現在地を取得します。"));

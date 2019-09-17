@@ -38,8 +38,8 @@ public class TPointBuyGUI implements Listener {
         int point = Listener_TPoint.int_status(player);
 
         //TPoint Status
-        String lore_status[] = {};
-        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COOKED_FISH, (short) 0, lore_status);
+        String[] lore_status = {};
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, (short) 0, lore_status);
 
         inv.setItem(0, item_status);
         int cnt = 9;
@@ -60,7 +60,7 @@ public class TPointBuyGUI implements Listener {
                 String lore2 = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".lore3");
 
                 //TPoint Buy
-                String lore_buy_for[] = {lore0, lore1, lore2};
+                String[] lore_buy_for = {lore0, lore1, lore2};
                 String material = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".material");
                 int meta = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getInt("goods." + cnt + ".meta");
                 ItemStack item_buy_for = Item.customItem(ItemName, 1, Material.getMaterial(material), (short) meta, lore_buy_for);

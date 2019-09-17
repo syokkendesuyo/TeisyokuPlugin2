@@ -50,7 +50,7 @@ public class Listener_SignEdit implements Listener {
         Listener_TPoint.subtractPoint(5, player, player);
         World w = loc.getWorld();
         Block a = w.getBlockAt(loc);
-        if (a.getType() == Material.SIGN_POST || a.getType() == Material.WALL_SIGN) {
+        if (a.getType() == Material.SIGN || a.getType() == Material.WALL_SIGN) {
             Sign sign = (Sign) a.getState();
             sign.setLine(lineData.get(player.getUniqueId()), Replace.blank(Color.convert(editData.get(player.getUniqueId()))));
             sign.update(true);
@@ -75,7 +75,7 @@ public class Listener_SignEdit implements Listener {
         if (!(Listener_SignEdit.hasData(player))) {
             return;
         }
-        if (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)) {
+        if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
             Location loc = block.getLocation();
             updateSign(loc, event.getPlayer());
             return;

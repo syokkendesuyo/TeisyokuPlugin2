@@ -87,7 +87,7 @@ public class Command_Call implements CommandExecutor {
 
             //サウンドを再生
             if (API_Flag.get(player, "call_sounds")) {
-                Sounds.play(player, Sound.BLOCK_NOTE_PLING);
+                Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
             }
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する

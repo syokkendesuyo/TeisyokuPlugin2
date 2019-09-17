@@ -5,12 +5,12 @@ import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import net.jp.minecraft.plugins.Utility.Item;
-import net.minecraft.server.v1_12_R1.*;
+import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
-public class Listener_Daunii_1_12 implements Listener {
+public class Listener_Daunii_1_13 implements Listener {
 
     private int price = 10000;
 
@@ -43,7 +43,7 @@ public class Listener_Daunii_1_12 implements Listener {
     private static Random rand = new Random();
 
     private ItemStack setAttr(ItemStack item) {//Attributeの設定
-        net.minecraft.server.v1_12_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_13_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
         NBTTagList modifiers = new NBTTagList();
         int count = 0;
@@ -225,10 +225,10 @@ public class Listener_Daunii_1_12 implements Listener {
         Inventory GUI = Bukkit.createInventory(null, 9, GUIName);
 
         String lore_otheritem[] = {ChatColor.GRAY + "真ん中にアイテムを置いてね!!"};
-        ItemStack otheritem = Item.customItem(ChatColor.GRAY + "外枠", 1, Material.STAINED_GLASS_PANE, (short) 8, lore_otheritem);
+        ItemStack otheritem = Item.customItem(ChatColor.GRAY + "外枠", 1, Material.LIGHT_GRAY_STAINED_GLASS_PANE, (short) 8, lore_otheritem);
 
         String lore_status[] = {ChatColor.GREEN + "" + ChatColor.BOLD + price + " TPoint" + ChatColor.RESET + "" + ChatColor.BLUE + "でダイヤ防具を強化できるよ!!"};
-        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COOKED_FISH, (short) 0, lore_status);
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, (short) 0, lore_status);
 
         String lore_closeitem[] = {ChatColor.GRAY + "クリックすると閉じるよ!!"};
         ItemStack closeitem = Item.customItem(ChatColor.AQUA + "インベントリを閉じる", 1, Material.BARRIER, (short) 0, lore_closeitem);
@@ -262,8 +262,8 @@ public class Listener_Daunii_1_12 implements Listener {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("function.daunii")) {
-            Msg.warning(player, "だうにー君は有効化されていません");
+        if (!plugin.TeisyokuConfig.getBoolean("functions.daunii")) {
+            Msg.warning(player, "だうにーくんは有効化されていません");
             return;
         }
 
@@ -373,7 +373,7 @@ public class Listener_Daunii_1_12 implements Listener {
             return;
         }
 
-        Sounds.play(player, Sound.ENTITY_ENDERDRAGON_DEATH);
+        Sounds.play(player, Sound.ENTITY_ENDER_DRAGON_DEATH);
         Entity setDaunii = entity.getVehicle();
         if (setDaunii == null) {
             entity.remove();

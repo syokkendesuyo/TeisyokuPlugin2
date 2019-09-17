@@ -26,16 +26,16 @@ public class GUI_YesNo implements Listener {
      * @param yes           yesの時の説明文
      * @param no            noの時の説明文
      * @param inventoryName インベントリ名
-     * @return
+     * @return GUIを開く
      */
     public static String openGUI(Player player, String yes, String no, String inventoryName) {
         Inventory inv = Bukkit.createInventory(player, 9, inventoryName);
 
-        String lore_yes[] = {ChatColor.WHITE + yes};
-        ItemStack item_yes = Item.customItem(ChatColor.GOLD + "はい", 1, Material.WOOL, (short) 5, lore_yes);
+        String[] lore_yes = {ChatColor.WHITE + yes};
+        ItemStack item_yes = Item.customItem(ChatColor.GOLD + "はい", 1, Material.LIME_WOOL, (short) 0, lore_yes);
 
-        String lore_no[] = {ChatColor.WHITE + no};
-        ItemStack item_no = Item.customItem(ChatColor.GOLD + "いいえ", 1, Material.WOOL, (short) 14, lore_no);
+        String[] lore_no = {ChatColor.WHITE + no};
+        ItemStack item_no = Item.customItem(ChatColor.GOLD + "いいえ", 1, Material.RED_WOOL, (short) 0, lore_no);
 
         inv.setItem(2, item_yes);
         inv.setItem(6, item_no);

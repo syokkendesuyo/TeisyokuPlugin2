@@ -79,7 +79,7 @@ public class Command_Ad implements CommandExecutor {
 
         //オンラインプレイヤー全員に音を鳴らす
         for (Player player : Bukkit.getOnlinePlayers()) {
-            Sounds.play(player, Sound.BLOCK_NOTE_PLING);
+            Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_BELL);
         }
 
         //クールタイムを設定

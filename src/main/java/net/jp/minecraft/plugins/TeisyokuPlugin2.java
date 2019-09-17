@@ -42,7 +42,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
-    private String ver1_12_R1 = "1.12.2-R0.1-SNAPSHOT";
+    private String supportVersion = "1.13.2-R0.1-SNAPSHOT";
 
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
@@ -142,12 +142,12 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("gomi").setExecutor(new Command_Trash());
         getCommand("gomibako").setExecutor(new Command_Trash());
 
-        //1.12
-        if (version.equals(ver1_12_R1)) {
+        //サポートバージョンを確認
+        if (version.equals(supportVersion)) {
 
             //events
             pm.registerEvents(new Listener_Tab(), this);
-            pm.registerEvents(new Listener_Daunii_1_12(), this);
+            pm.registerEvents(new Listener_Daunii_1_13(), this);
 
             //commands
             getCommand("daunii").setExecutor(new Command_Daunii());
@@ -159,9 +159,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
             scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
-                    Double tps = Listener_TicksPerSecond_1_12.getTps(1);
-                    if (Listener_TicksPerSecond_1_12.getTps(1) < 16) {
-                        Msg.warning(Bukkit.getConsoleSender(), "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_12.doubleToString(tps), true);
+                    Double tps = Listener_TicksPerSecond_1_13.getTps(1);
+                    if (Listener_TicksPerSecond_1_13.getTps(1) < 16) {
+                        Msg.warning(Bukkit.getConsoleSender(), "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_13.doubleToString(tps), true);
                     }
                 }
             }, 0L, 6000L);

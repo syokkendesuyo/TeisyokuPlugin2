@@ -38,7 +38,7 @@ public class Listener_Sign implements Listener {
         if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
             return;
         }
-        if (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN)) {
+        if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
             Sign sign = (Sign) block.getState();
 
             if (Search.searchKeyword(sign.getLines(), "[trash]") || Search.searchKeyword(sign.getLines(), "[gomi]") || Search.searchKeyword(sign.getLines(), "[gomibako]")) {
@@ -67,7 +67,7 @@ public class Listener_Sign implements Listener {
                 meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Coffee");
                 meta.setLore(Arrays.asList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
                 item.setItemMeta(meta);
-                Sounds.play(player, Sound.BLOCK_NOTE_BELL);
+                Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
                 return;
             }
             //看板のデータを照会する

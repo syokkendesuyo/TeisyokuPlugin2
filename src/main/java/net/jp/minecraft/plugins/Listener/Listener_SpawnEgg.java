@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.Msg;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -38,13 +39,13 @@ public class Listener_SpawnEgg implements Listener {
         ItemStack item_off = event.getPlayer().getInventory().getItemInOffHand();
 
 
-        //1.Egg以外の手持ちで右クリックは無視
-        if (!(item_main.getType().toString().equals(Material.MONSTER_EGG.toString()) || item_off.getType().toString().equals(Material.MONSTER_EGG.toString()))) {
+        //1.スポーンエッグ以外がアクティブな場合は無視 (api-version: 1.13 以降のみに対応)
+        if (!(item_main.getType().toString().contains("_SPAWN_EGG") || item_off.getType().toString().contains("_SPAWN_EGG"))) {
             return;
         }
 
         //2.ターゲットがスポナー以外なら無視
-        if (!(block.getType().equals(Material.MOB_SPAWNER))) {
+        if (!(block.getType().equals(Material.SPAWNER))) {
             return;
         }
 

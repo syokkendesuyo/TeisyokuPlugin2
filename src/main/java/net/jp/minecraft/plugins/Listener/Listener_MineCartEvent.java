@@ -163,8 +163,8 @@ public class Listener_MineCartEvent implements Listener {
 
         if ((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK)) || (cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))) {//下が鉄ブロック、黒曜石であることを確認
             block = cart.getLocation().getBlock();
-            if (((block.getType().equals(Material.POWERED_RAIL)) || (block.getType().equals(Material.DETECTOR_RAIL)) || (block.getType().equals(Material.RAILS)))) {
-                if (block.getType().equals(Material.RAILS)) {
+            if (((block.getType().equals(Material.POWERED_RAIL)) || (block.getType().equals(Material.DETECTOR_RAIL)) || (block.getType().equals(Material.RAIL)))) {
+                if (block.getType().equals(Material.RAIL)) {
                     rail = (Rails) block.getState().getData();
                     if (rail.isCurve()) {
                         cart.setMaxSpeed(0.4);
@@ -191,14 +191,14 @@ public class Listener_MineCartEvent implements Listener {
                 return;
             }
             cart.setMaxSpeed(1.6);
-        } else if (cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.SMOOTH_BRICK)) {
+        } else if (cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.CHISELED_STONE_BRICKS)) {
             if (cart.getLocation().add(0, -1, 0).getBlock().getState().getRawData() != (byte) 3) {
                 cart.setMaxSpeed(0.4);
                 return;
             }
             block = cart.getLocation().getBlock();
-            if (((block.getType().equals(Material.POWERED_RAIL)) || (block.getType().equals(Material.DETECTOR_RAIL)) || (block.getType().equals(Material.RAILS)))) {
-                if (cart.getLocation().getBlock().getType().equals(Material.RAILS)) {
+            if (((block.getType().equals(Material.POWERED_RAIL)) || (block.getType().equals(Material.DETECTOR_RAIL)) || (block.getType().equals(Material.RAIL)))) {
+                if (cart.getLocation().getBlock().getType().equals(Material.RAIL)) {
                     rail = (Rails) cart.getLocation().getBlock().getState().getData();
                     if (rail.isCurve()) {
                         cart.setMaxSpeed(0.4);

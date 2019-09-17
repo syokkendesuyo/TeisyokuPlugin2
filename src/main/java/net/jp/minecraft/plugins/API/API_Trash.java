@@ -38,7 +38,7 @@ public class API_Trash implements Listener {
         itemmeta0.setLore(Arrays.asList(ChatColor.WHITE + "ゴミ箱に不要なアイテムを収納し、", ChatColor.WHITE + "画面を閉じると処分が完了します。"));
         item0.setItemMeta(itemmeta0);
 
-        ItemStack item1 = new ItemStack(Material.BED);
+        ItemStack item1 = new ItemStack(Material.RED_BED);
         ItemMeta itemmeta1 = item1.getItemMeta();
         itemmeta1.setDisplayName(ChatColor.GOLD + "画面を閉じる");
         itemmeta1.setLore(Arrays.asList(ChatColor.GRAY + "定食サーバオリジナルプラグイン！"));

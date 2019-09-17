@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.GUI;
 
-import net.jp.minecraft.plugins.Messages;
-import net.jp.minecraft.plugins.Permissions;
+import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -12,17 +12,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class GUI_PlayersList {
     public static void getPlayersList(Player player) {
 
-        if (!(player.hasPermission(Permissions.getPlayersPermisson()))) {
-            player.sendMessage(Messages.getNoPermissionMessage(Permissions.getPlayersPermisson()));
+        //実行コマンドのパーミッションを確認
+        if (!(player.hasPermission(Permission.USER.toString()) || player.hasPermission(Permission.PLAYERS.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(player, Permission.PLAYERS);
             return;
         }
 
@@ -47,12 +49,13 @@ public class GUI_PlayersList {
             if (!(player.isOp()) && p.getGameMode() == GameMode.SPECTATOR) {
                 continue;
             }
-            ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
-            SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKELETON_SKULL);
+            ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+            SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.PLAYER_HEAD);
+            assert meta != null : "ディスプレイ名が見つかりません";
             meta.setDisplayName(p.getName());
-            meta.setOwner(p.getName());
+            meta.setOwningPlayer(p);
 
-            String world = p.getLocation().getWorld().getName();
+            String world = Objects.requireNonNull(p.getLocation().getWorld()).getName();
             int x = (int) p.getLocation().getX();
             int y = (int) p.getLocation().getY();
             int z = (int) p.getLocation().getZ();

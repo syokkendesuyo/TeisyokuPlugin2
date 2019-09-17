@@ -27,6 +27,8 @@ public enum Permission {
     HORSE("teisyoku.horse"),
     HORSE_ADMIN("teisyoku.horse.admin"),
 
+    PLAYERS("teisyoku.players"),
+
     TRASH("teisyoku.trash"),
 
     PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),

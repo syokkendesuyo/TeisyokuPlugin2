@@ -163,6 +163,9 @@ permissions:
     teisyoku.horse.admin:
         description: Teisyoku horse command
         default: op
+    teisyoku.players:
+        description: Teisyoku players command
+        default: true
     teisyoku.trash:
         description: Teisyoku trash command
         default: true

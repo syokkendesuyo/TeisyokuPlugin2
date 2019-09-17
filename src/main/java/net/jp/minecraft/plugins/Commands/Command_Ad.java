@@ -11,6 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,13 +23,13 @@ import java.util.Date;
  */
 public class Command_Ad implements CommandExecutor {
 
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
         if (!plugin.TeisyokuConfig.getBoolean("functions.ad")) {
-            Msg.warning(sender, "ad,noticeコマンドは有効化されていません");
+            Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }
 

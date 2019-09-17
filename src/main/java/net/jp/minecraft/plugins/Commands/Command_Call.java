@@ -15,6 +15,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+
 /**
  * TeisyokuPlugin2
  * callコマンド
@@ -22,13 +24,13 @@ import org.bukkit.entity.Player;
  * @author syokkendesuyo
  */
 public class Command_Call implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
         if (!plugin.TeisyokuConfig.getBoolean("functions.call")) {
-            Msg.warning(sender, "adコマンドは有効化されていません");
+            Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }
 

@@ -134,6 +134,16 @@ public final class Msg {
     }
 
     /**
+     * コマンドが有効化されていない場合に表示するメッセージメソッド
+     *
+     * @param sender       コマンド送信者
+     * @param commandLabel コマンドラベル
+     */
+    public static void commandNotEnabled(CommandSender sender, String commandLabel) {
+        Msg.warning(sender, commandLabel + "コマンドは有効化されていません");
+    }
+
+    /**
      * パーミッションを表示する時のスタイル
      *
      * @param p    プレイヤー

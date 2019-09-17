@@ -13,16 +13,18 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+
 public class Command_Daunii implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
         if (!plugin.TeisyokuConfig.getBoolean("functions.daunii")) {
-            Msg.warning(sender, "dauniiコマンドは有効化されていません");
+            Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }
 

@@ -52,6 +52,9 @@ public class Command_TFlag implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("sign_info")) {
                 API_Flag.update(sender, player, args, "看板データの照会機能利用設定");
                 return true;
+            } else if (args[0].equalsIgnoreCase("sign_info_cart")) {
+                API_Flag.update(sender, player, args, "[Cart]看板の看板データの照会機能利用設定");
+                return true;
             } else if (args[0].equalsIgnoreCase("sign_cart")) {
                 API_Flag.update(sender, player, args, "[Cart]看板の利用設定");
                 return true;

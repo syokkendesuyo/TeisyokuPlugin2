@@ -57,7 +57,7 @@ public class GUI_PlayersList {
             int y = (int) p.getLocation().getY();
             int z = (int) p.getLocation().getZ();
 
-            meta.setLore(Arrays.asList(new String[]{ChatColor.YELLOW + "現在地 ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z, ChatColor.GRAY + "クリックで現在地をチャットに送信", ChatColor.GRAY + "UUID:" + p.getUniqueId().toString()}));
+            meta.setLore(Arrays.asList(ChatColor.YELLOW + "現在地 ： " + ChatColor.WHITE + world + " " + x + " , " + y + " , " + z, ChatColor.GRAY + "クリックで現在地をチャットに送信", ChatColor.GRAY + "UUID:" + p.getUniqueId().toString()));
             skull.setItemMeta(meta);
 
             inv.addItem(skull);

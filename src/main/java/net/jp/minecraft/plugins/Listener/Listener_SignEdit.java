@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -51,20 +52,16 @@ public class Listener_SignEdit implements Listener {
         Block a = w.getBlockAt(loc);
         if (a.getType() == Material.SIGN_POST || a.getType() == Material.WALL_SIGN) {
             Sign sign = (Sign) a.getState();
-            sign.setLine(lineData.get(player.getUniqueId()), blank(Color.convert(editData.get(player.getUniqueId()))));
+            sign.setLine(lineData.get(player.getUniqueId()), Replace.blank(Color.convert(editData.get(player.getUniqueId()))));
             sign.update(true);
         }
-        Msg.success(player, "看板を更新しました。 " + blank(Color.convert(editData.get(player.getUniqueId()))) + ChatColor.GRAY + " @ " + ChatColor.RESET + lineData.get(player.getUniqueId()) + 1);
+        Msg.success(player, "看板を更新しました。 " + Replace.blank(Color.convert(editData.get(player.getUniqueId()))) + ChatColor.GRAY + " @ " + ChatColor.RESET + (lineData.get(player.getUniqueId())+1));
         editData.remove(player.getUniqueId());
         lineData.remove(player.getUniqueId());
     }
 
     public static boolean hasData(Player player) {
         return lineData.containsKey(player.getUniqueId());
-    }
-
-    public static String blank(String str) {
-        return str.replace("%%", " ");
     }
 
     @EventHandler

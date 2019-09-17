@@ -1,7 +1,9 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Listener.Listener_SignEdit;
+import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,7 +38,7 @@ public class Command_SignEdit implements CommandExecutor {
         }
         if (line >= 1 && line <= 4) {
             Listener_SignEdit.saveData((Player) sender, args[0], line);
-            Msg.success(sender, "更新したい看板を右クリックしてください。 " + blank(color(args[0])) + ChatColor.GRAY + " @ " + ChatColor.RESET + line);
+            Msg.success(sender, "更新したい看板を右クリックしてください。 " + Replace.blank(Color.convert(args[0])) + ChatColor.GRAY + " @ " + ChatColor.RESET + line);
             return true;
         }
         Msg.warning(sender, "行番号は1から4までの数値で入力してください");
@@ -47,12 +49,5 @@ public class Command_SignEdit implements CommandExecutor {
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "Sign コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel + " <更新する文字列> <行番号>", "指定した行の看板を更新します");
-    }
-
-    public static String color(String str) {
-        return str.replace("&", "§");
-    }
-    public static String blank(String str) {
-        return str.replace("%%", " ");
     }
 }

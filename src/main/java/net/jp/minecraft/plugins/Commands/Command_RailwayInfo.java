@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;

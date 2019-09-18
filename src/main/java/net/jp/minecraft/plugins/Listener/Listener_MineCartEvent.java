@@ -2,7 +2,9 @@ package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -25,10 +27,12 @@ import org.bukkit.material.DetectorRail;
 import org.bukkit.material.PoweredRail;
 import org.bukkit.material.Rails;
 
+import java.util.List;
+
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo azuhata
+ * @author syokkendesuyo azuhata
  */
 public class Listener_MineCartEvent implements Listener {
 
@@ -50,6 +54,7 @@ public class Listener_MineCartEvent implements Listener {
                     Msg.success(player, "マインカートを回収しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();
+                    assert cartmeta != null;
                     cartmeta.setDisplayName(vehicle.getCustomName());
                     cart.setItemMeta(cartmeta);
                     //MineCartの名前を保持する
@@ -82,6 +87,7 @@ public class Listener_MineCartEvent implements Listener {
                     Msg.success(player, "マインカートを回収しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();
+                    assert cartmeta != null;
                     cartmeta.setDisplayName(vehicle.getCustomName());
                     cart.setItemMeta(cartmeta);
                     //MineCartの名前を保持する
@@ -102,35 +108,46 @@ public class Listener_MineCartEvent implements Listener {
         if (event.getVehicle() instanceof Minecart) {
             if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
             Vehicle minecart = event.getVehicle();
-            Entity player = minecart.getPassenger();
-            if (player instanceof Player) {
-                if (!(minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getType().equals(Material.WALL_SIGN))) {
+
+            //.getPassenger()が非推奨化のため対応
+            //マインカートに複数のエンティティーが乗る可能性があります
+            List<Entity> entities = minecart.getPassengers();
+            Player player = null;
+            for (Entity entity : entities) {
+                if (!(entity instanceof Player)) {
+                    return;
+                }
+                //TODO:
+                player = (Player) entity;
+
+                Material material = minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getType();
+                if (!(material.equals(Material.SIGN) || material.equals(Material.WALL_SIGN))) {
                     return;
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();
                 if (sign.getLine(0).equalsIgnoreCase("[alert]") || sign.getLine(0).equalsIgnoreCase("[announce]") || sign.getLine(0).equalsIgnoreCase("[a]") || sign.getLine(0).equalsIgnoreCase("[ri]") || sign.getLine(0).equalsIgnoreCase("[railwayinfo]")) {
-                    Player sendplayer = ((Player) player);
                     try {
                         if (sign.getLine(1).equalsIgnoreCase("")) {
-                            Msg.warning(sendplayer, "看板2行目が空白になっています");
+                            Msg.warning(player, "看板2行目が空白になっています");
                             return;
                         }
 
                         if (TeisyokuPlugin2.getInstance().CartConfig.get(sign.getLine(1)) == null) {
-                            Msg.warning(sendplayer, "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
+                            Msg.warning(player, "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
                         } else {
                             //正常処理
                             String announce = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1) + ".string");
-                            String announceReplace = announce.replaceAll("&", "§");
-                            String annaunceReplace2 = announceReplace.replaceAll("%%", " ");
-                            sendplayer.sendMessage(annaunceReplace2);
+                            assert announce != null;
+                            player.sendMessage(Color.convert(Replace.blank(announce)));
                         }
                     } catch (Exception e) {
-                        Msg.warning(sendplayer, "不明なエラーが発生しました");
+                        Msg.warning(player, "不明なエラーが発生しました");
                         e.printStackTrace();
                     }
                 }
             }
+
+
         }
     }
 

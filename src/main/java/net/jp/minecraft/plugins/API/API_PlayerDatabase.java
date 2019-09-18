@@ -7,6 +7,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * TeisyokuPlugin2
@@ -23,12 +25,7 @@ public class API_PlayerDatabase {
      * @return プレイヤー数
      */
     public static int getTotalPlayers() {
-        try {
-            return new File("world/playerdata/").list().length;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+        return Objects.requireNonNull(new File("world/playerdata/").list()).length;
     }
 
     /**
@@ -44,7 +41,7 @@ public class API_PlayerDatabase {
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
             playerData.set(path, data);
             playerData.save(file);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -57,8 +54,7 @@ public class API_PlayerDatabase {
      */
     public static String getString(Player player, String path) {
         FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
-        //TODO: スタックトレースを表示するように変更
-        return file.get(path).toString();
+        return Objects.requireNonNull(file.get(path)).toString();
     }
 
     /**
@@ -69,7 +65,6 @@ public class API_PlayerDatabase {
      */
     public static Integer getInt(Player player, String path) {
         FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
-        //TODO: スタックトレースを表示するように変更
         return file.getInt(path);
     }
 
@@ -81,7 +76,6 @@ public class API_PlayerDatabase {
      */
     public static Boolean getBoolean(Player player, String path) {
         FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
-        //TODO: スタックトレースを表示するように変更
         return file.getBoolean(path);
     }
 }

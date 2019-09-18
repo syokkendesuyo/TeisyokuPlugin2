@@ -11,12 +11,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_EntityDamage implements Listener {
 
@@ -76,7 +77,8 @@ public class Listener_EntityDamage implements Listener {
         //ツールではダメージが通らないように
         if (!player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
             try {
-                if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
+                String displayName = Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta()).getDisplayName();
+                if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
                     event.setCancelled(true);
                     return;
                 }

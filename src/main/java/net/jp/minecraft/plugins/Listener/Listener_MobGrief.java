@@ -6,10 +6,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
+import java.util.Objects;
+
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_MobGrief implements Listener {
     @EventHandler
@@ -17,7 +19,7 @@ public class Listener_MobGrief implements Listener {
         if (!(e.getEntityType().equals(EntityType.CREEPER))) {
             return;
         }
-        if (!(e.getLocation().getWorld().getName().equals("world"))) {
+        if (!(Objects.requireNonNull(e.getLocation().getWorld()).getName().equals("world"))) {
             return;
         }
         e.blockList().clear();
@@ -28,7 +30,7 @@ public class Listener_MobGrief implements Listener {
         if (!(e.getEntityType().equals(EntityType.ENDERMAN))) {
             return;
         }
-        if (!(e.getBlock().getLocation().getWorld().getName().equals("world"))) {
+        if (!(Objects.requireNonNull(e.getBlock().getLocation().getWorld()).getName().equals("world"))) {
             return;
         }
         e.setCancelled(true);

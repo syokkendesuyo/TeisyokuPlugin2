@@ -15,6 +15,7 @@ import org.bukkit.event.vehicle.VehicleEnterEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -33,9 +34,7 @@ public class Listener_Horse implements Listener {
     public void HorseClick(PlayerInteractAtEntityEvent event) {
 
         //馬以外は無視する
-        if (!((event.getRightClicked().getType().equals(EntityType.HORSE)) ||
-                (event.getRightClicked().getType().equals(EntityType.SKELETON_HORSE)) ||
-                (event.getRightClicked().getType().equals(EntityType.ZOMBIE_HORSE)))) {
+        if (!((event.getRightClicked().getType().equals(EntityType.HORSE)) || (event.getRightClicked().getType().equals(EntityType.SKELETON_HORSE)) || (event.getRightClicked().getType().equals(EntityType.ZOMBIE_HORSE)))) {
             return;
         }
         Player player = event.getPlayer();
@@ -45,17 +44,18 @@ public class Listener_Horse implements Listener {
         if (!(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STICK)) {
             return;
         }
-        if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール")) {
+        String displayName = Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta()).getDisplayName();
+        if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール")) {
             HorseRegister(player, entityUUID);
             event.setCancelled(true);
             return;
         }
-        if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール")) {
+        if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール")) {
             HorseRemove(player, entityUUID);
             event.setCancelled(true);
             return;
         }
-        if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
+        if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
             if (isRegister(entityUUID)) {
                 event.setCancelled(true);
                 Msg.info(player, "この馬は保護されています");
@@ -87,11 +87,10 @@ public class Listener_Horse implements Listener {
             UUID playerUUID = player.getUniqueId();
 
             if (player.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
-                if ((player.getInventory().getItemInMainHand().getItemMeta().getDisplayName() != null) || (!(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("")))) {
-                    if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
-                        event.setCancelled(true);
-                        return;
-                    }
+                String displayName = Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta()).getDisplayName();
+                if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
+                    event.setCancelled(true);
+                    return;
                 }
             }
 
@@ -332,6 +331,7 @@ public class Listener_Horse implements Listener {
     private static int getLocks(Player player) {
         int cnt = 0;
         ConfigurationSection cs = TeisyokuPlugin2.getInstance().HorseConfig.getConfigurationSection("");
+        assert cs != null;
         for (String keys : cs.getKeys(false)) {
             String uuid = TeisyokuPlugin2.getInstance().HorseConfig.getString(keys + ".uuid");
             if (player.getUniqueId().toString().equals(uuid)) {

@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_LastJoin implements Listener {
 

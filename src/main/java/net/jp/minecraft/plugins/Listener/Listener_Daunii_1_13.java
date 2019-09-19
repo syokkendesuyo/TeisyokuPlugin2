@@ -1,10 +1,10 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Item;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.Sounds;
-import net.jp.minecraft.plugins.Utility.Item;
 import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,6 +24,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class Listener_Daunii_1_13 implements Listener {
@@ -116,105 +117,50 @@ public class Listener_Daunii_1_13 implements Listener {
         count = 0;
         while (count < 3) {//attrを付与
             if (health > 0) {
-                modifiers.add(MaxHealth(region, id, count + 810));
+                modifiers.add(attribute("generic.maxHealth", region, 2.0, 0, id, count + 810));
                 health--;
             }
             if (damage > 0) {
-                modifiers.add(AttackDamage(region, id, count + 810));
+                modifiers.add(attribute("generic.attackDamage", region, 1.0, 0, id, count + 810));
                 damage--;
             }
             if (knock > 0) {
-                modifiers.add(knockbackResistance(region, id, count + 810));
+                modifiers.add(attribute("generic.knockbackResistance", region, 0.1, 0, id, count + 810));
                 knock--;
             }
             if (speed > 0) {
-                modifiers.add(movementSpeed(region, id, count + 810));
+                modifiers.add(attribute("generic.movementSpeed", region, 0.1, 1, id, count + 810));
                 speed--;
             }
             count++;
         }
-        if (id == 2001) {
-            modifiers.add(armor(region, 3, id, 105));
-        } else if (id == 2002) {
-            modifiers.add(armor(region, 8, id, 105));
-        } else if (id == 2003) {
-            modifiers.add(armor(region, 6, id, 105));
-        } else if (id == 2004) {
-            modifiers.add(armor(region, 3, id, 105));
+        if (id == head_id) {
+            modifiers.add(attribute("generic.armor", region, 3.0, 0, id, 105));
+        } else if (id == body_id) {
+            modifiers.add(attribute("generic.armor", region, 8.0, 0, id, 105));
+        } else if (id == legs_id) {
+            modifiers.add(attribute("generic.armor", region, 6.0, 0, id, 105));
+        } else if (id == feet_id) {
+            modifiers.add(attribute("generic.armor", region, 3.0, 0, id, 105));
         }
-        modifiers.add(armorToughness(region, 2, id, 106));
+        modifiers.add(attribute("generic.armorToughness", region, 2.0, 0, id, 106));
+        assert compound != null;
         compound.set("AttributeModifiers", modifiers);
         nmsStack.setTag(compound);
         item = CraftItemStack.asBukkitCopy(nmsStack);
         return item;//ランダムにattrの付いたアイテムを返す
     }
 
-    private NBTTagCompound MaxHealth(String region, int slot, int count) {//MaxHealthを返す
+    private NBTTagCompound attribute(String attributeName, String region, Double amount, int operation, int slot, int count) {
         NBTTagCompound attr = new NBTTagCompound();
-        attr.set("AttributeName", new NBTTagString("generic.maxHealth"));
-        attr.set("Name", new NBTTagString("generic.maxHealth"));
-        attr.set("Amount", new NBTTagInt(2));
-        attr.set("Operation", new NBTTagInt(0));
-        attr.set("UUIDLeast", new NBTTagInt(slot));
-        attr.set("UUIDMost", new NBTTagInt(count));
-        attr.set("Slot", new NBTTagString(region));
-        return attr;
-    }
-
-    private NBTTagCompound AttackDamage(String region, int slot, int count) {//AttackDamageを返す
-        NBTTagCompound attr = new NBTTagCompound();
-        attr.set("AttributeName", new NBTTagString("generic.attackDamage"));
-        attr.set("Name", new NBTTagString("generic.attackDamage"));
-        attr.set("Amount", new NBTTagInt(1));
-        attr.set("Operation", new NBTTagInt(0));
-        attr.set("UUIDLeast", new NBTTagInt(slot));
-        attr.set("UUIDMost", new NBTTagInt(count));
-        attr.set("Slot", new NBTTagString(region));
-        return attr;
-    }
-
-    private NBTTagCompound knockbackResistance(String region, int slot, int count) {//KnockBackResistanceを返す
-        NBTTagCompound attr = new NBTTagCompound();
-        attr.set("AttributeName", new NBTTagString("generic.knockbackResistance"));
-        attr.set("Name", new NBTTagString("generic.knockbackResistance"));
-        attr.set("Amount", new NBTTagDouble(0.1));
-        attr.set("Operation", new NBTTagInt(0));
-        attr.set("UUIDLeast", new NBTTagInt(slot));
-        attr.set("UUIDMost", new NBTTagInt(count));
-        attr.set("Slot", new NBTTagString(region));
-        return attr;
-    }
-
-    private NBTTagCompound movementSpeed(String region, int slot, int count) {//MovementSpeedを返す
-        NBTTagCompound attr = new NBTTagCompound();
-        attr.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        attr.set("Name", new NBTTagString("generic.movementSpeed"));
-        attr.set("Amount", new NBTTagDouble(0.1));
-        attr.set("Operation", new NBTTagInt(1));
-        attr.set("UUIDLeast", new NBTTagInt(slot));
-        attr.set("UUIDMost", new NBTTagInt(count));
-        attr.set("Slot", new NBTTagString(region));
-        return attr;
-    }
-
-    private NBTTagCompound armor(String region, int amount, int slot, int count) {//Armorを返す
-        NBTTagCompound attr = new NBTTagCompound();
-        attr.set("AttributeName", new NBTTagString("generic.armor"));
-        attr.set("Name", new NBTTagString("generic.armor"));
-        attr.set("Amount", new NBTTagInt(amount));
-        attr.set("Operation", new NBTTagInt(0));
-        attr.set("UUIDLeast", new NBTTagInt(slot));
-        attr.set("UUIDMost", new NBTTagInt(count));
-        attr.set("Slot", new NBTTagString(region));
-        return attr;
-    }
-
-    private NBTTagCompound armorToughness(String region, int amount, int slot, int count) {//ArmorToughnessを返す
-        NBTTagCompound attr = new NBTTagCompound();
-        attr.set("AttributeName", new NBTTagString("generic.armorToughness"));
-        attr.set("Name", new NBTTagString("generic.armorToughness"));
-        attr.set("Amount", new NBTTagDouble(amount));
-        attr.set("Operation", new NBTTagInt(0));
+        attr.set("AttributeName", new NBTTagString(attributeName));
+        attr.set("Name", new NBTTagString(attributeName));
+        if (amount < 1) {
+            attr.set("Amount", new NBTTagDouble(amount));
+        } else {
+            attr.set("Amount", new NBTTagInt(amount.intValue()));
+        }
+        attr.set("Operation", new NBTTagInt(operation));
         attr.set("UUIDLeast", new NBTTagInt(slot));
         attr.set("UUIDMost", new NBTTagInt(count));
         attr.set("Slot", new NBTTagString(region));
@@ -224,13 +170,13 @@ public class Listener_Daunii_1_13 implements Listener {
     private Inventory setItem(int point) {//インベントリを作成
         Inventory GUI = Bukkit.createInventory(null, 9, GUIName);
 
-        String lore_otheritem[] = {ChatColor.GRAY + "真ん中にアイテムを置いてね!!"};
+        String[] lore_otheritem = {ChatColor.GRAY + "中央にアイテムを置いてね!!"};
         ItemStack otheritem = Item.customItem(ChatColor.GRAY + "外枠", 1, Material.LIGHT_GRAY_STAINED_GLASS_PANE, (short) 8, lore_otheritem);
 
-        String lore_status[] = {ChatColor.GREEN + "" + ChatColor.BOLD + price + " TPoint" + ChatColor.RESET + "" + ChatColor.BLUE + "でダイヤ防具を強化できるよ!!"};
+        String[] lore_status = {ChatColor.GREEN + "" + ChatColor.BOLD + price + " TPoint" + ChatColor.RESET + "" + ChatColor.BLUE + "でダイヤ防具を強化できるよ!!"};
         ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, (short) 0, lore_status);
 
-        String lore_closeitem[] = {ChatColor.GRAY + "クリックすると閉じるよ!!"};
+        String[] lore_closeitem = {ChatColor.GRAY + "クリックすると閉じるよ!!"};
         ItemStack closeitem = Item.customItem(ChatColor.AQUA + "インベントリを閉じる", 1, Material.BARRIER, (short) 0, lore_closeitem);
 
         GUI.setItem(0, item_status);
@@ -274,7 +220,7 @@ public class Listener_Daunii_1_13 implements Listener {
         }
 
         ItemStack item = player.getInventory().getItemInMainHand();
-        if ((item != null) && (item.getType().equals(Material.IRON_INGOT))) {
+        if (item.getType().equals(Material.IRON_INGOT)) {
             return;
         }
         player.openInventory(setItem(Listener_TPoint.int_status(player)));
@@ -305,7 +251,7 @@ public class Listener_Daunii_1_13 implements Listener {
             return;
         }
 
-        if (!(event.getInventory().getName().equals(GUIName))) {
+        if (!(event.getView().getTitle().equals(GUIName))) {
             return;
         }
 
@@ -324,7 +270,7 @@ public class Listener_Daunii_1_13 implements Listener {
         if (!(inv.getSize() == 9)) {
             return;
         }
-        if (!(event.getInventory().getName().equals(GUIName))) {
+        if (!(event.getView().getTitle().equals(GUIName))) {
             return;
         }
         Player player = (Player) event.getPlayer();
@@ -357,13 +303,13 @@ public class Listener_Daunii_1_13 implements Listener {
     @EventHandler
     public void removedaunii(PlayerInteractAtEntityEvent event) {//もし鉄インゴットで右クリックしたら
         Entity entity = event.getRightClicked();
-        if (!(event.getRightClicked().getType().equals(EntityType.IRON_GOLEM)) || !(entity.getCustomName().equals(DauniiName)) || entity.getCustomName() == null) {
+        if (!(event.getRightClicked().getType().equals(EntityType.IRON_GOLEM)) || !(Objects.equals(entity.getCustomName(), DauniiName)) || entity.getCustomName() == null) {
             return;
         }
 
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
-        if ((item == null) || (!(item.getType().equals(Material.IRON_INGOT)))) {
+        if (!item.getType().equals(Material.IRON_INGOT)) {
             return;
         }
 
@@ -397,5 +343,4 @@ public class Listener_Daunii_1_13 implements Listener {
         }
         event.setCancelled(true);
     }
-
 }

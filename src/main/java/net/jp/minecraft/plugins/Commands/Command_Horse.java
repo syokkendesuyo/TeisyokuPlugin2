@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.Listener.Listener_Horse;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Item;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -84,11 +85,16 @@ public class Command_Horse implements CommandExecutor {
             return true;
         }
 
-        if (args[0].equals("?")) {
+        if (args[0].equals("!")) {
             String[] lore = {ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬のロック情報を確認できます"};
             ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護情報確認ツール", 1, Material.STICK, (short) 0, true, lore);
             player.getInventory().addItem(item);
             Msg.success(player, "馬保護情報確認ツールを交付しました");
+            return true;
+        }
+
+        if (args[0].equals("status") || args[0].equals("s")) {
+            Msg.info(player, "保護数" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + Listener_Horse.getLocks(player) + "/" + Listener_Horse.getMaxLocks());
             return true;
         }
         return true;
@@ -98,7 +104,8 @@ public class Command_Horse implements CommandExecutor {
         Msg.success(sender, commandLabel + " コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel + " +", "馬保護ツールを入手");
         Msg.commandFormat(sender, commandLabel + " -", "馬保護解除ツールを入手");
-        Msg.commandFormat(sender, commandLabel + " ?", "馬保護情報確認ツールを入手");
+        Msg.commandFormat(sender, commandLabel + " !", "馬保護情報確認ツールを入手");
+        Msg.commandFormat(sender, commandLabel + " status", "現在の保護数を確認");
         Msg.commandFormat(sender, commandLabel + " help", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }

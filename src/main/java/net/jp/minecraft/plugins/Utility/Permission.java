@@ -26,12 +26,16 @@ public enum Permission {
 
     HORSE("teisyoku.horse"),
     HORSE_ADMIN("teisyoku.horse.admin"),
+    HORSE_BYPASS_RIDE("teisyoku.horse.bypass.ride"),
+    HORSE_BYPASS_DAMAGE("teisyoku.horse.bypass.damage"),
 
     PLAYERS("teisyoku.players"),
 
     TRASH("teisyoku.trash"),
 
     PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),
+
+    VILLAGER_BYPASS_DAMAGE("teisyoku.villager.bypass.damage"),
 
     ;
 
@@ -51,5 +55,7 @@ public enum Permission {
      *
      * @return パーミッション
      */
-    public String toString() { return this.perm; }
+    public String toString() {
+        return this.perm;
+    }
 }

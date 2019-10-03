@@ -158,10 +158,16 @@ permissions:
         description: Teisyoku help command
         default: true
     teisyoku.horse:
-        description: Teisyoku horse command
+        description: Teisyoku horse function
         default: true
     teisyoku.horse.admin:
-        description: Teisyoku horse command
+        description: Teisyoku horse function
+        default: op
+    teisyoku.horse.bypass.ride:
+        description: Teisyoku horse function
+        default: op
+    teisyoku.horse.bypass.damage:
+        description: Teisyoku horse function
         default: op
     teisyoku.players:
         description: Teisyoku players command
@@ -172,3 +178,6 @@ permissions:
     teisyoku.portal.bypass.nether:
         description: Bypass nether portal
         default: false
+    teisyoku.villager.bypass.damage:
+        description: Teisyoku villager function
+        default: op

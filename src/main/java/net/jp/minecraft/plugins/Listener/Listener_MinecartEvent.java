@@ -33,8 +33,9 @@ import java.util.List;
  * TeisyokuPlugin2
  *
  * @author syokkendesuyo azuhata
+ * TODO: 重複部分をメソッド化
  */
-public class Listener_MineCartEvent implements Listener {
+public class Listener_MinecartEvent implements Listener {
 
     @EventHandler
     public void onVehicleDestroyEvent(VehicleDestroyEvent event) {
@@ -90,7 +91,7 @@ public class Listener_MineCartEvent implements Listener {
                     assert cartmeta != null;
                     cartmeta.setDisplayName(vehicle.getCustomName());
                     cart.setItemMeta(cartmeta);
-                    //MineCartの名前を保持する
+                    //Minecartの名前を保持する
                     player.getInventory().addItem(cart);
                     vehicle.remove();
                     return;
@@ -112,12 +113,11 @@ public class Listener_MineCartEvent implements Listener {
             //.getPassenger()が非推奨化のため対応
             //マインカートに複数のエンティティーが乗る可能性があります
             List<Entity> entities = minecart.getPassengers();
-            Player player = null;
+            Player player;
             for (Entity entity : entities) {
                 if (!(entity instanceof Player)) {
                     return;
                 }
-                //TODO:
                 player = (Player) entity;
 
                 Material material = minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getType();
@@ -156,16 +156,18 @@ public class Listener_MineCartEvent implements Listener {
      * トロッコの真下のブロックの種類によって速度が変化する<br />
      * アクティベーターレールは最高速度を通常Minecartに戻すことができる<br />
      */
-    @SuppressWarnings("deprecation")
     @EventHandler
-    public void changeMincartSpeed(VehicleMoveEvent event) {
+    public void changeMinecartSpeed(VehicleMoveEvent event) {
         if (!(event.getVehicle() instanceof Minecart)) {
             return;
         }
         Minecart cart = (Minecart) event.getVehicle();
-        if (!(cart.getPassenger() instanceof Player)) {
-            cart.setMaxSpeed(0.4);
-            return;
+
+        List<Entity> entities = cart.getPassengers();
+        for (Entity entity : entities) {
+            if (!(entity instanceof Player)) {
+                cart.setMaxSpeed(0.4);
+            }
         }
 
         if (cart.getLocation().getBlock().getType().equals(Material.ACTIVATOR_RAIL)) {
@@ -209,10 +211,6 @@ public class Listener_MineCartEvent implements Listener {
             }
             cart.setMaxSpeed(1.6);
         } else if (cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.CHISELED_STONE_BRICKS)) {
-            if (cart.getLocation().add(0, -1, 0).getBlock().getState().getRawData() != (byte) 3) {
-                cart.setMaxSpeed(0.4);
-                return;
-            }
             block = cart.getLocation().getBlock();
             if (((block.getType().equals(Material.POWERED_RAIL)) || (block.getType().equals(Material.DETECTOR_RAIL)) || (block.getType().equals(Material.RAIL)))) {
                 if (cart.getLocation().getBlock().getType().equals(Material.RAIL)) {

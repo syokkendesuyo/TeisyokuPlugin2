@@ -1,21 +1,22 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import net.jp.minecraft.plugins.Utility.Msg;
+import javax.annotation.Nonnull;
 
 public class Command_CartHelp implements CommandExecutor {
-    
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 
-        if(args.length != 0){
-            Msg.warning(sender,"引数が多すぎです");
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, String[] args) {
+
+        if (args.length != 0) {
+            Msg.warning(sender, "引数が多すぎです");
             return true;
         }
-        Msg.info(sender, ChatColor.AQUA + "---------------[MineCartHelp]---------------" + ChatColor.GRAY + "(開発:azuhata)", false);
+        Msg.info(sender, ChatColor.AQUA + "---------------[MinecartHelp]---------------" + ChatColor.GRAY + "(開発:azuhata)", false);
         Msg.info(sender, "線路の下のブロックによって速度を変更します", false);
         Msg.info(sender, "アクティベーターレール : 最高速度を通常Minecartの最高速度に再設定します", false);
         Msg.info(sender, "鉄ブロック 黒曜石 : 32m/s", false);

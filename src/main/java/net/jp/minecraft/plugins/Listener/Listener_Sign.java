@@ -21,12 +21,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_Sign implements Listener {
     //看板右クリックでゴミ箱を表示
@@ -38,6 +38,7 @@ public class Listener_Sign implements Listener {
         if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
             return;
         }
+        assert block != null;
         if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
             Sign sign = (Sign) block.getState();
 
@@ -54,18 +55,16 @@ public class Listener_Sign implements Listener {
             } else if (Search.searchKeyword(sign.getLines(), "[tpoint]") || Search.searchKeyword(sign.getLines(), "[point]")) {
                 TPointIndexGUI.index(player);
                 return;
-            } else if (sign.getLine(0).toLowerCase().indexOf("[warp]") != -1) {
-                if (sign.getLine(1) != null) {
-                    Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
-                } else {
-                    Bukkit.getServer().dispatchCommand(player, "warp");
-                }
+            } else if (sign.getLine(0).toLowerCase().contains("[warp]")) {
+                sign.getLine(1);
+                Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
                 return;
             } else if ((Search.searchKeyword(sign.getLines(), "[coffee]")) && (player.getInventory().getItemInMainHand().getType().equals(Material.POTION))) {
                 ItemStack item = player.getInventory().getItemInMainHand();
                 ItemMeta meta = item.getItemMeta();
+                assert meta != null;
                 meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Coffee");
-                meta.setLore(Arrays.asList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
+                meta.setLore(Collections.singletonList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
                 item.setItemMeta(meta);
                 Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
                 return;

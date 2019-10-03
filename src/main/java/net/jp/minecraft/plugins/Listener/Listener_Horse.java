@@ -9,6 +9,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * TeisyokuPlugin2
  *
  * @author syokkendesuyo azuhata
+ * TODO: コンフィグに接続する部分をAPIへ移動
  */
 public class Listener_Horse implements Listener {
 
@@ -59,7 +61,7 @@ public class Listener_Horse implements Listener {
             if (isRegister(entityUUID)) {
                 event.setCancelled(true);
                 Msg.info(player, "この馬は保護されています");
-                getStatus(player, entityUUID);
+                sendStatus(player, entityUUID);
             } else {
                 Msg.info(player, "この馬は保護されていません");
             }
@@ -88,34 +90,34 @@ public class Listener_Horse implements Listener {
 
             if (player.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
                 String displayName = Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta()).getDisplayName();
-                if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") || displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") || displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
+                if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") ||
+                        displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") ||
+                        displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
                     event.setCancelled(true);
                     return;
                 }
             }
 
-            int temp = isEqual(player, playerUUID, entityUUID);
-
-            if (temp == 3) {
-                Msg.success(player, "ロックされた馬に乗りました");
-                getStatus(player, entityUUID);
-                return;
-            } else if (temp == 4) {
-                Msg.info(player, "この馬はロックされていません");
-                return;
-            } else if (temp == 1 || player.isOp()) {
-                Msg.success(player, "ロックされた馬に乗りました");
-                getStatus(player, entityUUID);
-                return;
-            } else if (temp == 2) {
+            //登録情報が存在するか確認
+            if (!isRegister(entityUUID)) {
                 Msg.info(player, "登録情報の無い馬です");
                 return;
             }
 
-            //tempが0の場合不一致なのでキャンセル処理
+            //ロック情報を照会
+            if (checkLockStatus(playerUUID, entityUUID) ||
+                    player.hasPermission(Permission.HORSE_BYPASS_RIDE.toString()) ||
+                    player.hasPermission(Permission.HORSE_ADMIN.toString()) ||
+                    player.hasPermission(Permission.ADMIN.toString())) {
+                Msg.success(player, "ロックされた馬に乗りました");
+                sendStatus(player, entityUUID);
+                return;
+            }
+
+            //他者によるロック
             event.setCancelled(true);
             Msg.warning(player, "この馬はロックされています");
-            getStatus(player, entityUUID);
+            sendStatus(player, entityUUID);
         }
     }
 
@@ -141,14 +143,13 @@ public class Listener_Horse implements Listener {
      */
     private static void HorseRegister(Player player, UUID uuid) {
         if (isRegister(uuid)) {
-            Msg.warning(player, "この馬は既にロックされた馬です");
-            getStatus(player, uuid);
+            Msg.warning(player, "この馬は既にロックされています");
+            sendStatus(player, uuid);
             Msg.success(player, "現在のロック数：" + getLocks(player));
             return;
         }
 
-        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
-        int limits = plugin.TeisyokuConfig.getInt("horse.limits");
+        int limits = getMaxLocks();
 
         if (limits <= 0) {
             Msg.warning(player, "保護数の上限が0以下に設定されています");
@@ -187,12 +188,14 @@ public class Listener_Horse implements Listener {
      * @param entityUUID entityのUUID
      */
     private static void HorseRemove(Player player, UUID entityUUID) {
-        if (isEqual(player, player.getUniqueId(), entityUUID) == 2 || isEqual(player, player.getUniqueId(), entityUUID) == 4) {
-            Msg.warning(player, "この馬は保護されていません");
+        if (!isRegister(entityUUID)) {
+            Msg.info(player, "登録情報の無い馬です");
             return;
-        } else if (isEqual(player, player.getUniqueId(), entityUUID) == 0) {
+        }
+
+        if (!checkLockStatus(player.getUniqueId(), entityUUID)) {
             Msg.warning(player, "登録者以外馬のロックは解除できません");
-            getStatus(player, entityUUID);
+            sendStatus(player, entityUUID);
             return;
         }
 
@@ -285,50 +288,55 @@ public class Listener_Horse implements Listener {
     }*/
 
     /**
-     * エンティティデータを比較するメソッド<br />
-     * 0:不一致<br />
-     * 1:一致<br />
-     * 2:比較対象が無い<br />
-     * 3:権限あり(登録あり)<br />
-     * 4:権限あり(登録なし)<br />
+     * 登録情報があるか確認するメソッド
      *
-     * @param player     　プレイヤー
-     * @param playerUUID プレイヤーのUUID
-     * @param entityUUID EntityのUUID
-     * @return 状態
+     * @param entityUUID エンティティーのUUID
+     * @return 登録状態
      */
-    static int isEqual(Player player, UUID playerUUID, UUID entityUUID) {
-        //権限があり、馬の登録がある場合
-        if ((player.hasPermission(Permission.ADMIN.toString()) || player.isOp()) && isRegister(entityUUID)) {
-            return 3;
-        }
-        //権限があるが、馬の登録が無い場合
-        if ((player.hasPermission(Permission.ADMIN.toString()) || player.isOp()) && !isRegister(entityUUID)) {
-            return 4;
-        }
-        //一般プレイヤーで、UUIDが一致した場合
-        if (playerUUID.toString().equals(TeisyokuPlugin2.getInstance().HorseConfig.get(entityUUID + ".uuid"))) {
-            return 1;
-        } else {
-            //そもそも登録が無い場合
-            if (TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null) {
-                return 2;
-            }
-            //不一致
-            return 0;
-        }
-    }
-
-    static void getStatus(Player player, UUID entityUUID) {
-        Msg.info(player, "登録者名 : " + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".player"));
-        Msg.info(player, "登録日 : " + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".data"));
-    }
-
     private static boolean isRegister(UUID entityUUID) {
         return !(TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null);
     }
 
-    private static int getLocks(Player player) {
+    /**
+     * 指定したエンティティーの登録者であるかどうかを確認するメソッド
+     *
+     * @param player プレイヤー
+     * @param entity エンティティーのUUID
+     * @return 登録者であるかどうかの結果
+     */
+    private static boolean checkLockStatus(Player player, Entity entity) {
+        return checkLockStatus(player.getUniqueId(), entity.getUniqueId());
+    }
+
+    /**
+     * 指定したエンティティーの登録者であるかどうかを確認するメソッド
+     *
+     * @param playerUUID プレイヤーのUUID
+     * @param entityUUID エンティティーのUUID
+     * @return 登録者であるかどうかの結果
+     */
+    private static boolean checkLockStatus(UUID playerUUID, UUID entityUUID) {
+        return playerUUID.toString().equals(TeisyokuPlugin2.getInstance().HorseConfig.get(entityUUID + ".uuid"));
+    }
+
+    /**
+     * ステイタス情報をターゲットへ送信するメソッド
+     *
+     * @param player     プレイヤー
+     * @param entityUUID エンティティーのUUID
+     */
+    private static void sendStatus(Player player, UUID entityUUID) {
+        Msg.info(player, "登録者名" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".player"));
+        Msg.info(player, "登録日" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".data"));
+    }
+
+    /**
+     * ロック数を取得するメソッド
+     *
+     * @param player プレイヤー
+     * @return ロック数
+     */
+    public static int getLocks(Player player) {
         int cnt = 0;
         ConfigurationSection cs = TeisyokuPlugin2.getInstance().HorseConfig.getConfigurationSection("");
         assert cs != null;
@@ -339,5 +347,69 @@ public class Listener_Horse implements Listener {
             }
         }
         return cnt;
+    }
+
+    /**
+     * ロックの最大数を取得するメソッド
+     *
+     * @return ロック数
+     */
+    public static int getMaxLocks() {
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+        return plugin.TeisyokuConfig.getInt("horse.limits");
+    }
+
+    /**
+     * 馬に保護がされている場合にダメージを無効化するメソッド
+     *
+     * @param event イベント
+     */
+    @EventHandler
+    public void HorseDamage(EntityDamageByEntityEvent event) {
+        Entity damageEntity = event.getEntity();
+        Entity damager = event.getDamager();
+
+        //ダメージを与えたのがプレイヤー以外の場合処理を終了
+        if (!(damager instanceof Player)) {
+            return;
+        }
+
+        //ダメージャーをプレイヤーに指定
+        Player player = (Player) damager;
+
+        //エンティティーが馬以外の場合処理を終了
+        if (!(damageEntity instanceof Horse)) {
+            return;
+        }
+
+        //パーミッションを確認
+        if (player.hasPermission(Permission.HORSE_BYPASS_DAMAGE.toString()) ||
+                player.hasPermission(Permission.HORSE_ADMIN.toString()) ||
+                player.hasPermission(Permission.ADMIN.toString())) {
+            return;
+        }
+
+        //ツールではダメージが通らないように
+        if (!player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
+            try {
+                String displayName = Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta()).getDisplayName();
+                if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール") ||
+                        displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール") ||
+                        displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
+                    event.setCancelled(true);
+                    return;
+                }
+            } catch (Exception e) {
+                //謎のエラー回避
+            }
+        }
+
+        //ダメージャーとエンティティーが一致した場合、処理を終了
+        if (!checkLockStatus((Player) event.getDamager(), event.getEntity())) {
+            return;
+        }
+
+        Msg.warning(player, "この馬は他のプレイヤーがロックしています");
+        event.setCancelled(true);
     }
 }

@@ -39,12 +39,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     public File newConfig_last;
     public File newConfig_cart;
-    public File newConfig_tpoint;
-    public File newConfig_tpoint_settings;
     public File newConfig_horse;
     public FileConfiguration LastJoinPlayerConfig;
     public FileConfiguration CartConfig;
-    public FileConfiguration TPointConfig;
     public FileConfiguration TPointSettingsConfig;
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
@@ -189,17 +186,11 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
 
-        TPointConfig();
-        saveTPointConfig();
-
         CartConfig();
         saveCartConfig();
 
         HorseConfig();
         saveHorseConfig();
-
-        TPointSettingsConfig();
-        saveTPointSettingsConfig();
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
@@ -212,6 +203,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }, 0L, 54000L);
     }
 
+    // TODO: LastJoinPlayersData.ymlをPlayerDatabaseへ移行
     public void LastJoinPlayerConfig() {
         this.newConfig_last = new File(getDataFolder(), "LastJoinPlayersData.yml");
         this.LastJoinPlayerConfig = YamlConfiguration.loadConfiguration(this.newConfig_last);
@@ -230,52 +222,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         try {
             this.LastJoinPlayerConfig.load(this.newConfig_last);
             this.LastJoinPlayerConfig.save(this.newConfig_last);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void TPointSettingsConfig() {
-        this.newConfig_tpoint_settings = new File(getDataFolder(), "TPoint_Settings.yml");
-        this.TPointSettingsConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint_settings);
-        saveTPointSettingsConfig();
-    }
-
-    public void saveTPointSettingsConfig() {
-        try {
-            this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadTPointSettingsConfig() {
-        try {
-            this.TPointSettingsConfig.load(this.newConfig_tpoint_settings);
-            this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void TPointConfig() {
-        this.newConfig_tpoint = new File(getDataFolder(), "TPoint.yml");
-        this.TPointConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint);
-        saveTPointConfig();
-    }
-
-    public void saveTPointConfig() {
-        try {
-            this.TPointConfig.save(this.newConfig_tpoint);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadTPointConfig() {
-        try {
-            this.TPointConfig.load(this.newConfig_tpoint);
-            this.TPointConfig.save(this.newConfig_tpoint);
         } catch (Exception e) {
             e.printStackTrace();
         }

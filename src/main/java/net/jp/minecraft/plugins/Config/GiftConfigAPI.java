@@ -84,7 +84,9 @@ public class GiftConfigAPI {
         }
 
         //既に利用したプレイヤーとして登録する
-        config.getConfig().getStringList("gifts." + giftCode + ".players").add(player.getUniqueId().toString());
+        List<String> playersList = config.getConfig().getStringList("gifts." + giftCode + ".players");
+        playersList.add(player.getUniqueId().toString());
+        config.getConfig().set("gifts." + giftCode + ".players", playersList);
         config.saveConfig();
     }
 

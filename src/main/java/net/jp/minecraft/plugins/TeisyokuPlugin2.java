@@ -38,13 +38,11 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public CustomConfig configGift;
 
     public File newConfig_last;
-    public File newConfig_nick;
     public File newConfig_cart;
     public File newConfig_tpoint;
     public File newConfig_tpoint_settings;
     public File newConfig_horse;
     public FileConfiguration LastJoinPlayerConfig;
-    public FileConfiguration NickConfig;
     public FileConfiguration CartConfig;
     public FileConfiguration TPointConfig;
     public FileConfiguration TPointSettingsConfig;
@@ -191,9 +189,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
 
-        NickConfig();
-        saveNickConfig();
-
         TPointConfig();
         saveTPointConfig();
 
@@ -235,29 +230,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         try {
             this.LastJoinPlayerConfig.load(this.newConfig_last);
             this.LastJoinPlayerConfig.save(this.newConfig_last);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void NickConfig() {
-        this.newConfig_nick = new File(getDataFolder(), "NickData.yml");
-        this.NickConfig = YamlConfiguration.loadConfiguration(this.newConfig_nick);
-        saveNickConfig();
-    }
-
-    public void saveNickConfig() {
-        try {
-            this.NickConfig.save(this.newConfig_nick);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadNickConfig() {
-        try {
-            this.NickConfig.load(this.newConfig_nick);
-            this.NickConfig.save(this.newConfig_nick);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins;
 
 import net.jp.minecraft.plugins.API.API_Trash;
 import net.jp.minecraft.plugins.Commands.*;
+import net.jp.minecraft.plugins.Config.CustomConfig;
 import net.jp.minecraft.plugins.Config.SaveUUID;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
@@ -22,18 +23,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
-    public File newConfig_teisyoku;
+
+    /**
+     * Teisyoku.yml
+     */
+    public CustomConfig configTeisyoku;
+
+    /**
+     * Gift.yml
+     */
+    public CustomConfig configGift;
+
     public File newConfig_last;
     public File newConfig_nick;
     public File newConfig_cart;
     public File newConfig_tpoint;
     public File newConfig_tpoint_settings;
     public File newConfig_horse;
-    public FileConfiguration TeisyokuConfig;
     public FileConfiguration LastJoinPlayerConfig;
     public FileConfiguration NickConfig;
     public FileConfiguration CartConfig;
@@ -171,19 +180,13 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             Msg.warning(Bukkit.getConsoleSender(), version + "はサポート対象外のバージョンです");
         }
 
-        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
-            public void run() {
-                List<String> ad = TeisyokuConfig.getStringList("ad");
-                for (String s : ad) {
-                    Msg.info(Bukkit.getConsoleSender(), Color.convert(s), true);
-                }
-            }
-        }, 0L, 54000L);
+        // コンフィグを作成
+        // TODO: 全てのコンフィグに関する項目をCustomConfigに置き換える
+        configTeisyoku = new CustomConfig(this, "Teisyoku.yml");
+        configTeisyoku.saveDefaultConfig();
 
-
-        TeisyokuConfig();
-        saveTeisyokuConfig();
+        configGift = new CustomConfig(this, "Gift.yml");
+        configGift.saveDefaultConfig();
 
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
@@ -203,53 +206,15 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         TPointSettingsConfig();
         saveTPointSettingsConfig();
 
-
-        if (TeisyokuConfig.get("title") == null) {
-            TeisyokuConfig.set("title", "§bWelcome to My server");
-            saveTeisyokuConfig();
-        }
-        if (TeisyokuConfig.get("subtitle") == null) {
-            TeisyokuConfig.set("subtitle", "§aWebsite:http://example.com/");
-            saveTeisyokuConfig();
-        }
-        if (TeisyokuConfig.get("ad") == null) {
-            List<String> list = Arrays.asList("Welcome to My server", "GitHub : https://github.com/syokkendesuyo/TeisyokuPlugin2/", "Create by syokkendesuyo");
-            TeisyokuConfig.set("ad", list);
-            saveTeisyokuConfig();
-        }
-        if (TeisyokuConfig.get("joinMessage") == null) {
-            List<String> list = Arrays.asList("Welcome to My server", "TeisyokuPlugin2 is enabled! ", "Create by syokkendesuyo");
-            TeisyokuConfig.set("joinMessage", list);
-            saveTeisyokuConfig();
-        }
-        if (TeisyokuConfig.get("arrow_summon_wither") == null) {
-            List<String> list = Arrays.asList("world_the_end", "the_end");
-            TeisyokuConfig.set("arrow_summon_wither", list);
-            saveTeisyokuConfig();
-        }
-    }
-
-    public void TeisyokuConfig() {
-        this.newConfig_teisyoku = new File(getDataFolder(), "Teisyoku.yml");
-        this.TeisyokuConfig = YamlConfiguration.loadConfiguration(this.newConfig_teisyoku);
-        saveTeisyokuConfig();
-    }
-
-    public void saveTeisyokuConfig() {
-        try {
-            this.TeisyokuConfig.save(this.newConfig_teisyoku);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadTeisyokuConfig() {
-        try {
-            this.TeisyokuConfig.load(this.newConfig_teisyoku);
-            this.TeisyokuConfig.save(this.newConfig_teisyoku);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+            public void run() {
+                List<String> ad = configTeisyoku.getConfig().getStringList("ad");
+                for (String s : ad) {
+                    Msg.info(Bukkit.getConsoleSender(), Color.convert(s), true);
+                }
+            }
+        }, 0L, 54000L);
     }
 
     public void LastJoinPlayerConfig() {

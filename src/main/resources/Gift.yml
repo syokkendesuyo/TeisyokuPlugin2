@@ -1,0 +1,10 @@
+# ギフトコードに関する設定
+
+gifts:
+  test:
+    limit: 10
+    commands:
+      - give %player% minecraft:stick
+      - say ギフトを配布しました
+    players:
+      - playerUUID

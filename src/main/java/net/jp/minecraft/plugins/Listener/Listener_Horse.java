@@ -356,7 +356,7 @@ public class Listener_Horse implements Listener {
      */
     public static int getMaxLocks() {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
-        return plugin.TeisyokuConfig.getInt("horse.limits");
+        return plugin.configTeisyoku.getConfig().getInt("horse.limits");
     }
 
     /**

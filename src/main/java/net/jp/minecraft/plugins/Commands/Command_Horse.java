@@ -26,7 +26,7 @@ public class Command_Horse implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.horse")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.horse")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

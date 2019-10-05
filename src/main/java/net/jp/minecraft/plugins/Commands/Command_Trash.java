@@ -22,7 +22,7 @@ public class Command_Trash implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.trash")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.trash")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

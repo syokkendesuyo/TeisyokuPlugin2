@@ -20,7 +20,7 @@ public class Command_Help implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.help")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.help")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

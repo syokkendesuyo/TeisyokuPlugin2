@@ -1,0 +1,50 @@
+# Tabリストのタイトル
+title: '§bWelcome to My server'
+
+# Tabリストのサブタイトル
+subtitle: '§aWebsite:http://example.com/'
+
+# 定期的に配信される広告
+ad:
+  - 'Welcome to My server'
+  - 'Github : https://github.com/syokkendesuyo/TeisyokuPlugin2/'
+  - 'Created by syokkendesuyo'
+
+# ログイン時のメッセージ
+joinMessage:
+  - 'Welcome to My server'
+  - 'TeisyokuPlugin2 is enabled!'
+  - 'Created by syokkendesuyo'
+
+# ウィザーがスポーンできるワールドを指定
+arrow_summon_wither:
+  - 'world_the_end'
+  - 'the_end'
+
+# コマンドの有効化
+commands:
+  ad: true
+  gift: true
+
+# 機能の有効化
+functions:
+  ad: true
+  call: true
+  cart: true
+  color: true
+  daunii: true
+  fly: true
+  gift: true
+  help: true
+  horse: true
+  trash: true
+  portal:
+    nether: false
+
+# 馬の保護機能
+horse:
+  limits: 3
+
+# デバッグ
+debug:
+  SpawnFixed: false

@@ -46,7 +46,7 @@ public class Listener_MobGrief implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void witherGrief(EntitySpawnEvent event) {
         if (event.getEntityType() == EntityType.WITHER) {
-            List<String> worlds = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("arrow_summon_wither");
+            List<String> worlds = TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().getStringList("arrow_summon_wither");
             for (String s : worlds) {
                 if (Objects.requireNonNull(event.getLocation().getWorld()).getName().equals(s)) {
                     event.setCancelled(false);

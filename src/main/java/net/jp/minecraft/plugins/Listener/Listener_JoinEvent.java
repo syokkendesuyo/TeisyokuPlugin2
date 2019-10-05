@@ -31,20 +31,20 @@ public class Listener_JoinEvent implements Listener {
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームに参加しました", true);
 
         //飛行モードを継続
-        if (!plugin.TeisyokuConfig.getBoolean("functions.fly") && API_PlayerDatabase.getBoolean(player, "fly") && API_Flag.get(player, "fly_save_state")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.fly") && API_PlayerDatabase.getBoolean(player, "fly") && API_Flag.get(player, "fly_save_state")) {
             API_Fly.setFlying(player, true);
         } else {
             API_Fly.setFlying(player, false);
         }
 
-        List<String> ad = TeisyokuPlugin2.getInstance().TeisyokuConfig.getStringList("joinMessage");
+        List<String> ad = TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().getStringList("joinMessage");
         for (String s : ad) {
             Msg.info(player, Color.convert(s));
         }
-        if (TeisyokuPlugin2.getInstance().TeisyokuConfig.getString("debug.SpawnFixed") == null) {
-            TeisyokuPlugin2.getInstance().TeisyokuConfig.set("debug.SpawnFixed", false);
+        if (TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().getString("debug.SpawnFixed") == null) {
+            TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().set("debug.SpawnFixed", false);
         }
-        if (TeisyokuPlugin2.getInstance().TeisyokuConfig.getBoolean("debug.SpawnFixed")) {
+        if (TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().getBoolean("debug.SpawnFixed")) {
             player.teleport(new Location(Bukkit.getWorld("world"), 0, 72, 0));
         }
     }

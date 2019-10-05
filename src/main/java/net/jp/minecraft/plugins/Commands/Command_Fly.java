@@ -25,7 +25,7 @@ public class Command_Fly implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.fly")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.fly")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

@@ -23,7 +23,7 @@ public class Command_Daunii implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.daunii")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.daunii")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

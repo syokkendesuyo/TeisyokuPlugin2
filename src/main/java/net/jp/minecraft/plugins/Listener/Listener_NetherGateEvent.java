@@ -30,7 +30,7 @@ public class Listener_NetherGateEvent implements Listener {
             }
 
             //ネザーポータルが有効化されているかどうか検出
-            if (!plugin.TeisyokuConfig.getBoolean("functions.portal.nether")) {
+            if (!plugin.configTeisyoku.getConfig().getBoolean("functions.portal.nether")) {
                 event.setCancelled(true);
                 //TODO: メッセージを非表示にできるフラグを追加
                 Msg.warning(player, "当サーバではネザーポータルをご利用頂けません");

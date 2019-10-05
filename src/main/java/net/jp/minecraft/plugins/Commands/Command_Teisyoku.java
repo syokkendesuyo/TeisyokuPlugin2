@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Config.GiftConfigAPI;
-import net.jp.minecraft.plugins.Messages;
 import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
@@ -48,7 +47,9 @@ public class Command_Teisyoku implements CommandExecutor {
                 Msg.warning(sender, "パーミッションがありません");
                 return true;
             }
-            TeisyokuPlugin2.getInstance().reloadTeisyokuConfig();
+            // TODO: CustomConfigに置き換える
+            TeisyokuPlugin2.getInstance().configTeisyoku.reloadConfig();
+            TeisyokuPlugin2.getInstance().configGift.reloadConfig();
             TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
             TeisyokuPlugin2.getInstance().reloadNickConfig();
             TeisyokuPlugin2.getInstance().reloadTPointConfig();

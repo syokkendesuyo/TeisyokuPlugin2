@@ -16,7 +16,7 @@ public class Listener_Tab implements Listener {
 
     @EventHandler
     public void join(PlayerJoinEvent event) {
-        Hook_BountifulAPI.sendTabTitle(event.getPlayer(), color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("title").toString()), color(TeisyokuPlugin2.getInstance().TeisyokuConfig.get("subtitle").toString()));
+        Hook_BountifulAPI.sendTabTitle(event.getPlayer(), color(TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().get("title").toString()), color(TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().get("subtitle").toString()));
     }
 
     @EventHandler

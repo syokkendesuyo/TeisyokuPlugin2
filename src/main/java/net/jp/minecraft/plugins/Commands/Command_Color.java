@@ -20,7 +20,7 @@ public class Command_Color implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.color")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.color")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

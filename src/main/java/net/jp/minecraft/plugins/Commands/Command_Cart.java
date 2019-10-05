@@ -25,7 +25,7 @@ public class Command_Cart implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.cart")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.cart")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

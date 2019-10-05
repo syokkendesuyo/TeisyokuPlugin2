@@ -28,7 +28,7 @@ public class Command_Ad implements CommandExecutor {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.TeisyokuConfig.getBoolean("functions.ad")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.ad")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }

@@ -39,6 +39,7 @@ functions:
   horse: true
   last: true
   nickname: true
+  players: true
   railways: true
   trash: true
   portal:

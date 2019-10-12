@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.API.API;
-import net.jp.minecraft.plugins.API.API_Nick;
+import net.jp.minecraft.plugins.API.API_Nickname;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -82,7 +82,7 @@ public class Command_Nickname implements CommandExecutor {
                 //オンラインかどうかの確認
                 Player player = API.getPlayer(args[2]);
                 if (player != null) {
-                    API_Nick.setNick(player, args[3]);
+                    API_Nickname.setNick(player, args[3]);
                     Msg.success(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + " さんのニックネームを " + ChatColor.AQUA + args[3] + ChatColor.RESET + " に設定しました");
                     Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームを " + ChatColor.AQUA + args[3] + ChatColor.RESET + " に設定されました");
                     return true;
@@ -103,7 +103,7 @@ public class Command_Nickname implements CommandExecutor {
                 //オンラインかどうかの確認
                 Player player = API.getPlayer(args[2]);
                 if (player != null) {
-                    API_Nick.removeNick(player);
+                    API_Nickname.removeNick(player);
                     Msg.success(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + "さんのニックネームを削除しました");
                     Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + "さんによってニックネームを削除されました");
                     return true;
@@ -124,6 +124,7 @@ public class Command_Nickname implements CommandExecutor {
                     Msg.warning(sender, ChatColor.YELLOW + args[3] + ChatColor.RESET + "さんはオンラインでない為操作できません");
                     return true;
                 }
+                //TODO: 全カラーに対応
                 if (args[2].equalsIgnoreCase("default")) {
                     Listener_TPoint.setDefault(player);
                     return true;
@@ -164,7 +165,7 @@ public class Command_Nickname implements CommandExecutor {
                     Msg.warning(sender, "ニックネームは10文字以下に設定してください");
                     return true;
                 } else {
-                    API_Nick.setNick(player, args[1]);
+                    API_Nickname.setNick(player, args[1]);
                     Msg.success(sender, "ニックネームを " + ChatColor.AQUA + args[1] + ChatColor.RESET + " に設定しました");
                     return true;
                 }
@@ -178,7 +179,7 @@ public class Command_Nickname implements CommandExecutor {
         //一般：remove
         if (args[0].equalsIgnoreCase("remove")) {
             if (args.length == 1) {
-                API_Nick.removeNick(player);
+                API_Nickname.removeNick(player);
                 Msg.success(sender, "ニックネームを削除しました");
                 return true;
             } else {

@@ -217,6 +217,7 @@ public class Listener_TPoint {
         }
     }
 
+    //TODO: PlayerDatabaseへ移行
     public static void setDefault(Player player) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);
@@ -225,6 +226,7 @@ public class Listener_TPoint {
         save();
     }
 
+    //TODO: PlayerDatabaseへ移行
     public static void setNickColor(Player player, ChatColor color) {
         cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
         config = YamlConfiguration.loadConfiguration(cfile);

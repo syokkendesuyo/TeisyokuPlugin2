@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.API.API_Nick;
+import net.jp.minecraft.plugins.API.API_Nickname;
 import net.jp.minecraft.plugins.API.API_PlayerDatabase;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -23,7 +23,7 @@ public class Listener_Chat implements Listener {
 
         Player player = event.getPlayer();
         try {
-            String NickName = API_Nick.getNick(player);
+            String NickName = API_Nickname.getNick(player);
             String sender = event.getPlayer().getName();
 
             if (NickName == null || NickName.equals("")) {

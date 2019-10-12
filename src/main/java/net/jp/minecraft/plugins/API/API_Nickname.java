@@ -1,7 +1,9 @@
 package net.jp.minecraft.plugins.API;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.PlayerFile;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -13,7 +15,7 @@ import java.io.File;
  *
  * @auther syokkendesuyo
  */
-public class API_Nick {
+public class API_Nickname {
 
     /**
      * ニックネームを取得するメソッド

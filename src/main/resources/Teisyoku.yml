@@ -7,7 +7,7 @@ subtitle: '§aWebsite:http://example.com/'
 # 定期的に配信される広告
 ad:
   - 'Welcome to My server'
-  - 'Github : https://github.com/syokkendesuyo/TeisyokuPlugin2/'
+  - 'GitHub : https://github.com/syokkendesuyo/TeisyokuPlugin2/'
   - 'Created by syokkendesuyo'
 
 # ログイン時のメッセージ

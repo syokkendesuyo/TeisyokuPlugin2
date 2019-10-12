@@ -42,6 +42,8 @@ public enum Permission {
 
     TABNAME("teisyoku.tabname"),
 
+    TPS("teisyoku.tps"),
+
     TRASH("teisyoku.trash"),
 
     PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),

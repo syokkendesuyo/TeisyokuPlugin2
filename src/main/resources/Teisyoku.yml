@@ -37,6 +37,7 @@ functions:
   gift: true
   help: true
   horse: true
+  last: true
   railways: true
   trash: true
   portal:

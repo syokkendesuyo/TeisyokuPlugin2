@@ -1,9 +1,9 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Messages;
-import net.jp.minecraft.plugins.Permissions;
+import net.jp.minecraft.plugins.API.API;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,61 +12,56 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import javax.annotation.Nonnull;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
+ * TODO: コマンド名が現在の利用趣旨と差異がある
  */
 public class Command_Last implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
 
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
-        /**
-         * コマンドの利用権限を確認
-         */
-
-        //パーミッションの確認(コマンド側)
-        if (!(sender.hasPermission(Permissions.getLastCommandPermisson()))) {
-            sender.sendMessage(Messages.getNoPermissionMessage(Permissions.getLastCommandPermisson()));
+        //コマンドが有効化されているかどうか検出
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.last")) {
+            Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }
-
-
-        /**
-         * 例外処理
-         */
 
         //引数が0だった場合
         if (args.length == 0) {
-            Msg.info(sender, "利用方法： /last <プレイヤー名>");
+            help(sender, commandLabel);
             return true;
         }
 
-        //引数が1より大きかった場合
-        else if (args.length > 1) {
-            Msg.warning(sender, "引数が多すぎです");
-            Msg.warning(sender, "利用方法：/last <プレイヤー名>");
+        //ヘルプ
+        if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
+            help(sender, commandLabel);
             return true;
         }
 
-
-        /**
-         * 引数が1つの場合の処理
-         */
-
-        //パーミッションの確認コマンド
-        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("permission")) {
-            Msg.noPermissionMessage(sender, Permissions.getLastCommandPermisson());
-            return true;
-        } else if (args[0].length() < 3 || args[0].length() > 16) {
-            Msg.warning(sender, "プレイヤー名は3から16文字で入力してください");
+        //パーミッションの確認コマンドを追加
+        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
+            Msg.checkPermission(sender,
+                    Permission.USER,
+                    Permission.LAST,
+                    Permission.ADMIN
+            );
             return true;
         }
 
-        //その他の場合プレイヤー名と判定
+        //プレイヤー名であるか確認
+        if (!API.isPlayerName(args[0])) {
+            Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "はプレイヤー名ではありません");
+            return true;
+        }
+
+        //引数1からUUIDを取得
         else {
             try {
                 UUID uuid = UUIDFetcher.getUUIDOf(args[0]);
@@ -79,7 +74,7 @@ public class Command_Last implements CommandExecutor {
                 OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
                 if (TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null) {
-                    Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "のデータはありませんでした");
+                    Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "のデータは見つかりませんでした");
                     return true;
                 }
                 String joinDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".JoinDate");
@@ -98,5 +93,18 @@ public class Command_Last implements CommandExecutor {
                 return true;
             }
         }
+    }
+
+    /**
+     * lastコマンドのヘルプ
+     *
+     * @param sender       送信者
+     * @param commandLabel コマンドラベル
+     */
+    private void help(CommandSender sender, String commandLabel) {
+        Msg.success(sender, "コマンドのヘルプ");
+        Msg.commandFormat(sender, commandLabel + " <プレイヤー名>", "プレイヤーの最終ログイン日時等を取得します");
+        Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
+        Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

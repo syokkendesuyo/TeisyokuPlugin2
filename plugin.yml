@@ -169,6 +169,9 @@ permissions:
     teisyoku.horse.bypass.damage:
         description: Teisyoku horse function
         default: op
+    teisyoku.last:
+        description: Teisyoku last command
+        default: true
     teisyoku.players:
         description: Teisyoku players command
         default: true

@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.regex.Pattern;
+
 import static java.lang.Math.pow;
 
 /**
@@ -16,7 +18,7 @@ import static java.lang.Math.pow;
 public class API {
 
     /**
-     * 指定した位置から一番近いプレイヤーを
+     * 指定した位置から一番近いプレイヤーを返却するメソッド
      * TODO: プレイヤーが０の場合の処理を追加
      *
      * @param loc ロケーション
@@ -47,5 +49,18 @@ public class API {
             }
         }
         return target;
+    }
+
+    /**
+     * プレイヤー名であるか確認するメソッド
+     *
+     * @param playerName プレイヤー名
+     * @return プレイヤー名かどうか
+     */
+    public static boolean isPlayerName(String playerName) {
+        if (playerName.length() < 3 || playerName.length() > 16) {
+            return false;
+        }
+        return Pattern.matches("^[0-9a-zA-Z]+$", playerName);
     }
 }

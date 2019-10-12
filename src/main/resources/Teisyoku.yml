@@ -43,6 +43,7 @@ functions:
   railways: true
   signedit: true
   tabname: true
+  tflag: true
   tps: true
   trash: true
   portal:

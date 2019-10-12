@@ -190,6 +190,9 @@ permissions:
     teisyoku.tabname:
         description: Teisyoku tabname command
         default: op
+    teisyoku.tflag:
+        description: Teisyoku tflag command
+        default: true
     teisyoku.tps:
         description: Teisyoku tps command
         default: true

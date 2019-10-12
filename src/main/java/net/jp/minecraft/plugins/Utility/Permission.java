@@ -42,6 +42,8 @@ public enum Permission {
 
     TABNAME("teisyoku.tabname"),
 
+    TFLAG("teisyoku.tflag"),
+
     TPS("teisyoku.tps"),
 
     TRASH("teisyoku.trash"),

@@ -41,6 +41,7 @@ functions:
   nickname: true
   players: true
   railways: true
+  signedit: true
   trash: true
   portal:
     nether: false

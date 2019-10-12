@@ -1,8 +1,10 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Listener.Listener_SignEdit;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,13 +12,51 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Command_SignEdit implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
+        //コマンドが有効化されているかどうか検出
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.signedit")) {
+            Msg.commandNotEnabled(sender, commandLabel);
+            return true;
+        }
+
+        //引数が0だった場合
+        if (args.length == 0) {
+            help(sender, commandLabel);
+            return true;
+        }
+
+        //ヘルプ
+        if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
+            help(sender, commandLabel);
+            return true;
+        }
+
+        //パーミッションの確認コマンドを追加
+        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
+            Msg.checkPermission(sender,
+                    Permission.USER,
+                    Permission.SIGNEDIT,
+                    Permission.ADMIN
+            );
+            return true;
+        }
+
+        //実行コマンドのパーミッションを確認
+        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.SIGNEDIT.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(sender, Permission.SIGNEDIT);
+            return true;
+        }
 
         if (!(sender instanceof Player)) {
             Msg.warning(sender, "プレイヤーのみ利用できるコマンドです");
@@ -46,8 +86,17 @@ public class Command_SignEdit implements CommandExecutor {
         return true;
     }
 
+    /**
+     * signコマンドのヘルプ
+     *
+     * @param sender       送信者
+     * @param commandLabel コマンドラベル
+     */
     private void help(CommandSender sender, String commandLabel) {
-        Msg.success(sender, "Sign コマンドのヘルプ");
+        Msg.success(sender, "コマンドのヘルプ");
+        Msg.commandFormat(sender, commandLabel, "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <更新する文字列> <行番号>", "指定した行の看板を更新します");
+        Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
+        Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

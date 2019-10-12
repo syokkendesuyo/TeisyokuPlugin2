@@ -184,6 +184,9 @@ permissions:
     teisyoku.railways:
         description: Teisyoku railways command
         default: true
+    teisyoku.signedit:
+        description: Teisyoku signedit command
+        default: true
     teisyoku.trash:
         description: Teisyoku trash command
         default: true

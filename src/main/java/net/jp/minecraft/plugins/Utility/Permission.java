@@ -38,6 +38,8 @@ public enum Permission {
 
     RAILWAYS("teisyoku.railways"),
 
+    SIGNEDIT("teisyoku.signedit"),
+
     TRASH("teisyoku.trash"),
 
     PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),

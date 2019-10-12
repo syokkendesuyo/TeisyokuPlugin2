@@ -61,11 +61,11 @@ commands:
         description: TPoint
         usage: /tpoint
     ri:
-        description: RailwayInfo
+        description: RailwaysInfo
         usage: /ri
-    railwayinfo:
-        description: RailwayInfo
-        usage: /railwayinfo
+    railwaysinfo:
+        description: RailwaysInfo
+        usage: /railwaysinfo
     tabname:
         description: tabname
         usage: /tabname
@@ -171,6 +171,9 @@ permissions:
         default: op
     teisyoku.players:
         description: Teisyoku players command
+        default: true
+    teisyoku.railways:
+        description: Teisyoku railways command
         default: true
     teisyoku.trash:
         description: Teisyoku trash command

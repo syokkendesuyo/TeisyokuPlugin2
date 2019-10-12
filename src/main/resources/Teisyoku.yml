@@ -37,6 +37,7 @@ functions:
   gift: true
   help: true
   horse: true
+  railways: true
   trash: true
   portal:
     nether: false

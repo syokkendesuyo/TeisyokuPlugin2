@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.API.API_Flag;
+import net.jp.minecraft.plugins.Config.CustomConfig;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -106,6 +107,11 @@ public class Listener_MinecartEvent implements Listener {
      */
     @EventHandler
     public void onPlayerVehicleMoveEvent(VehicleMoveEvent event) {
+
+        //Railways.ymlを取得
+        CustomConfig config = TeisyokuPlugin2.getInstance().configRailways;
+
+        //処理をマインカートによるものに限定
         if (event.getVehicle() instanceof Minecart) {
             if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
             Vehicle minecart = event.getVehicle();
@@ -125,18 +131,19 @@ public class Listener_MinecartEvent implements Listener {
                     return;
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();
-                if (sign.getLine(0).equalsIgnoreCase("[alert]") || sign.getLine(0).equalsIgnoreCase("[announce]") || sign.getLine(0).equalsIgnoreCase("[a]") || sign.getLine(0).equalsIgnoreCase("[ri]") || sign.getLine(0).equalsIgnoreCase("[railwayinfo]")) {
+                //TODO: [ri]などをconfigから変更できるようにする
+                if (sign.getLine(0).equalsIgnoreCase("[ri]") || sign.getLine(0).equalsIgnoreCase("[railwaysinfo]")) {
                     try {
                         if (sign.getLine(1).equalsIgnoreCase("")) {
                             Msg.warning(player, "看板2行目が空白になっています");
                             return;
                         }
 
-                        if (TeisyokuPlugin2.getInstance().CartConfig.get(sign.getLine(1)) == null) {
+                        if (config.getConfig().get(sign.getLine(1)) == null) {
                             Msg.warning(player, "登録名 " + ChatColor.YELLOW + sign.getLine(1) + ChatColor.RESET + " は登録されていません");
                         } else {
                             //正常処理
-                            String announce = TeisyokuPlugin2.getInstance().CartConfig.getString(sign.getLine(1) + ".string");
+                            String announce = config.getConfig().getString(sign.getLine(1) + ".string");
                             assert announce != null;
                             player.sendMessage(Color.convert(Replace.blank(announce)));
                         }

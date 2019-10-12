@@ -31,6 +31,8 @@ public enum Permission {
 
     PLAYERS("teisyoku.players"),
 
+    RAILWAYS("teisyoku.railways"),
+
     TRASH("teisyoku.trash"),
 
     PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),

@@ -37,11 +37,15 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
      */
     public CustomConfig configGift;
 
+    /**
+     * Railways.yml
+     */
+    public CustomConfig configRailways;
+
     public File newConfig_last;
-    public File newConfig_cart;
+    public File newConfig_tpoint_settings;
     public File newConfig_horse;
     public FileConfiguration LastJoinPlayerConfig;
-    public FileConfiguration CartConfig;
     public FileConfiguration TPointSettingsConfig;
     public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
@@ -117,7 +121,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("tpoint").setExecutor(new Command_TPoint());
 
         getCommand("ri").setExecutor(new Command_RailwayInfo());
-        getCommand("railwayinfo").setExecutor(new Command_RailwayInfo());
+        getCommand("railwaysinfo").setExecutor(new Command_RailwayInfo());
 
         getCommand("tabname").setExecutor(new Command_TabName());
 
@@ -183,14 +187,17 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         configGift = new CustomConfig(this, "Gift.yml");
         configGift.saveDefaultConfig();
 
+        configRailways = new CustomConfig(this, "Railways.yml");
+        configRailways.saveDefaultConfig();
+
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
 
-        CartConfig();
-        saveCartConfig();
-
         HorseConfig();
         saveHorseConfig();
+
+        TPointSettingsConfig();
+        saveTPointSettingsConfig();
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
@@ -227,24 +234,24 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         }
     }
 
-    public void CartConfig() {
-        this.newConfig_cart = new File(getDataFolder(), "Cart.yml");
-        this.CartConfig = YamlConfiguration.loadConfiguration(this.newConfig_cart);
-        saveCartConfig();
+    public void TPointSettingsConfig() {
+        this.newConfig_tpoint_settings = new File(getDataFolder(), "TPoint_Settings.yml");
+        this.TPointSettingsConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint_settings);
+        saveTPointSettingsConfig();
     }
 
-    public void saveCartConfig() {
+    public void saveTPointSettingsConfig() {
         try {
-            this.CartConfig.save(this.newConfig_cart);
+            this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void reloadCartConfig() {
+    public void reloadTPointSettingsConfig() {
         try {
-            this.CartConfig.load(this.newConfig_cart);
-            this.CartConfig.save(this.newConfig_cart);
+            this.TPointSettingsConfig.load(this.newConfig_tpoint_settings);
+            this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
         } catch (Exception e) {
             e.printStackTrace();
         }

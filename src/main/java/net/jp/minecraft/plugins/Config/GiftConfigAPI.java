@@ -58,7 +58,7 @@ public class GiftConfigAPI {
         //利用済かチェックする
         List<String> players = config.getConfig().getStringList("gifts." + giftCode + ".players");
         if (listMatch(players, player.getUniqueId().toString())) {
-            Msg.warning(player, "ギフトコード " + ChatColor.YELLOW + giftCode + ChatColor.RESET + " は既に利用されています");
+            Msg.warning(player, "ギフトコード " + ChatColor.YELLOW + giftCode + ChatColor.RESET + " は既に利用しています");
             return;
         }
 

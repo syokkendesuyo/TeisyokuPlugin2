@@ -55,6 +55,12 @@ public class Command_Last implements CommandExecutor {
             return true;
         }
 
+        //実行コマンドのパーミッションを確認
+        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.LAST.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(sender, Permission.LAST);
+            return true;
+        }
+
         //プレイヤー名であるか確認
         if (!API.isPlayerName(args[0])) {
             Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "はプレイヤー名ではありません");

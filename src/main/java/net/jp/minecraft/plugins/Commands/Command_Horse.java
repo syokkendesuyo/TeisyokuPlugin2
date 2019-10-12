@@ -106,7 +106,7 @@ public class Command_Horse implements CommandExecutor {
         Msg.commandFormat(sender, commandLabel + " -", "馬保護解除ツールを入手");
         Msg.commandFormat(sender, commandLabel + " !", "馬保護情報確認ツールを入手");
         Msg.commandFormat(sender, commandLabel + " status", "現在の保護数を確認");
-        Msg.commandFormat(sender, commandLabel + " help", "ヘルプを表示");
+        Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }
 }

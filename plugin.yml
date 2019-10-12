@@ -172,6 +172,12 @@ permissions:
     teisyoku.last:
         description: Teisyoku last command
         default: true
+    teisyoku.nickname:
+        description: Teisyoku nickname command
+        default: true
+    teisyoku.nickname.admin:
+        description: Teisyoku nickname command
+        default: false
     teisyoku.players:
         description: Teisyoku players command
         default: true

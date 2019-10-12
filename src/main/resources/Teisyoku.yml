@@ -38,6 +38,7 @@ functions:
   help: true
   horse: true
   last: true
+  nickname: true
   railways: true
   trash: true
   portal:

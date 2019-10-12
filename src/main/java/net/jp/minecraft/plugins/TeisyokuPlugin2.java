@@ -113,8 +113,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("cart").setExecutor(new Command_Cart());
         getCommand("minecart").setExecutor(new Command_Cart());
 
-        getCommand("nick").setExecutor(new Command_Nick());
-        getCommand("nickname").setExecutor(new Command_Nick());
+        getCommand("nick").setExecutor(new Command_Nickname());
+        getCommand("nickname").setExecutor(new Command_Nickname());
 
         getCommand("tt").setExecutor(new Command_TPoint());
         getCommand("point").setExecutor(new Command_TPoint());

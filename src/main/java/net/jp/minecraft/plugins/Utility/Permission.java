@@ -31,6 +31,9 @@ public enum Permission {
 
     LAST("teisyoku.last"),
 
+    NICKNAME("teisyoku.nickname"),
+    NICKNAME_ADMIN("teisyoku.nickname.admin"),
+
     PLAYERS("teisyoku.players"),
 
     RAILWAYS("teisyoku.railways"),

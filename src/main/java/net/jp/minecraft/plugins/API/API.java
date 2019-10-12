@@ -58,9 +58,26 @@ public class API {
      * @return プレイヤー名かどうか
      */
     public static boolean isPlayerName(String playerName) {
+        if (playerName == null) {
+            return false;
+        }
         if (playerName.length() < 3 || playerName.length() > 16) {
             return false;
         }
         return Pattern.matches("^[0-9a-zA-Z]+$", playerName);
+    }
+
+    /**
+     * プレイヤーを取得するメソッド<br />
+     * TODO: 確実にUUIDを取得できるようにする
+     *
+     * @param playerName 　プレイヤー名
+     * @return プレイヤーまたはnull
+     */
+    public static Player getPlayer(String playerName) {
+        if (!isPlayerName(playerName)) {
+            return null;
+        }
+        return Bukkit.getServer().getPlayer(playerName);
     }
 }

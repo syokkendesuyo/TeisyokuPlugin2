@@ -40,6 +40,8 @@ public enum Permission {
 
     SIGNEDIT("teisyoku.signedit"),
 
+    TABNAME("teisyoku.tabname"),
+
     TRASH("teisyoku.trash"),
 
     PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),

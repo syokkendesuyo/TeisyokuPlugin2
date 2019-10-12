@@ -177,7 +177,7 @@ permissions:
         default: true
     teisyoku.nickname.admin:
         description: Teisyoku nickname command
-        default: false
+        default: op
     teisyoku.players:
         description: Teisyoku players command
         default: true
@@ -187,6 +187,9 @@ permissions:
     teisyoku.signedit:
         description: Teisyoku signedit command
         default: true
+    teisyoku.tabname:
+        description: Teisyoku tabname command
+        default: op
     teisyoku.trash:
         description: Teisyoku trash command
         default: true

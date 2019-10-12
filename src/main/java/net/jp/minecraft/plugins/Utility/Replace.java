@@ -15,6 +15,6 @@ public class Replace {
      * @return 置換後
      */
     public static String blank(String string) {
-        return string.replace("%%", " ");
+        return string.replaceAll("%%", " ");
     }
 }

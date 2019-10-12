@@ -120,8 +120,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("point").setExecutor(new Command_TPoint());
         getCommand("tpoint").setExecutor(new Command_TPoint());
 
-        getCommand("ri").setExecutor(new Command_RailwayInfo());
-        getCommand("railwaysinfo").setExecutor(new Command_RailwayInfo());
+        getCommand("ri").setExecutor(new Command_RailwaysInfo());
+        getCommand("railwaysinfo").setExecutor(new Command_RailwaysInfo());
 
         getCommand("tabname").setExecutor(new Command_TabName());
 

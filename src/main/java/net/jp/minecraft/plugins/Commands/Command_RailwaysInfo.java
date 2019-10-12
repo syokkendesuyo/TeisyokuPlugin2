@@ -20,7 +20,7 @@ import java.util.Objects;
  * @author syokkendesuyo
  * TODO: configに接続する部分をAPI化
  */
-public class Command_RailwayInfo implements CommandExecutor {
+public class Command_RailwaysInfo implements CommandExecutor {
 
     /**
      * インスタンスへアクセスする変数

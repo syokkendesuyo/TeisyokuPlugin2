@@ -11,13 +11,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Command_Teisyoku implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
         if (!(sender.hasPermission(Permissions.getTeisyokuCommandPermisson()))) {
             Msg.noPermissionMessage(sender, Permissions.getTeisyokuUserPermisson());
             return true;
@@ -54,7 +56,7 @@ public class Command_Teisyoku implements CommandExecutor {
             TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
             TeisyokuPlugin2.getInstance().reloadHorseConfig();
             TeisyokuPlugin2.getInstance().reloadTPointSettingsConfig();
-            Msg.success(sender, "TeisyokuPlugin2のconfigをリロードしました。");
+            Msg.success(sender, "TeisyokuPlugin2のコンフィグをリロードしました。");
             return true;
         }
 

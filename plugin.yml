@@ -154,6 +154,9 @@ permissions:
     teisyoku.fly.others:
         description: Teisyoku fly command
         default: op
+    teisyoku.gift:
+        description: Teisyoku gift command
+        default: op
     teisyoku.help:
         description: Teisyoku help command
         default: true
@@ -190,6 +193,9 @@ permissions:
     teisyoku.tabname:
         description: Teisyoku tabname command
         default: op
+    teisyoku.menu:
+        description: Teisyoku menu function
+        default: true
     teisyoku.tflag:
         description: Teisyoku tflag command
         default: true

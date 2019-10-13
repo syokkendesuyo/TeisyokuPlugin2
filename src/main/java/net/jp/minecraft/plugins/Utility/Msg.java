@@ -205,29 +205,4 @@ public final class Msg {
         String string = p.getName() + ChatColor.GREEN + ": " + ChatColor.RESET + discription;
         Bukkit.broadcastMessage(string);
     }
-
-    /**
-     * ヘルプを表示
-     *
-     * @param sender 送信先
-     */
-    public static void sendTeisyokuHelp(CommandSender sender) {
-        success(sender, "TeisyokuPlugin2のヘルプ");
-        commandFormat(sender, "ad", "広告をサーバー全体に送信");
-        commandFormat(sender, "call", "プレイヤーサウンド付きで呼び出し");
-        commandFormat(sender, "cart", "マインカートをインベントリに追加");
-        commandFormat(sender, "color", "カラーコード表示");
-        commandFormat(sender, "fly", "飛行モード");
-        commandFormat(sender, "help", "ヘルプを開く");
-        commandFormat(sender, "horse", "馬の保護");
-        commandFormat(sender, "last", "最終ログイン日時等を表示");
-        commandFormat(sender, "nick", "ニックネームを設定");
-        commandFormat(sender, "players", "ログイン中のプレイヤーを表示");
-        commandFormat(sender, "ri", "RailwaysInfoに関するコマンド");
-        commandFormat(sender, "se", "看板編集コマンド");
-        commandFormat(sender, "t", "便利機能GUIを開く");
-        commandFormat(sender, "tflag", "個人設定コマンド");
-        commandFormat(sender, "tpoint", "TPointに関するコマンド");
-        commandFormat(sender, "trash", "ゴミ箱を開く");
-    }
 }

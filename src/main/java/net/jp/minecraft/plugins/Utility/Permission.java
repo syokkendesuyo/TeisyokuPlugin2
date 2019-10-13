@@ -22,6 +22,8 @@ public enum Permission {
     FLY_ME("teisyoku.fly.me"),
     FLY_OTHERS("teisyoku.fly.others"),
 
+    GIFT("teisyoku.gift"),
+
     HELP("teisyoku.help"),
 
     HORSE("teisyoku.horse"),
@@ -41,6 +43,8 @@ public enum Permission {
     SIGNEDIT("teisyoku.signedit"),
 
     TABNAME("teisyoku.tabname"),
+
+    TEISYOKU_MENU("teisyoku.menu"),
 
     TFLAG("teisyoku.tflag"),
 

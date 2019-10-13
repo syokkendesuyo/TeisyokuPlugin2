@@ -13,14 +13,14 @@ import java.io.File;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class API_Nickname {
 
     /**
      * ニックネームを取得するメソッド
      * @param player プレイヤー
-     * @return
+     * @return ニックネーム
      */
     public static String getNick(Player player){
         FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
@@ -31,7 +31,7 @@ public class API_Nickname {
      * ニックネームをセットするメソッド
      * @param player プレイヤー
      * @param nick ニックネーム
-     * @return
+     * @return 実行結果
      */
     public static Boolean setNick(Player player, String nick){
         try{
@@ -50,7 +50,7 @@ public class API_Nickname {
     /**
      * ニックネームをセットするメソッド
      * @param player プレイヤー
-     * @return
+     * @return 実行結果
      */
     public static Boolean removeNick(Player player){
         try{

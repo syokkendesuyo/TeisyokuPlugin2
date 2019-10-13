@@ -3,7 +3,7 @@ package net.jp.minecraft.plugins.Utility;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 
 
@@ -19,7 +19,7 @@ public class Search {
      */
     public static boolean searchKeyword(final String[] list, final String keyword) {
         for (String s : list) {
-            if (s.toLowerCase().indexOf(keyword) != -1) {
+            if (s.toLowerCase().contains(keyword)) {
                 return true;
             }
         }

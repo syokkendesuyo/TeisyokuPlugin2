@@ -66,7 +66,7 @@ public class Command_Ad implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (CoolDown.is(player)) {
-                if (!CoolDown.cooldown(player)) {
+                if (!CoolDown.coolDown(player)) {
                     return true;
                 }
             }

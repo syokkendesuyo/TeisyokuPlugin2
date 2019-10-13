@@ -23,7 +23,7 @@ import java.util.UUID;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class TPointBuyGUI implements Listener {
 

@@ -37,6 +37,7 @@ functions:
   gift: true
   help: true
   horse: true
+  horse_ticket: true
   last: true
   nickname: true
   players: true

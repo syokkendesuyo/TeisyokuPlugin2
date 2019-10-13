@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Hook_BountifulAPI {
 

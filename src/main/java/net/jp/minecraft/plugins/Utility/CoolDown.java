@@ -18,7 +18,7 @@ public class CoolDown {
     //HashMapを生成、＜プレイヤーのUUID,クールダウン終了の時刻を格納＞
     private static Map<UUID, Calendar> map = new HashMap<>(n * 4 / 3);
 
-    public static boolean cooldown(Player player) {
+    public static boolean coolDown(Player player) {
         //現在時刻を取得
         Date nowDate = new Date();
 

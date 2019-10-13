@@ -167,7 +167,7 @@ public final class Msg {
      * @param perms  パーミッション(権限)...
      */
     public static void checkPermission(final CommandSender sender, final Permission... perms) {
-        Msg.success(sender, "パーミッション状態 ");
+        Msg.info(sender, "パーミッション状態 ");
         for (Permission perm : perms) {
             ChatColor color = ChatColor.RED;
             String hasPerm = "無効";
@@ -175,20 +175,19 @@ public final class Msg {
                 color = ChatColor.GREEN;
                 hasPerm = "有効";
             }
-            Msg.info(sender, color + "・" + ChatColor.RESET + perm + ChatColor.DARK_GRAY + " (" + color + hasPerm + ChatColor.DARK_GRAY + ")");
+            sender.sendMessage(ChatColor.GRAY + "   > " + color + "・" + ChatColor.RESET + perm + ChatColor.DARK_GRAY + " (" + color + hasPerm + ChatColor.DARK_GRAY + ")");
         }
     }
 
     /**
      * コマンドヘルプのフォーマット
      *
-     * @param p           プレイヤー
+     * @param sender      プレイヤー
      * @param command     コマンド
      * @param discription 説明
      */
-    public static void commandFormat(final CommandSender p, final String command, final String discription) {
-        String string = ChatColor.GRAY + "   > " + ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY + "  : " + ChatColor.RESET + discription;
-        p.sendMessage(string);
+    public static void commandFormat(final CommandSender sender, final String command, final String discription) {
+        sender.sendMessage(ChatColor.GRAY + "   > " + ChatColor.YELLOW + "/" + command + ChatColor.DARK_GRAY + "  : " + ChatColor.RESET + discription);
     }
 
     /**

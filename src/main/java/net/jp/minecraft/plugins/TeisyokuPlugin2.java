@@ -86,14 +86,11 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         pm.registerEvents(new TPointIndexGUI(), this);
         pm.registerEvents(new TPointBuyGUI(), this);
-        //pm.registerEvents(new GUI_Anvil(), this);
 
         pm.registerEvents(new PlayerFile(), this);
 
         pm.registerEvents(new SaveUUID(), this);
 
-
-        getCommand("help").setExecutor(new Command_Help());
 
         getCommand("fly").setExecutor(new Command_Fly());
 

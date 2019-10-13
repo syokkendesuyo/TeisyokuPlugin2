@@ -7,16 +7,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.Objects;
+
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_Tab implements Listener {
 
     @EventHandler
     public void join(PlayerJoinEvent event) {
-        Hook_BountifulAPI.sendTabTitle(event.getPlayer(), color(TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().get("title").toString()), color(TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().get("subtitle").toString()));
+        Hook_BountifulAPI.sendTabTitle(event.getPlayer(), color(Objects.requireNonNull(TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().get("title")).toString()), color(TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().get("subtitle").toString()));
     }
 
     @EventHandler

@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 
-import static net.jp.minecraft.plugins.Utility.Msg.commandFormat;
 import static net.jp.minecraft.plugins.Utility.Msg.success;
 
 /**
@@ -29,13 +28,29 @@ public class Command_Teisyoku implements CommandExecutor {
             return true;
         }
 
+        //引数が0だった場合
         if (args.length == 0) {
-            teisyoku(sender);
+            if (sender instanceof Player) {
+                teisyoku(sender);
+                return true;
+            }
+            help(sender);
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("help")) {
+        //ヘルプ
+        if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
             help(sender);
+            return true;
+        }
+
+        //パーミッションの確認コマンドを追加
+        if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
+            Msg.checkPermission(sender,
+                    Permission.USER,
+                    Permission.ADMIN,
+                    Permission.GIFT
+            );
             return true;
         }
 
@@ -55,7 +70,7 @@ public class Command_Teisyoku implements CommandExecutor {
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
+        if (args[0].equalsIgnoreCase("v") || args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
             success(sender, ChatColor.GOLD + "TeisyokuPlugin2 Version" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + TeisyokuPlugin2.getInstance().getDescription().getVersion());
             return true;
         }
@@ -100,22 +115,22 @@ public class Command_Teisyoku implements CommandExecutor {
      * @param sender 送信先
      */
     private void help(CommandSender sender) {
-        success(sender, "TeisyokuPlugin2のヘルプ");
-        commandFormat(sender, "ad", "広告をサーバー全体に送信");
-        commandFormat(sender, "call", "プレイヤーサウンド付きで呼び出し");
-        commandFormat(sender, "cart", "マインカートをインベントリに追加");
-        commandFormat(sender, "color", "カラーコード表示");
-        commandFormat(sender, "fly", "飛行モード");
-        commandFormat(sender, "help", "ヘルプを開く");
-        commandFormat(sender, "horse", "馬の保護");
-        commandFormat(sender, "last", "最終ログイン日時等を表示");
-        commandFormat(sender, "nick", "ニックネームを設定");
-        commandFormat(sender, "players", "ログイン中のプレイヤーを表示");
-        commandFormat(sender, "ri", "RailwaysInfoに関するコマンド");
-        commandFormat(sender, "se", "看板編集コマンド");
-        commandFormat(sender, "t", "便利機能GUIを開く");
-        commandFormat(sender, "tflag", "個人設定コマンド");
-        commandFormat(sender, "tpoint", "TPointに関するコマンド");
-        commandFormat(sender, "trash", "ゴミ箱を開く");
+        Msg.success(sender, "TeisyokuPlugin2のヘルプ");
+        Msg.commandFormat(sender, "ad", "広告をサーバー全体に送信");
+        Msg.commandFormat(sender, "call", "プレイヤーサウンド付きで呼び出し");
+        Msg.commandFormat(sender, "cart", "マインカートをインベントリに追加");
+        Msg.commandFormat(sender, "color", "カラーコード表示");
+        Msg.commandFormat(sender, "fly", "飛行モード");
+        Msg.commandFormat(sender, "help", "ヘルプを開く");
+        Msg.commandFormat(sender, "horse", "馬の保護");
+        Msg.commandFormat(sender, "last", "最終ログイン日時等を表示");
+        Msg.commandFormat(sender, "nick", "ニックネームを設定");
+        Msg.commandFormat(sender, "players", "ログイン中のプレイヤーを表示");
+        Msg.commandFormat(sender, "ri", "RailwaysInfoに関するコマンド");
+        Msg.commandFormat(sender, "se", "看板編集コマンド");
+        Msg.commandFormat(sender, "t", "便利機能GUIを開く");
+        Msg.commandFormat(sender, "tflag", "個人設定コマンド");
+        Msg.commandFormat(sender, "tpoint", "TPointに関するコマンド");
+        Msg.commandFormat(sender, "trash", "ゴミ箱を開く");
     }
 }

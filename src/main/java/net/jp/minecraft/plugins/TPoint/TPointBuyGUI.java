@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -39,7 +40,7 @@ public class TPointBuyGUI implements Listener {
 
         //TPoint Status
         String[] lore_status = {};
-        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, (short) 0, lore_status);
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, lore_status);
 
         inv.setItem(0, item_status);
         int cnt = 9;
@@ -63,7 +64,8 @@ public class TPointBuyGUI implements Listener {
                 String[] lore_buy_for = {lore0, lore1, lore2};
                 String material = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getString("goods." + cnt + ".material");
                 int meta = TeisyokuPlugin2.getInstance().TPointSettingsConfig.getInt("goods." + cnt + ".meta");
-                ItemStack item_buy_for = Item.customItem(ItemName, 1, Material.getMaterial(material), (short) meta, lore_buy_for);
+                assert material != null;
+                ItemStack item_buy_for = Item.customItem(ItemName, 1, Material.getMaterial(material), lore_buy_for);
                 inv.setItem(cnt, item_buy_for);
             } catch (Exception e) {
                 Msg.warning(player, "不明なエラーが発生しました");
@@ -87,7 +89,7 @@ public class TPointBuyGUI implements Listener {
                 return;
             }
 
-            if (event.getCurrentItem().getType().equals(Material.AIR)) {
+            if (Objects.requireNonNull(event.getCurrentItem()).getType().equals(Material.AIR)) {
                 return;
             }
 

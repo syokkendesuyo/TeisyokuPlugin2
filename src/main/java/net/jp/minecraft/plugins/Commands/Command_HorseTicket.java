@@ -72,12 +72,12 @@ public class Command_HorseTicket implements CommandExecutor {
 
     private ItemStack Z_Ticket() {
         String lore[] = {ChatColor.GOLD + "スケルトンホースに", ChatColor.GOLD + "対して右クリックすると", ChatColor.GOLD + "ゾンビホースに変換します"};
-        return Item.customItem(TeisyokuPlugin2.getInstance().ZombieTicket, 1, Material.PAPER, (short) 0, lore);
+        return Item.customItem(TeisyokuPlugin2.getInstance().ZombieTicket, 1, Material.PAPER, lore);
     }
 
     private ItemStack S_Ticket() {
         String lore[] = {ChatColor.GOLD + "ゾンビホースに対して", ChatColor.GOLD + "右クリックすると", ChatColor.GOLD + "スケルトンホースに変換します"};
-        return Item.customItem(TeisyokuPlugin2.getInstance().SkeletonTicket, 1, Material.PAPER, (short) 0, lore);
+        return Item.customItem(TeisyokuPlugin2.getInstance().SkeletonTicket, 1, Material.PAPER, lore);
     }
 
 }

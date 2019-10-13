@@ -24,8 +24,6 @@ public enum Permission {
 
     GIFT("teisyoku.gift"),
 
-    HELP("teisyoku.help"),
-
     HORSE("teisyoku.horse"),
     HORSE_ADMIN("teisyoku.horse.admin"),
     HORSE_BYPASS_RIDE("teisyoku.horse.bypass.ride"),

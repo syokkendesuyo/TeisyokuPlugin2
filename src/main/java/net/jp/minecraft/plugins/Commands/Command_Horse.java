@@ -71,7 +71,7 @@ public class Command_Horse implements CommandExecutor {
 
         if (args[0].equals("+")) {
             String[] lore = {ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬をロックできます"};
-            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護ツール", 1, Material.STICK, (short) 0, true, lore);
+            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護ツール", 1, Material.STICK, true, lore);
             player.getInventory().addItem(item);
             Msg.success(player, "馬保護ツールを交付しました");
             return true;
@@ -79,7 +79,7 @@ public class Command_Horse implements CommandExecutor {
 
         if (args[0].equals("-")) {
             String[] lore = {ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬のロックを解除できます"};
-            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護解除ツール", 1, Material.STICK, (short) 0, true, lore);
+            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護解除ツール", 1, Material.STICK, true, lore);
             player.getInventory().addItem(item);
             Msg.success(player, "馬保護解除ツールを交付しました");
             return true;
@@ -87,7 +87,7 @@ public class Command_Horse implements CommandExecutor {
 
         if (args[0].equals("!")) {
             String[] lore = {ChatColor.YELLOW + "使い方:", ChatColor.WHITE + "馬に向かって右クリックすると", ChatColor.WHITE + "馬のロック情報を確認できます"};
-            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護情報確認ツール", 1, Material.STICK, (short) 0, true, lore);
+            ItemStack item = Item.customItem(ChatColor.GOLD + "馬保護情報確認ツール", 1, Material.STICK, true, lore);
             player.getInventory().addItem(item);
             Msg.success(player, "馬保護情報確認ツールを交付しました");
             return true;

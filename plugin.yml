@@ -27,9 +27,6 @@ commands:
     fly:
         description: Teisyoku Fly Command
         usage: /fly <Player> <true|false>
-    help:
-        description: Teisyoku Help Command
-        usage: /help
     teisyoku:
         description: teisyoku.
         usage: /teisyoku
@@ -157,9 +154,6 @@ permissions:
     teisyoku.gift:
         description: Teisyoku gift command
         default: op
-    teisyoku.help:
-        description: Teisyoku help command
-        default: true
     teisyoku.horse:
         description: Teisyoku horse function
         default: true

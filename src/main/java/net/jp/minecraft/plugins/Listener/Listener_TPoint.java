@@ -14,7 +14,7 @@ import java.io.File;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_TPoint {
 
@@ -100,11 +100,7 @@ public class Listener_TPoint {
         int point_before = playerData.getInt("tpoint");
         int point_after = point_before - point;
 
-        if (point_after < 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return point_after >= 0;
     }
 
     /**

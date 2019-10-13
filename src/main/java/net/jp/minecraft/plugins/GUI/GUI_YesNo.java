@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class GUI_YesNo implements Listener {
 
@@ -32,10 +32,10 @@ public class GUI_YesNo implements Listener {
         Inventory inv = Bukkit.createInventory(player, 9, inventoryName);
 
         String[] lore_yes = {ChatColor.WHITE + yes};
-        ItemStack item_yes = Item.customItem(ChatColor.GOLD + "はい", 1, Material.LIME_WOOL, (short) 0, lore_yes);
+        ItemStack item_yes = Item.customItem(ChatColor.GOLD + "はい", 1, Material.LIME_WOOL, lore_yes);
 
         String[] lore_no = {ChatColor.WHITE + no};
-        ItemStack item_no = Item.customItem(ChatColor.GOLD + "いいえ", 1, Material.RED_WOOL, (short) 0, lore_no);
+        ItemStack item_no = Item.customItem(ChatColor.GOLD + "いいえ", 1, Material.RED_WOOL, lore_no);
 
         inv.setItem(2, item_yes);
         inv.setItem(6, item_no);

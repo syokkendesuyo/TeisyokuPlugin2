@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * TeisyokuPlugin2
@@ -22,12 +23,11 @@ public class Item {
      * @param displayName 表示名(必須 String)
      * @param stack       スタック数(必須 int)
      * @param material    素材名(必須 Material)
-     * @param meta        メタ番号(必須 Short)
      * @param lore        詳細(任意 String ※配列)
      * @return アイテム
      */
-    public static ItemStack customItem(String displayName, Integer stack, Material material, Short meta, String... lore) {
-        return customItem(displayName, stack, material, meta, false, lore);
+    public static ItemStack customItem(String displayName, Integer stack, Material material, String... lore) {
+        return customItem(displayName, stack, material, false, lore);
     }
 
     /**
@@ -39,14 +39,14 @@ public class Item {
      * @param displayName 表示名(必須 String)
      * @param stack       スタック数(必須 int)
      * @param material    素材名(必須 Material)
-     * @param meta        メタ番号(必須 Short)
      * @param enchantment エンチャント(必須 Boolean)
      * @param lore        詳細(任意 String ※配列)
      * @return アイテム
      */
-    public static ItemStack customItem(String displayName, Integer stack, Material material, Short meta, Boolean enchantment, String... lore) {
-        ItemStack item = new ItemStack(material, stack, meta);
+    public static ItemStack customItem(String displayName, Integer stack, Material material, Boolean enchantment, String... lore) {
+        ItemStack item = new ItemStack(material, stack);
         ItemMeta itemmeta = item.getItemMeta();
+        assert itemmeta != null;
         itemmeta.setDisplayName(displayName);
         if (enchantment) {
             itemmeta.addEnchant(Enchantment.DURABILITY, 1, true);
@@ -56,7 +56,7 @@ public class Item {
             return item;
         }
         if (lore.length == 1) {
-            itemmeta.setLore(Arrays.asList(ChatColor.WHITE + lore[0]));
+            itemmeta.setLore(Collections.singletonList(ChatColor.WHITE + lore[0]));
             item.setItemMeta(itemmeta);
             return item;
         }

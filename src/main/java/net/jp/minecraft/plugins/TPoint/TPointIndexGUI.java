@@ -13,10 +13,12 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class TPointIndexGUI implements Listener {
 
@@ -28,11 +30,11 @@ public class TPointIndexGUI implements Listener {
 
         //TPoint Status
         String[] lore_status = {};
-        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, (short) 0, lore_status);
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, lore_status);
 
         //TPoint Buy
         String[] lore_buy = {"TPointを使ってお買い物をします"};
-        ItemStack item_buy = Item.customItem(ChatColor.BOLD + "購入", 1, Material.WRITABLE_BOOK, (short) 0, lore_buy);
+        ItemStack item_buy = Item.customItem(ChatColor.BOLD + "購入", 1, Material.WRITABLE_BOOK, lore_buy);
 
         Inventory inv = GUI.create(player, 3, inventoryName, item_status, item_buy);
 
@@ -52,12 +54,12 @@ public class TPointIndexGUI implements Listener {
                 return;
             }
 
-            if (event.getCurrentItem().getType().equals(Material.AIR)) {
+            if (Objects.requireNonNull(event.getCurrentItem()).getType().equals(Material.AIR)) {
                 return;
             }
 
             //Call Functions
-            String str = event.getCurrentItem().getItemMeta().getDisplayName();
+            String str = Objects.requireNonNull(event.getCurrentItem().getItemMeta()).getDisplayName();
             str = ChatColor.stripColor(str);
             if (str.equals("購入")) {
                 TPointBuyGUI.index(player);

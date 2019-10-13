@@ -8,23 +8,12 @@ import java.math.BigDecimal;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_TicksPerSecond_1_13 {
 
-    @SuppressWarnings("deprecation")
-    public static String getTpsString() {
-        StringBuilder sb = new StringBuilder(ChatColor.GOLD + "TPS from last 1m, 5m, 15m: ");
-        for (double tps : MinecraftServer.getServer().recentTps) {
-            sb.append(tps);
-            sb.append(", ");
-        }
-        return sb.substring(0, sb.length() - 2);
-    }
-
-    @SuppressWarnings("deprecation")
     public static double getTps(int num) {
-        double tps[] = MinecraftServer.getServer().recentTps;
+        double[] tps = MinecraftServer.getServer().recentTps;
         return tps[num - 1];
     }
 

@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.Msg;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -15,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
  * <p>
  * MOBスポナーにエッグを右クリックした時キャンセルする処理
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class Listener_SpawnEgg implements Listener {
     @EventHandler
@@ -45,6 +44,7 @@ public class Listener_SpawnEgg implements Listener {
         }
 
         //2.ターゲットがスポナー以外なら無視
+        assert block != null;
         if (!(block.getType().equals(Material.SPAWNER))) {
             return;
         }

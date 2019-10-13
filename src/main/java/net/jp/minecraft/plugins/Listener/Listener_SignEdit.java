@@ -1,8 +1,8 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.Permissions;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.Permission;
 import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -22,25 +22,27 @@ import java.util.UUID;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
+ * TODO: APIへ移行
  */
 public class Listener_SignEdit implements Listener {
 
     private static HashMap<UUID, String> editData = new HashMap<>();
     private static HashMap<UUID, Integer> lineData = new HashMap<>();
 
-    public static boolean saveData(Player player, String editString, int line) {
+    public static void saveData(Player player, String editString, int line) {
         editData.put(player.getUniqueId(), editString);
         lineData.put(player.getUniqueId(), line - 1);
-        return true;
     }
 
     public static void updateSign(Location loc, Player player) {
-        if (!Permissions.hasPermission(player, "teisyoku.sign")) {
-            Msg.noPermissionMessage(player, "teisyoku.sign");
+        //実行コマンドのパーミッションを確認
+        if (!(player.hasPermission(Permission.USER.toString()) || player.hasPermission(Permission.SIGNEDIT.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(player, Permission.SIGNEDIT);
             return;
         }
 
+        //TODO: ポイント使用数を変更できるようにする
         if (!(Listener_TPoint.canBuy(5, player))) {
             Msg.warning(player, "看板を更新するには5TPoint必要です");
             editData.remove(player.getUniqueId());
@@ -49,13 +51,14 @@ public class Listener_SignEdit implements Listener {
         }
         Listener_TPoint.subtractPoint(5, player, player);
         World w = loc.getWorld();
+        assert w != null;
         Block a = w.getBlockAt(loc);
         if (a.getType() == Material.SIGN || a.getType() == Material.WALL_SIGN) {
             Sign sign = (Sign) a.getState();
             sign.setLine(lineData.get(player.getUniqueId()), Replace.blank(Color.convert(editData.get(player.getUniqueId()))));
             sign.update(true);
         }
-        Msg.success(player, "看板を更新しました。 " + Replace.blank(Color.convert(editData.get(player.getUniqueId()))) + ChatColor.GRAY + " @ " + ChatColor.RESET + (lineData.get(player.getUniqueId())+1));
+        Msg.success(player, "看板を更新しました。 " + Replace.blank(Color.convert(editData.get(player.getUniqueId()))) + ChatColor.GRAY + " @ " + ChatColor.RESET + (lineData.get(player.getUniqueId()) + 1));
         editData.remove(player.getUniqueId());
         lineData.remove(player.getUniqueId());
     }
@@ -75,6 +78,7 @@ public class Listener_SignEdit implements Listener {
         if (!(Listener_SignEdit.hasData(player))) {
             return;
         }
+        assert block != null;
         if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
             Location loc = block.getLocation();
             updateSign(loc, event.getPlayer());

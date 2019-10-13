@@ -73,8 +73,8 @@ public class Command_TPS implements CommandExecutor {
         String ds2 = doubleToString(d2);
         String ds3 = doubleToString(d3);
 
-        Msg.success(sender, ChatColor.GOLD + "現在のラグ状況" + ChatColor.DARK_GRAY + " ： " + statusColor(d1) + ds1 + ChatColor.RESET + "% , " + statusColor(d2) + ds2 + ChatColor.RESET + "% , " + statusColor(d3) + ds3 + ChatColor.RESET + "%");
-        Msg.success(sender, ChatColor.GOLD + "診断結果" + ChatColor.DARK_GRAY + " ： " + status(dAll));
+        Msg.success(sender, ChatColor.GOLD + "現在のラグ状況" + ChatColor.DARK_GRAY + ": " + statusColor(d1) + ds1 + ChatColor.RESET + "% , " + statusColor(d2) + ds2 + ChatColor.RESET + "% , " + statusColor(d3) + ds3 + ChatColor.RESET + "%");
+        Msg.success(sender, ChatColor.GOLD + "診断結果" + ChatColor.DARK_GRAY + ": " + status(dAll));
         Msg.success(sender, "近況1分、3分、5分のデータで、/tps のデータを元に算出");
     }
 

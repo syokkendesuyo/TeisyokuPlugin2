@@ -80,4 +80,19 @@ public class API {
         }
         return Bukkit.getServer().getPlayer(playerName);
     }
+
+    /**
+     * 渡された文字列が数字であるか確認する
+     *
+     * @param num 文字列
+     * @return boolean
+     */
+    public static boolean isNumber(String num) {
+        try {
+            Integer.parseInt(num);
+            return true;
+        } catch (NumberFormatException event) {
+            return false;
+        }
+    }
 }

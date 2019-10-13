@@ -44,6 +44,9 @@ public enum Permission {
 
     TFLAG("teisyoku.tflag"),
 
+    TPOINT("teisyoku.tpoint"),
+    TPOINT_ADMIN("teisyoku.tpoint.admin"),
+
     TPS("teisyoku.tps"),
 
     TRASH("teisyoku.trash"),

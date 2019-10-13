@@ -44,6 +44,7 @@ functions:
   signedit: true
   tabname: true
   tflag: true
+  tpoint: true
   tps: true
   trash: true
   portal:

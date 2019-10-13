@@ -193,6 +193,12 @@ permissions:
     teisyoku.tflag:
         description: Teisyoku tflag command
         default: true
+    teisyoku.tpoint:
+        description: Teisyoku tpoint function
+        default: true
+    teisyoku.tpoint.admin:
+        description: Teisyoku tpoint function
+        default: op
     teisyoku.tps:
         description: Teisyoku tps command
         default: true

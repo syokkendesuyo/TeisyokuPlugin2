@@ -13,7 +13,12 @@ import org.bukkit.entity.Player;
  */
 public final class Msg {
 
-    //基本のPrefix
+    /**
+     * TeisyokuPlugin2の基本prefix
+     *
+     * @param color 　色
+     * @return prefix
+     */
     private static String prefix(ChatColor color) {
         return ChatColor.DARK_GRAY + "[" + color + ChatColor.BOLD + "Teisyoku" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + ">>" + " ";
     }

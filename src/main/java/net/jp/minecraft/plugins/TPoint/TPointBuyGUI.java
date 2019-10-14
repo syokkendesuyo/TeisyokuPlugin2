@@ -25,6 +25,7 @@ import java.util.UUID;
  * TeisyokuPlugin2
  *
  * @author syokkendesuyo
+ * TODO: リファクタリング
  */
 public class TPointBuyGUI implements Listener {
 
@@ -101,6 +102,12 @@ public class TPointBuyGUI implements Listener {
                 return;
             }
 
+            int point = plugin.configTPoint.getConfig().getInt("goods." + event.getRawSlot() + ".point");
+            if (!Listener_TPoint.canBuy(point, player)) {
+                Msg.warning(player, "TPointが不足しています");
+                return;
+            }
+
             String ItemName = ChatColor.stripColor(Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + event.getRawSlot() + ".name"))));
             GUI_YesNo.openGUI(player, "購入", "キャンセル", ItemName);
             Teisyoku_TPointGUI.put(player.getUniqueId(), event.getRawSlot());
@@ -123,7 +130,7 @@ public class TPointBuyGUI implements Listener {
                 //購入をキャンセルするかどうか
                 int point = plugin.configTPoint.getConfig().getInt("goods." + goods_number + ".point");
                 if (!Listener_TPoint.canBuy(point, player)) {
-                    Msg.warning(player, "購入がキャンセルされました");
+                    Msg.warning(player, "TPointが不足しています");
                     return;
                 }
                 Listener_TPoint.subtractPoint(point, player, Bukkit.getConsoleSender());

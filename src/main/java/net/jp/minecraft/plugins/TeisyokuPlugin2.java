@@ -28,9 +28,24 @@ import java.util.List;
 public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
     /**
+     * インスタンス
+     */
+    private static TeisyokuPlugin2 instance;
+
+    /**
+     * サポートバージョン
+     */
+    private String supportVersion = "1.13.2-R0.1-SNAPSHOT";
+
+    /**
      * Teisyoku.yml
      */
     public CustomConfig configTeisyoku;
+
+    /**
+     * TPoint.yml
+     */
+    public CustomConfig configTPoint;
 
     /**
      * Gift.yml
@@ -48,12 +63,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public CustomConfig configRailways;
 
     public File newConfig_last;
-    public File newConfig_tpoint_settings;
     public FileConfiguration LastJoinPlayerConfig;
-    public FileConfiguration TPointSettingsConfig;
-    private static TeisyokuPlugin2 instance;
-
-    private String supportVersion = "1.13.2-R0.1-SNAPSHOT";
 
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
@@ -184,6 +194,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         configTeisyoku = new CustomConfig(this, "Teisyoku.yml");
         configTeisyoku.saveDefaultConfig();
 
+        configTPoint = new CustomConfig(this, "TPoint.yml");
+        configTPoint.saveDefaultConfig();
+
         configGift = new CustomConfig(this, "Gift.yml");
         configGift.saveDefaultConfig();
 
@@ -195,9 +208,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
-
-        TPointSettingsConfig();
-        saveTPointSettingsConfig();
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
@@ -229,29 +239,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         try {
             this.LastJoinPlayerConfig.load(this.newConfig_last);
             this.LastJoinPlayerConfig.save(this.newConfig_last);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void TPointSettingsConfig() {
-        this.newConfig_tpoint_settings = new File(getDataFolder(), "TPoint_Settings.yml");
-        this.TPointSettingsConfig = YamlConfiguration.loadConfiguration(this.newConfig_tpoint_settings);
-        saveTPointSettingsConfig();
-    }
-
-    public void saveTPointSettingsConfig() {
-        try {
-            this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadTPointSettingsConfig() {
-        try {
-            this.TPointSettingsConfig.load(this.newConfig_tpoint_settings);
-            this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,0 +1,17 @@
+#TPointに関する設定
+
+#TPoint購入画面
+#文字列にはカラーコードが使用できます
+#messages,commandsには%player%が利用できます
+goods:
+  9:
+    name: "&6ただの棒 ×8本"
+    lore1: "棒を購入できる"
+    lore2: "燃料にもなるよ！"
+    lore3: "購入コスト&8:&b 100 TPoint"
+    material: "STICK"
+    messages:
+      - "ご購入ありがとうございます！"
+    point: 100
+    commands:
+      - "give %player% minecraft:stick 8"

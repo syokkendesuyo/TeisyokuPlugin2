@@ -28,6 +28,11 @@ import java.util.UUID;
 public class Listener_Horse implements Listener {
 
     /**
+     * インスタンスへアクセスする変数
+     */
+    private TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
+    /**
      * 馬をクリックしたときのイベント
      *
      * @param event イベント
@@ -75,7 +80,7 @@ public class Listener_Horse implements Listener {
      * @param event イベント
      */
     @EventHandler
-    public static void HorseRide(VehicleEnterEvent event) {
+    public void HorseRide(VehicleEnterEvent event) {
         if ((event.getVehicle() instanceof Horse) || (event.getVehicle() instanceof SkeletonHorse) || (event.getVehicle() instanceof ZombieHorse)) {
             //馬に乗る際、プレイヤー以外だった場合は無視する
             //例:スケルトンホースが自然にスポーンする際にスケルトンが乗る場合、エラーを吐いてしまう
@@ -127,7 +132,7 @@ public class Listener_Horse implements Listener {
      * @param event イベント
      */
     @EventHandler
-    private static void HorseDeath(EntityDeathEvent event) {
+    private void HorseDeath(EntityDeathEvent event) {
         if (!(event.getEntity() instanceof Horse || event.getEntity() instanceof SkeletonHorse || event.getEntity() instanceof SkeletonHorse)) {
             return;
         }
@@ -141,11 +146,11 @@ public class Listener_Horse implements Listener {
      * @param player プレイヤー
      * @param uuid   UUID
      */
-    private static void HorseRegister(Player player, UUID uuid) {
+    private void HorseRegister(Player player, UUID uuid) {
         if (isRegister(uuid)) {
             Msg.warning(player, "この馬は既にロックされています");
             sendStatus(player, uuid);
-            Msg.success(player, "現在のロック数：" + getLocks(player));
+            Msg.success(player, "現在のロック数" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + getLocks(player));
             return;
         }
 
@@ -166,13 +171,13 @@ public class Listener_Horse implements Listener {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
             String strDate = sdf.format(date.getTime());
 
-            TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString(), player.toString());
-            TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".data", strDate);
-            TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".player", player.getName());
-            TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".uuid", player.getUniqueId().toString());
-            TeisyokuPlugin2.getInstance().HorseConfig.set(uuid.toString() + ".mode", "private");
+            plugin.configHorses.getConfig().set(uuid.toString(), player.toString());
+            plugin.configHorses.getConfig().set(uuid.toString() + ".data", strDate);
+            plugin.configHorses.getConfig().set(uuid.toString() + ".player", player.getName());
+            plugin.configHorses.getConfig().set(uuid.toString() + ".uuid", player.getUniqueId().toString());
+            plugin.configHorses.getConfig().set(uuid.toString() + ".mode", "private");
 
-            TeisyokuPlugin2.getInstance().saveHorseConfig();
+            plugin.configHorses.saveConfig();
             Msg.success(player, "馬をロックしました");
 
         } catch (Exception e) {
@@ -187,7 +192,7 @@ public class Listener_Horse implements Listener {
      * @param player     削除するプレイヤー名
      * @param entityUUID entityのUUID
      */
-    private static void HorseRemove(Player player, UUID entityUUID) {
+    private void HorseRemove(Player player, UUID entityUUID) {
         if (!isRegister(entityUUID)) {
             Msg.info(player, "登録情報の無い馬です");
             return;
@@ -200,8 +205,8 @@ public class Listener_Horse implements Listener {
         }
 
         try {
-            TeisyokuPlugin2.getInstance().HorseConfig.set(entityUUID.toString(), null);
-            TeisyokuPlugin2.getInstance().saveHorseConfig();
+            plugin.configHorses.getConfig().set(entityUUID.toString(), null);
+            plugin.configHorses.saveConfig();
             Msg.success(player, "馬のロックを解除しました");
         } catch (Exception e) {
             Msg.warning(player, "不明なエラーが発生しました");
@@ -214,13 +219,13 @@ public class Listener_Horse implements Listener {
      *
      * @param entityUUID entityのUUID
      */
-    private static void HorseRemoveWildcard(UUID entityUUID) {
+    private void HorseRemoveWildcard(UUID entityUUID) {
         if (!isRegister(entityUUID)) {
             return;
         }
         try {
-            TeisyokuPlugin2.getInstance().HorseConfig.set(entityUUID.toString(), null);
-            TeisyokuPlugin2.getInstance().saveHorseConfig();
+            plugin.configHorses.getConfig().set(entityUUID.toString(), null);
+            plugin.configHorses.saveConfig();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -229,7 +234,7 @@ public class Listener_Horse implements Listener {
     /* 解決策が出るまで保留
      * ゾンビ馬に変換する
      */
-    /*@EventHandler 
+    /*@EventHandler
     public void ChangeHorse(PlayerInteractAtEntityEvent event) {
         if (!(event.getRightClicked().getType().equals(EntityType.SKELETON_HORSE))) {
             return;
@@ -253,7 +258,7 @@ public class Listener_Horse implements Listener {
                 getStatus(player, entityUUID);
                 return;
             }
-            
+
             Horse horse = (Horse) event.getRightClicked();
             if (item.getItemMeta().getDisplayName().equals(TeisyokuPlugin2.getInstance().ZombieTicket)) {
                 if (!(horse.getVariant().equals(Variant.SKELETON_HORSE))) {
@@ -293,8 +298,8 @@ public class Listener_Horse implements Listener {
      * @param entityUUID エンティティーのUUID
      * @return 登録状態
      */
-    private static boolean isRegister(UUID entityUUID) {
-        return !(TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".uuid") == null);
+    private boolean isRegister(UUID entityUUID) {
+        return !(plugin.configHorses.getConfig().getString(entityUUID + ".uuid") == null);
     }
 
     /**
@@ -304,7 +309,7 @@ public class Listener_Horse implements Listener {
      * @param entity エンティティーのUUID
      * @return 登録者であるかどうかの結果
      */
-    private static boolean checkLockStatus(Player player, Entity entity) {
+    private boolean checkLockStatus(Player player, Entity entity) {
         return checkLockStatus(player.getUniqueId(), entity.getUniqueId());
     }
 
@@ -315,8 +320,8 @@ public class Listener_Horse implements Listener {
      * @param entityUUID エンティティーのUUID
      * @return 登録者であるかどうかの結果
      */
-    private static boolean checkLockStatus(UUID playerUUID, UUID entityUUID) {
-        return playerUUID.toString().equals(TeisyokuPlugin2.getInstance().HorseConfig.get(entityUUID + ".uuid"));
+    private boolean checkLockStatus(UUID playerUUID, UUID entityUUID) {
+        return playerUUID.toString().equals(plugin.configHorses.getConfig().get(entityUUID + ".uuid"));
     }
 
     /**
@@ -325,9 +330,9 @@ public class Listener_Horse implements Listener {
      * @param player     プレイヤー
      * @param entityUUID エンティティーのUUID
      */
-    private static void sendStatus(Player player, UUID entityUUID) {
-        Msg.info(player, "登録者名" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".player"));
-        Msg.info(player, "登録日" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + TeisyokuPlugin2.getInstance().HorseConfig.getString(entityUUID + ".data"));
+    private void sendStatus(Player player, UUID entityUUID) {
+        Msg.info(player, "登録者名" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + plugin.configHorses.getConfig().getString(entityUUID + ".player"));
+        Msg.info(player, "登録日" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + plugin.configHorses.getConfig().getString(entityUUID + ".data"));
     }
 
     /**
@@ -337,11 +342,12 @@ public class Listener_Horse implements Listener {
      * @return ロック数
      */
     public static int getLocks(Player player) {
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
         int cnt = 0;
-        ConfigurationSection cs = TeisyokuPlugin2.getInstance().HorseConfig.getConfigurationSection("");
+        ConfigurationSection cs = plugin.configHorses.getConfig().getConfigurationSection("");
         assert cs != null;
         for (String keys : cs.getKeys(false)) {
-            String uuid = TeisyokuPlugin2.getInstance().HorseConfig.getString(keys + ".uuid");
+            String uuid = plugin.configHorses.getConfig().getString(keys + ".uuid");
             if (player.getUniqueId().toString().equals(uuid)) {
                 cnt++;
             }

@@ -62,9 +62,9 @@ public class Command_Teisyoku implements CommandExecutor {
             // TODO: CustomConfigに置き換える
             TeisyokuPlugin2.getInstance().configTeisyoku.reloadConfig();
             TeisyokuPlugin2.getInstance().configGift.reloadConfig();
+            TeisyokuPlugin2.getInstance().configHorses.reloadConfig();
             TeisyokuPlugin2.getInstance().configRailways.reloadConfig();
             TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
-            TeisyokuPlugin2.getInstance().reloadHorseConfig();
             TeisyokuPlugin2.getInstance().reloadTPointSettingsConfig();
             success(sender, "TeisyokuPlugin2のコンフィグをリロードしました。");
             return true;

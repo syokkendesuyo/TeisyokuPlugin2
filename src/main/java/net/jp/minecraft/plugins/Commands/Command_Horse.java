@@ -93,8 +93,9 @@ public class Command_Horse implements CommandExecutor {
             return true;
         }
 
+        // TODO: 他者の保護数を確認できるように修正
         if (args[0].equals("status") || args[0].equals("s")) {
-            Msg.info(player, "保護数" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + Listener_Horse.getLocks(player) + "/" + Listener_Horse.getMaxLocks());
+            Msg.info(player, ChatColor.GOLD + "馬の保護数" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + Listener_Horse.getLocks(player) + "/" + Listener_Horse.getMaxLocks());
             return true;
         }
         return true;

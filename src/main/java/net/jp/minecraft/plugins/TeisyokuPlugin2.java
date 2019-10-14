@@ -38,16 +38,19 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     public CustomConfig configGift;
 
     /**
+     * Horses,yml
+     */
+    public CustomConfig configHorses;
+
+    /**
      * Railways.yml
      */
     public CustomConfig configRailways;
 
     public File newConfig_last;
     public File newConfig_tpoint_settings;
-    public File newConfig_horse;
     public FileConfiguration LastJoinPlayerConfig;
     public FileConfiguration TPointSettingsConfig;
-    public FileConfiguration HorseConfig;
     private static TeisyokuPlugin2 instance;
 
     private String supportVersion = "1.13.2-R0.1-SNAPSHOT";
@@ -184,14 +187,14 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         configGift = new CustomConfig(this, "Gift.yml");
         configGift.saveDefaultConfig();
 
+        configHorses = new CustomConfig(this, "Horses.yml");
+        configHorses.saveDefaultConfig();
+
         configRailways = new CustomConfig(this, "Railways.yml");
         configRailways.saveDefaultConfig();
 
         LastJoinPlayerConfig();
         saveLastPlayerJoinConfig();
-
-        HorseConfig();
-        saveHorseConfig();
 
         TPointSettingsConfig();
         saveTPointSettingsConfig();
@@ -249,29 +252,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         try {
             this.TPointSettingsConfig.load(this.newConfig_tpoint_settings);
             this.TPointSettingsConfig.save(this.newConfig_tpoint_settings);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void HorseConfig() {
-        this.newConfig_horse = new File(getDataFolder(), "Horses.yml");
-        this.HorseConfig = YamlConfiguration.loadConfiguration(this.newConfig_horse);
-        saveHorseConfig();
-    }
-
-    public void saveHorseConfig() {
-        try {
-            this.HorseConfig.save(this.newConfig_horse);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadHorseConfig() {
-        try {
-            this.HorseConfig.load(this.newConfig_horse);
-            this.HorseConfig.save(this.newConfig_horse);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -27,6 +27,7 @@ public class PlayerFile implements Listener {
      * @param event
      */
     @EventHandler
+    @Deprecated
     public void CreatePlayerFile(PlayerJoinEvent event) {
         String playerUniqueId = event.getPlayer().getUniqueId().toString();
         File f = new File(userdata, File.separator + playerUniqueId + ".yml");

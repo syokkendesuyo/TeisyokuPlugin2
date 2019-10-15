@@ -15,6 +15,7 @@ import java.util.Date;
  *
  * @author syokkendesuyo
  */
+@Deprecated
 public class Listener_LastJoin implements Listener {
 
     @EventHandler

@@ -14,12 +14,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author syokkendesuyo
  */
-public class Listener_JoinEvent implements Listener {
+public class Listener_JoinQuit implements Listener {
 
     @EventHandler
     public void onPlayerJoinMessage(PlayerJoinEvent event) {
@@ -47,5 +49,13 @@ public class Listener_JoinEvent implements Listener {
         if (TeisyokuPlugin2.getInstance().configTeisyoku.getConfig().getBoolean("debug.SpawnFixed")) {
             player.teleport(new Location(Bukkit.getWorld("world"), 0, 72, 0));
         }
+
+        //ログイン時のプレイヤーデータを保管
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+        String strDate = sdf.format(date.getTime());
+        API_PlayerDatabase.set(player, "name", player.getName());
+        API_PlayerDatabase.set(player, "join_date", strDate);
+        API_PlayerDatabase.set(player, "join_timestamp", System.currentTimeMillis());
     }
 }

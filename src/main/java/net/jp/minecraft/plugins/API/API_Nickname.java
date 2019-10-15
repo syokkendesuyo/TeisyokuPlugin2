@@ -1,9 +1,6 @@
 package net.jp.minecraft.plugins.API;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.PlayerFile;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -23,8 +20,7 @@ public class API_Nickname {
      * @return ニックネーム
      */
     public static String getNick(Player player){
-        FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
-        return file.get("nick").toString();
+        return API_PlayerDatabase.getString(player, "nick");
     }
 
     /**

@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.API;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.Utility.PlayerFile;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -9,6 +8,7 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * TeisyokuPlugin2
@@ -18,6 +18,17 @@ import java.util.Objects;
 public class API_PlayerDatabase {
 
     private static File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
+
+    /**
+     * プレイヤーのファイルへアクセスするメソッド
+     *
+     * @param uuid プレイヤーのUUID
+     * @return UUID
+     */
+    private static FileConfiguration getPlayerFile(UUID uuid) {
+        File f = new File(userdata, File.separator + uuid + ".yml");
+        return YamlConfiguration.loadConfiguration(f);
+    }
 
     /**
      * ワールドデータに登録されているプレイヤー数を取得します
@@ -53,7 +64,7 @@ public class API_PlayerDatabase {
      * @return Stringデータ
      */
     public static String getString(Player player, String path) {
-        FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
+        FileConfiguration file = getPlayerFile(player.getUniqueId());
         return Objects.requireNonNull(file.get(path)).toString();
     }
 
@@ -64,7 +75,7 @@ public class API_PlayerDatabase {
      * @return Integerデータ
      */
     public static Integer getInt(Player player, String path) {
-        FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
+        FileConfiguration file = getPlayerFile(player.getUniqueId());
         return file.getInt(path);
     }
 
@@ -75,7 +86,7 @@ public class API_PlayerDatabase {
      * @return Booleanデータ
      */
     public static Boolean getBoolean(Player player, String path) {
-        FileConfiguration file = PlayerFile.getPlayerFile(player.getUniqueId());
+        FileConfiguration file = getPlayerFile(player.getUniqueId());
         return file.getBoolean(path);
     }
 }

@@ -11,7 +11,6 @@ import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.PlayerFile;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -99,8 +98,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         pm.registerEvents(new TPointIndexGUI(), this);
         pm.registerEvents(new TPointBuyGUI(), this);
-
-        pm.registerEvents(new PlayerFile(), this);
 
         pm.registerEvents(new SaveUUID(), this);
 

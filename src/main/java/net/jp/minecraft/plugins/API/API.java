@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import static java.lang.Math.pow;
@@ -94,5 +96,16 @@ public class API {
         } catch (NumberFormatException event) {
             return false;
         }
+    }
+
+    /**
+     * 日時フォーマットを取得するメソッド
+     *
+     * @return 日時の文字列
+     */
+    public static String getDateFormat () {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+        return sdf.format(date.getTime());
     }
 }

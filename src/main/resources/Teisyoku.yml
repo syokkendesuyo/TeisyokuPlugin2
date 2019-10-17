@@ -53,7 +53,13 @@ functions:
 
 # 馬の保護機能
 horse:
+  # 最大保護数
   limits: 3
+
+# ニックネームの設定
+nickname:
+  # ニックネームの最大文字数
+  limits: 8
 
 # デバッグ
 debug:

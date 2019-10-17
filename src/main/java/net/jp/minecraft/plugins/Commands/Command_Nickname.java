@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 public class Command_Nickname implements CommandExecutor {
 
     public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
-        
+
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //ニックネームのパスを指定
@@ -152,6 +152,11 @@ public class Command_Nickname implements CommandExecutor {
             return true;
         }
 
+        if (args[0].equalsIgnoreCase("limits") || args[0].equalsIgnoreCase("limit") || args[0].equalsIgnoreCase("l")) {
+            Msg.success(sender, "このサーバーで使用できる最大文字数" + ChatColor.DARK_GRAY + ": " + ChatColor.GOLD + plugin.configTeisyoku.getConfig().getInt("nickname.limits") + "文字");
+            return true;
+        }
+
         //下記コマンドに侵入するにはsenderがplayerである必要があります
         if (!(sender instanceof Player)) {
             Msg.success(sender, "コンソールからコマンドを送信することはできません");
@@ -165,9 +170,10 @@ public class Command_Nickname implements CommandExecutor {
         //一般：set
         if (args[0].equalsIgnoreCase("set")) {
             if (args.length == 2) {
-                //TODO: ニックネームの最大文字数を設定可能にする
-                if (args[1].length() > 10) {
-                    Msg.warning(sender, "ニックネームは10文字以下に設定してください");
+                int maxLength = plugin.configTeisyoku.getConfig().getInt("nickname.limits");
+                if (args[1].length() > maxLength) {
+                    Msg.warning(sender, "ニックネームは" + maxLength + "文字以下に設定してください");
+                    Msg.warning(sender, args[1] + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + ChatColor.GOLD + args[1].length() + "文字");
                     return true;
                 } else {
                     API_PlayerDatabase.set(player, nicknamePath, args[1]);
@@ -205,10 +211,11 @@ public class Command_Nickname implements CommandExecutor {
      * @param commandLabel コマンドラベル
      */
     private void help(CommandSender sender, String commandLabel) {
-        Msg.success(sender, "コマンドのヘルプ" + ChatColor.GRAY + "(開発協力: azuhata)");
+        Msg.success(sender, "コマンドのヘルプ" + ChatColor.GRAY + " (開発協力: azuhata)");
         Msg.commandFormat(sender, commandLabel + " set <ﾆｯｸﾈｰﾑ>", "自分のﾆｯｸﾈｰﾑをｾｯﾄします");
         Msg.commandFormat(sender, commandLabel + " remove", "自分のﾆｯｸﾈｰﾑを削除します");
-        if (sender.hasPermission(Permission.NICKNAME.toString())) {
+        Msg.commandFormat(sender, commandLabel + " <limits|limit|l>", "ニックネームの最大文字列を表示します");
+        if (sender.hasPermission(Permission.NICKNAME_ADMIN.toString())) {
             Msg.commandFormat(sender, commandLabel + " admin set <ﾌﾟﾚｲﾔｰ名> <ﾆｯｸﾈｰﾑ>", "他ﾌﾟﾚｲﾔｰのﾆｯｸﾈｰﾑをｾｯﾄします");
             Msg.commandFormat(sender, commandLabel + " admin remove <ﾌﾟﾚｲﾔｰ名>", "他ﾌﾟﾚｲﾔｰのﾆｯｸﾈｰﾑを削除します");
             Msg.commandFormat(sender, commandLabel + " admin color <カラー名> <ﾌﾟﾚｲﾔｰ名>", "他ﾌﾟﾚｲﾔｰのﾆｯｸﾈｰﾑｶﾗｰを変更します");

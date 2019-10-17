@@ -57,6 +57,7 @@ public class API_Flag {
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
         //古いフラグを削除する
+        // TODO: Listener_JoinQuitへ移動
         playerData.set("auto_cart_remove", null);
         playerData.set("flag.auto_cart_remove", null);
 
@@ -81,7 +82,10 @@ public class API_Flag {
      * @param player プレイヤー
      * @param flag   フラグ名
      * @return フラグ状態
+     *
+     * TODO: PlayerDatabaseへ移行
      */
+    @Deprecated
     public static Boolean get(Player player, String flag) {
         String playerUniqueId = player.getUniqueId().toString();
         File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");

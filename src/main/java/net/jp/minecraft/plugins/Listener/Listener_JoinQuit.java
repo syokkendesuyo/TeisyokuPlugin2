@@ -81,18 +81,36 @@ public class Listener_JoinQuit implements Listener {
      * @param player プレイヤー
      */
     private void updateNewFunctions(Player player) {
+
+        boolean isUpdatePlayerDatabase = false;
+
         //PlayerDatabaseでnameからidへパスが変更された件に対応
         //ログイン時にidを更新するため古いパスのみ削除
         String oldNamePathData = API_PlayerDatabase.getString(player, "name");
-        if (oldNamePathData != null) {
+        if (!oldNamePathData.isEmpty()) {
             API_PlayerDatabase.set(player, "name", null);
+            isUpdatePlayerDatabase = true;
         }
 
-        //PlayerDatabaseでnickからnicknameへパスが変更された件に対応
+        //PlayerDatabaseでnickからnickname.prefixへパスが変更された件に対応
         String oldNickPathData = API_PlayerDatabase.getString(player, "nick");
-        if (oldNickPathData != null) {
+        if (!oldNickPathData.isEmpty()) {
             API_PlayerDatabase.set(player, "nick", null);
-            API_PlayerDatabase.set(player, "nickname", oldNickPathData);
+            API_PlayerDatabase.set(player, "nickname.prefix", oldNickPathData);
+            isUpdatePlayerDatabase = true;
+        }
+
+        //PlayerDatabaseでnick_colorからnickname.colorへパスが変更された件に対応
+        String oldNickColorPathData = API_PlayerDatabase.getString(player, "nick_color");
+        if (!oldNickColorPathData.isEmpty()) {
+            API_PlayerDatabase.set(player, "nick_color", null);
+            API_PlayerDatabase.set(player, "nickname.color", oldNickColorPathData);
+            isUpdatePlayerDatabase = true;
+        }
+
+        //PlayerDatabaseを更新した場合、管理者へ通知する
+        if (isUpdatePlayerDatabase) {
+            Msg.adminBroadcast(ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんのデータベースを更新しました", false);
         }
     }
 }

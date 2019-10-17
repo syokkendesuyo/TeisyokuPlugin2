@@ -2,7 +2,6 @@ package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.API.API;
 import net.jp.minecraft.plugins.API.API_PlayerDatabase;
-import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Permission;
@@ -28,7 +27,7 @@ public class Command_Nickname implements CommandExecutor {
 
         //ニックネームのパスを指定
         // TODO: enum化
-        String nicknamePath = "nickname";
+        String nicknamePath = "nickname.prefix";
 
         //コマンドが有効化されているかどうか検出
         // TODO: enum化
@@ -129,25 +128,15 @@ public class Command_Nickname implements CommandExecutor {
                     Msg.warning(sender, ChatColor.YELLOW + args[3] + ChatColor.RESET + "さんはオンラインでない為操作できません");
                     return true;
                 }
-                //TODO: 全カラーに対応
-                if (args[2].equalsIgnoreCase("default")) {
-                    Listener_TPoint.setDefault(player);
-                    return true;
-                }
-                if (args[2].equalsIgnoreCase("AQUA")) {
-                    Listener_TPoint.setNickColor(player, ChatColor.AQUA);
-                    return true;
-                }
-                if (args[2].equalsIgnoreCase("LIGHT_PURPLE")) {
-                    Listener_TPoint.setNickColor(player, ChatColor.LIGHT_PURPLE);
-                    return true;
-                }
-                if (args[2].equalsIgnoreCase("GREEN")) {
-                    Listener_TPoint.setNickColor(player, ChatColor.GREEN);
-                    return true;
-                }
-                Msg.warning(sender, args[2] + " は利用できません");
 
+                ChatColor color = API.getChatColor(args[2]);
+                if (args[2].equalsIgnoreCase("default") || color == null) {
+                    API_PlayerDatabase.set(player, "nickname.prefix", "default");
+                    return true;
+                }
+                API_PlayerDatabase.set(player, "nickname.prefix", color.toString());
+                Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんのニックネームカラーを" + color + "■" + ChatColor.RESET + "に変更しました");
+                Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームカラーが" + color + "■" + ChatColor.RESET + "に変更されました");
             }
             return true;
         }

@@ -179,6 +179,8 @@ public class Listener_TPoint {
      *
      * @param player プレイヤー
      * @return 保有ポイント(int)
+     *
+     * TODO: PlayerDatabaseへ移行
      */
     public static int int_status(Player player) {
         try {
@@ -211,24 +213,5 @@ public class Listener_TPoint {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    //TODO: PlayerDatabaseへ移行
-    public static void setDefault(Player player) {
-        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
-        config = YamlConfiguration.loadConfiguration(cfile);
-        FileConfiguration playerData = config;
-        playerData.set("nick_color", "default");
-        save();
-    }
-
-    //TODO: PlayerDatabaseへ移行
-    public static void setNickColor(Player player, ChatColor color) {
-        cfile = new File(df, "PlayerDatabase" + File.separator + player.getUniqueId() + ".yml");
-        config = YamlConfiguration.loadConfiguration(cfile);
-        FileConfiguration playerData = config;
-        playerData.set("nick_color", color.getChar());
-        save();
-        Msg.success(player, "" + ChatColor.YELLOW + ChatColor.BOLD + player.getName() + ChatColor.RESET + " のニックネーム色を " + color + ChatColor.BOLD + color.name() + ChatColor.RESET + " に設定しました");
     }
 }

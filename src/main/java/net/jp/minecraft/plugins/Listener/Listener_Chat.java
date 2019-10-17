@@ -22,19 +22,19 @@ public class Listener_Chat implements Listener {
 
         Player player = event.getPlayer();
         try {
-            String NickName = API_PlayerDatabase.getString(player, "nickname");
+            String NickName = API_PlayerDatabase.getString(player, "nickname.prefix");
 
             String sender = event.getPlayer().getName();
 
             if (NickName == null || NickName.equals("")) {
                 player.setDisplayName(sender);
             } else {
-                String color = API_PlayerDatabase.getString(player, "nick_color");
-                if (color.equalsIgnoreCase("default")) {
+                String color = API_PlayerDatabase.getString(player, "nickname.color");
+                if (color.equalsIgnoreCase("default") || color.equalsIgnoreCase("") || color.isEmpty()) {
                     player.setDisplayName(ChatColor.GRAY + "" + NickName + " " + ChatColor.RESET + sender);
                     return;
                 }
-                player.setDisplayName("§" + color + "" + NickName + " " + ChatColor.RESET + sender);
+                player.setDisplayName(color + "" + NickName + " " + ChatColor.RESET + sender);
             }
         } catch (Exception e) {
             e.printStackTrace();

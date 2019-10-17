@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.API;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -107,5 +108,21 @@ public class API {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
         return sdf.format(date.getTime());
+    }
+
+    /**
+     * String型からChatColor型へ変換するメソッド<br />
+     * 存在しない文字列の場合、nullが返却されます
+     *
+     * @param color String型のカラー
+     * @return チャットカラーまたはnull
+     */
+    public static ChatColor getChatColor(String color) {
+        for(ChatColor c : ChatColor.class.getEnumConstants()) {
+            if(c.name().equalsIgnoreCase(color)) {
+                return c;
+            }
+        }
+        return null;
     }
 }

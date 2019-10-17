@@ -30,6 +30,9 @@ public class Listener_JoinQuit implements Listener {
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
         Player player = event.getPlayer();
 
+        //古い設定等に対応
+        updateNewFunctions(player);
+
         //ログイン時のメッセージを日本語化
         event.setJoinMessage("");
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームに参加しました", true);
@@ -70,5 +73,19 @@ public class Listener_JoinQuit implements Listener {
         API_PlayerDatabase.set(player, "name", player.getName());
         API_PlayerDatabase.set(player, "quit.date", API.getDateFormat());
         API_PlayerDatabase.set(player, "quit.timestamp", System.currentTimeMillis());
+    }
+
+    /**
+     * 古い設定等に対応するためのメソッド
+     *
+     * @param player プレイヤー
+     */
+    private void updateNewFunctions(Player player) {
+        //PlayerDatabaseでnickからnicknameへパスが変更された件に対応
+        String oldNickPathData = API_PlayerDatabase.getString(player, "nick");
+        if (oldNickPathData != null) {
+            API_PlayerDatabase.set(player, "nick", null);
+            API_PlayerDatabase.set(player, "nickname", oldNickPathData);
+        }
     }
 }

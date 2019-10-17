@@ -59,6 +59,7 @@ public class API_PlayerDatabase {
 
     /**
      * プレイヤーデータベースのプレイヤーデータからデータを取得します
+     * パスが存在しない場合、文字列""を返却します
      *
      * @param player プレイヤー
      * @return Stringデータ
@@ -69,12 +70,13 @@ public class API_PlayerDatabase {
             return Objects.requireNonNull(file.get(path)).toString();
         } catch (NullPointerException e) {
             //TODO: デバッグ機能の実装
-            return null;
+            return "";
         }
     }
 
     /**
      * プレイヤーデータベースのプレイヤーデータからデータを取得します
+     * パスが存在しない場合、-1を返却します
      *
      * @param player プレイヤー
      * @return Integerデータ
@@ -85,12 +87,13 @@ public class API_PlayerDatabase {
             return file.getInt(path);
         } catch (NullPointerException e) {
             //TODO: デバッグ機能の実装
-            return null;
+            return -1;
         }
     }
 
     /**
      * プレイヤーデータベースのプレイヤーデータからデータを取得します
+     * パスが存在しない場合、falseを返却します
      *
      * @param player プレイヤー
      * @return Booleanデータ
@@ -101,7 +104,7 @@ public class API_PlayerDatabase {
             return file.getBoolean(path);
         } catch (NullPointerException e) {
             //TODO: デバッグ機能の実装
-            return null;
+            return false;
         }
     }
 }

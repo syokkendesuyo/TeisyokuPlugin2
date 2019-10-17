@@ -38,7 +38,7 @@ public class Listener_JoinQuit implements Listener {
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームに参加しました", true);
 
         //ログイン時のプレイヤーデータを保管
-        API_PlayerDatabase.set(player, "name", player.getName());
+        API_PlayerDatabase.set(player, "id", player.getName());
         API_PlayerDatabase.set(player, "join.date", API.getDateFormat());
         API_PlayerDatabase.set(player, "join.timestamp", System.currentTimeMillis());
 
@@ -70,7 +70,7 @@ public class Listener_JoinQuit implements Listener {
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームから退室しました", true);
 
         //ログアウト時にプレイヤーデータを保管
-        API_PlayerDatabase.set(player, "name", player.getName());
+        API_PlayerDatabase.set(player, "id", player.getName());
         API_PlayerDatabase.set(player, "quit.date", API.getDateFormat());
         API_PlayerDatabase.set(player, "quit.timestamp", System.currentTimeMillis());
     }
@@ -81,6 +81,13 @@ public class Listener_JoinQuit implements Listener {
      * @param player プレイヤー
      */
     private void updateNewFunctions(Player player) {
+        //PlayerDatabaseでnameからidへパスが変更された件に対応
+        //ログイン時にidを更新するため古いパスのみ削除
+        String oldNamePathData = API_PlayerDatabase.getString(player, "name");
+        if (oldNamePathData != null) {
+            API_PlayerDatabase.set(player, "name", null);
+        }
+
         //PlayerDatabaseでnickからnicknameへパスが変更された件に対応
         String oldNickPathData = API_PlayerDatabase.getString(player, "nick");
         if (oldNickPathData != null) {

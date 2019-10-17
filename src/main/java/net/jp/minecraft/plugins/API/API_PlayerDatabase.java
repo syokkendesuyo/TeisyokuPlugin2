@@ -65,7 +65,12 @@ public class API_PlayerDatabase {
      */
     public static String getString(Player player, String path) {
         FileConfiguration file = getPlayerFile(player.getUniqueId());
-        return Objects.requireNonNull(file.get(path)).toString();
+        try {
+            return Objects.requireNonNull(file.get(path)).toString();
+        } catch (NullPointerException e) {
+            //TODO: デバッグ機能の実装
+            return null;
+        }
     }
 
     /**
@@ -76,7 +81,12 @@ public class API_PlayerDatabase {
      */
     public static Integer getInt(Player player, String path) {
         FileConfiguration file = getPlayerFile(player.getUniqueId());
-        return file.getInt(path);
+        try {
+            return file.getInt(path);
+        } catch (NullPointerException e) {
+            //TODO: デバッグ機能の実装
+            return null;
+        }
     }
 
     /**
@@ -87,6 +97,11 @@ public class API_PlayerDatabase {
      */
     public static Boolean getBoolean(Player player, String path) {
         FileConfiguration file = getPlayerFile(player.getUniqueId());
-        return file.getBoolean(path);
+        try {
+            return file.getBoolean(path);
+        } catch (NullPointerException e) {
+            //TODO: デバッグ機能の実装
+            return null;
+        }
     }
 }

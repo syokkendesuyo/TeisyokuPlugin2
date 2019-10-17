@@ -131,10 +131,12 @@ public class Command_Nickname implements CommandExecutor {
 
                 ChatColor color = API.getChatColor(args[2]);
                 if (args[2].equalsIgnoreCase("default") || color == null) {
-                    API_PlayerDatabase.set(player, "nickname.prefix", "default");
+                    API_PlayerDatabase.set(player, "nickname.color", "default");
+                    Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんのニックネームカラーを" + color + "■" + ChatColor.RESET + "に変更しました");
+                    Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームカラーが" + color + "■" + ChatColor.RESET + "に変更されました");
                     return true;
                 }
-                API_PlayerDatabase.set(player, "nickname.prefix", color.toString());
+                API_PlayerDatabase.set(player, "nickname.color", color.toString());
                 Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんのニックネームカラーを" + color + "■" + ChatColor.RESET + "に変更しました");
                 Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームカラーが" + color + "■" + ChatColor.RESET + "に変更されました");
             }

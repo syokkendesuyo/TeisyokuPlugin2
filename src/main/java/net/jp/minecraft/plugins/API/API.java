@@ -112,7 +112,7 @@ public class API {
 
     /**
      * String型からChatColor型へ変換するメソッド<br />
-     * 存在しない文字列の場合、nullが返却されます
+     * 存在しない文字列の場合、グレーが返却されます
      *
      * @param color String型のカラー
      * @return チャットカラーまたはnull
@@ -123,6 +123,7 @@ public class API {
                 return c;
             }
         }
-        return null;
+        // TODO: デバッグ機能を追加
+        return ChatColor.GRAY;
     }
 }

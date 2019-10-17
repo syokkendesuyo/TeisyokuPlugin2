@@ -102,13 +102,13 @@ public final class Msg {
      * Adminにのみブロードキャストメッセージを送信
      *
      * @param msg   メッセージ
-     * @param sound サウンド
+     * @param playSound サウンド
      */
-    public static void adminBroadcast(final String msg, boolean sound) {
+    public static void adminBroadcast(final String msg, boolean playSound) {
         for (Player admin : Bukkit.getOnlinePlayers()) {
             if (admin.hasPermission(Permission.ADMIN.toString())) {
                 admin.sendMessage(prefix(ChatColor.LIGHT_PURPLE) + ChatColor.RESET + msg);
-                if (sound) {
+                if (playSound) {
                     Sounds.play(admin, Sound.BLOCK_NOTE_BLOCK_BELL);
                 }
             }

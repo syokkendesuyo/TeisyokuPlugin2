@@ -84,7 +84,11 @@ public class Listener_JoinQuit implements Listener {
 
         boolean isUpdatePlayerDatabase = false;
 
-        //PlayerDatabaseでnameからidへパスが変更された件に対応
+        //古い個人設定を削除
+        API_PlayerDatabase.set(player, "auto_cart_remove", null);
+        API_PlayerDatabase.set(player, "flag.auto_cart_remove", null);
+
+        //nameからidへパスが変更された件に対応
         //ログイン時にidを更新するため古いパスのみ削除
         String oldNamePathData = API_PlayerDatabase.getString(player, "name");
         if (!oldNamePathData.isEmpty()) {
@@ -92,7 +96,7 @@ public class Listener_JoinQuit implements Listener {
             isUpdatePlayerDatabase = true;
         }
 
-        //PlayerDatabaseでnickからnickname.prefixへパスが変更された件に対応
+        //nickからnickname.prefixへパスが変更された件に対応
         String oldNickPathData = API_PlayerDatabase.getString(player, "nick");
         if (!oldNickPathData.isEmpty()) {
             API_PlayerDatabase.set(player, "nick", null);
@@ -100,7 +104,7 @@ public class Listener_JoinQuit implements Listener {
             isUpdatePlayerDatabase = true;
         }
 
-        //PlayerDatabaseでnick_colorからnickname.colorへパスが変更された件に対応
+        //nick_colorからnickname.colorへパスが変更された件に対応
         String oldNickColorPathData = API_PlayerDatabase.getString(player, "nick_color");
         if (!oldNickColorPathData.isEmpty()) {
             API_PlayerDatabase.set(player, "nick_color", null);

@@ -69,22 +69,22 @@ public class Command_TFlag implements CommandExecutor {
 
         Player player = (Player) sender;
         if (args[0].equalsIgnoreCase("call_sounds")) {
-            API_Flag.update(sender, player, args, "callコマンドの呼び出し音設定");
+            API_Flag.set(sender, player, args, "callコマンドの呼び出し音設定");
             return true;
         } else if (args[0].equalsIgnoreCase("cart_auto_collect")) {
-            API_Flag.update(sender, player, args, "マインカートを自動でインベントリに保存");
+            API_Flag.set(sender, player, args, "マインカートを自動でインベントリに保存");
             return true;
         } else if (args[0].equalsIgnoreCase("fly_save_state")) {
-            API_Flag.update(sender, player, args, "飛行モードの状態をログイン時に継承する設定");
+            API_Flag.set(sender, player, args, "飛行モードの状態をログイン時に継承する設定");
             return true;
         } else if (args[0].equalsIgnoreCase("sign_info")) {
-            API_Flag.update(sender, player, args, "看板データの照会機能利用設定");
+            API_Flag.set(sender, player, args, "看板データの照会機能利用設定");
             return true;
         } else if (args[0].equalsIgnoreCase("sign_info_cart")) {
-            API_Flag.update(sender, player, args, "[Cart]看板の看板データの照会機能利用設定");
+            API_Flag.set(sender, player, args, "[Cart]看板の看板データの照会機能利用設定");
             return true;
         } else if (args[0].equalsIgnoreCase("sign_cart")) {
-            API_Flag.update(sender, player, args, "[Cart]看板の利用設定");
+            API_Flag.set(sender, player, args, "[Cart]看板の利用設定");
             return true;
         } else {
             Msg.warning(player, "「" + args[0] + "」は利用できません。");

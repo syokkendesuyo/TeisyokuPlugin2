@@ -5,7 +5,7 @@ import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.Permission;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.*;
 import org.bukkit.block.CommandBlock;

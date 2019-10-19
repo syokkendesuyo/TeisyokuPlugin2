@@ -4,7 +4,7 @@ import net.jp.minecraft.plugins.Listener.Listener_SignEdit;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.Permission;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

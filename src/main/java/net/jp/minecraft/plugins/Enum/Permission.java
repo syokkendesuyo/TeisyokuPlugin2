@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins.Utility;
+package net.jp.minecraft.plugins.Enum;
 
 /**
  * TeisyokuPlugin2<br />

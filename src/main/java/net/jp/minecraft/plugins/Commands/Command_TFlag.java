@@ -3,7 +3,7 @@ package net.jp.minecraft.plugins.Commands;
 import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.Permission;
+import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

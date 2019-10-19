@@ -2,7 +2,7 @@ package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.Permission;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

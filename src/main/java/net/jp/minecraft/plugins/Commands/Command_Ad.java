@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
 import com.google.common.base.Joiner;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.*;
 import org.bukkit.Bukkit;

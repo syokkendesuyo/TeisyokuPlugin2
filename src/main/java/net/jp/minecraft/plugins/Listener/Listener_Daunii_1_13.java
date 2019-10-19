@@ -3,7 +3,7 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Item;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.Permission;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.Bukkit;

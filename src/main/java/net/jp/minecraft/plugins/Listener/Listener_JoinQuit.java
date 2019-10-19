@@ -9,6 +9,7 @@ import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,9 +43,18 @@ public class Listener_JoinQuit implements Listener {
         API_PlayerDatabase.set(player, "join.date", API.getDateFormat());
         API_PlayerDatabase.set(player, "join.timestamp", System.currentTimeMillis());
 
-        //飛行モードを継続
-        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.fly") && API_PlayerDatabase.getBoolean(player, "fly") && API_Flag.get(player, "fly_save_state")) {
-            API_Fly.setFlying(player, true);
+        //飛行モード
+        if (plugin.configTeisyoku.getConfig().getBoolean("functions.fly")) {
+            //飛行モードを継承するかどうか確認
+            if (API_Flag.get(player, "fly_save_state")) {
+                //ゲームモードがデフォルトで飛行の場合は無視
+                if (!player.getGameMode().equals(GameMode.CREATIVE) || !player.getGameMode().equals(GameMode.SPECTATOR)) {
+                    Msg.info(player, "ゲームモードがクリエイティブモードまたはスペクターモードのため飛行モードの設定が無視されました");
+                    API_Fly.setFlying(player, true);
+                } else {
+                    API_Fly.setFlying(player, API_PlayerDatabase.getBoolean(player, "fly"));
+                }
+            }
         } else {
             API_Fly.setFlying(player, false);
         }

@@ -1,9 +1,23 @@
 package net.jp.minecraft.plugins.Utility;
 
+/**
+ * TeisyokuPlugin2<br />
+ * パーミッションを定義する列挙型クラス
+ *
+ * @author syokkendesuyo
+ */
 public enum Permission {
 
+    /**
+     * ユーザーがデフォルトで使用可能な機能に対して付与されているパーミッション<br />
+     * デフォルトで全ユーザーに付与されています。
+     */
     USER("teisyoku.user"),
 
+    /**
+     * 管理者が上位機能にアクセスするためのパーミッション。<br />
+     * デフォルトでオペレータに対して付与されています。
+     */
     ADMIN("teisyoku.admin"),
 
     AD("teisyoku.ad"),

@@ -3,7 +3,6 @@ package net.jp.minecraft.plugins;
 import net.jp.minecraft.plugins.API.API_Trash;
 import net.jp.minecraft.plugins.Commands.*;
 import net.jp.minecraft.plugins.Config.CustomConfig;
-import net.jp.minecraft.plugins.Config.SaveUUID;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
@@ -98,8 +97,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         pm.registerEvents(new TPointIndexGUI(), this);
         pm.registerEvents(new TPointBuyGUI(), this);
-
-        pm.registerEvents(new SaveUUID(), this);
 
 
         getCommand("fly").setExecutor(new Command_Fly());

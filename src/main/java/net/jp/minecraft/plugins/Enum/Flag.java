@@ -22,9 +22,11 @@ public class Flag {
 
         FLY_SAVE_STATE("fly_save_state", "飛行モードの状態をログイン時に継承する設定"),
 
-        SIGN_INFO("sign_info", "看板データの照会機能利用設定"),
+        PORTAL_WARNING("portal_warning", "ポータルのエラーメッセージを表示"),
 
         SIGN_CART("sign_cart", "[Cart]看板の利用設定"),
+
+        SIGN_INFO("sign_info", "看板データの照会機能利用設定"),
 
         SIGN_INFO_CART("sign_info_cart", "[Cart]看板の看板データの照会機能利用設定"),
 

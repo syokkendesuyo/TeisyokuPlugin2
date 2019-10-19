@@ -6,7 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * TeisyokuPlugin2
+ * TeisyokuPlugin2<br />
+ * フラグを更新する機能を提供します。
  *
  * @author syokkendesuyo
  */

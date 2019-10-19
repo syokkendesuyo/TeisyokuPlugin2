@@ -4,6 +4,12 @@ import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+/**
+ * TeisyokuPlugin2<br />
+ * 飛行状態を更新する提供します。
+ *
+ * @author syokkendesuyo
+ */
 public class API_Fly {
 
     /**

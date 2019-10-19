@@ -13,8 +13,7 @@ import static java.lang.Math.pow;
 
 /**
  * TeisyokuPlugin2<br />
- * <hr />
- * 便利なAPIを提供する総合クラス<br />
+ * 便利なAPIを提供する総合クラス
  *
  * @author syokkendesuyo
  */

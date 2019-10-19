@@ -173,7 +173,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
             scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
-                    Double tps = Listener_TicksPerSecond_1_13.getTps(1);
+                    double tps = Listener_TicksPerSecond_1_13.getTps(1);
                     if (Listener_TicksPerSecond_1_13.getTps(1) < 16) {
                         Msg.warning(Bukkit.getConsoleSender(), "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_13.doubleToString(tps), true);
                     }

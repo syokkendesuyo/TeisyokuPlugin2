@@ -56,6 +56,11 @@ portal:
   # エンドゲートポータルを使用するかどうか
   end: true
 
+# 看板編集機能の設定
+signedit:
+  # Tポイントのコストを設定
+  cost: 5
+
 # ウィザーがスポーンできるワールドを指定
 arrow_summon_wither:
   - 'world_the_end'

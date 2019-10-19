@@ -1,8 +1,9 @@
 package net.jp.minecraft.plugins.Listener;
 
+import net.jp.minecraft.plugins.Enum.Permission;
+import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -36,20 +37,27 @@ public class Listener_SignEdit implements Listener {
     }
 
     public static void updateSign(Location loc, Player player) {
+
+        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
+
         //実行コマンドのパーミッションを確認
         if (!(player.hasPermission(Permission.USER.toString()) || player.hasPermission(Permission.SIGNEDIT.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {
             Msg.noPermissionMessage(player, Permission.SIGNEDIT);
             return;
         }
 
-        //TODO: ポイント使用数を変更できるようにする
-        if (!(Listener_TPoint.canBuy(5, player))) {
-            Msg.warning(player, "看板を更新するには5TPoint必要です");
-            editData.remove(player.getUniqueId());
-            lineData.remove(player.getUniqueId());
-            return;
+        //TPointを必要とする場合、購入処理を行う
+        int cost = plugin.configTeisyoku.getConfig().getInt("signedit.cost");
+        if (0 < cost) {
+            if (!(Listener_TPoint.canBuy(cost, player))) {
+                Msg.warning(player, "看板を更新するには" + cost + "TPoint必要です");
+                editData.remove(player.getUniqueId());
+                lineData.remove(player.getUniqueId());
+                return;
+            }
+            Listener_TPoint.subtractPoint(cost, player, player);
         }
-        Listener_TPoint.subtractPoint(5, player, player);
+
         World w = loc.getWorld();
         assert w != null;
         Block a = w.getBlockAt(loc);

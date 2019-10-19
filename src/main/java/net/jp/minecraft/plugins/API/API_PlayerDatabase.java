@@ -11,7 +11,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * TeisyokuPlugin2
+ * TeisyokuPlugin2<br />
+ * プレイヤーのデータベースへ接続する機能を提供します。
  *
  * @author syokkendesuyo
  */

@@ -56,7 +56,6 @@ public class API_Flag {
      * @param flag   フラグ名
      * @return フラグ状態
      */
-    @Deprecated
     public static Boolean get(Player player, String flag) {
         String flagData = API_PlayerDatabase.getString(player, "flags." + flag);
         if (!(flagData.equals("true") || flagData.equals("false"))) {

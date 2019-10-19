@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins.Config;
+package net.jp.minecraft.plugins.API;
 
+import net.jp.minecraft.plugins.Config.CustomConfig;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author syokkendesuyo
  * TODO: ギフトコードAPIをAPIとして提供するように変更
  */
-public class GiftConfigAPI {
+public class API_Gift {
 
     /**
      * Gift.ymlをカスタムコンフィグ経由で取得

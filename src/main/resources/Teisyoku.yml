@@ -16,16 +16,6 @@ joinMessage:
   - 'TeisyokuPlugin2 is enabled!'
   - 'Created by syokkendesuyo'
 
-# ウィザーがスポーンできるワールドを指定
-arrow_summon_wither:
-  - 'world_the_end'
-  - 'the_end'
-
-# コマンドの有効化
-commands:
-  ad: true
-  gift: true
-
 # 機能の有効化
 functions:
   ad: true
@@ -60,6 +50,11 @@ horse:
 nickname:
   # ニックネームの最大文字数
   limits: 8
+
+# ウィザーがスポーンできるワールドを指定
+arrow_summon_wither:
+  - 'world_the_end'
+  - 'the_end'
 
 # デバッグ
 debug:

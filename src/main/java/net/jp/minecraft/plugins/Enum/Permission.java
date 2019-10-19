@@ -67,6 +67,7 @@ public enum Permission {
 
     TRASH("teisyoku.trash"),
 
+    PORTAL_BYPASS_END("teisyoku.portal.bypass.end"),
     PORTAL_BYPASS_NETHER("teisyoku.portal.bypass.nether"),
 
     VILLAGER_BYPASS_DAMAGE("teisyoku.villager.bypass.damage"),

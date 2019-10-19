@@ -14,13 +14,29 @@ import org.bukkit.event.player.PlayerTeleportEvent;
  *
  * @author syokkendesuyo
  */
-public class Listener_NetherGateEvent implements Listener {
+public class Listener_Portal implements Listener {
     @EventHandler
     public void onNetherGateEnterEvent(PlayerPortalEvent event) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         Player player = event.getPlayer();
+
+        if (event.getCause() == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
+
+            //バイパス権限を保有していた場合は機能をバイパス
+            if (player.hasPermission(Permission.PORTAL_BYPASS_END.toString())) {
+                return;
+            }
+
+            //ネザーポータルが有効化されているかどうか検出
+            if (!plugin.configTeisyoku.getConfig().getBoolean("portal.end")) {
+                event.setCancelled(true);
+                //TODO: メッセージを非表示にできるフラグを追加
+                Msg.warning(player, "当サーバではエンドポータルをご利用頂けません");
+                Msg.noPermissionMessage(player, Permission.PORTAL_BYPASS_NETHER);
+            }
+        }
 
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL) {
 
@@ -30,7 +46,7 @@ public class Listener_NetherGateEvent implements Listener {
             }
 
             //ネザーポータルが有効化されているかどうか検出
-            if (!plugin.configTeisyoku.getConfig().getBoolean("functions.portal.nether")) {
+            if (!plugin.configTeisyoku.getConfig().getBoolean("portal.nether")) {
                 event.setCancelled(true);
                 //TODO: メッセージを非表示にできるフラグを追加
                 Msg.warning(player, "当サーバではネザーポータルをご利用頂けません");

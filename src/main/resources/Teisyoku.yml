@@ -38,8 +38,6 @@ functions:
   tpoint: true
   tps: true
   trash: true
-  portal:
-    nether: false
 
 # 馬の保護機能
 horse:
@@ -50,6 +48,13 @@ horse:
 nickname:
   # ニックネームの最大文字数
   limits: 8
+
+# ポータルの設定
+portal:
+  # ネザーポータルを使用するかどうか
+  nether: false
+  # エンドゲートポータルを使用するかどうか
+  end: true
 
 # ウィザーがスポーンできるワールドを指定
 arrow_summon_wither:

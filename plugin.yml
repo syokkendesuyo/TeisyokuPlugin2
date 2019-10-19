@@ -205,6 +205,9 @@ permissions:
     teisyoku.trash:
         description: Teisyoku trash command
         default: true
+    teisyoku.portal.bypass.end:
+        description: Bypass end portal
+        default: false
     teisyoku.portal.bypass.nether:
         description: Bypass nether portal
         default: false

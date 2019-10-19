@@ -1,9 +1,10 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.API.API_Flag;
+import net.jp.minecraft.plugins.Enum.Flag;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -68,27 +69,14 @@ public class Command_TFlag implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        if (args[0].equalsIgnoreCase("call_sounds")) {
-            API_Flag.set(sender, player, args, "callコマンドの呼び出し音設定");
-            return true;
-        } else if (args[0].equalsIgnoreCase("cart_auto_collect")) {
-            API_Flag.set(sender, player, args, "マインカートを自動でインベントリに保存");
-            return true;
-        } else if (args[0].equalsIgnoreCase("fly_save_state")) {
-            API_Flag.set(sender, player, args, "飛行モードの状態をログイン時に継承する設定");
-            return true;
-        } else if (args[0].equalsIgnoreCase("sign_info")) {
-            API_Flag.set(sender, player, args, "看板データの照会機能利用設定");
-            return true;
-        } else if (args[0].equalsIgnoreCase("sign_info_cart")) {
-            API_Flag.set(sender, player, args, "[Cart]看板の看板データの照会機能利用設定");
-            return true;
-        } else if (args[0].equalsIgnoreCase("sign_cart")) {
-            API_Flag.set(sender, player, args, "[Cart]看板の利用設定");
-            return true;
-        } else {
+
+        //フラグが存在するか確認
+        if (!Flag.TFlag.contains(args[0])) {
             Msg.warning(player, "「" + args[0] + "」は利用できません。");
+            return true;
         }
+        Flag.TFlag tFlag = Flag.TFlag.getTFlag(args[0]);
+        API_Flag.set(sender, player, tFlag, args[1]);
         return true;
     }
 

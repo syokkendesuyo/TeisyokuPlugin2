@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.API;
 
+import net.jp.minecraft.plugins.Enum.Flag;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -16,12 +17,12 @@ public class API_Flag {
     /**
      * プレイヤーのデータベースを参照しフラグを更新します。
      *
-     * @param sender  コマンド実行者
-     * @param player  対象プレイヤー
-     * @param args    コマンド引数
-     * @param flagMsg メッセージ
+     * @param sender コマンド実行者
+     * @param player 対象プレイヤー
+     * @param tFlag  フラグ
+     * @param bool   フラグの状態
      */
-    public static void set(CommandSender sender, Player player, String[] args, String flagMsg) {
+    public static void set(CommandSender sender, Player player, Flag.TFlag tFlag, String bool) {
         //オンライン時のみ更新可能
         //TODO: オフライン状態でも変更可能にする
         if (!player.isOnline()) {
@@ -30,13 +31,13 @@ public class API_Flag {
         }
 
         //引数に不正な文字列があった場合は処理を終了する
-        if (!(args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("false"))) {
-            Msg.warning(sender, "引数「" + args[1] + "」は利用できません。trueまたはfalseを指定して下さい。");
+        if (!(bool.equalsIgnoreCase("true") || bool.equalsIgnoreCase("false"))) {
+            Msg.warning(sender, "引数「" + bool + "」は利用できません。trueまたはfalseを指定して下さい。");
             return;
         }
 
         //引数をBoolean型にキャスト
-        Boolean value = Boolean.valueOf(args[1]);
+        Boolean value = Boolean.valueOf(bool);
 
         //ChatColorを設定
         ChatColor color = ChatColor.RED;
@@ -45,8 +46,8 @@ public class API_Flag {
         }
 
         //設定を保存
-        API_PlayerDatabase.set(player, "flags." + args[0], value);
-        Msg.success(sender, flagMsg + "： " + color + value);
+        API_PlayerDatabase.set(player, tFlag.getTFlagPath(), value);
+        Msg.success(sender, tFlag.getDescription() + "： " + color + value);
     }
 
     /**

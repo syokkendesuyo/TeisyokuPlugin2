@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.API.API_Trash;
+import net.jp.minecraft.plugins.Enum.Flag;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -46,7 +47,7 @@ public class Listener_Sign implements Listener {
                 API_Trash.open(player);
             } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
                 addMinecart(player);
-                if (!API_Flag.get(player, "sign_info_cart")) {
+                if (!API_Flag.get(player, Flag.TFlag.SIGN_INFO_CART.getTFlag())) {
                     return;
                 }
             } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
@@ -89,7 +90,7 @@ public class Listener_Sign implements Listener {
         }
 
         //看板のデータ照会を行わない個人設定ならば処理終了
-        if (!API_Flag.get(player, "sign_info")) {
+        if (!API_Flag.get(player, Flag.TFlag.SIGN_INFO.getTFlag())) {
             return;
         }
 
@@ -111,7 +112,7 @@ public class Listener_Sign implements Listener {
     private void addMinecart(Player player) {
 
         //カート看板が個人設定で無効化されていれば処理終了
-        if (!API_Flag.get(player, "sign_cart")) {
+        if (!API_Flag.get(player, Flag.TFlag.SIGN_CART.getTFlag())) {
             return;
         }
 

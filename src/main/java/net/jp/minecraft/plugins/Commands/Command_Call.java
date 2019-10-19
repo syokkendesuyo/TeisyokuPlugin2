@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins.Commands;
 
 import com.google.common.base.Joiner;
 import net.jp.minecraft.plugins.API.API_Flag;
+import net.jp.minecraft.plugins.Enum.Flag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -88,14 +89,14 @@ public class Command_Call implements CommandExecutor {
             Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.GRAY + " さんからメッセージ" + ChatColor.DARK_GRAY + " : " + ChatColor.RESET + Color.convert(arg));
 
             //サウンドを再生
-            if (API_Flag.get(player, "call_sounds")) {
+            if (API_Flag.get(player, Flag.TFlag.CALL_SOUNDS.getTFlag())) {
                 Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
             }
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
             if (sender instanceof Player) {
                 Player receiver = (Player) sender;
-                if (API_Flag.get(receiver, "call_sounds")) {
+                if (API_Flag.get(receiver, Flag.TFlag.CALL_SOUNDS.getTFlag())) {
                     Sounds.play(receiver, Sound.ENTITY_ARROW_SHOOT);
                 }
             }

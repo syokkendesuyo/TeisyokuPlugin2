@@ -73,6 +73,9 @@ public enum Permission {
 
     ;
 
+    /**
+     * パーミッション
+     */
     private final String perm;
 
     /**

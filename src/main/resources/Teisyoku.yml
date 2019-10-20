@@ -66,6 +66,12 @@ arrow_summon_wither:
   - 'world_the_end'
   - 'the_end'
 
+# 古いソースデータ移行する機能
+# 　LastJoinPlayersData.ymlが存在する場合は一度だけtrueに変更し再起動をしてください
+# 　実行後は起動に不要な処理のためfalseへ変更することをおすすめします
+# 　実行後はLastJoinPlayersData.ymlを削除可能です
+migration: false
+
 # デバッグ
 debug:
   SpawnFixed: false

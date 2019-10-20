@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins;
 import net.jp.minecraft.plugins.API.API_Trash;
 import net.jp.minecraft.plugins.Commands.*;
 import net.jp.minecraft.plugins.Config.CustomConfig;
+import net.jp.minecraft.plugins.Config.migrationPlayerDatabase;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
 import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
@@ -13,14 +14,11 @@ import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import java.io.File;
 import java.util.List;
 
 public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
@@ -60,9 +58,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
      */
     public CustomConfig configRailways;
 
-    public File newConfig_last;
-    public FileConfiguration LastJoinPlayerConfig;
-
+    // TODO: ローカルへ移動
     public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
     public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
 
@@ -80,7 +76,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_EntityDamage(), this);
         pm.registerEvents(new Listener_MinecartEvent(), this);
         pm.registerEvents(new API_Trash(), this);
-        pm.registerEvents(new Listener_LastJoin(), this);
         pm.registerEvents(new Listener_Chat(), this);
         pm.registerEvents(new Listener_Sign(), this);
         pm.registerEvents(new GUI_YesNo(), this);
@@ -200,8 +195,8 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         configRailways = new CustomConfig(this, "Railways.yml");
         configRailways.saveDefaultConfig();
 
-        LastJoinPlayerConfig();
-        saveLastPlayerJoinConfig();
+        //古いデータを移行
+        migrationPlayerDatabase.migration();
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
@@ -212,30 +207,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
                 }
             }
         }, 0L, 54000L);
-    }
-
-    // TODO: LastJoinPlayersData.ymlをPlayerDatabaseへ移行
-    public void LastJoinPlayerConfig() {
-        this.newConfig_last = new File(getDataFolder(), "LastJoinPlayersData.yml");
-        this.LastJoinPlayerConfig = YamlConfiguration.loadConfiguration(this.newConfig_last);
-        saveLastPlayerJoinConfig();
-    }
-
-    public void saveLastPlayerJoinConfig() {
-        try {
-            this.LastJoinPlayerConfig.save(this.newConfig_last);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadLastPlayerJoinConfig() {
-        try {
-            this.LastJoinPlayerConfig.load(this.newConfig_last);
-            this.LastJoinPlayerConfig.save(this.newConfig_last);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static TeisyokuPlugin2 getInstance() {

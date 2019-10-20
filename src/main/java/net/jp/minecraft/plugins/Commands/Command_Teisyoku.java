@@ -65,7 +65,6 @@ public class Command_Teisyoku implements CommandExecutor {
             TeisyokuPlugin2.getInstance().configGift.reloadConfig();
             TeisyokuPlugin2.getInstance().configHorses.reloadConfig();
             TeisyokuPlugin2.getInstance().configRailways.reloadConfig();
-            TeisyokuPlugin2.getInstance().reloadLastPlayerJoinConfig();
             success(sender, "TeisyokuPlugin2のコンフィグをリロードしました。");
             return true;
         }

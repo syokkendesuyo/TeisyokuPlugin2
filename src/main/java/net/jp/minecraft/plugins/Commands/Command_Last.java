@@ -1,9 +1,10 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.API.API;
+import net.jp.minecraft.plugins.API.API_PlayerDatabase;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -79,14 +80,14 @@ public class Command_Last implements CommandExecutor {
 
                 OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
-                if (TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.get(uuid + ".JoinDate") == null) {
+                if (API_PlayerDatabase.getString(player, "join.date").isEmpty() || API_PlayerDatabase.getString(player, "quit.date").isEmpty()) {
                     Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "のデータは見つかりませんでした");
                     return true;
                 }
-                String joinDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".JoinDate");
-                String quitDate = TeisyokuPlugin2.getInstance().LastJoinPlayerConfig.getString(uuid + ".QuitDate");
+                String joinDate = API_PlayerDatabase.getString(player, "join.date");
+                String quitDate = API_PlayerDatabase.getString(player, "quit.date");
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+                SimpleDateFormat sdf = new SimpleDateFormat(API.getDateFormat());
                 String firstPlayed = sdf.format(player.getFirstPlayed());
 
                 Msg.info(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "さんのデータ");

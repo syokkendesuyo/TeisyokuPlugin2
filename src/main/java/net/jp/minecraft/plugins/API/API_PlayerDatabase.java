@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.API;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -47,7 +48,7 @@ public class API_PlayerDatabase {
      * @param path   コンフィグ内パス
      * @param data   データ
      */
-    public static void set(Player player, String path, Object data) {
+    public static void set(OfflinePlayer player, String path, Object data) {
         try {
             File file = new File(userdata, File.separator + player.getUniqueId() + ".yml");
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
@@ -65,7 +66,7 @@ public class API_PlayerDatabase {
      * @param player プレイヤー
      * @return Stringデータ
      */
-    public static String getString(Player player, String path) {
+    public static String getString(OfflinePlayer player, String path) {
         FileConfiguration file = getPlayerFile(player.getUniqueId());
         try {
             return Objects.requireNonNull(file.get(path)).toString();

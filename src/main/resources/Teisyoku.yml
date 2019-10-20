@@ -1,8 +1,15 @@
+# TeisyokuPlugin2 メイン設定ファイル
+# @author syokkendesuyo
+
 # Tabリストのタイトル
-title: '§bWelcome to My server'
+#  使用には下記のプラグインが必要です
+#  Hook: BountifulAPI (https://www.spigotmc.org/resources/1394/)
+title: '&8--- &6Welcome to My server &8---'
 
 # Tabリストのサブタイトル
-subtitle: '§aWebsite:http://example.com/'
+#  使用には下記のプラグインが必要です
+#  Hook: BountifulAPI (https://www.spigotmc.org/resources/1394/)
+subtitle: 'Website&8: &9http://example.com/'
 
 # 定期的に配信される広告
 ad:

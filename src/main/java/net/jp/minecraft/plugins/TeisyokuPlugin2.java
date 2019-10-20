@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins;
 
-import net.jp.minecraft.plugins.API.API_Trash;
 import net.jp.minecraft.plugins.Commands.*;
 import net.jp.minecraft.plugins.Config.CustomConfig;
 import net.jp.minecraft.plugins.Config.migrationPlayerDatabase;
@@ -11,7 +10,6 @@ import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Utility.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
@@ -31,7 +29,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     /**
      * サポートバージョン
      */
-    private String supportVersion = "1.13.2-R0.1-SNAPSHOT";
+    private static String supportVersion = "1.13.2-R0.1-SNAPSHOT";
 
     /**
      * Teisyoku.yml
@@ -58,10 +56,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
      */
     public CustomConfig configRailways;
 
-    // TODO: ローカルへ移動
-    public String ZombieTicket = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "ゾンビホース変換チケット";
-    public String SkeletonTicket = ChatColor.GRAY + "" + ChatColor.BOLD + "スケルトンホース変換チケット";
-
+    /**
+     * 再起動を含む起動時に呼び出されるメソッド
+     */
     public void onEnable() {
         String version = Bukkit.getBukkitVersion();
         Msg.info(Bukkit.getConsoleSender(), "Running on " + version);
@@ -70,25 +67,23 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         instance = this;
 
-        pm.registerEvents(new Listener_JoinQuit(), this);
-        pm.registerEvents(new Listener_Portal(), this);
-        pm.registerEvents(new Listener_DeathEvent(), this);
-        pm.registerEvents(new Listener_EntityDamage(), this);
-        pm.registerEvents(new Listener_MinecartEvent(), this);
-        pm.registerEvents(new API_Trash(), this);
         pm.registerEvents(new Listener_Chat(), this);
+        pm.registerEvents(new Listener_Death(), this);
+        pm.registerEvents(new Listener_EntityDamage(), this);
+        pm.registerEvents(new Listener_Fly(), this);
+        pm.registerEvents(new Listener_Horse(), this);
+        pm.registerEvents(new Listener_JoinQuit(), this);
+        pm.registerEvents(new Listener_Minecart(), this);
+        pm.registerEvents(new Listener_MobGrief(), this);
+        pm.registerEvents(new Listener_Portal(), this);
         pm.registerEvents(new Listener_Sign(), this);
-        pm.registerEvents(new GUI_YesNo(), this);
-        pm.registerEvents(new GUI_ClickEvent(), this);
         pm.registerEvents(new Listener_SignColor(), this);
         pm.registerEvents(new Listener_SignEdit(), this);
-        pm.registerEvents(new Listener_MobGrief(), this);
-        pm.registerEvents(new Listener_Horse(), this);
-        pm.registerEvents(new Listener_SpawnEgg(), this);
         pm.registerEvents(new Listener_SkeletonHorse(), this);
-        pm.registerEvents(new Listener_Fly(), this);
+        pm.registerEvents(new Listener_SpawnEgg(), this);
 
-        pm.registerEvents(new Sounds(), this);
+        pm.registerEvents(new GUI_YesNo(), this);
+        pm.registerEvents(new GUI_ClickEvent(), this);
 
         pm.registerEvents(new TPointIndexGUI(), this);
         pm.registerEvents(new TPointBuyGUI(), this);

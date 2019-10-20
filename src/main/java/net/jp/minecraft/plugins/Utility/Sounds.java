@@ -2,7 +2,6 @@ package net.jp.minecraft.plugins.Utility;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 /**
  * TeisyokuPlugin2
@@ -10,7 +9,7 @@ import org.bukkit.event.Listener;
  *
  * @author syokkendesuyo
  */
-public class Sounds implements Listener {
+public class Sounds {
 
     /**
      * サウンドを再生

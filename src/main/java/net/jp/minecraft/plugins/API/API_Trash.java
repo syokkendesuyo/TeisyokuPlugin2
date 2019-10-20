@@ -1,13 +1,12 @@
 package net.jp.minecraft.plugins.API;
 
-import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Enum.Permission;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,7 +19,7 @@ import java.util.Collections;
  *
  * @author syokkendesuyo
  */
-public class API_Trash implements Listener {
+public class API_Trash {
     public static void open(CommandSender sender) {
         if (!(sender instanceof Player)) {
             Msg.warning(sender, "ゴミ箱コマンドはゲーム内からのみ実行できます");

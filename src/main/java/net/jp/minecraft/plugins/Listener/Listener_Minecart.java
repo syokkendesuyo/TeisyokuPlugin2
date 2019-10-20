@@ -37,7 +37,7 @@ import java.util.List;
  * @author syokkendesuyo azuhata
  * TODO: 重複部分をメソッド化
  */
-public class Listener_MinecartEvent implements Listener {
+public class Listener_Minecart implements Listener {
 
     @EventHandler
     public void onVehicleDestroyEvent(VehicleDestroyEvent event) {

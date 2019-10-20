@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * @author syokkendesuyo
  */
-public class Listener_DeathEvent implements Listener {
+public class Listener_Death implements Listener {
     @EventHandler
     public void death(PlayerDeathEvent event) {
         try {

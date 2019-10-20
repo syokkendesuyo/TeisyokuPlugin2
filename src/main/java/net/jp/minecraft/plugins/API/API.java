@@ -103,7 +103,7 @@ public class API {
      *
      * @return 日時の文字列
      */
-    public static String getDateFormat () {
+    public static String getDateFormat() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
         return sdf.format(date.getTime());
@@ -117,8 +117,8 @@ public class API {
      * @return チャットカラーまたはnull
      */
     public static ChatColor getChatColor(String color) {
-        for(ChatColor c : ChatColor.class.getEnumConstants()) {
-            if(c.name().equalsIgnoreCase(color)) {
+        for (ChatColor c : ChatColor.class.getEnumConstants()) {
+            if (c.name().equalsIgnoreCase(color)) {
                 return c;
             }
         }

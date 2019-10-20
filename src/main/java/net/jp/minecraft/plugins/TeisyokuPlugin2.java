@@ -97,7 +97,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("p").setExecutor(new Command_Players());
         getCommand("players").setExecutor(new Command_Players());
 
-        getCommand("last").setExecutor(new Command_Last());
+        getCommand("playerdata").setExecutor(new Command_PlayerData());
+        getCommand("pd").setExecutor(new Command_PlayerData());
+        getCommand("last").setExecutor(new Command_PlayerData());
 
         getCommand("ad").setExecutor(new Command_Ad());
         getCommand("notice").setExecutor(new Command_Ad());

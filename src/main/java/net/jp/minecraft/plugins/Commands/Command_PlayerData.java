@@ -21,15 +21,14 @@ import java.util.UUID;
  * TeisyokuPlugin2
  *
  * @author syokkendesuyo
- * TODO: コマンド名が現在の利用趣旨と差異がある
  */
-public class Command_Last implements CommandExecutor {
+public class Command_PlayerData implements CommandExecutor {
     public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
         //コマンドが有効化されているかどうか検出
-        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.last")) {
+        if (!plugin.configTeisyoku.getConfig().getBoolean("functions.player_data")) {
             Msg.commandNotEnabled(sender, commandLabel);
             return true;
         }
@@ -50,15 +49,15 @@ public class Command_Last implements CommandExecutor {
         if (args[0].equalsIgnoreCase("perm") || args[0].equalsIgnoreCase("perms") || args[0].equalsIgnoreCase("permission")) {
             Msg.checkPermission(sender,
                     Permission.USER,
-                    Permission.LAST,
+                    Permission.PLAYER_DATA,
                     Permission.ADMIN
             );
             return true;
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.LAST.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
-            Msg.noPermissionMessage(sender, Permission.LAST);
+        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.PLAYER_DATA.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+            Msg.noPermissionMessage(sender, Permission.PLAYER_DATA);
             return true;
         }
 

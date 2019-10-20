@@ -39,15 +39,21 @@ commands:
     p:
         description: show players list.
         usage: /p
-    last:
-        description: show player last login date.
-        usage: /last <Player>
     nick:
         description: Nick
         usage: /nick
     nickname:
         description: Nickname
         usage: /nickname
+    playerdata:
+        description: show player date.
+        usage: /playerdata <Player>
+    pd:
+        description: show player date.
+        usage: /pd <Player>
+    last:
+        description: show player date.
+        usage: /last <Player>
     point:
         description: TPoint
         usage: /point
@@ -166,11 +172,11 @@ permissions:
     teisyoku.horse.bypass.damage:
         description: Teisyoku horse function
         default: op
-    teisyoku.last:
-        description: Teisyoku last command
-        default: true
     teisyoku.nickname:
         description: Teisyoku nickname command
+        default: true
+    teisyoku.playerdata:
+        description: Teisyoku player data command
         default: true
     teisyoku.nickname.admin:
         description: Teisyoku nickname command

@@ -35,8 +35,8 @@ functions:
   help: true
   horse: true
   horse_ticket: true
-  last: true
   nickname: true
+  player_data: true
   players: true
   railways: true
   signedit: true

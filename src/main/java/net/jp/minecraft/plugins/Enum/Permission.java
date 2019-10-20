@@ -43,10 +43,10 @@ public enum Permission {
     HORSE_BYPASS_RIDE("teisyoku.horse.bypass.ride"),
     HORSE_BYPASS_DAMAGE("teisyoku.horse.bypass.damage"),
 
-    LAST("teisyoku.last"),
-
     NICKNAME("teisyoku.nickname"),
     NICKNAME_ADMIN("teisyoku.nickname.admin"),
+
+    PLAYER_DATA("teisyoku.playerdata"),
 
     PLAYERS("teisyoku.players"),
 

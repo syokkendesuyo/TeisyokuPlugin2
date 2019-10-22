@@ -122,8 +122,8 @@ public class Command_Teisyoku implements CommandExecutor {
         Msg.commandFormat(sender, "fly", "飛行モード");
         Msg.commandFormat(sender, "help", "ヘルプを開く");
         Msg.commandFormat(sender, "horse", "馬の保護");
-        Msg.commandFormat(sender, "last", "最終ログイン日時等を表示");
         Msg.commandFormat(sender, "nick", "ニックネームを設定");
+        Msg.commandFormat(sender, "pd", "プレイヤーデータを表示");
         Msg.commandFormat(sender, "players", "ログイン中のプレイヤーを表示");
         Msg.commandFormat(sender, "ri", "RailwaysInfoに関するコマンド");
         Msg.commandFormat(sender, "se", "看板編集コマンド");

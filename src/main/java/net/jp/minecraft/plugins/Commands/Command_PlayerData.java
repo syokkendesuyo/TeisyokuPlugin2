@@ -109,7 +109,7 @@ public class Command_PlayerData implements CommandExecutor {
      */
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "コマンドのヘルプ");
-        Msg.commandFormat(sender, commandLabel + " <プレイヤー名>", "プレイヤーの最終ログイン日時等を取得します");
+        Msg.commandFormat(sender, commandLabel + " <プレイヤー名>", "プレイヤーデータを表示");
         Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");
     }

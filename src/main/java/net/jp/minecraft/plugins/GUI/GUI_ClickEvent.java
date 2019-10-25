@@ -24,7 +24,7 @@ public class GUI_ClickEvent implements Listener {
 
 
         //ゴミ箱
-        if (event.getInventory().getName().equalsIgnoreCase(" ゴミ箱 ")) {
+        if (event.getView().getTitle().equalsIgnoreCase(" ゴミ箱 ")) {
             if (event.getRawSlot() == 0 || event.getRawSlot() == 1) {
                 event.setCancelled(true);
             }
@@ -36,7 +36,7 @@ public class GUI_ClickEvent implements Listener {
 
 
         //定食サーバメニュー
-        else if (event.getInventory().getName().equalsIgnoreCase(" 定食サーバメニュー ")) {
+        else if (event.getView().getTitle().equalsIgnoreCase(" 定食サーバメニュー ")) {
             if (event.getRawSlot() == 0 || event.getRawSlot() == 1) {
                 event.setCancelled(true);
             }
@@ -75,7 +75,7 @@ public class GUI_ClickEvent implements Listener {
 
 
         //プレイヤー一覧
-        else if (event.getInventory().getName().equalsIgnoreCase(" プレイヤー一覧 ")) {
+        else if (event.getView().getTitle().equalsIgnoreCase(" プレイヤー一覧 ")) {
             if (event.getRawSlot() > 0) {
                 event.setCancelled(true);
             }

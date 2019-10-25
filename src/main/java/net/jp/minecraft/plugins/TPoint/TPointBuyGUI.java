@@ -90,7 +90,7 @@ public class TPointBuyGUI implements Listener {
     public void onInventoryClickEvent(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
-        if (event.getInventory().getName().equalsIgnoreCase(inventoryName)) {
+        if (event.getView().getTitle().equalsIgnoreCase(inventoryName)) {
             //Cancel click event
             event.setCancelled(true);
 
@@ -122,7 +122,7 @@ public class TPointBuyGUI implements Listener {
             return;
         }
         int goods_number = Teisyoku_TPointGUI.get(player.getUniqueId());
-        if (event.getInventory().getName().equalsIgnoreCase(ChatColor.stripColor(Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + goods_number + ".name")))))) {
+        if (event.getView().getTitle().equalsIgnoreCase(ChatColor.stripColor(Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + goods_number + ".name")))))) {
             event.setCancelled(true);
             if (event.getRawSlot() == 2) {
                 List<String> messages = plugin.configTPoint.getConfig().getStringList("goods." + goods_number + ".messages");

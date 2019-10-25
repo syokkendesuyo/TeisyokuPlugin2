@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.TPoint;
 import net.jp.minecraft.plugins.GUI.GUI;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Utility.Item;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -45,8 +46,7 @@ public class TPointIndexGUI implements Listener {
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-
-        if (event.getInventory().getName().equalsIgnoreCase(inventoryName)) {
+        if (event.getView().getTitle().equalsIgnoreCase(inventoryName)) {
             //Cancel click event
             event.setCancelled(true);
 

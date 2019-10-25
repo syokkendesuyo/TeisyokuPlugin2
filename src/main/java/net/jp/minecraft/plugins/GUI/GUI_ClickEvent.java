@@ -15,7 +15,7 @@ import org.bukkit.event.inventory.InventoryType;
 /**
  * TeisyokuPlugin2
  *
- * @auther syokkendesuyo
+ * @author syokkendesuyo
  */
 public class GUI_ClickEvent implements Listener {
     @EventHandler
@@ -82,6 +82,11 @@ public class GUI_ClickEvent implements Listener {
             if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
                 return;
             }
+
+            if (event.getCurrentItem() == null) {
+                return;
+            }
+
             if (event.getCurrentItem().getType().equals(Material.AIR)) {
                 return;
             }
@@ -111,6 +116,23 @@ public class GUI_ClickEvent implements Listener {
                 event.setCancelled(true);
             }
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public static void kill(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equalsIgnoreCase("自殺しますか？")) {
+            if (event.getRawSlot() == 2) {
+                //実行
+                player.setHealth(0);
+                player.closeInventory();
+                //Msg.success(player, "自殺しました");
+            } else if (event.getRawSlot() == 6) {
+                //拒否
+                Msg.success(player, "自殺をやっぱり辞めました！");
+                player.closeInventory();
+            }
         }
     }
 }

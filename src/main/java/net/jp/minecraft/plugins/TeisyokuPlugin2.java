@@ -82,7 +82,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new Listener_SkeletonHorse(), this);
         pm.registerEvents(new Listener_SpawnEgg(), this);
 
-        pm.registerEvents(new GUI_YesNo(), this);
         pm.registerEvents(new GUI_ClickEvent(), this);
 
         pm.registerEvents(new TPointIndexGUI(), this);

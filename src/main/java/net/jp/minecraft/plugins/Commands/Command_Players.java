@@ -79,6 +79,7 @@ public class Command_Players implements CommandExecutor {
     private void showPlayersList(CommandSender sender, String commandLabel) {
         if (sender instanceof Player) {
             GUI_PlayersList.getPlayersList((Player) sender);
+            return;
         }
         help(sender, commandLabel);
     }

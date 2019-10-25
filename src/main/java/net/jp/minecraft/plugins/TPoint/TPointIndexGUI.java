@@ -33,7 +33,7 @@ public class TPointIndexGUI implements Listener {
 
         //TPoint Buy
         String[] lore_buy = {"TPointを使ってお買い物をします"};
-        ItemStack item_buy = Item.customItem(ChatColor.BOLD + "購入", 1, Material.WRITABLE_BOOK, lore_buy);
+        ItemStack item_buy = Item.customItem(ChatColor.GREEN + "" + ChatColor.BOLD + "購入", 1, Material.WRITABLE_BOOK, lore_buy);
 
         player.openInventory(Inventory.create(player, 3, inventoryName, item_status, item_buy));
     }
@@ -49,7 +49,11 @@ public class TPointIndexGUI implements Listener {
                 return;
             }
 
-            if (Objects.requireNonNull(event.getCurrentItem()).getType().equals(Material.AIR)) {
+            if (event.getCurrentItem() == null) {
+                return;
+            }
+
+            if (event.getCurrentItem().getType().equals(Material.AIR)) {
                 return;
             }
 

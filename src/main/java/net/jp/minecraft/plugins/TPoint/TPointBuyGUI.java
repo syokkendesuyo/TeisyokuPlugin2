@@ -4,8 +4,8 @@ import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
-import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Item;
+import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -48,42 +48,56 @@ public class TPointBuyGUI implements Listener {
         //Get Tpoint
         int point = Listener_TPoint.int_status(player);
 
-        //TPoint Status
-        String[] lore_status = {};
-        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, lore_status);
+        ItemStack[] items = new ItemStack[invSize * 9];
 
-        inv.setItem(0, item_status);
-        int cnt = 9;
-        for (; cnt < invSize * 9 - 1; cnt++) {
+        //TPoint Status
+        String[] loreStatus = {};
+        items[0] = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, loreStatus);
+        items[1] = Item.customItem(ChatColor.RED + "" + ChatColor.BOLD + "戻る", 1, Material.SIGN, loreStatus);
+
+        int cnt = 3;
+        for (; cnt < invSize * 9; cnt++) {
             if (plugin.configTPoint.getConfig().get("goods." + cnt + ".name") == null) {
-                /*
-                 ##  Debug  ##
-                String ItemName = plugin.configTPoint.getConfig().getString("goods." + cnt + ".name");
-                String test = plugin.configTPoint.getConfig().getString("test");
-                Msg.warning(player,"Continue:" + cnt + " & " + ItemName+ " " + test);
-                 */
                 continue;
             }
             try {
-                String ItemName = Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + cnt + ".name")));
-                String lore0 = Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + cnt + ".lore1")));
-                String lore1 = Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + cnt + ".lore2")));
-                String lore2 = Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + cnt + ".lore3")));
-
-                //TPoint Buy
-                String[] lore_buy_for = {lore0, lore1, lore2};
+                //表示素材
                 String material = plugin.configTPoint.getConfig().getString("goods." + cnt + ".material");
-                assert material != null;
-                ItemStack item_buy_for = Item.customItem(ItemName, 1, Material.getMaterial(material), lore_buy_for);
-                inv.setItem(cnt, item_buy_for);
+
+                //表示素材のnullチェック
+                if (material == null) {
+                    throw new NullPointerException("TPoint.ymlに登録されたクッズ番号" + cnt + "の素材名(material)が見つかりません");
+                }
+
+                //素材が存在するか確認
+                if (Material.getMaterial(material) == null) {
+                    throw new NullPointerException("TPoint.ymlに登録されたクッズ番号" + cnt + "の素材名「" + material + "」は無効なアイテム名です");
+                }
+
+                //アイテム名
+                String itemName = plugin.configTPoint.getConfig().getString("goods." + cnt + ".name");
+
+                //表示惣菜のnullチェック
+                if (itemName == null) {
+                    throw new NullPointerException("TPoint.ymlに登録されたクッズ番号" + cnt + "のアイテム名(name)が見つかりません");
+                }
+
+                //説明文
+                String[] lore = new String[3];
+                lore[0] = Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + cnt + ".lore1")));
+                lore[1] = Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + cnt + ".lore2")));
+                lore[2] = Color.convert(Objects.requireNonNull(plugin.configTPoint.getConfig().getString("goods." + cnt + ".lore3")));
+
+                ItemStack item = Item.customItem(Color.convert(itemName), 1, Material.getMaterial(material), lore);
+
+                items[cnt] = item;
             } catch (Exception e) {
                 Msg.warning(player, "不明なエラーが発生しました");
+                Bukkit.getLogger().warning("TPoint.ymlに登録されたクッズ番号" + cnt + "でエラーが発生しました");
                 e.printStackTrace();
             }
         }
-
-        //Open this Inventory
-        player.openInventory(inv);
+        player.openInventory(net.jp.minecraft.plugins.Utility.Inventory.create(player, invSize, inventoryName, items));
     }
 
     @EventHandler
@@ -94,11 +108,26 @@ public class TPointBuyGUI implements Listener {
             //Cancel click event
             event.setCancelled(true);
 
-            if (!(event.getRawSlot() >= 9 && event.getRawSlot() <= 28)) {
+            if (!(event.getRawSlot() >= 0 && event.getRawSlot() <= invSize * 9)) {
                 return;
             }
 
-            if (Objects.requireNonNull(event.getCurrentItem()).getType().equals(Material.AIR)) {
+            if (event.getCurrentItem() == null) {
+                return;
+            }
+
+            if (event.getCurrentItem().getType().equals(Material.AIR)) {
+                return;
+            }
+
+            //スロット0は予約済みなので週力
+            if (event.getRawSlot() == 0) {
+                return;
+            }
+
+            //スロット1は戻るボタンなのでGUIを呼び出す
+            if (event.getRawSlot() == 1) {
+                TPointIndexGUI.index(player);
                 return;
             }
 

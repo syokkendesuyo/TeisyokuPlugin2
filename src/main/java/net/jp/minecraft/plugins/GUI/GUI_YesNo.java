@@ -1,14 +1,11 @@
 package net.jp.minecraft.plugins.GUI;
 
-import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -39,25 +36,9 @@ public class GUI_YesNo implements Listener {
 
         inv.setItem(2, item_yes);
         inv.setItem(6, item_no);
+
         player.openInventory(inv);
 
         return inventoryName;
-    }
-
-    @EventHandler
-    public static void getKill(InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
-        if (event.getView().getTitle().equalsIgnoreCase("自殺しますか？")) {
-            if (event.getRawSlot() == 2) {
-                //実行
-                player.setHealth(0);
-                player.closeInventory();
-                //Msg.success(player, "自殺しました");
-            } else if (event.getRawSlot() == 6) {
-                //拒否
-                Msg.success(player, "自殺をやっぱり辞めました！");
-                player.closeInventory();
-            }
-        }
     }
 }

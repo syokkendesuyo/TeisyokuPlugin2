@@ -82,7 +82,7 @@ public class TPointBuyGUI implements Listener {
             }
         }
 
-        //Open this GUI
+        //Open this Inventory
         player.openInventory(inv);
     }
 

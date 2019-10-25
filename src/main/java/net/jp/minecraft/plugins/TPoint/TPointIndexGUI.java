@@ -1,9 +1,8 @@
 package net.jp.minecraft.plugins.TPoint;
 
-import net.jp.minecraft.plugins.GUI.GUI;
+import net.jp.minecraft.plugins.Utility.Inventory;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.Utility.Item;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
@@ -37,10 +35,7 @@ public class TPointIndexGUI implements Listener {
         String[] lore_buy = {"TPointを使ってお買い物をします"};
         ItemStack item_buy = Item.customItem(ChatColor.BOLD + "購入", 1, Material.WRITABLE_BOOK, lore_buy);
 
-        Inventory inv = GUI.create(player, 3, inventoryName, item_status, item_buy);
-
-        //Open this GUI
-        player.openInventory(inv);
+        player.openInventory(Inventory.create(player, 3, inventoryName, item_status, item_buy));
     }
 
     @EventHandler

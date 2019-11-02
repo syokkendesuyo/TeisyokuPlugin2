@@ -2,11 +2,12 @@ package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.API.API;
 import net.jp.minecraft.plugins.API.API_PlayerDatabase;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -84,15 +85,17 @@ public class Command_Nickname implements CommandExecutor {
                 }
 
                 //オンラインかどうかの確認
-                Player player = API.getPlayer(args[2]);
+                OfflinePlayer player = API.getPlayer(args[2]);
                 if (player != null) {
                     API_PlayerDatabase.set(player, nicknamePath, args[3]);
                     Msg.success(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + " さんのニックネームを " + ChatColor.AQUA + args[3] + ChatColor.RESET + " に設定しました");
-                    Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームを " + ChatColor.AQUA + args[3] + ChatColor.RESET + " に設定されました");
+                    if (player.isOnline()) {
+                        Msg.success((Player) player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームを " + ChatColor.AQUA + args[3] + ChatColor.RESET + " に設定されました");
+                    }
                     return true;
                 } else {
                     //プレイヤーが居ない場合の処理
-                    Msg.warning(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + "さんはオンラインではないため操作できません");
+                    Msg.warning(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + "さんは存在しないため操作できません");
                     return true;
                 }
             }
@@ -105,11 +108,13 @@ public class Command_Nickname implements CommandExecutor {
                 }
 
                 //オンラインかどうかの確認
-                Player player = API.getPlayer(args[2]);
+                OfflinePlayer player = API.getPlayer(args[2]);
                 if (player != null) {
                     API_PlayerDatabase.set(player, nicknamePath, "");
                     Msg.success(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + "さんのニックネームを削除しました");
-                    Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + "さんによってニックネームを削除されました");
+                    if (player.isOnline()) {
+                        Msg.success((Player) player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + "さんによってニックネームを削除されました");
+                    }
                     return true;
                 } else {
                     //プレイヤーが居ない場合の処理

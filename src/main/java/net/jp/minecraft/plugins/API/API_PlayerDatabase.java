@@ -83,7 +83,7 @@ public class API_PlayerDatabase {
      * @param player プレイヤー
      * @return Integerデータ
      */
-    public static Integer getInt(Player player, String path) {
+    public static Integer getInt(OfflinePlayer player, String path) {
         FileConfiguration file = getPlayerFile(player.getUniqueId());
         try {
             return file.getInt(path);
@@ -100,7 +100,7 @@ public class API_PlayerDatabase {
      * @param player プレイヤー
      * @return Booleanデータ
      */
-    public static Boolean getBoolean(Player player, String path) {
+    public static Boolean getBoolean(OfflinePlayer player, String path) {
         FileConfiguration file = getPlayerFile(player.getUniqueId());
         try {
             return file.getBoolean(path);

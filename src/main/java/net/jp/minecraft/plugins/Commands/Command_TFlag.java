@@ -44,6 +44,7 @@ public class Command_TFlag implements CommandExecutor {
             Msg.checkPermission(sender,
                     Permission.USER,
                     Permission.TFLAG,
+                    Permission.TFLAG_SEARCH,
                     Permission.ADMIN
             );
             return true;
@@ -55,6 +56,25 @@ public class Command_TFlag implements CommandExecutor {
             return true;
         }
 
+        //ステイタスを確認
+        if (args[0].equalsIgnoreCase("status") || args[0].equalsIgnoreCase("show") || args[0].equalsIgnoreCase("list")) {
+            if (args.length > 1) {
+                if (!sender.getName().equals(args[1]) && !sender.hasPermission(Permission.TFLAG_SEARCH.toString())) {
+                    Msg.noPermissionMessage(sender, Permission.TFLAG_SEARCH);
+                    return true;
+                }
+                TFlag.showTFlagStatus(sender, args[1]);
+                return true;
+            } else {
+                if (sender instanceof Player) {
+                    TFlag.showTFlagStatus(sender, sender.getName());
+                    return true;
+                }
+                help(sender, commandLabel);
+                return true;
+            }
+        }
+
         //コンソールからのコマンドを拒否
         if (!(sender instanceof Player)) {
             Msg.warning(sender, "コンソールからコマンドを送信することはできません");
@@ -63,11 +83,6 @@ public class Command_TFlag implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-
-        if (args[0].equalsIgnoreCase("status") || args[0].equalsIgnoreCase("show") || args[0].equalsIgnoreCase("list")) {
-            TFlag.showTFlagStatus(player);
-            return true;
-        }
 
         if (args.length == 1 || args.length > 2) {
             help(player, commandLabel);
@@ -93,7 +108,11 @@ public class Command_TFlag implements CommandExecutor {
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel, "ヘルプを表示");
-        Msg.commandFormat(sender, commandLabel + " <status|show|list>", "現在のフラグ状態を表示");
+        if (sender instanceof Player) {
+            Msg.commandFormat(sender, commandLabel + " <status|show|list> (プレイヤー名)", "現在のフラグ状態を表示");
+        } else {
+            Msg.commandFormat(sender, commandLabel + " <status|show|list> <プレイヤー名>", "現在のフラグ状態を表示");
+        }
         Msg.commandFormat(sender, commandLabel + " <フラグ名> <true/false>", "フラグ名を指定してフラグを設定");
         Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");

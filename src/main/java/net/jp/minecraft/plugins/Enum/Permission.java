@@ -59,6 +59,7 @@ public enum Permission {
     TEISYOKU_MENU("teisyoku.menu"),
 
     TFLAG("teisyoku.tflag"),
+    TFLAG_SEARCH("teisyoku.tflag.search"),
 
     TPOINT("teisyoku.tpoint"),
     TPOINT_ADMIN("teisyoku.tpoint.admin"),

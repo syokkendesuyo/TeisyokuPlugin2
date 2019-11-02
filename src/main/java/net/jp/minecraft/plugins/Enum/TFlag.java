@@ -1,8 +1,10 @@
 package net.jp.minecraft.plugins.Enum;
 
+import net.jp.minecraft.plugins.API.API;
 import net.jp.minecraft.plugins.API.API_PlayerDatabase;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -171,7 +173,7 @@ public enum TFlag {
      * @param flag   フラグ名
      * @return フラグ状態
      */
-    public static Boolean getTFlagStatus(Player player, String flag) {
+    public static Boolean getTFlagStatus(OfflinePlayer player, String flag) {
         String flagData = API_PlayerDatabase.getString(player, "flags." + flag);
         if (!(flagData.equals("true") || flagData.equals("false"))) {
             return true;
@@ -218,11 +220,17 @@ public enum TFlag {
     /**
      * フラグの状態を確認するメソッド
      *
-     * @param player 対象プレイヤー
+     * @param sender       コマンド送信者
+     * @param targetPlayer 対象プレイヤー
      */
-    public static void showTFlagStatus(Player player) {
+    public static void showTFlagStatus(CommandSender sender, String targetPlayer) {
+        OfflinePlayer player = API.getPlayer(targetPlayer);
+        if (player == null) {
+            Msg.info(sender, ChatColor.YELLOW + targetPlayer + ChatColor.RESET + "さんは存在しません");
+            return;
+        }
         String[] flags = TFlag.getTFlags();
-        Msg.info(player, "フラグ状態");
+        Msg.info(sender, ChatColor.YELLOW + targetPlayer + ChatColor.RESET + "さんのフラグ状態");
         for (String f : flags) {
             ChatColor color = ChatColor.RED;
             String status = "無効";
@@ -230,7 +238,7 @@ public enum TFlag {
                 color = ChatColor.GREEN;
                 status = "有効";
             }
-            Msg.blank(player, color + "・" + ChatColor.RESET + f + ChatColor.DARK_GRAY
+            Msg.blank(sender, color + "・" + ChatColor.RESET + f + ChatColor.DARK_GRAY
                     + " (" + color + status + ChatColor.DARK_GRAY + ") " + ChatColor.YELLOW + ":  " + ChatColor.RESET + TFlag.getTFlagDescription(f), 2);
         }
     }

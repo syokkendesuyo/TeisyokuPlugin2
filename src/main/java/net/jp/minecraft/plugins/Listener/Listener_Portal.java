@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.Enum.Flag;
 import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
@@ -34,7 +33,7 @@ public class Listener_Portal implements Listener {
             //ネザーポータルが有効化されているかどうか検出
             if (!plugin.configTeisyoku.getConfig().getBoolean("portal.end")) {
                 event.setCancelled(true);
-                if (API_Flag.get(player, Flag.TFlag.PORTAL_WARNING.getTFlag())) {
+                if (Flag.TFlag.getTFlagStatus(player, Flag.TFlag.PORTAL_WARNING.getTFlag())) {
                     Msg.warning(player, "このサーバーではエンドポータルはご利用頂けません");
                     Msg.noPermissionMessage(player, Permission.PORTAL_BYPASS_END);
                 }
@@ -51,7 +50,7 @@ public class Listener_Portal implements Listener {
             //ネザーポータルが有効化されているかどうか検出
             if (!plugin.configTeisyoku.getConfig().getBoolean("portal.nether")) {
                 event.setCancelled(true);
-                if (API_Flag.get(player, Flag.TFlag.PORTAL_WARNING.getTFlag())) {
+                if (Flag.TFlag.getTFlagStatus(player, Flag.TFlag.PORTAL_WARNING.getTFlag())) {
                     Msg.warning(player, "このサーバーではエンドポータルはご利用頂けません");
                     Msg.noPermissionMessage(player, Permission.PORTAL_BYPASS_NETHER);
                 }

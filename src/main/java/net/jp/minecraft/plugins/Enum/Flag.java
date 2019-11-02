@@ -1,5 +1,11 @@
 package net.jp.minecraft.plugins.Enum;
 
+import net.jp.minecraft.plugins.API.API_PlayerDatabase;
+import net.jp.minecraft.plugins.Utility.Msg;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 /**
  * TeisyokuPlugin2<br />
  * フラグの列挙型クラス
@@ -91,19 +97,47 @@ public class Flag {
         }
 
         /**
+         * フラグの説明文を返却します。
+         *
+         * @param flag フラグ名
+         * @return フラグの説明
+         */
+        public static String getTFlagDescription(String flag) {
+            for (TFlag f : TFlag.values()) {
+                if (f.getTFlag().equals(flag)) {
+                    return f.getDescription();
+                }
+            }
+            return null;
+        }
+
+        /**
          * PlayerDatabaseで使用されるフラグを返却します。
          *
          * @param flag フラグ名
          * @return フラグ
          */
         public static TFlag getTFlag(String flag) {
-            TFlag[] flags = TFlag.values();
-            for (TFlag f : flags) {
+            for (TFlag f : TFlag.values()) {
                 if (f.getTFlag().equals(flag) || f.getTFlag().equals("flags." + flag)) {
                     return f;
                 }
             }
             return null;
+        }
+
+        /**
+         * 登録されているフラグを全件返却します。
+         *
+         * @return フラグ名
+         */
+        public static String[] getTFlags() {
+            String[] flags = new String[values().length];
+            int index = 0;
+            for (TFlag f : TFlag.values()) {
+                flags[index++] = f.getTFlag();
+            }
+            return flags;
         }
 
         /**
@@ -114,6 +148,78 @@ public class Flag {
          */
         public static Boolean contains(String flag) {
             return getTFlag(flag) != null;
+        }
+
+        /**
+         * フラグ状態を取得します。<br />
+         * 設定が存在しない場合は有効状態を示します。
+         *
+         * @param player プレイヤー
+         * @param flag   フラグ名
+         * @return フラグ状態
+         */
+        public static Boolean getTFlagStatus(Player player, String flag) {
+            String flagData = API_PlayerDatabase.getString(player, "flags." + flag);
+            if (!(flagData.equals("true") || flagData.equals("false"))) {
+                return true;
+            }
+            return API_PlayerDatabase.getBoolean(player, "flags." + flag);
+        }
+
+        /**
+         * プレイヤーのデータベースを参照しフラグを更新します。
+         *
+         * @param sender コマンド実行者
+         * @param player 対象プレイヤー
+         * @param flag   フラグ
+         * @param bool   フラグの状態
+         */
+        public static void setTFlagStatus(CommandSender sender, Player player, Flag.TFlag flag, String bool) {
+            //オンライン時のみ更新可能
+            //TODO: オフライン状態でも変更可能にする
+            if (!player.isOnline()) {
+                Msg.warning(sender, "プレイヤー" + ChatColor.YELLOW + sender + ChatColor.RESET + "はオンラインではありません。");
+                return;
+            }
+
+            //引数に不正な文字列があった場合は処理を終了する
+            if (!(bool.equalsIgnoreCase("true") || bool.equalsIgnoreCase("false"))) {
+                Msg.warning(sender, "引数「" + bool + "」は利用できません。trueまたはfalseを指定して下さい。");
+                return;
+            }
+
+            //引数をBoolean型にキャスト
+            Boolean value = Boolean.valueOf(bool);
+
+            //ChatColorを設定
+            ChatColor color = ChatColor.RED;
+            if (value) {
+                color = ChatColor.GREEN;
+            }
+
+            //設定を保存
+            API_PlayerDatabase.set(player, flag.getTFlagPath(), value);
+            Msg.success(sender, flag.getDescription() + "： " + color + value);
+        }
+
+        /**
+         * フラグの状態を確認するメソッド
+         *
+         * @param player 対象プレイヤー
+         */
+        public static void showTFlagStatus(Player player) {
+            String[] flags = Flag.TFlag.getTFlags();
+            Msg.info(player, "フラグ状態");
+            for (String f : flags) {
+                ChatColor color = ChatColor.RED;
+                String status = "無効";
+                if (Flag.TFlag.getTFlagStatus(player, f)) {
+                    color = ChatColor.GREEN;
+                    status = "有効";
+                }
+                Msg.blank(player, color + "・" + ChatColor.RESET + f + ChatColor.DARK_GRAY
+                        + " (" + color + status + ChatColor.DARK_GRAY + ") " + ChatColor.YELLOW + ": " + ChatColor.RESET + Flag.TFlag.getTFlagDescription(f), 2);
+            }
         }
     }
 }

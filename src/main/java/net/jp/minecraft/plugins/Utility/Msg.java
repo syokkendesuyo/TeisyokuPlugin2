@@ -90,6 +90,23 @@ public final class Msg {
     }
 
     /**
+     * メッセージの先頭に空白を挿入
+     *
+     * @param sender 送信先
+     * @param msg    メッセージ内容
+     * @param num    空白数
+     */
+    public static void blank(final CommandSender sender, final String msg, final int num) {
+        int cnt = 0;
+        StringBuilder sb = new StringBuilder("");
+        while (cnt < num) {
+            sb.append(" ");
+            cnt++;
+        }
+        sender.sendMessage(sb + msg);
+    }
+
+    /**
      * Infoのメッセージをプレイヤーに送信
      *
      * @param p   プレイヤー
@@ -102,7 +119,7 @@ public final class Msg {
     /**
      * Adminにのみブロードキャストメッセージを送信
      *
-     * @param msg   メッセージ
+     * @param msg       メッセージ
      * @param playSound サウンド
      */
     public static void adminBroadcast(final String msg, boolean playSound) {

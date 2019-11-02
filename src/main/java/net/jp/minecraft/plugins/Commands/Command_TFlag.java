@@ -1,6 +1,5 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.API.API_Flag;
 import net.jp.minecraft.plugins.Enum.Flag;
 import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
@@ -63,12 +62,17 @@ public class Command_TFlag implements CommandExecutor {
             return true;
         }
 
-        if (args.length == 1 || args.length > 2) {
-            help(sender, commandLabel);
+        Player player = (Player) sender;
+
+        if (args[0].equalsIgnoreCase("status") || args[0].equalsIgnoreCase("show") || args[0].equalsIgnoreCase("list")) {
+            Flag.TFlag.showTFlagStatus(player);
             return true;
         }
 
-        Player player = (Player) sender;
+        if (args.length == 1 || args.length > 2) {
+            help(player, commandLabel);
+            return true;
+        }
 
         //フラグが存在するか確認
         if (!Flag.TFlag.contains(args[0])) {
@@ -76,7 +80,7 @@ public class Command_TFlag implements CommandExecutor {
             return true;
         }
         Flag.TFlag tFlag = Flag.TFlag.getTFlag(args[0]);
-        API_Flag.set(sender, player, tFlag, args[1]);
+        Flag.TFlag.setTFlagStatus(sender, player, tFlag, args[1]);
         return true;
     }
 
@@ -89,6 +93,7 @@ public class Command_TFlag implements CommandExecutor {
     private void help(CommandSender sender, String commandLabel) {
         Msg.success(sender, "コマンドのヘルプ");
         Msg.commandFormat(sender, commandLabel, "ヘルプを表示");
+        Msg.commandFormat(sender, commandLabel + " <status|show|list>", "現在のフラグ状態を表示");
         Msg.commandFormat(sender, commandLabel + " <フラグ名> <true/false>", "フラグ名を指定してフラグを設定");
         Msg.commandFormat(sender, commandLabel + " <help|?>", "ヘルプを表示");
         Msg.commandFormat(sender, commandLabel + " <permission|perms|perm>", "パーミッションを表示");

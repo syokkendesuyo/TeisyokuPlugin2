@@ -84,7 +84,7 @@ public class Command_Nickname implements CommandExecutor {
                     return true;
                 }
 
-                //オンラインかどうかの確認
+                //プレイヤーが存在するか確認
                 OfflinePlayer player = API.getPlayer(args[2]);
                 if (player != null) {
                     API_PlayerDatabase.set(player, nicknamePath, args[3]);
@@ -107,7 +107,7 @@ public class Command_Nickname implements CommandExecutor {
                     return true;
                 }
 
-                //オンラインかどうかの確認
+                //プレイヤーが存在するか確認
                 OfflinePlayer player = API.getPlayer(args[2]);
                 if (player != null) {
                     API_PlayerDatabase.set(player, nicknamePath, "");

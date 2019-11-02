@@ -14,18 +14,39 @@ import org.bukkit.entity.Player;
  */
 public enum TFlag {
 
+    /**
+     * callコマンドの呼び出し音設定
+     */
     CALL_SOUNDS("call_sounds", "callコマンドの呼び出し音設定"),
 
+    /**
+     * マインカートを自動でインベントリに保存
+     */
     CART_AUTO_COLLECT("cart_auto_collect", "マインカートを自動でインベントリに保存"),
 
+    /**
+     * 飛行モードの状態をログイン時に継承する設定
+     */
     FLY_SAVE_STATE("fly_save_state", "飛行モードの状態をログイン時に継承する設定"),
 
+    /**
+     * ポータルのエラーメッセージを表示
+     */
     PORTAL_WARNING("portal_warning", "ポータルのエラーメッセージを表示"),
 
+    /**
+     * [Cart]看板の利用設定
+     */
     SIGN_CART("sign_cart", "[Cart]看板の利用設定"),
 
+    /**
+     * 看板データの照会機能利用設定
+     */
     SIGN_INFO("sign_info", "看板データの照会機能利用設定"),
 
+    /**
+     * [Cart]看板の看板データの照会機能利用設定
+     */
     SIGN_INFO_CART("sign_info_cart", "[Cart]看板の看板データの照会機能利用設定"),
 
     ;

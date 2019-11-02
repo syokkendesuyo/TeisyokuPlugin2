@@ -33,7 +33,7 @@ public class API_PlayerDatabase {
     }
 
     /**
-     * ワールドデータに登録されているプレイヤー数を取得します
+     * ワールドデータに登録されているプレイヤー数を取得します。
      *
      * @return プレイヤー数
      */
@@ -42,7 +42,7 @@ public class API_PlayerDatabase {
     }
 
     /**
-     * プレイヤーデータベースのプレイヤーデータに新規でパスを追加します
+     * プレイヤーデータベースのプレイヤーデータに新規でパスを追加します。
      *
      * @param player プレイヤー
      * @param path   コンフィグ内パス
@@ -60,8 +60,8 @@ public class API_PlayerDatabase {
     }
 
     /**
-     * プレイヤーデータベースのプレイヤーデータからデータを取得します
-     * パスが存在しない場合、文字列""を返却します
+     * プレイヤーデータベースのプレイヤーデータからデータを取得します。<br />
+     * パスが存在しない場合、文字列""を返却します。
      *
      * @param player プレイヤー
      * @return Stringデータ
@@ -77,8 +77,8 @@ public class API_PlayerDatabase {
     }
 
     /**
-     * プレイヤーデータベースのプレイヤーデータからデータを取得します
-     * パスが存在しない場合、-1を返却します
+     * プレイヤーデータベースのプレイヤーデータからデータを取得します。<br />
+     * パスが存在しない場合、-1を返却します。
      *
      * @param player プレイヤー
      * @return Integerデータ
@@ -94,8 +94,8 @@ public class API_PlayerDatabase {
     }
 
     /**
-     * プレイヤーデータベースのプレイヤーデータからデータを取得します
-     * パスが存在しない場合、falseを返却します
+     * プレイヤーデータベースのプレイヤーデータからデータを取得します。<br />
+     * パスが存在しない場合、falseを返却します。
      *
      * @param player プレイヤー
      * @return Booleanデータ
@@ -104,6 +104,22 @@ public class API_PlayerDatabase {
         FileConfiguration file = getPlayerFile(player.getUniqueId());
         try {
             return file.getBoolean(path);
+        } catch (NullPointerException e) {
+            //TODO: デバッグ機能の実装
+            return false;
+        }
+    }
+
+    /**
+     * プレイヤーデータベースが存在するかどうか確認します。<br />
+     * データベースファイルが存在してもidがファイル内に登録されていない場合falseを返します。
+     *
+     * @param player プレイヤー
+     * @return 存在の有無
+     */
+    public static Boolean exists(OfflinePlayer player) {
+        try {
+            return API_PlayerDatabase.getString(player, "id").isEmpty();
         } catch (NullPointerException e) {
             //TODO: デバッグ機能の実装
             return false;

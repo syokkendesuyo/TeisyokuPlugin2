@@ -1,12 +1,16 @@
 package net.jp.minecraft.plugins.API;
 
+import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static java.lang.Math.pow;
@@ -71,16 +75,32 @@ public class API {
 
     /**
      * プレイヤーを取得するメソッド<br />
-     * TODO: 確実にUUIDを取得できるようにする
+     * PlayerDatabaseにデータが存在しない場合やプレイヤー名が存在しない場合はnullを返却します。
      *
-     * @param playerName 　プレイヤー名
-     * @return プレイヤーまたはnull
+     * @param playerName プレイヤー名
+     * @return オフラインプレイヤー
      */
-    public static Player getPlayer(String playerName) {
-        if (!isPlayerName(playerName)) {
+    public static OfflinePlayer getPlayer(String playerName) {
+        try {
+            UUID uuid = UUIDFetcher.getUUIDOf(playerName);
+
+            //Minecraftに登録されているUUIDか検索 (ネットワーク接続必須)
+            if (uuid == null) {
+                return null;
+            }
+
+            //UUIDからオフラインプレイヤーへ変換
+            OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+
+            //データベースにデータが存在するか確認
+            if (API_PlayerDatabase.exists(player)) {
+                return null;
+            }
+            return player;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-        return Bukkit.getServer().getPlayer(playerName);
     }
 
     /**

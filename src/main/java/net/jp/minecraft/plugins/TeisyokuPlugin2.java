@@ -4,7 +4,6 @@ import net.jp.minecraft.plugins.Commands.*;
 import net.jp.minecraft.plugins.Config.CustomConfig;
 import net.jp.minecraft.plugins.Config.migrationPlayerDatabase;
 import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
-import net.jp.minecraft.plugins.GUI.GUI_YesNo;
 import net.jp.minecraft.plugins.Listener.*;
 import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;

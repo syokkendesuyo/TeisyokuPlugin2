@@ -198,7 +198,7 @@ public final class Msg {
                 color = ChatColor.GREEN;
                 hasPerm = "有効";
             }
-            sender.sendMessage(ChatColor.GRAY + "   > " + color + "・" + ChatColor.RESET + perm + ChatColor.DARK_GRAY + " (" + color + hasPerm + ChatColor.DARK_GRAY + ")");
+            blank(sender, color + "・" + ChatColor.RESET + perm + ChatColor.DARK_GRAY + " (" + color + hasPerm + ChatColor.DARK_GRAY + ")", 2);
         }
     }
 

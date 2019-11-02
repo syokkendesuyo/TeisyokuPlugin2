@@ -64,12 +64,11 @@ public class migrationPlayerDatabase {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
         //データが存在しない場合は移管しない
         if (configOld.get(uuid + "." + pathOld) == null) {
-            Msg.info(Bukkit.getConsoleSender(), "boo");
+            Msg.info(Bukkit.getConsoleSender(), "データが存在しません");
             return;
         }
         if (API_PlayerDatabase.getString(offlinePlayer, pathNew).isEmpty()) {
             API_PlayerDatabase.set(offlinePlayer, pathNew, configOld.get(uuid + "." + pathOld));
-            Msg.info(Bukkit.getConsoleSender(), "foo: " + pathNew);
         }
     }
 }

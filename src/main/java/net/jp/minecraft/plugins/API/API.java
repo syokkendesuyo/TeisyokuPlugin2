@@ -1,11 +1,12 @@
 package net.jp.minecraft.plugins.API;
 
-import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
@@ -144,5 +145,21 @@ public class API {
         }
         // TODO: デバッグ機能を追加
         return ChatColor.GRAY;
+    }
+
+    /**
+     * 複数のパーミッションを同時にチェックし、1件でも保有しているパーミッションがあった場合、trueを返します。
+     *
+     * @param sender      コマンド
+     * @param permissions パーミッション
+     * @return パーミッションの状態
+     */
+    public static boolean hasPermission(CommandSender sender, Permission... permissions) {
+        for (Permission permission : permissions) {
+            if (sender.hasPermission(permission.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

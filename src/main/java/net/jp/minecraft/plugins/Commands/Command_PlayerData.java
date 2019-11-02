@@ -56,7 +56,7 @@ public class Command_PlayerData implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.PLAYER_DATA.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(sender, Permission.USER, Permission.PLAYER_DATA, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.PLAYER_DATA);
             return true;
         }

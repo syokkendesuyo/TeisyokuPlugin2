@@ -1,8 +1,9 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.API.API;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -54,6 +55,12 @@ public class Command_RailwaysInfo implements CommandExecutor {
                     Permission.RAILWAYS,
                     Permission.ADMIN
             );
+            return true;
+        }
+
+        //実行コマンドのパーミッションを確認
+        if (!API.hasPermission(sender, Permission.USER, Permission.RAILWAYS, Permission.ADMIN)) {
+            Msg.noPermissionMessage(sender, Permission.RAILWAYS);
             return true;
         }
 

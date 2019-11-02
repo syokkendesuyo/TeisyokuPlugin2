@@ -1,10 +1,11 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.API.API;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Listener.Listener_SignEdit;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.Replace;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -53,7 +54,7 @@ public class Command_SignEdit implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.SIGNEDIT.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(sender, Permission.USER, Permission.SIGNEDIT, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.SIGNEDIT);
             return true;
         }

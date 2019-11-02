@@ -1,11 +1,11 @@
 package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.API.API;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Listener.Listener_TPoint;
 import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Utility.UUIDFetcher;
 import org.bukkit.*;
 import org.bukkit.block.CommandBlock;
@@ -63,7 +63,7 @@ public class Command_TPoint implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.TPOINT.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(sender, Permission.USER, Permission.TPOINT, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.TPOINT);
             return true;
         }

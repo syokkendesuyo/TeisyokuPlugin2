@@ -1,9 +1,10 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.API.API;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Listener.Listener_TicksPerSecond_1_13;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -55,7 +56,7 @@ public class Command_TPS implements CommandExecutor {
     }
 
     private void sendStatus(@Nonnull CommandSender sender) {
-        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.TPS.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(sender, Permission.USER, Permission.TPS, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.TPS);
             return;
         }

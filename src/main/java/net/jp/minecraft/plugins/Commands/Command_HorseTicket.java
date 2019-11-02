@@ -1,9 +1,10 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.API.API;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Item;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,8 +28,8 @@ public class Command_HorseTicket implements CommandExecutor {
             return true;
         }
 
-        if (!sender.hasPermission(Permission.ADMIN.toString())) {
-            Msg.noPermissionMessage(sender, Permission.ADMIN.toString());
+        if (!API.hasPermission(sender, Permission.ADMIN)) {
+            Msg.noPermissionMessage(sender, Permission.ADMIN);
             return true;
         }
 

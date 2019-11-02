@@ -60,7 +60,7 @@ public class Command_Nickname implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.NICKNAME.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(sender, Permission.USER, Permission.NICKNAME, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.NICKNAME);
             return true;
         }

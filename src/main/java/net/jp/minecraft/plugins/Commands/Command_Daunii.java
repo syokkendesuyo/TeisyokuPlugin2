@@ -1,9 +1,10 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.API.API;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Listener.Listener_Daunii_1_13;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,7 +35,7 @@ public class Command_Daunii implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            summon((Player)sender);
+            summon((Player) sender);
             return true;
         }
 
@@ -66,9 +67,9 @@ public class Command_Daunii implements CommandExecutor {
      */
     private boolean summon(Player player) {
         //実行コマンドのパーミッションを確認
-        if (!(player.hasPermission(Permission.USER.toString()) || player.hasPermission(Permission.DAUNII_SUMMON.toString()) || player.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(player, Permission.DAUNII_SUMMON, Permission.ADMIN)) {
             Msg.noPermissionMessage(player, Permission.DAUNII_SUMMON);
-            return false;
+            return true;
         }
 
         IronGolem Daunii = (IronGolem) player.getWorld().spawnEntity(player.getLocation(), EntityType.IRON_GOLEM);

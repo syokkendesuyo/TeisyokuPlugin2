@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
 import com.google.common.base.Joiner;
+import net.jp.minecraft.plugins.API.API;
 import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Enum.TFlag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
@@ -57,7 +58,7 @@ public class Command_Call implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.USER.toString()) || sender.hasPermission(Permission.CALL.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(sender, Permission.USER, Permission.CALL, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.CALL);
             return true;
         }

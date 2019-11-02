@@ -1,9 +1,10 @@
 package net.jp.minecraft.plugins.Commands;
 
+import net.jp.minecraft.plugins.API.API;
 import net.jp.minecraft.plugins.API.API_Fly;
+import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
-import net.jp.minecraft.plugins.Enum.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -63,7 +64,7 @@ public class Command_Fly implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!(sender.hasPermission(Permission.FLY_ME.toString()) || sender.hasPermission(Permission.FLY_OTHERS.toString()) || sender.hasPermission(Permission.ADMIN.toString()))) {
+        if (!API.hasPermission(sender, Permission.USER, Permission.FLY_OTHERS, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.FLY_ME);
             Msg.noPermissionMessage(sender, Permission.FLY_OTHERS);
             return true;

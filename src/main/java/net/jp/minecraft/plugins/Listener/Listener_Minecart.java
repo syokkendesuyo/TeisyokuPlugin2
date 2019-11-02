@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Config.CustomConfig;
-import net.jp.minecraft.plugins.Enum.Flag;
+import net.jp.minecraft.plugins.Enum.TFlag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -85,7 +85,7 @@ public class Listener_Minecart implements Listener {
                 Msg.warning(player, "サバイバルモードの場合にのみマインカートをイベントリへ回収します");
                 vehicle.remove();
             } else {
-                if (Flag.TFlag.getTFlagStatus(player, Flag.TFlag.CART_AUTO_COLLECT.getTFlag())) {
+                if (TFlag.getTFlagStatus(player, TFlag.CART_AUTO_COLLECT.getTFlag())) {
                     Msg.success(player, "マインカートを回収しました");
                     ItemStack cart = new ItemStack(Material.MINECART);
                     ItemMeta cartmeta = cart.getItemMeta();

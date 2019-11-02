@@ -3,7 +3,7 @@ package net.jp.minecraft.plugins.Listener;
 import net.jp.minecraft.plugins.API.API;
 import net.jp.minecraft.plugins.API.API_Fly;
 import net.jp.minecraft.plugins.API.API_PlayerDatabase;
-import net.jp.minecraft.plugins.Enum.Flag;
+import net.jp.minecraft.plugins.Enum.TFlag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Color;
 import net.jp.minecraft.plugins.Utility.Msg;
@@ -46,7 +46,7 @@ public class Listener_JoinQuit implements Listener {
         //飛行モード
         if (plugin.configTeisyoku.getConfig().getBoolean("functions.fly")) {
             //飛行モードを継承するかどうか確認
-            if (Flag.TFlag.getTFlagStatus(player, Flag.TFlag.FLY_SAVE_STATE.getTFlag())) {
+            if (TFlag.getTFlagStatus(player, TFlag.FLY_SAVE_STATE.getTFlag())) {
                 //ゲームモードがデフォルトで飛行の場合は無視
                 if (!player.getGameMode().equals(GameMode.CREATIVE) || !player.getGameMode().equals(GameMode.SPECTATOR)) {
                     Msg.info(player, "ゲームモードがクリエイティブモードまたはスペクターモードのため飛行モードの設定が無視されました");

@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.Commands;
 
-import net.jp.minecraft.plugins.Enum.Flag;
 import net.jp.minecraft.plugins.Enum.Permission;
+import net.jp.minecraft.plugins.Enum.TFlag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.command.Command;
@@ -65,7 +65,7 @@ public class Command_TFlag implements CommandExecutor {
         Player player = (Player) sender;
 
         if (args[0].equalsIgnoreCase("status") || args[0].equalsIgnoreCase("show") || args[0].equalsIgnoreCase("list")) {
-            Flag.TFlag.showTFlagStatus(player);
+            TFlag.showTFlagStatus(player);
             return true;
         }
 
@@ -75,12 +75,12 @@ public class Command_TFlag implements CommandExecutor {
         }
 
         //フラグが存在するか確認
-        if (!Flag.TFlag.contains(args[0])) {
+        if (!TFlag.contains(args[0])) {
             Msg.warning(player, "「" + args[0] + "」は利用できません。");
             return true;
         }
-        Flag.TFlag tFlag = Flag.TFlag.getTFlag(args[0]);
-        Flag.TFlag.setTFlagStatus(sender, player, tFlag, args[1]);
+        TFlag tFlag = TFlag.getTFlag(args[0]);
+        TFlag.setTFlagStatus(sender, player, tFlag, args[1]);
         return true;
     }
 

@@ -4,6 +4,7 @@ import net.jp.minecraft.plugins.Enum.Permission;
 import net.jp.minecraft.plugins.Enum.TFlag;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.Utility.Msg;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -91,7 +92,7 @@ public class Command_TFlag implements CommandExecutor {
 
         //フラグが存在するか確認
         if (!TFlag.contains(args[0])) {
-            Msg.warning(player, "「" + args[0] + "」は利用できません。");
+            Msg.warning(player, "フラグ名 " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " は存在しません");
             return true;
         }
         TFlag tFlag = TFlag.getTFlag(args[0]);

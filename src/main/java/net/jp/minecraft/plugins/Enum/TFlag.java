@@ -231,7 +231,7 @@ public enum TFlag {
                 status = "有効";
             }
             Msg.blank(player, color + "・" + ChatColor.RESET + f + ChatColor.DARK_GRAY
-                    + " (" + color + status + ChatColor.DARK_GRAY + ") " + ChatColor.YELLOW + ": " + ChatColor.RESET + TFlag.getTFlagDescription(f), 2);
+                    + " (" + color + status + ChatColor.DARK_GRAY + ") " + ChatColor.YELLOW + ":  " + ChatColor.RESET + TFlag.getTFlagDescription(f), 2);
         }
     }
 }

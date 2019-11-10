@@ -43,16 +43,18 @@ public class Listener_JoinQuit implements Listener {
         API_PlayerDatabase.set(player, "join.date", API.getDateFormat());
         API_PlayerDatabase.set(player, "join.timestamp", System.currentTimeMillis());
 
-        //飛行モード
+        //飛行モードが有効化されているか確認
         if (plugin.configTeisyoku.getConfig().getBoolean("functions.fly")) {
             //飛行モードを継承するかどうか確認
             if (TFlag.getTFlagStatus(player, TFlag.FLY_SAVE_STATE.getTFlag())) {
                 //ゲームモードがデフォルトで飛行の場合は無視
-                if (!player.getGameMode().equals(GameMode.CREATIVE) || !player.getGameMode().equals(GameMode.SPECTATOR)) {
-                    Msg.info(player, "ゲームモードがクリエイティブモードまたはスペクターモードのため飛行モードの設定が無視されました");
-                    API_Fly.setFlying(player, true);
+                if (!player.getGameMode().equals(GameMode.SURVIVAL)) {
+                    Msg.info(player, "ゲームモードがサバイバル時にのみ飛行モードが継承されます");
                 } else {
-                    API_Fly.setFlying(player, API_PlayerDatabase.getBoolean(player, "fly"));
+                    //設定が更新される場合に通知を表示
+                    if (player.isFlying() != API_PlayerDatabase.getBoolean(player, "fly")) {
+                        API_Fly.setFlying(player, API_PlayerDatabase.getBoolean(player, "fly"));
+                    }
                 }
             }
         } else {

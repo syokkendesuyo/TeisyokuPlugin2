@@ -79,6 +79,7 @@ public class Command_Fly implements CommandExecutor {
                     status = ChatColor.GREEN + "有効";
                 }
                 Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " の飛行状態" + ChatColor.DARK_GRAY + ": " + status);
+                return true;
             } else {
                 //プレイヤーが見つからない場合
                 Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " はオンラインではありません");
@@ -89,34 +90,21 @@ public class Command_Fly implements CommandExecutor {
         //引数が2だった場合
         if (args.length == 2) {
             Player targetPlayer = Bukkit.getServer().getPlayer(args[0]);
-
             if (!(targetPlayer == null)) {
-
-                //正常に処理
-                if (args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("enable")) {
-                    if (!targetPlayer.equals(sender) && sender.hasPermission(Permission.FLY_OTHERS.toString())) {
-                        Msg.noPermissionMessage(sender, Permission.FLY_OTHERS);
+                if (targetPlayer.equals(sender)) {
+                    if (!sender.hasPermission(Permission.FLY_ME.toString())) {
+                        Msg.noPermissionMessage(sender, Permission.FLY_ME);
                         return true;
                     }
-                    API_Fly.setFlying(targetPlayer, true);
+                    API_Fly.setFlying(targetPlayer, Boolean.valueOf(args[1]), sender);
                     return true;
                 }
-
-                //引数1がfalseまたはdisableだった場合flyモードを終了
-                else if (args[1].equalsIgnoreCase("false") || args[1].equalsIgnoreCase("disable")) {
-                    if (!targetPlayer.equals(sender) && sender.hasPermission(Permission.FLY_OTHERS.toString())) {
-                        Msg.noPermissionMessage(sender, Permission.FLY_OTHERS);
-                        return true;
-                    }
-                    API_Fly.setFlying(targetPlayer, false);
+                if (!sender.hasPermission(Permission.FLY_OTHERS.toString())) {
+                    Msg.noPermissionMessage(sender, Permission.FLY_OTHERS);
                     return true;
                 }
-
-                //その他の場合
-                else {
-                    help(sender, commandLabel);
-                    return true;
-                }
+                API_Fly.setFlying(targetPlayer, Boolean.valueOf(args[1]), sender);
+                return true;
             } else {
                 //プレイヤーが居ないのでエラー
                 Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " はオンラインではありません");

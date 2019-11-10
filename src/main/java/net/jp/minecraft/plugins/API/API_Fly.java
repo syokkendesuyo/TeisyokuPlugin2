@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins.API;
 
 import net.jp.minecraft.plugins.Utility.Msg;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -13,20 +14,37 @@ import org.bukkit.entity.Player;
 public class API_Fly {
 
     /**
-     * 飛行モードを変更
+     * 飛行モードを変更(本人から指定)
      *
      * @param player プレイヤー
      * @param bool   飛行状態
      */
     public static void setFlying(Player player, Boolean bool) {
+        setFlying(player, bool, player);
+    }
+
+    /**
+     * 飛行モードを変更(他者から指定)
+     *
+     * @param player ターゲットプレイヤー
+     * @param bool   飛行状態
+     * @param sender コマンド送信者
+     */
+    public static void setFlying(Player player, Boolean bool, CommandSender sender) {
         player.setAllowFlight(bool);
         player.setFlying(bool);
         API_PlayerDatabase.set(player, "fly", bool);
         if (bool) {
-            Msg.success(player, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " の飛行モードを" + ChatColor.GREEN + " 有効 " + ChatColor.RESET + "にしました");
+            Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " の飛行モードを" + ChatColor.GREEN + " 有効 " + ChatColor.RESET + "にしました");
+            if (!player.equals(sender)) {
+                Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " によって飛行モードが" + ChatColor.GREEN + " 有効 " + ChatColor.RESET + "に変更されました");
+            }
             return;
         }
-        Msg.success(player, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " の飛行モードを" + ChatColor.RED + " 無効 " + ChatColor.RESET + "にしました");
+        Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " の飛行モードを" + ChatColor.RED + " 無効 " + ChatColor.RESET + "にしました");
+        if (!player.equals(sender)) {
+            Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " によって飛行モードが" + ChatColor.RED + " 無効 " + ChatColor.RESET + "に変更されました");
+        }
     }
 
     /**

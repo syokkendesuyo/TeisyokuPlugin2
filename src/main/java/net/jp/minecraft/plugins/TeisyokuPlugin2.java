@@ -1,14 +1,14 @@
 package net.jp.minecraft.plugins;
 
-import net.jp.minecraft.plugins.Commands.*;
-import net.jp.minecraft.plugins.Config.CustomConfig;
-import net.jp.minecraft.plugins.Config.migrationPlayerDatabase;
-import net.jp.minecraft.plugins.GUI.GUI_ClickEvent;
-import net.jp.minecraft.plugins.Listener.*;
-import net.jp.minecraft.plugins.TPoint.TPointBuyGUI;
-import net.jp.minecraft.plugins.TPoint.TPointIndexGUI;
-import net.jp.minecraft.plugins.Utility.Color;
-import net.jp.minecraft.plugins.Utility.Msg;
+import net.jp.minecraft.plugins.command.*;
+import net.jp.minecraft.plugins.config.CustomConfig;
+import net.jp.minecraft.plugins.config.migrationPlayerDatabase;
+import net.jp.minecraft.plugins.gui.GUI_ClickEvent;
+import net.jp.minecraft.plugins.listener.*;
+import net.jp.minecraft.plugins.tpoint.TPointBuyGUI;
+import net.jp.minecraft.plugins.tpoint.TPointIndexGUI;
+import net.jp.minecraft.plugins.util.Color;
+import net.jp.minecraft.plugins.util.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;

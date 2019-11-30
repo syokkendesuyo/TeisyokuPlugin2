@@ -2,7 +2,7 @@ package net.jp.minecraft.plugins;
 
 import net.jp.minecraft.plugins.command.*;
 import net.jp.minecraft.plugins.config.CustomConfig;
-import net.jp.minecraft.plugins.config.migrationPlayerDatabase;
+import net.jp.minecraft.plugins.migration.PlayerDatabase;
 import net.jp.minecraft.plugins.gui.GUI_ClickEvent;
 import net.jp.minecraft.plugins.listener.*;
 import net.jp.minecraft.plugins.tpoint.TPointBuyGUI;
@@ -191,7 +191,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         configRailways.saveDefaultConfig();
 
         //古いデータを移行
-        migrationPlayerDatabase.migration();
+        PlayerDatabase.migration();
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {

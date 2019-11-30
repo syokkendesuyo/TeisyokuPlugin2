@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins.config;
+package net.jp.minecraft.plugins.migration;
 
 import net.jp.minecraft.plugins.api.API_PlayerDatabase;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.Objects;
 import java.util.UUID;
 
-public class migrationPlayerDatabase {
+public class PlayerDatabase {
 
 
     public static void migration() {

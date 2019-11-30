@@ -2,7 +2,7 @@ package net.jp.minecraft.plugins.listener;
 
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.util.Msg;
-import net.jp.minecraft.plugins.enumeration.Permission;
+import net.jp.minecraft.plugins.module.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;

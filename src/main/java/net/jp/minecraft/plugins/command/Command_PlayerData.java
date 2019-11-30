@@ -2,7 +2,7 @@ package net.jp.minecraft.plugins.command;
 
 import net.jp.minecraft.plugins.api.API;
 import net.jp.minecraft.plugins.api.API_PlayerDatabase;
-import net.jp.minecraft.plugins.enumeration.Permission;
+import net.jp.minecraft.plugins.module.Permission;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.util.Msg;
 import net.jp.minecraft.plugins.util.UUIDFetcher;

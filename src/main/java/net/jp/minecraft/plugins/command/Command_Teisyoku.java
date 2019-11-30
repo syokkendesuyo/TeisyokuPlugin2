@@ -4,7 +4,7 @@ import net.jp.minecraft.plugins.api.API_Gift;
 import net.jp.minecraft.plugins.gui.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.util.Msg;
-import net.jp.minecraft.plugins.enumeration.Permission;
+import net.jp.minecraft.plugins.module.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

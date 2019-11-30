@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins.enumeration;
+package net.jp.minecraft.plugins.module;
 
 import net.jp.minecraft.plugins.api.API;
 import net.jp.minecraft.plugins.api.API_PlayerDatabase;

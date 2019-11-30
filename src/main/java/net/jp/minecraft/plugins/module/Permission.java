@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins.enumeration;
+package net.jp.minecraft.plugins.module;
 
 /**
  * TeisyokuPlugin2<br />

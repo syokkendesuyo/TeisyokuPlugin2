@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.api;
 
-import net.jp.minecraft.plugins.enumeration.Permission;
+import net.jp.minecraft.plugins.module.Permission;
 import net.jp.minecraft.plugins.util.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

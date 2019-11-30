@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.listener;
 
 import net.jp.minecraft.plugins.api.API_Trash;
-import net.jp.minecraft.plugins.enumeration.TFlag;
+import net.jp.minecraft.plugins.module.TFlag;
 import net.jp.minecraft.plugins.tpoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.gui.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.util.Msg;

@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.listener;
 
 import net.jp.minecraft.plugins.util.Msg;
-import net.jp.minecraft.plugins.enumeration.Permission;
+import net.jp.minecraft.plugins.module.Permission;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;

@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.listener;
 
 import net.jp.minecraft.plugins.api.API_Fly;
-import net.jp.minecraft.plugins.enumeration.Permission;
+import net.jp.minecraft.plugins.module.Permission;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
+import net.jp.minecraft.plugins.teisyokuplugin2.function.SignEdit;
 import net.jp.minecraft.plugins.teisyokuplugin2.function.Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
@@ -84,7 +85,7 @@ public class Listener_Sign implements Listener {
     private void getSignInfo(Player player, Sign sign) {
 
         //看板の文字更新フラグが立っていれば照会を行わない
-        if (Listener_SignEdit.hasData(player)) {
+        if (SignEdit.isEditMode(player)) {
             return;
         }
 

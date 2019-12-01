@@ -5,8 +5,6 @@ package net.jp.minecraft.plugins.teisyokuplugin2.util;
  *
  * @author syokkendesuyo
  */
-
-
 public class StringUtil {
 
     /**

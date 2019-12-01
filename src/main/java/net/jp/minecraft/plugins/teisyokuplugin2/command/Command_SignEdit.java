@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SignEdit;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.SignEdit;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -77,7 +77,7 @@ public class Command_SignEdit implements CommandExecutor {
             return true;
         }
         if (line >= 1 && line <= 4) {
-            Listener_SignEdit.saveData((Player) sender, args[0], line);
+            SignEdit.saveData((Player) sender, args[0], line);
             Msg.success(sender, "更新したい看板を右クリックしてください。 " + StringUtil.replaceToBlank(Color.convert(args[0])) + ChatColor.GRAY + " @ " + ChatColor.RESET + line);
             return true;
         }

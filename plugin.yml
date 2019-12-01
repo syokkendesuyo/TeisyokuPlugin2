@@ -1,6 +1,6 @@
 name: TeisyokuPlugin2
 version: 2.11.0
-main: net.jp.minecraft.plugins.TeisyokuPlugin2
+main: net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2
 api-version: 1.13
 commands:
     ad:

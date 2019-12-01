@@ -1,11 +1,9 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
-import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
@@ -19,8 +17,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -31,41 +27,6 @@ import java.util.UUID;
  * TODO: コンフィグに接続する部分をAPIへ移動
  */
 public class Listener_Horse implements Listener {
-
-    /**
-     * インスタンスへアクセスする変数
-     */
-    private TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
-
-    /**
-     * ロック数を取得するメソッド
-     *
-     * @param player プレイヤー
-     * @return ロック数
-     */
-    public static int getLocks(Player player) {
-        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
-        int cnt = 0;
-        ConfigurationSection cs = plugin.configHorses.getConfig().getConfigurationSection("");
-        assert cs != null;
-        for (String keys : cs.getKeys(false)) {
-            String uuid = plugin.configHorses.getConfig().getString(keys + ".uuid");
-            if (player.getUniqueId().toString().equals(uuid)) {
-                cnt++;
-            }
-        }
-        return cnt;
-    }
-
-    /**
-     * ロックの最大数を取得するメソッド
-     *
-     * @return ロック数
-     */
-    public static int getMaxLocks() {
-        TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
-        return plugin.configTeisyoku.getConfig().getInt("horse.limits");
-    }
 
     /**
      * 馬をクリックしたときのイベント
@@ -88,20 +49,20 @@ public class Listener_Horse implements Listener {
         }
         String displayName = Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta()).getDisplayName();
         if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護ツール")) {
-            HorseRegister(player, entityUUID);
+            net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.HorseRegister(player, entityUUID);
             event.setCancelled(true);
             return;
         }
         if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護解除ツール")) {
-            HorseRemove(player, entityUUID);
+            net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.HorseRemove(player, entityUUID);
             event.setCancelled(true);
             return;
         }
         if (displayName.equalsIgnoreCase(ChatColor.GOLD + "馬保護情報確認ツール")) {
-            if (isRegister(entityUUID)) {
+            if (net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.isRegister(entityUUID)) {
                 event.setCancelled(true);
                 Msg.info(player, "この馬は保護されています");
-                sendStatus(player, entityUUID);
+                net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.sendStatus(player, entityUUID);
             } else {
                 Msg.info(player, "この馬は保護されていません");
             }
@@ -139,25 +100,25 @@ public class Listener_Horse implements Listener {
             }
 
             //登録情報が存在するか確認
-            if (!isRegister(entityUUID)) {
+            if (!net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.isRegister(entityUUID)) {
                 Msg.info(player, "登録情報の無い馬です");
                 return;
             }
 
             //ロック情報を照会
-            if (checkLockStatus(playerUUID, entityUUID) ||
+            if (net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.checkLockStatus(playerUUID, entityUUID) ||
                     player.hasPermission(Permission.HORSE_BYPASS_RIDE.toString()) ||
                     player.hasPermission(Permission.HORSE_ADMIN.toString()) ||
                     player.hasPermission(Permission.ADMIN.toString())) {
                 Msg.success(player, "ロックされた馬に乗りました");
-                sendStatus(player, entityUUID);
+                net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.sendStatus(player, entityUUID);
                 return;
             }
 
             //他者によるロック
             event.setCancelled(true);
             Msg.warning(player, "この馬はロックされています");
-            sendStatus(player, entityUUID);
+            net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.sendStatus(player, entityUUID);
         }
     }
 
@@ -167,58 +128,12 @@ public class Listener_Horse implements Listener {
      * @param event イベント
      */
     @EventHandler
-    private void HorseDeath(EntityDeathEvent event) {
+    public void HorseDeath(EntityDeathEvent event) {
         if (!(event.getEntity() instanceof Horse || event.getEntity() instanceof SkeletonHorse || event.getEntity() instanceof SkeletonHorse)) {
             return;
         }
         UUID uuid = event.getEntity().getUniqueId();
-        HorseRemoveWildcard(uuid);
-    }
-
-    /**
-     * 馬をロックする
-     *
-     * @param player プレイヤー
-     * @param uuid   UUID
-     */
-    private void HorseRegister(Player player, UUID uuid) {
-        if (isRegister(uuid)) {
-            Msg.warning(player, "この馬は既にロックされています");
-            sendStatus(player, uuid);
-            Msg.success(player, "現在のロック数" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + getLocks(player));
-            return;
-        }
-
-        int limits = getMaxLocks();
-
-        if (limits <= 0) {
-            Msg.warning(player, "保護数の上限が0以下に設定されています");
-            return;
-        }
-
-        if (getLocks(player) > limits - 1) {
-            Msg.warning(player, limits + "体以上の馬をロックすることはできません");
-            return;
-        }
-
-        try {
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
-            String strDate = sdf.format(date.getTime());
-
-            plugin.configHorses.getConfig().set(uuid.toString(), player.toString());
-            plugin.configHorses.getConfig().set(uuid.toString() + ".data", strDate);
-            plugin.configHorses.getConfig().set(uuid.toString() + ".player", player.getName());
-            plugin.configHorses.getConfig().set(uuid.toString() + ".uuid", player.getUniqueId().toString());
-            plugin.configHorses.getConfig().set(uuid.toString() + ".mode", "private");
-
-            plugin.configHorses.saveConfig();
-            Msg.success(player, "馬をロックしました");
-
-        } catch (Exception e) {
-            Msg.warning(player, "不明なエラーが発生しました");
-            e.printStackTrace();
-        }
+        net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.HorseRemoveWildcard(uuid);
     }
 
     /* 解決策が出るまで保留
@@ -283,94 +198,6 @@ public class Listener_Horse implements Listener {
     }*/
 
     /**
-     * 馬のロックを解除する
-     *
-     * @param player     削除するプレイヤー名
-     * @param entityUUID entityのUUID
-     */
-    private void HorseRemove(Player player, UUID entityUUID) {
-        if (!isRegister(entityUUID)) {
-            Msg.info(player, "登録情報の無い馬です");
-            return;
-        }
-
-        if (!checkLockStatus(player.getUniqueId(), entityUUID)) {
-            Msg.warning(player, "登録者以外馬のロックは解除できません");
-            sendStatus(player, entityUUID);
-            return;
-        }
-
-        try {
-            plugin.configHorses.getConfig().set(entityUUID.toString(), null);
-            plugin.configHorses.saveConfig();
-            Msg.success(player, "馬のロックを解除しました");
-        } catch (Exception e) {
-            Msg.warning(player, "不明なエラーが発生しました");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 馬のロックをワイルドカードで削除します
-     *
-     * @param entityUUID entityのUUID
-     */
-    private void HorseRemoveWildcard(UUID entityUUID) {
-        if (!isRegister(entityUUID)) {
-            return;
-        }
-        try {
-            plugin.configHorses.getConfig().set(entityUUID.toString(), null);
-            plugin.configHorses.saveConfig();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 登録情報があるか確認するメソッド
-     *
-     * @param entityUUID エンティティーのUUID
-     * @return 登録状態
-     */
-    private boolean isRegister(UUID entityUUID) {
-        return !(plugin.configHorses.getConfig().getString(entityUUID + ".uuid") == null);
-    }
-
-    /**
-     * 指定したエンティティーの登録者であるかどうかを確認するメソッド
-     *
-     * @param player プレイヤー
-     * @param entity エンティティーのUUID
-     * @return 登録者であるかどうかの結果
-     */
-    private boolean checkLockStatus(Player player, Entity entity) {
-        return checkLockStatus(player.getUniqueId(), entity.getUniqueId());
-    }
-
-    /**
-     * 指定したエンティティーの登録者であるかどうかを確認するメソッド
-     *
-     * @param playerUUID プレイヤーのUUID
-     * @param entityUUID エンティティーのUUID
-     * @return 登録者であるかどうかの結果
-     */
-    private boolean checkLockStatus(UUID playerUUID, UUID entityUUID) {
-        return playerUUID.toString().equals(plugin.configHorses.getConfig().get(entityUUID + ".uuid"));
-    }
-
-    /**
-     * ステイタス情報をターゲットへ送信するメソッド
-     *
-     * @param player     プレイヤー
-     * @param entityUUID エンティティーのUUID
-     */
-    private void sendStatus(Player player, UUID entityUUID) {
-        Msg.info(player, "登録者名" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + plugin.configHorses.getConfig().getString(entityUUID + ".player"));
-        Msg.info(player, "登録日" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + plugin.configHorses.getConfig().getString(entityUUID + ".data"));
-    }
-
-    /**
      * 馬に保護がされている場合にダメージを無効化するメソッド
      *
      * @param event イベント
@@ -416,7 +243,7 @@ public class Listener_Horse implements Listener {
         }
 
         //ダメージャーとエンティティーが一致した場合、処理を終了
-        if (!checkLockStatus((Player) event.getDamager(), event.getEntity())) {
+        if (!net.jp.minecraft.plugins.teisyokuplugin2.function.Horse.checkLockStatus((Player) event.getDamager(), event.getEntity())) {
             return;
         }
 

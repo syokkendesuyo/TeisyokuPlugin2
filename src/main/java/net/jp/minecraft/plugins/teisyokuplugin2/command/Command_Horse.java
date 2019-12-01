@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Horse;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Horse;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -95,7 +95,7 @@ public class Command_Horse implements CommandExecutor {
 
         // TODO: 他者の保護数を確認できるように修正
         if (args[0].equals("status") || args[0].equals("s")) {
-            Msg.info(player, ChatColor.GOLD + "馬の保護数" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + Listener_Horse.getLocks(player) + "/" + Listener_Horse.getMaxLocks());
+            Msg.info(player, ChatColor.GOLD + "馬の保護数" + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + Horse.getLocks(player) + "/" + Horse.getMaxLocks());
             return true;
         }
         return true;

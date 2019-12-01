@@ -1,11 +1,10 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Replace;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -53,7 +52,7 @@ public class Command_TabName implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.TABNAME, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.TABNAME, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.TABNAME);
             return true;
         }
@@ -76,8 +75,8 @@ public class Command_TabName implements CommandExecutor {
             help(sender, commandLabel);
             return true;
         } else {
-            p.setPlayerListName(Color.convert(Replace.blank(args[0])) + ChatColor.RESET);
-            Msg.success(p, "タブリストのエントリ名を「" + Color.convert(Replace.blank(args[0])) + ChatColor.RESET + "」に更新しました");
+            p.setPlayerListName(Color.convert(StringUtil.replaceToBlank(args[0])) + ChatColor.RESET);
+            Msg.success(p, "タブリストのエントリ名を「" + Color.convert(StringUtil.replaceToBlank(args[0])) + ChatColor.RESET + "」に更新しました");
             return true;
         }
     }

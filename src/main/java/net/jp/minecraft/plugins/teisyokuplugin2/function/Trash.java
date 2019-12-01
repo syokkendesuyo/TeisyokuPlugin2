@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins.teisyokuplugin2.api;
+package net.jp.minecraft.plugins.teisyokuplugin2.function;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -19,7 +19,7 @@ import java.util.Collections;
  *
  * @author syokkendesuyo
  */
-public class API_Trash {
+public class Trash {
     public static void open(CommandSender sender) {
         if (!(sender instanceof Player)) {
             Msg.warning(sender, "ゴミ箱コマンドはゲーム内からのみ実行できます");

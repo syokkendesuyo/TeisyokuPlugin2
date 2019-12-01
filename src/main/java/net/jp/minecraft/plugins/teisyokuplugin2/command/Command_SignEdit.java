@@ -1,12 +1,11 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SignEdit;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Replace;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -54,7 +53,7 @@ public class Command_SignEdit implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.SIGNEDIT, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.SIGNEDIT, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.SIGNEDIT);
             return true;
         }
@@ -79,7 +78,7 @@ public class Command_SignEdit implements CommandExecutor {
         }
         if (line >= 1 && line <= 4) {
             Listener_SignEdit.saveData((Player) sender, args[0], line);
-            Msg.success(sender, "更新したい看板を右クリックしてください。 " + Replace.blank(Color.convert(args[0])) + ChatColor.GRAY + " @ " + ChatColor.RESET + line);
+            Msg.success(sender, "更新したい看板を右クリックしてください。 " + StringUtil.replaceToBlank(Color.convert(args[0])) + ChatColor.GRAY + " @ " + ChatColor.RESET + line);
             return true;
         }
         Msg.warning(sender, "行番号は1から4までの数値で入力してください");

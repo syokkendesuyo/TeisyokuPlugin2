@@ -1,8 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_Trash;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.command.Command;
@@ -35,8 +34,8 @@ public class Command_Trash implements CommandExecutor {
                 help(sender, commandLabel);
                 return true;
             }
-            if (API.hasPermission(sender, Permission.TRASH)) {
-                API_Trash.open(sender);
+            if (Permission.hasPermission(sender, Permission.TRASH)) {
+                Trash.open(sender);
                 return true;
             }
             Msg.noPermissionMessage(sender, Permission.TRASH);

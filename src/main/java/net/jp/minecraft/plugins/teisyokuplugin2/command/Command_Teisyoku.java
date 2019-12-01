@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_Gift;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Gift;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -82,7 +82,7 @@ public class Command_Teisyoku implements CommandExecutor {
             }
             if (args.length == 2) {
                 Msg.info(sender, "手続き中です...");
-                API_Gift.gift(args[1], sender);
+                Gift.gift(args[1], sender);
                 return true;
             } else {
                 Msg.warning(sender, "引数が多すぎるか、または少なすぎます");

@@ -1,5 +1,6 @@
-package net.jp.minecraft.plugins.teisyokuplugin2.api;
+package net.jp.minecraft.plugins.teisyokuplugin2.function;
 
+import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -11,7 +12,7 @@ import org.bukkit.entity.Player;
  *
  * @author syokkendesuyo
  */
-public class API_Fly {
+public class Fly {
 
     /**
      * 飛行モードを変更(本人から指定)
@@ -33,7 +34,7 @@ public class API_Fly {
     public static void setFlying(Player player, Boolean bool, CommandSender sender) {
         player.setAllowFlight(bool);
         player.setFlying(bool);
-        API_PlayerDatabase.set(player, "fly", bool);
+        PlayerDatabase.set(player, "fly", bool);
         if (bool) {
             Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " の飛行モードを" + ChatColor.GREEN + " 有効 " + ChatColor.RESET + "にしました");
             if (!player.equals(sender)) {
@@ -67,6 +68,6 @@ public class API_Fly {
      * @return 状態
      */
     public static boolean isFlying(Player player) {
-        return API_PlayerDatabase.getBoolean(player, "fly");
+        return PlayerDatabase.getBoolean(player, "fly");
     }
 }

@@ -1,6 +1,8 @@
-package net.jp.minecraft.plugins.teisyokuplugin2.api;
+package net.jp.minecraft.plugins.teisyokuplugin2.module;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.UUIDFetcher;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,7 +18,7 @@ import java.util.UUID;
  *
  * @author syokkendesuyo
  */
-public class API_PlayerDatabase {
+public class PlayerDatabase {
 
     private static File userdata = new File(TeisyokuPlugin2.getInstance().getDataFolder(), File.separator + "PlayerDatabase");
 
@@ -118,10 +120,40 @@ public class API_PlayerDatabase {
      */
     public static Boolean exists(OfflinePlayer player) {
         try {
-            return API_PlayerDatabase.getString(player, "id").isEmpty();
+            return PlayerDatabase.getString(player, "id").isEmpty();
         } catch (NullPointerException e) {
             //TODO: デバッグ機能の実装
             return false;
+        }
+    }
+
+    /**
+     * プレイヤーを取得するメソッド<br />
+     * PlayerDatabaseにデータが存在しない場合やプレイヤー名が存在しない場合はnullを返却します。
+     *
+     * @param playerName プレイヤー名
+     * @return オフラインプレイヤー
+     */
+    public static OfflinePlayer getPlayer(String playerName) {
+        try {
+            UUID uuid = UUIDFetcher.getUUIDOf(playerName);
+
+            //Minecraftに登録されているUUIDか検索 (ネットワーク接続必須)
+            if (uuid == null) {
+                return null;
+            }
+
+            //UUIDからオフラインプレイヤーへ変換
+            OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+
+            //データベースにデータが存在するか確認
+            if (exists(player)) {
+                return null;
+            }
+            return player;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

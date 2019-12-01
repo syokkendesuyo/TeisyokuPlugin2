@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -28,7 +27,7 @@ public class Command_HorseTicket implements CommandExecutor {
             return true;
         }
 
-        if (!API.hasPermission(sender, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.ADMIN);
             return true;
         }

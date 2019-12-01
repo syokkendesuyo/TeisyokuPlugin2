@@ -1,7 +1,5 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.module;
 
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -137,11 +135,11 @@ public enum TFlag {
      * @return フラグ状態
      */
     public static Boolean getTFlagStatus(OfflinePlayer player, String flag) {
-        String flagData = API_PlayerDatabase.getString(player, "flags." + flag);
+        String flagData = PlayerDatabase.getString(player, "flags." + flag);
         if (!(flagData.equals("true") || flagData.equals("false"))) {
             return true;
         }
-        return API_PlayerDatabase.getBoolean(player, "flags." + flag);
+        return PlayerDatabase.getBoolean(player, "flags." + flag);
     }
 
     /**
@@ -176,7 +174,7 @@ public enum TFlag {
         }
 
         //設定を保存
-        API_PlayerDatabase.set(player, flag.getTFlagPath(), value);
+        PlayerDatabase.set(player, flag.getTFlagPath(), value);
         Msg.success(sender, flag.getDescription() + "： " + color + value);
     }
 
@@ -187,7 +185,7 @@ public enum TFlag {
      * @param targetPlayer 対象プレイヤー
      */
     public static void showTFlagStatus(CommandSender sender, String targetPlayer) {
-        OfflinePlayer player = API.getPlayer(targetPlayer);
+        OfflinePlayer player = PlayerDatabase.getPlayer(targetPlayer);
         if (player == null) {
             Msg.info(sender, ChatColor.YELLOW + targetPlayer + ChatColor.RESET + "さんは存在しません");
             return;

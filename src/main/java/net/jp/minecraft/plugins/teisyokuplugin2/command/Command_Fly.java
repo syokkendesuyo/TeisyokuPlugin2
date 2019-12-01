@@ -1,8 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_Fly;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Fly;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.Bukkit;
@@ -39,7 +38,7 @@ public class Command_Fly implements CommandExecutor {
                 return true;
             }
             if (sender.hasPermission(Permission.FLY_ME.toString())) {
-                API_Fly.toggleFlying((Player) sender);
+                Fly.toggleFlying((Player) sender);
                 return true;
             }
             Msg.noPermissionMessage(sender, Permission.FLY_ME);
@@ -64,7 +63,7 @@ public class Command_Fly implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.FLY_OTHERS, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.FLY_OTHERS, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.FLY_ME);
             Msg.noPermissionMessage(sender, Permission.FLY_OTHERS);
             return true;
@@ -75,7 +74,7 @@ public class Command_Fly implements CommandExecutor {
             Player targetPlayer = Bukkit.getServer().getPlayer(args[0]);
             if (!(targetPlayer == null)) {
                 String status = ChatColor.RED + "無効";
-                if (API_Fly.isFlying(targetPlayer)) {
+                if (Fly.isFlying(targetPlayer)) {
                     status = ChatColor.GREEN + "有効";
                 }
                 Msg.warning(sender, "プレイヤー " + ChatColor.YELLOW + args[0] + ChatColor.RESET + " の飛行状態" + ChatColor.DARK_GRAY + ": " + status);
@@ -96,14 +95,14 @@ public class Command_Fly implements CommandExecutor {
                         Msg.noPermissionMessage(sender, Permission.FLY_ME);
                         return true;
                     }
-                    API_Fly.setFlying(targetPlayer, Boolean.valueOf(args[1]), sender);
+                    Fly.setFlying(targetPlayer, Boolean.valueOf(args[1]), sender);
                     return true;
                 }
                 if (!sender.hasPermission(Permission.FLY_OTHERS.toString())) {
                     Msg.noPermissionMessage(sender, Permission.FLY_OTHERS);
                     return true;
                 }
-                API_Fly.setFlying(targetPlayer, Boolean.valueOf(args[1]), sender);
+                Fly.setFlying(targetPlayer, Boolean.valueOf(args[1]), sender);
                 return true;
             } else {
                 //プレイヤーが居ないのでエラー

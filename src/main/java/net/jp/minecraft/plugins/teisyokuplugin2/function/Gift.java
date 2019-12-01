@@ -1,4 +1,4 @@
-package net.jp.minecraft.plugins.teisyokuplugin2.api;
+package net.jp.minecraft.plugins.teisyokuplugin2.function;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.config.CustomConfig;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author syokkendesuyo
  * TODO: ギフトコードAPIをAPIとして提供するように変更
  */
-public class API_Gift {
+public class Gift {
 
     /**
      * Gift.ymlをカスタムコンフィグ経由で取得

@@ -1,12 +1,12 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_Fly;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_PlayerDatabase;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Fly;
+import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.TimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -39,9 +39,9 @@ public class Listener_JoinQuit implements Listener {
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームに参加しました", true);
 
         //ログイン時のプレイヤーデータを保管
-        API_PlayerDatabase.set(player, "id", player.getName());
-        API_PlayerDatabase.set(player, "join.date", API.getDateFormat());
-        API_PlayerDatabase.set(player, "join.timestamp", System.currentTimeMillis());
+        PlayerDatabase.set(player, "id", player.getName());
+        PlayerDatabase.set(player, "join.date", TimeUtil.getDateFormat());
+        PlayerDatabase.set(player, "join.timestamp", System.currentTimeMillis());
 
         //飛行モードが有効化されているか確認
         if (plugin.configTeisyoku.getConfig().getBoolean("functions.fly")) {
@@ -52,13 +52,13 @@ public class Listener_JoinQuit implements Listener {
                     Msg.info(player, "ゲームモードがサバイバル時にのみ飛行モードが継承されます");
                 } else {
                     //設定が更新される場合に通知を表示
-                    if (player.isFlying() != API_PlayerDatabase.getBoolean(player, "fly")) {
-                        API_Fly.setFlying(player, API_PlayerDatabase.getBoolean(player, "fly"));
+                    if (player.isFlying() != PlayerDatabase.getBoolean(player, "fly")) {
+                        Fly.setFlying(player, PlayerDatabase.getBoolean(player, "fly"));
                     }
                 }
             }
         } else {
-            API_Fly.setFlying(player, false);
+            Fly.setFlying(player, false);
         }
 
         List<String> ad = plugin.configTeisyoku.getConfig().getStringList("joinMessage");
@@ -82,9 +82,9 @@ public class Listener_JoinQuit implements Listener {
         Msg.success(Bukkit.getConsoleSender(), ChatColor.YELLOW + player.getDisplayName() + ChatColor.RESET + " さんがゲームから退室しました", true);
 
         //ログアウト時にプレイヤーデータを保管
-        API_PlayerDatabase.set(player, "id", player.getName());
-        API_PlayerDatabase.set(player, "quit.date", API.getDateFormat());
-        API_PlayerDatabase.set(player, "quit.timestamp", System.currentTimeMillis());
+        PlayerDatabase.set(player, "id", player.getName());
+        PlayerDatabase.set(player, "quit.date", TimeUtil.getDateFormat());
+        PlayerDatabase.set(player, "quit.timestamp", System.currentTimeMillis());
     }
 
     /**
@@ -97,30 +97,30 @@ public class Listener_JoinQuit implements Listener {
         boolean isUpdatePlayerDatabase = false;
 
         //古い個人設定を削除
-        API_PlayerDatabase.set(player, "auto_cart_remove", null);
-        API_PlayerDatabase.set(player, "flag.auto_cart_remove", null);
+        PlayerDatabase.set(player, "auto_cart_remove", null);
+        PlayerDatabase.set(player, "flag.auto_cart_remove", null);
 
         //nameからidへパスが変更された件に対応
         //ログイン時にidを更新するため古いパスのみ削除
-        String oldNamePathData = API_PlayerDatabase.getString(player, "name");
+        String oldNamePathData = PlayerDatabase.getString(player, "name");
         if (!oldNamePathData.isEmpty()) {
-            API_PlayerDatabase.set(player, "name", null);
+            PlayerDatabase.set(player, "name", null);
             isUpdatePlayerDatabase = true;
         }
 
         //nickからnickname.prefixへパスが変更された件に対応
-        String oldNickPathData = API_PlayerDatabase.getString(player, "nick");
+        String oldNickPathData = PlayerDatabase.getString(player, "nick");
         if (!oldNickPathData.isEmpty()) {
-            API_PlayerDatabase.set(player, "nick", null);
-            API_PlayerDatabase.set(player, "nickname.prefix", oldNickPathData);
+            PlayerDatabase.set(player, "nick", null);
+            PlayerDatabase.set(player, "nickname.prefix", oldNickPathData);
             isUpdatePlayerDatabase = true;
         }
 
         //nick_colorからnickname.colorへパスが変更された件に対応
-        String oldNickColorPathData = API_PlayerDatabase.getString(player, "nick_color");
+        String oldNickColorPathData = PlayerDatabase.getString(player, "nick_color");
         if (!oldNickColorPathData.isEmpty()) {
-            API_PlayerDatabase.set(player, "nick_color", null);
-            API_PlayerDatabase.set(player, "nickname.color", oldNickColorPathData);
+            PlayerDatabase.set(player, "nick_color", null);
+            PlayerDatabase.set(player, "nickname.color", oldNickColorPathData);
             isUpdatePlayerDatabase = true;
         }
 

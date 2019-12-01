@@ -41,7 +41,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SkeletonHorse;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SpawnEgg;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Tab;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TicksPerSecond_1_13;
-import net.jp.minecraft.plugins.teisyokuplugin2.migration.PlayerDatabase;
+import net.jp.minecraft.plugins.teisyokuplugin2.migration.PlayerDatabaseMigration;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
@@ -231,7 +231,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         configRailways.saveDefaultConfig();
 
         //古いデータを移行
-        PlayerDatabase.migration();
+        PlayerDatabaseMigration.migration();
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {

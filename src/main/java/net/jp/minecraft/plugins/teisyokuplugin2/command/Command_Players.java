@@ -1,8 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_PlayerDatabase;
+import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.GUI_PlayersList;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -53,7 +52,7 @@ public class Command_Players implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.PLAYERS, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.PLAYERS, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.PLAYERS);
             return true;
         }
@@ -63,7 +62,7 @@ public class Command_Players implements CommandExecutor {
                 showPlayersList(sender, commandLabel);
                 return true;
             }
-            Msg.info(sender, "総計 " + API_PlayerDatabase.getTotalPlayers() + " 名のプレイヤーがこのサーバで遊びました");
+            Msg.info(sender, "総計 " + PlayerDatabase.getTotalPlayers() + " 名のプレイヤーがこのサーバで遊びました");
             return true;
         }
         showPlayersList(sender, commandLabel);

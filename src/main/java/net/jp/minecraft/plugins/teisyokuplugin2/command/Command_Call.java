@@ -2,12 +2,11 @@ package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import com.google.common.base.Joiner;
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Sounds;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -58,7 +57,7 @@ public class Command_Call implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.CALL, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.CALL, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.CALL);
             return true;
         }
@@ -90,14 +89,14 @@ public class Command_Call implements CommandExecutor {
 
             //サウンドを再生
             if (TFlag.getTFlagStatus(player, TFlag.CALL_SOUNDS.getTFlag())) {
-                Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
+                PlayerUtil.playSound(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
             }
 
             //コンソールなどには音を鳴らせないので送信先がプレイヤーかどうか確認する
             if (sender instanceof Player) {
                 Player receiver = (Player) sender;
                 if (TFlag.getTFlagStatus(receiver, TFlag.CALL_SOUNDS.getTFlag())) {
-                    Sounds.play(receiver, Sound.ENTITY_ARROW_SHOOT);
+                    PlayerUtil.playSound(receiver, Sound.ENTITY_ARROW_SHOOT);
                 }
             }
             return true;

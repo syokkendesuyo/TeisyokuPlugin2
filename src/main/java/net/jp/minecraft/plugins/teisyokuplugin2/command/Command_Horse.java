@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Horse;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
@@ -65,7 +64,7 @@ public class Command_Horse implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.HORSE, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.HORSE, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.HORSE);
             return true;
         }

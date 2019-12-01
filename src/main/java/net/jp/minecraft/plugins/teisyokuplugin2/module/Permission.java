@@ -1,5 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.module;
 
+import org.bukkit.command.CommandSender;
+
 /**
  * TeisyokuPlugin2<br />
  * パーミッションを定義する列挙型クラス
@@ -87,6 +89,22 @@ public enum Permission {
      */
     Permission(String permission) {
         this.perm = permission;
+    }
+
+    /**
+     * 複数のパーミッションを同時にチェックし、1件でも保有しているパーミッションがあった場合、trueを返します。
+     *
+     * @param sender      コマンド
+     * @param permissions パーミッション
+     * @return パーミッションの状態
+     */
+    public static boolean hasPermission(CommandSender sender, Permission... permissions) {
+        for (Permission permission : permissions) {
+            if (sender.hasPermission(permission.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

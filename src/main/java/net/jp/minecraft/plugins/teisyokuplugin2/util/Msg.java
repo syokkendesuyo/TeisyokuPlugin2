@@ -127,7 +127,7 @@ public final class Msg {
             if (admin.hasPermission(Permission.ADMIN.toString())) {
                 admin.sendMessage(prefix(ChatColor.LIGHT_PURPLE) + ChatColor.RESET + msg);
                 if (playSound) {
-                    Sounds.play(admin, Sound.BLOCK_NOTE_BLOCK_BELL);
+                    PlayerUtil.playSound(admin, Sound.BLOCK_NOTE_BLOCK_BELL);
                 }
             }
         }

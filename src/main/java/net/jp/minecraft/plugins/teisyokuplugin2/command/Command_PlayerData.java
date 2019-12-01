@@ -1,10 +1,11 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_PlayerDatabase;
+import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.TimeUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -56,13 +57,13 @@ public class Command_PlayerData implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.PLAYER_DATA, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.PLAYER_DATA, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.PLAYER_DATA);
             return true;
         }
 
         //プレイヤー名であるか確認
-        if (!API.isPlayerName(args[0])) {
+        if (!PlayerUtil.isPlayerName(args[0])) {
             Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "はプレイヤー名ではありません");
             return true;
         }
@@ -79,14 +80,14 @@ public class Command_PlayerData implements CommandExecutor {
 
                 OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
-                if (API_PlayerDatabase.getString(player, "join.date").isEmpty() || API_PlayerDatabase.getString(player, "quit.date").isEmpty()) {
+                if (PlayerDatabase.getString(player, "join.date").isEmpty() || PlayerDatabase.getString(player, "quit.date").isEmpty()) {
                     Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "のデータは見つかりませんでした");
                     return true;
                 }
-                String joinDate = API_PlayerDatabase.getString(player, "join.date");
-                String quitDate = API_PlayerDatabase.getString(player, "quit.date");
+                String joinDate = PlayerDatabase.getString(player, "join.date");
+                String quitDate = PlayerDatabase.getString(player, "quit.date");
 
-                SimpleDateFormat sdf = new SimpleDateFormat(API.getDateFormat());
+                SimpleDateFormat sdf = new SimpleDateFormat(TimeUtil.getDateFormat());
                 String firstPlayed = sdf.format(player.getFirstPlayed());
 
                 Msg.info(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + "さんのデータ");

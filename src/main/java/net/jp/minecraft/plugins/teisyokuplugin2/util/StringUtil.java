@@ -7,7 +7,7 @@ package net.jp.minecraft.plugins.teisyokuplugin2.util;
  */
 
 
-public class Search {
+public class StringUtil {
 
     /**
      * String配列に対して検索をするメソッド
@@ -24,5 +24,16 @@ public class Search {
             }
         }
         return false;
+    }
+
+    /**
+     * コマンドなどで空白を入れたい場合置換メソッド<br />
+     * 渡された文字列に&&が存在した場合、半角スペースに変換します
+     *
+     * @param string 文字列
+     * @return 置換後
+     */
+    public static String replaceToBlank(String string) {
+        return string.replaceAll("%%", " ");
     }
 }

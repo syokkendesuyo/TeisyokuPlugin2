@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.command.Command;
@@ -42,7 +41,7 @@ public class Command_Color implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.COLOR, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.COLOR, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.COLOR);
             return true;
         }

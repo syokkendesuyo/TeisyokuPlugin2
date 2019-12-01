@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.NumberUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TPoint;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
@@ -68,7 +68,7 @@ public class Command_TPoint implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.TPOINT, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.TPOINT, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.TPOINT);
             return true;
         }
@@ -115,7 +115,7 @@ public class Command_TPoint implements CommandExecutor {
                 return true;
             }
 
-            if (!(API.isNumber(args[2]))) {
+            if (!(NumberUtil.isNumber(args[2]))) {
                 //数字でなかったら拒否
                 Msg.warning(sender, args[2] + "は数値ではありません");
                 return !(sender instanceof CommandBlock);
@@ -139,7 +139,7 @@ public class Command_TPoint implements CommandExecutor {
                 return true;
             }
 
-            if (!(API.isNumber(args[2]))) {
+            if (!(NumberUtil.isNumber(args[2]))) {
                 //数字でなかったら拒否
                 Msg.warning(sender, args[2] + "は数値ではありません");
                 if (sender instanceof BlockCommandSender) {
@@ -197,7 +197,7 @@ public class Command_TPoint implements CommandExecutor {
                 return true;
             }
 
-            if (!(API.isNumber(args[2]))) {
+            if (!(NumberUtil.isNumber(args[2]))) {
                 //数字でなかったら拒否
                 Msg.warning(sender, args[2] + "は数値ではありません");
                 return true;

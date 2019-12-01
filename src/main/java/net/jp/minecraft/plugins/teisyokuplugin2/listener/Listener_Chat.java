@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_PlayerDatabase;
+import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,14 +22,14 @@ public class Listener_Chat implements Listener {
 
         Player player = event.getPlayer();
         try {
-            String NickName = API_PlayerDatabase.getString(player, "nickname.prefix");
+            String NickName = PlayerDatabase.getString(player, "nickname.prefix");
 
             String sender = event.getPlayer().getName();
 
             if (NickName == null || NickName.equals("")) {
                 player.setDisplayName(sender);
             } else {
-                String color = API_PlayerDatabase.getString(player, "nickname.color");
+                String color = PlayerDatabase.getString(player, "nickname.color");
                 if (color.equalsIgnoreCase("default") || color.equalsIgnoreCase("") || color.isEmpty()) {
                     player.setDisplayName(ChatColor.GRAY + "" + NickName + " " + ChatColor.RESET + sender);
                     return;

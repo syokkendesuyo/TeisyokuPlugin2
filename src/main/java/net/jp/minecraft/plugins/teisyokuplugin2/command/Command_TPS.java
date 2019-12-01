@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TicksPerSecond_1_13;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -67,7 +66,7 @@ public class Command_TPS implements CommandExecutor {
     }
 
     private void sendStatus(@Nonnull CommandSender sender) {
-        if (!API.hasPermission(sender, Permission.USER, Permission.TPS, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.TPS, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.TPS);
             return;
         }

@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Daunii_1_13;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
@@ -67,7 +66,7 @@ public class Command_Daunii implements CommandExecutor {
      */
     private boolean summon(Player player) {
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(player, Permission.DAUNII_SUMMON, Permission.ADMIN)) {
+        if (!Permission.hasPermission(player, Permission.DAUNII_SUMMON, Permission.ADMIN)) {
             Msg.noPermissionMessage(player, Permission.DAUNII_SUMMON);
             return true;
         }

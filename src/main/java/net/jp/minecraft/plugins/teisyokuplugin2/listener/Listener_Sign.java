@@ -1,12 +1,12 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_Trash;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Search;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Sounds;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -42,31 +42,31 @@ public class Listener_Sign implements Listener {
         if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
             Sign sign = (Sign) block.getState();
 
-            if (Search.searchKeyword(sign.getLines(), "[trash]") || Search.searchKeyword(sign.getLines(), "[gomi]") || Search.searchKeyword(sign.getLines(), "[gomibako]")) {
-                API_Trash.open(player);
-            } else if (Search.searchKeyword(sign.getLines(), "[cart]")) {
+            if (StringUtil.searchKeyword(sign.getLines(), "[trash]") || StringUtil.searchKeyword(sign.getLines(), "[gomi]") || StringUtil.searchKeyword(sign.getLines(), "[gomibako]")) {
+                Trash.open(player);
+            } else if (StringUtil.searchKeyword(sign.getLines(), "[cart]")) {
                 addMinecart(player);
                 if (!TFlag.getTFlagStatus(player, TFlag.SIGN_INFO_CART.getTFlag())) {
                     return;
                 }
-            } else if (Search.searchKeyword(sign.getLines(), "[teisyoku]")) {
+            } else if (StringUtil.searchKeyword(sign.getLines(), "[teisyoku]")) {
                 TeisyokuMenuIndex.getMenu(player);
                 return;
-            } else if (Search.searchKeyword(sign.getLines(), "[tpoint]") || Search.searchKeyword(sign.getLines(), "[point]")) {
+            } else if (StringUtil.searchKeyword(sign.getLines(), "[tpoint]") || StringUtil.searchKeyword(sign.getLines(), "[point]")) {
                 TPointIndexGUI.index(player);
                 return;
             } else if (sign.getLine(0).toLowerCase().contains("[warp]")) {
                 sign.getLine(1);
                 Bukkit.getServer().dispatchCommand(player, "warp " + sign.getLine(1));
                 return;
-            } else if ((Search.searchKeyword(sign.getLines(), "[coffee]")) && (player.getInventory().getItemInMainHand().getType().equals(Material.POTION))) {
+            } else if ((StringUtil.searchKeyword(sign.getLines(), "[coffee]")) && (player.getInventory().getItemInMainHand().getType().equals(Material.POTION))) {
                 ItemStack item = player.getInventory().getItemInMainHand();
                 ItemMeta meta = item.getItemMeta();
                 assert meta != null;
                 meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Coffee");
                 meta.setLore(Collections.singletonList(ChatColor.DARK_AQUA + "TeisyokuCoffee 定価:55円"));
                 item.setItemMeta(meta);
-                Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
+                PlayerUtil.playSound(player, Sound.BLOCK_NOTE_BLOCK_CHIME);
                 return;
             }
             //看板のデータを照会する

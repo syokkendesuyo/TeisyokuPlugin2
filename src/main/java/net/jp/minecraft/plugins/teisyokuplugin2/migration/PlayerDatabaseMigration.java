@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.migration;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -12,7 +11,7 @@ import java.io.File;
 import java.util.Objects;
 import java.util.UUID;
 
-public class PlayerDatabase {
+public class PlayerDatabaseMigration {
 
 
     public static void migration() {
@@ -67,8 +66,8 @@ public class PlayerDatabase {
             Msg.info(Bukkit.getConsoleSender(), "データが存在しません");
             return;
         }
-        if (API_PlayerDatabase.getString(offlinePlayer, pathNew).isEmpty()) {
-            API_PlayerDatabase.set(offlinePlayer, pathNew, configOld.get(uuid + "." + pathOld));
+        if (net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase.getString(offlinePlayer, pathNew).isEmpty()) {
+            net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase.set(offlinePlayer, pathNew, configOld.get(uuid + "." + pathOld));
         }
     }
 }

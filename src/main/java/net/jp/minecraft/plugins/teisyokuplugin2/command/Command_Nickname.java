@@ -1,9 +1,9 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_PlayerDatabase;
+import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -60,7 +60,7 @@ public class Command_Nickname implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.NICKNAME, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.NICKNAME, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.NICKNAME);
             return true;
         }
@@ -85,9 +85,9 @@ public class Command_Nickname implements CommandExecutor {
                 }
 
                 //プレイヤーが存在するか確認
-                OfflinePlayer player = API.getPlayer(args[2]);
+                OfflinePlayer player = PlayerDatabase.getPlayer(args[2]);
                 if (player != null) {
-                    API_PlayerDatabase.set(player, nicknamePath, args[3]);
+                    PlayerDatabase.set(player, nicknamePath, args[3]);
                     Msg.success(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + " さんのニックネームを " + ChatColor.AQUA + args[3] + ChatColor.RESET + " に設定しました");
                     if (player.isOnline()) {
                         Msg.success((Player) player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームを " + ChatColor.AQUA + args[3] + ChatColor.RESET + " に設定されました");
@@ -108,9 +108,9 @@ public class Command_Nickname implements CommandExecutor {
                 }
 
                 //プレイヤーが存在するか確認
-                OfflinePlayer player = API.getPlayer(args[2]);
+                OfflinePlayer player = PlayerDatabase.getPlayer(args[2]);
                 if (player != null) {
-                    API_PlayerDatabase.set(player, nicknamePath, "");
+                    PlayerDatabase.set(player, nicknamePath, "");
                     Msg.success(sender, ChatColor.YELLOW + args[2] + ChatColor.RESET + "さんのニックネームを削除しました");
                     if (player.isOnline()) {
                         Msg.success((Player) player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + "さんによってニックネームを削除されました");
@@ -134,14 +134,14 @@ public class Command_Nickname implements CommandExecutor {
                     return true;
                 }
 
-                ChatColor color = API.getChatColor(args[2]);
+                ChatColor color = Color.getChatColor(args[2]);
                 if (args[2].equalsIgnoreCase("default") || color == null) {
-                    API_PlayerDatabase.set(player, "nickname.color", "default");
+                    PlayerDatabase.set(player, "nickname.color", "default");
                     Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんのニックネームカラーを" + color + "■" + ChatColor.RESET + "に変更しました");
                     Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームカラーが" + color + "■" + ChatColor.RESET + "に変更されました");
                     return true;
                 }
-                API_PlayerDatabase.set(player, "nickname.color", color.toString());
+                PlayerDatabase.set(player, "nickname.color", color.toString());
                 Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんのニックネームカラーを" + color + "■" + ChatColor.RESET + "に変更しました");
                 Msg.success(player, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによってニックネームカラーが" + color + "■" + ChatColor.RESET + "に変更されました");
             }
@@ -172,7 +172,7 @@ public class Command_Nickname implements CommandExecutor {
                     Msg.warning(sender, args[1] + ChatColor.DARK_GRAY + ": " + ChatColor.RESET + ChatColor.GOLD + args[1].length() + "文字");
                     return true;
                 } else {
-                    API_PlayerDatabase.set(player, nicknamePath, args[1]);
+                    PlayerDatabase.set(player, nicknamePath, args[1]);
                     Msg.success(sender, "ニックネームを " + ChatColor.AQUA + args[1] + ChatColor.RESET + " に設定しました");
                     return true;
                 }
@@ -186,7 +186,7 @@ public class Command_Nickname implements CommandExecutor {
         //一般：remove
         if (args[0].equalsIgnoreCase("remove")) {
             if (args.length == 1) {
-                API_PlayerDatabase.set(player, nicknamePath, "");
+                PlayerDatabase.set(player, nicknamePath, "");
                 Msg.success(sender, "ニックネームを削除しました");
                 return true;
             } else {

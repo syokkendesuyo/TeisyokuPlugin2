@@ -4,7 +4,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Sounds;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import net.minecraft.server.v1_13_R2.NBTTagDouble;
 import net.minecraft.server.v1_13_R2.NBTTagInt;
@@ -174,10 +174,10 @@ public class Listener_Daunii_1_13 implements Listener {
         Inventory GUI = Bukkit.createInventory(null, 9, GUIName);
 
         String[] lore_otheritem = {ChatColor.GRAY + "中央にアイテムを置いてね!!"};
-        ItemStack otheritem = net.jp.minecraft.plugins.teisyokuplugin2.util.Item.customItem(ChatColor.GRAY + "外枠", 1, Material.LIGHT_GRAY_STAINED_GLASS_PANE, lore_otheritem);
+        ItemStack otheritem = Item.customItem(ChatColor.GRAY + "外枠", 1, Material.LIGHT_GRAY_STAINED_GLASS_PANE, lore_otheritem);
 
         String[] lore_status = {ChatColor.GREEN + "" + ChatColor.BOLD + price + " TPoint" + ChatColor.RESET + "" + ChatColor.BLUE + "でダイヤ防具を強化できるよ!!"};
-        ItemStack item_status = net.jp.minecraft.plugins.teisyokuplugin2.util.Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, lore_status);
+        ItemStack item_status = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, lore_status);
 
         String[] lore_closeitem = {ChatColor.GRAY + "クリックすると閉じるよ!!"};
         ItemStack closeitem = Item.customItem(ChatColor.AQUA + "インベントリを閉じる", 1, Material.BARRIER, lore_closeitem);
@@ -322,7 +322,7 @@ public class Listener_Daunii_1_13 implements Listener {
             return;
         }
 
-        Sounds.play(player, Sound.ENTITY_ENDER_DRAGON_DEATH);
+        PlayerUtil.playSound(player, Sound.ENTITY_ENDER_DRAGON_DEATH);
         Entity setDaunii = entity.getVehicle();
         if (setDaunii == null) {
             entity.remove();

@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.ChatColor;
@@ -59,7 +58,7 @@ public class Command_RailwaysInfo implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.RAILWAYS, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.RAILWAYS, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.RAILWAYS);
             return true;
         }

@@ -1,8 +1,8 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -55,7 +55,7 @@ public class Listener_MobGrief implements Listener {
                     event.setCancelled(true);
                 }
             }
-            Player player = API.getNearByPlayer(event.getLocation());
+            Player player = PlayerUtil.getNearByPlayer(event.getLocation());
             Msg.warning(player, "このワールドではウィザーを召喚することはできません");
         }
     }

@@ -2,12 +2,11 @@ package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import com.google.common.base.Joiner;
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.CoolDown;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Sounds;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -62,7 +61,7 @@ public class Command_Ad implements CommandExecutor {
         }
 
         //実行コマンドのパーミッションを確認
-        if (!API.hasPermission(sender, Permission.USER, Permission.AD, Permission.ADMIN)) {
+        if (!Permission.hasPermission(sender, Permission.USER, Permission.AD, Permission.ADMIN)) {
             Msg.noPermissionMessage(sender, Permission.AD);
             return true;
         }
@@ -85,7 +84,7 @@ public class Command_Ad implements CommandExecutor {
 
         //オンラインプレイヤー全員に音を鳴らす
         for (Player player : Bukkit.getOnlinePlayers()) {
-            Sounds.play(player, Sound.BLOCK_NOTE_BLOCK_BELL);
+            PlayerUtil.playSound(player, Sound.BLOCK_NOTE_BLOCK_BELL);
         }
 
         //クールタイムを設定

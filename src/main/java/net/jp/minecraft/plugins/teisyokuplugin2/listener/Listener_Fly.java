@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_Fly;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Fly;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,7 +27,7 @@ public class Listener_Fly implements Listener {
     public void onPlayerFlatWorldEnterEvent(PlayerChangedWorldEvent event) {
         // TODO: configで設定できるように変更
         if (event.getPlayer().getWorld().getName().equalsIgnoreCase("flat")) {
-            API_Fly.setFlying(event.getPlayer(), true);
+            Fly.setFlying(event.getPlayer(), true);
             return;
         }
         event.getPlayer().setAllowFlight(false);

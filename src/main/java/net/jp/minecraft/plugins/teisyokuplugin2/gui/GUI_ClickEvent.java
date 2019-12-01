@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.gui;
 
-import net.jp.minecraft.plugins.teisyokuplugin2.api.API_Trash;
+import net.jp.minecraft.plugins.teisyokuplugin2.function.Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -69,7 +69,7 @@ public class GUI_ClickEvent implements Listener {
             } else if (event.getRawSlot() == 16) {
                 player.kickPlayer(ChatColor.YELLOW + " サーバから切断しました。 ");
             } else if (event.getRawSlot() == 28) {
-                API_Trash.open(player);
+                Trash.open(player);
             } else if (event.getRawSlot() == 30) {
                 Bukkit.getServer().dispatchCommand(player, "lock");
                 player.closeInventory();

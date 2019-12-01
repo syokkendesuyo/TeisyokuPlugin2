@@ -5,7 +5,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.config.CustomConfig;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.Replace;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -145,7 +145,7 @@ public class Listener_Minecart implements Listener {
                             //正常処理
                             String announce = config.getConfig().getString(sign.getLine(1) + ".string");
                             assert announce != null;
-                            player.sendMessage(Color.convert(Replace.blank(announce)));
+                            player.sendMessage(Color.convert(StringUtil.replaceToBlank(announce)));
                         }
                     } catch (Exception e) {
                         Msg.warning(player, "不明なエラーが発生しました");

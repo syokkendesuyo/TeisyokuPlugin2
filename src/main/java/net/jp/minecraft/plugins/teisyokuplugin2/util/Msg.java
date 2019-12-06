@@ -8,7 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * TeisyokuPlugin2
+ * TeisyokuPlugin2<br />
+ * メッセージ関連の定義を行うクラス
  *
  * @author syokkendesuyo
  */

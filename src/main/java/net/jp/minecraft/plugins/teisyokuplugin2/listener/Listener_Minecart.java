@@ -127,7 +127,7 @@ public class Listener_Minecart implements Listener {
                 player = (Player) entity;
 
                 Material material = minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getType();
-                if (!(material.equals(Material.SIGN) || material.equals(Material.WALL_SIGN))) {
+                if (material.toString().contains("SIGN")) {
                     return;
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();

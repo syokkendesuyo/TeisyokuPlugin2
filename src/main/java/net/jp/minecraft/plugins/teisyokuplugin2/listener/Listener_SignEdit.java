@@ -30,7 +30,7 @@ public class Listener_SignEdit implements Listener {
             return;
         }
         assert block != null;
-        if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
+        if (block.getType().toString().contains("SIGN")) {
             Location loc = block.getLocation();
             SignEdit.updateSign(loc, event.getPlayer());
             return;

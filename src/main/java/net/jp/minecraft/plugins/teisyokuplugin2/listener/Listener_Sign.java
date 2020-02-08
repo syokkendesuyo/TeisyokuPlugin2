@@ -40,7 +40,7 @@ public class Listener_Sign implements Listener {
             return;
         }
         assert block != null;
-        if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)) {
+        if (block.getType().toString().contains("SIGN")) {
             Sign sign = (Sign) block.getState();
 
             if (StringUtil.searchKeyword(sign.getLines(), "[trash]") || StringUtil.searchKeyword(sign.getLines(), "[gomi]") || StringUtil.searchKeyword(sign.getLines(), "[gomibako]")) {

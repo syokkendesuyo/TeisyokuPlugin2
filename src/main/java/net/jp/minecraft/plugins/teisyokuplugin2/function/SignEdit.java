@@ -79,7 +79,7 @@ public class SignEdit {
         World w = loc.getWorld();
         assert w != null;
         Block a = w.getBlockAt(loc);
-        if (a.getType() == Material.SIGN || a.getType() == Material.WALL_SIGN) {
+        if (a.getType().toString().contains("SIGN")) {
             Sign sign = (Sign) a.getState();
             sign.setLine(lineData.get(player.getUniqueId()), StringUtil.replaceToBlank(Color.convert(editData.get(player.getUniqueId()))));
             sign.update(true);

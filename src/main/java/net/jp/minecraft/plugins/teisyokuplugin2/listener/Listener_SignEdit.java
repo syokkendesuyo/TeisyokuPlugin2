@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.function.SignEdit;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,7 +31,7 @@ public class Listener_SignEdit implements Listener {
             return;
         }
         assert block != null;
-        if (block.getType().toString().contains("SIGN")) {
+        if (BlockUtil.isSign(block.getType())) {
             Location loc = block.getLocation();
             SignEdit.updateSign(loc, event.getPlayer());
             return;

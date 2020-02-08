@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.config.CustomConfig;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
@@ -127,7 +128,7 @@ public class Listener_Minecart implements Listener {
                 player = (Player) entity;
 
                 Material material = minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getType();
-                if (material.toString().contains("SIGN")) {
+                if (!BlockUtil.isSign(material)) {
                     return;
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();

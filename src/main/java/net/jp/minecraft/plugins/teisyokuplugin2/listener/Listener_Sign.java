@@ -5,6 +5,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.function.Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
@@ -40,7 +41,7 @@ public class Listener_Sign implements Listener {
             return;
         }
         assert block != null;
-        if (block.getType().toString().contains("SIGN")) {
+        if (BlockUtil.isSign(block.getType())) {
             Sign sign = (Sign) block.getState();
 
             if (StringUtil.searchKeyword(sign.getLines(), "[trash]") || StringUtil.searchKeyword(sign.getLines(), "[gomi]") || StringUtil.searchKeyword(sign.getLines(), "[gomibako]")) {

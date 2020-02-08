@@ -3,6 +3,7 @@ package net.jp.minecraft.plugins.teisyokuplugin2.function;
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TPoint;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
@@ -79,7 +80,7 @@ public class SignEdit {
         World w = loc.getWorld();
         assert w != null;
         Block a = w.getBlockAt(loc);
-        if (a.getType().toString().contains("SIGN")) {
+        if (BlockUtil.isSign(a.getType())) {
             Sign sign = (Sign) a.getState();
             sign.setLine(lineData.get(player.getUniqueId()), StringUtil.replaceToBlank(Color.convert(editData.get(player.getUniqueId()))));
             sign.update(true);

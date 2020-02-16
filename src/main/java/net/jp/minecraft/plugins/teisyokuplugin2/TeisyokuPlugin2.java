@@ -25,7 +25,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.config.CustomConfig;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.GUI_ClickEvent;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Chat;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Daunii_1_13;
+import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Daunii_1_14;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Death;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_EntityDamage;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Fly;
@@ -40,7 +40,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SignEdit;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SkeletonHorse;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SpawnEgg;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Tab;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TicksPerSecond_1_13;
+import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TicksPerSecond_1_14;
 import net.jp.minecraft.plugins.teisyokuplugin2.migration.PlayerDatabaseMigration;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
@@ -65,7 +65,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     /**
      * サポートバージョン
      */
-    private static String supportVersion = "1.13.2-R0.1-SNAPSHOT";
+    private static String supportVersion = "1.14.4-R0.1-SNAPSHOT";
 
     /**
      * Teisyoku.yml
@@ -189,7 +189,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
             //events
             pm.registerEvents(new Listener_Tab(), this);
-            pm.registerEvents(new Listener_Daunii_1_13(), this);
+            pm.registerEvents(new Listener_Daunii_1_14(), this);
 
             //commands
             getCommand("daunii").setExecutor(new Command_Daunii());
@@ -201,9 +201,9 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
             BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
             scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
-                    double tps = Listener_TicksPerSecond_1_13.getTps(1);
-                    if (Listener_TicksPerSecond_1_13.getTps(1) < 16) {
-                        Msg.warning(Bukkit.getConsoleSender(), "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_13.doubleToString(tps), true);
+                    double tps = Listener_TicksPerSecond_1_14.getTps(1);
+                    if (Listener_TicksPerSecond_1_14.getTps(1) < 16) {
+                        Msg.warning(Bukkit.getConsoleSender(), "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_14.doubleToString(tps), true);
                     }
                 }
             }, 0L, 6000L);

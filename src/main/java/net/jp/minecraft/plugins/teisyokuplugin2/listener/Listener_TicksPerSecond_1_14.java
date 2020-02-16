@@ -1,6 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
-import net.minecraft.server.v1_13_R2.MinecraftServer;
+import net.minecraft.server.v1_14_R1.MinecraftServer;
 
 import java.math.BigDecimal;
 
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  *
  * @author syokkendesuyo
  */
-public class Listener_TicksPerSecond_1_13 {
+public class Listener_TicksPerSecond_1_14 {
 
     public static double getTps(int num) {
         double[] tps = MinecraftServer.getServer().recentTps;

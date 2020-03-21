@@ -2,6 +2,8 @@ package net.jp.minecraft.plugins.teisyokuplugin2.util;
 
 import org.bukkit.Material;
 
+import org.bukkit.block.data.Rail;
+
 public class BlockUtil {
 
     /**
@@ -12,7 +14,7 @@ public class BlockUtil {
      */
     public static boolean isSign(Material material) {
 
-        //新しい看板が追加されたらここに追加する
+        // 新しい看板が追加されたらここに追加する
         Material[] target = {
                 Material.ACACIA_SIGN,
                 Material.ACACIA_WALL_SIGN,
@@ -33,5 +35,17 @@ public class BlockUtil {
         }
 
         return false;
+    }
+
+    /**
+     * レールが直線かどうかを判定するメソッド
+     *
+     * @param rail 検査するrail
+     * @return 直線か否か(trueは直線)
+     */
+    public static boolean isRailStraight(Rail rail) {
+
+        return rail.getShape().equals(Rail.Shape.EAST_WEST) || rail.getShape().equals(Rail.Shape.NORTH_SOUTH);
+
     }
 }

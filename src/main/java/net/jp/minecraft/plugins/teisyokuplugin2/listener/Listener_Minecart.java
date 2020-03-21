@@ -12,6 +12,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Rail;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
@@ -25,9 +26,6 @@ import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.DetectorRail;
-import org.bukkit.material.PoweredRail;
-import org.bukkit.material.Rails;
 
 import java.util.List;
 
@@ -178,72 +176,36 @@ public class Listener_Minecart implements Listener {
             }
         }
 
-        if (cart.getLocation().getBlock().getType().equals(Material.ACTIVATOR_RAIL)) {
+        Block space;
+        space = cart.getLocation().getBlock();
+
+        if (space.getType().equals(Material.ACTIVATOR_RAIL)) {
             cart.setMaxSpeed(0.4);
             return;
         }
 
-        Rails rail;
-        PoweredRail p_rail;
-        DetectorRail d_rail;
-        Block block;
+        if(!(space.getType().equals(Material.RAIL) || space.getType().equals(Material.POWERED_RAIL) || space.getType().equals(Material.DETECTOR_RAIL))){
+            cart.setMaxSpeed(0.4);
+            return;
+        }
 
-        if ((cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.IRON_BLOCK)) || (cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN))) {//下が鉄ブロック、黒曜石であることを確認
-            block = cart.getLocation().getBlock();
-            if (((block.getType().equals(Material.POWERED_RAIL)) || (block.getType().equals(Material.DETECTOR_RAIL)) || (block.getType().equals(Material.RAIL)))) {
-                if (block.getType().equals(Material.RAIL)) {
-                    rail = (Rails) block.getState().getData();
-                    if (rail.isCurve()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    } else if (rail.isOnSlope()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    }
-                } else if (block.getType().equals(Material.POWERED_RAIL)) {
-                    p_rail = (PoweredRail) block.getState().getData();
-                    if (p_rail.isOnSlope()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    }
-                } else if (block.getType().equals(Material.DETECTOR_RAIL)) {
-                    d_rail = (DetectorRail) block.getState().getData();
-                    if (d_rail.isOnSlope()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    }
-                }
-            }
+        Rail rail;
+        rail = (Rail) space.getBlockData();
+
+        if(!(BlockUtil.isRailStraight(rail))){
+            cart.setMaxSpeed(0.4);
+            return;
+        }
+
+        Block block;
+        block = cart.getLocation().add(0, -1, 0).getBlock();
+
+        if ((block.getType().equals(Material.IRON_BLOCK)) || (block.getType().equals(Material.OBSIDIAN))) {//下が鉄ブロック、黒曜石であることを確認
             if (cart.getMaxSpeed() == 1.6) {
                 return;
             }
             cart.setMaxSpeed(1.6);
-        } else if (cart.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.CHISELED_STONE_BRICKS)) {
-            block = cart.getLocation().getBlock();
-            if (((block.getType().equals(Material.POWERED_RAIL)) || (block.getType().equals(Material.DETECTOR_RAIL)) || (block.getType().equals(Material.RAIL)))) {
-                if (cart.getLocation().getBlock().getType().equals(Material.RAIL)) {
-                    rail = (Rails) cart.getLocation().getBlock().getState().getData();
-                    if (rail.isCurve()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    } else if (rail.isOnSlope()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    }
-                } else if (block.getType().equals(Material.POWERED_RAIL)) {
-                    p_rail = (PoweredRail) block.getState().getData();
-                    if (p_rail.isOnSlope()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    }
-                } else if (block.getType().equals(Material.DETECTOR_RAIL)) {
-                    d_rail = (DetectorRail) block.getState().getData();
-                    if (d_rail.isOnSlope()) {
-                        cart.setMaxSpeed(0.4);
-                        return;
-                    }
-                }
-            }
+        } else if (block.getType().equals(Material.CHISELED_STONE_BRICKS)) {
             if (cart.getMaxSpeed() == 1.2) {
                 return;
             }

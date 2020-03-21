@@ -44,8 +44,6 @@ public class BlockUtil {
      * @return 直線か否か(trueは直線)
      */
     public static boolean isRailStraight(Rail rail) {
-
         return rail.getShape().equals(Rail.Shape.EAST_WEST) || rail.getShape().equals(Rail.Shape.NORTH_SOUTH);
-
     }
 }

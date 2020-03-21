@@ -179,11 +179,6 @@ public class Listener_Minecart implements Listener {
         Block space;
         space = cart.getLocation().getBlock();
 
-        if (space.getType().equals(Material.ACTIVATOR_RAIL)) {
-            cart.setMaxSpeed(0.4);
-            return;
-        }
-
         if(!(space.getType().equals(Material.RAIL) || space.getType().equals(Material.POWERED_RAIL) || space.getType().equals(Material.DETECTOR_RAIL))){
             cart.setMaxSpeed(0.4);
             return;

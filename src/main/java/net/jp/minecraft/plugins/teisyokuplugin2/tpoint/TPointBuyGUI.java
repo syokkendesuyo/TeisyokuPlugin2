@@ -53,7 +53,7 @@ public class TPointBuyGUI implements Listener {
         //TPoint Status
         String[] loreStatus = {};
         items[0] = Item.customItem(ChatColor.AQUA + "" + ChatColor.BOLD + point + " TPoint", 1, Material.COD, loreStatus);
-        items[1] = Item.customItem(ChatColor.RED + "" + ChatColor.BOLD + "戻る", 1, Material.SIGN, loreStatus);
+        items[1] = Item.customItem(ChatColor.RED + "" + ChatColor.BOLD + "戻る", 1, Material.OAK_SIGN, loreStatus);
 
         int cnt = 3;
         for (; cnt < invSize * 9; cnt++) {

@@ -5,16 +5,17 @@ import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
-import net.minecraft.server.v1_14_R1.NBTTagCompound;
-import net.minecraft.server.v1_14_R1.NBTTagDouble;
-import net.minecraft.server.v1_14_R1.NBTTagInt;
-import net.minecraft.server.v1_14_R1.NBTTagList;
-import net.minecraft.server.v1_14_R1.NBTTagString;
+import net.minecraft.server.v1_15_R1.NBTBase;
+import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_15_R1.NBTTagDouble;
+import net.minecraft.server.v1_15_R1.NBTTagInt;
+import net.minecraft.server.v1_15_R1.NBTTagList;
+import net.minecraft.server.v1_15_R1.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -31,7 +32,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Objects;
 import java.util.Random;
 
-public class Listener_Daunii_1_14 implements Listener {
+public class Listener_Daunii_1_15 implements Listener {
 
     public static String DauniiName = ChatColor.AQUA + "" + ChatColor.BOLD + "だうにーくん";
     private static Random rand = new Random();
@@ -47,7 +48,7 @@ public class Listener_Daunii_1_14 implements Listener {
     private int feet_id = 2004;
 
     private ItemStack setAttr(ItemStack item) {//Attributeの設定
-        net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
         NBTTagList modifiers = new NBTTagList();
         int count = 0;
@@ -156,17 +157,17 @@ public class Listener_Daunii_1_14 implements Listener {
 
     private NBTTagCompound attribute(String attributeName, String region, Double amount, int operation, int slot, int count) {
         NBTTagCompound attr = new NBTTagCompound();
-        attr.set("AttributeName", new NBTTagString(attributeName));
-        attr.set("Name", new NBTTagString(attributeName));
+        attr.setString("AttributeName", attributeName);
+        attr.setString("Name", attributeName);
         if (amount < 1) {
-            attr.set("Amount", new NBTTagDouble(amount));
+            attr.setDouble("Amount", amount);
         } else {
-            attr.set("Amount", new NBTTagInt(amount.intValue()));
+            attr.setInt("Amount", amount.intValue());
         }
-        attr.set("Operation", new NBTTagInt(operation));
-        attr.set("UUIDLeast", new NBTTagInt(slot));
-        attr.set("UUIDMost", new NBTTagInt(count));
-        attr.set("Slot", new NBTTagString(region));
+        attr.setInt("Operation", operation);
+        attr.setInt("UUIDLeast", slot);
+        attr.setInt("UUIDMost", count);
+        attr.setString("Slot", region);
         return attr;
     }
 

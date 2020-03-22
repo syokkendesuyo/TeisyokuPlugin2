@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TicksPerSecond_1_14;
+import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TicksPerSecond_1_15;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.ChatColor;
@@ -26,7 +26,7 @@ public class Command_TPS implements CommandExecutor {
     }
 
     private static String tps(int num) {
-        return Listener_TicksPerSecond_1_14.doubleToString(Listener_TicksPerSecond_1_14.getTps(num));
+        return Listener_TicksPerSecond_1_15.doubleToString(Listener_TicksPerSecond_1_15.getTps(num));
     }
 
     @Override

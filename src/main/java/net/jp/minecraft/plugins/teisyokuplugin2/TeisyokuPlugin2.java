@@ -65,7 +65,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     /**
      * サポートバージョン
      */
-    private static String supportVersion = "1.14.4-R0.1-SNAPSHOT";
+    private static String supportVersion = "1.15.2-R0.1-SNAPSHOT";
 
     /**
      * Teisyoku.yml

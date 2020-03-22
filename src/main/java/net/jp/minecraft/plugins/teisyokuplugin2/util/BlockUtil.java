@@ -2,6 +2,8 @@ package net.jp.minecraft.plugins.teisyokuplugin2.util;
 
 import org.bukkit.Material;
 
+import org.bukkit.block.data.Rail;
+
 public class BlockUtil {
 
     /**
@@ -12,26 +14,36 @@ public class BlockUtil {
      */
     public static boolean isSign(Material material) {
 
-        //新しい看板が追加されたらここに追加する
-        String[] target = {
-                "ACACIA_SIGN",
-                "ACACIA_WALL_SIGN",
-                "BIRCH_SIGN",
-                "BIRCH_WALL_SIGN",
-                "DARK_OAK_SIGN",
-                "DARK_OAK_WALL_SIGN",
-                "JUNGLE_SIGN",
-                "JUNGLE_WALL_SIGN",
-                "OAK_SIGN",
-                "OAK_WALL_SIGN",
-                "SPRUCE_SIGN",
-                "SPRUCE_WALL_SIGN"};
+        // 新しい看板が追加されたらここに追加する
+        Material[] target = {
+                Material.ACACIA_SIGN,
+                Material.ACACIA_WALL_SIGN,
+                Material.BIRCH_SIGN,
+                Material.BIRCH_WALL_SIGN,
+                Material.DARK_OAK_SIGN,
+                Material.DARK_OAK_WALL_SIGN,
+                Material.JUNGLE_SIGN,
+                Material.JUNGLE_WALL_SIGN,
+                Material.OAK_SIGN,
+                Material.OAK_WALL_SIGN,
+                Material.SPRUCE_SIGN,
+                Material.SPRUCE_WALL_SIGN};
 
-        for (String s : target) {
-            if (material.toString().equals(s))
+        for (Material m : target) {
+            if (material.equals(m))
                 return true;
         }
 
         return false;
+    }
+
+    /**
+     * レールが直線かどうかを判定するメソッド
+     *
+     * @param rail 検査するrail
+     * @return 直線か否か(trueは直線)
+     */
+    public static boolean isRailStraight(Rail rail) {
+        return rail.getShape().equals(Rail.Shape.EAST_WEST) || rail.getShape().equals(Rail.Shape.NORTH_SOUTH);
     }
 }

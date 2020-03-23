@@ -30,7 +30,7 @@ public class Listener_Portal implements Listener {
                 return;
             }
 
-            //ネザーポータルが有効化されているかどうか検出
+            //エンドポータルが有効化されているかどうか検出
             if (!plugin.configTeisyoku.getConfig().getBoolean("portal.end")) {
                 event.setCancelled(true);
                 if (TFlag.getTFlagStatus(player, TFlag.PORTAL_WARNING.getTFlag())) {
@@ -51,7 +51,7 @@ public class Listener_Portal implements Listener {
             if (!plugin.configTeisyoku.getConfig().getBoolean("portal.nether")) {
                 event.setCancelled(true);
                 if (TFlag.getTFlagStatus(player, TFlag.PORTAL_WARNING.getTFlag())) {
-                    Msg.warning(player, "このサーバーではエンドポータルはご利用頂けません");
+                    Msg.warning(player, "このサーバーではネザーポータルはご利用頂けません");
                     Msg.noPermissionMessage(player, Permission.PORTAL_BYPASS_NETHER);
                 }
             }

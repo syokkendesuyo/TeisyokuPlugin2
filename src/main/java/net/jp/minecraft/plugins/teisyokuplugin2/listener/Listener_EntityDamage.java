@@ -55,11 +55,15 @@ public class Listener_EntityDamage implements Listener {
 
         //馬の場合の処理
         if (damageEntity instanceof Horse) {
-            if (player.hasPermission(Permission.ADMIN.toString()) ||
-                    player.hasPermission(Permission.HORSE_BYPASS_DAMAGE.toString()) ||
-                    player.hasPermission(Permission.HORSE_ADMIN.toString())) {
+            // 権限チェック
+            if (Permission.hasPermission(player, Permission.ADMIN) || Permission.hasPermission(player, Permission.HORSE_ADMIN) || Permission.hasPermission(player, Permission.HORSE_BYPASS_DAMAGE)) {
                 return;
             }
+            // ダイヤモンドの剣の場合は許可
+            if (((Player) damager).getInventory().getItemInMainHand().equals(new ItemStack(Material.DIAMOND_SWORD))) {
+                return;
+            }
+            // イベントをキャンセル
             event.setCancelled(true);
             Msg.warning(player, "ダイヤの剣以外では馬にダメージを与えることはできません");
         }

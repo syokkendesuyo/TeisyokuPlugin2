@@ -64,7 +64,7 @@ public class PlayerUtil {
         if (playerName.length() < 3 || playerName.length() > 16) {
             return false;
         }
-        return Pattern.matches("^[0-9a-zA-Z]+$", playerName);
+        return Pattern.matches("^[0-9a-zA-Z_]+$", playerName);
     }
 
     /**

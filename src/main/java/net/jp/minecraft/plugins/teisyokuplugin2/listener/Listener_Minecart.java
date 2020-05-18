@@ -173,6 +173,7 @@ public class Listener_Minecart implements Listener {
         for (Entity entity : entities) {
             if (!(entity instanceof Player)) {
                 cart.setMaxSpeed(0.4);
+                return;
             }
         }
 

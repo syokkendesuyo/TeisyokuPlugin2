@@ -89,7 +89,7 @@ public class Command_Fly implements CommandExecutor {
         //引数が2だった場合
         if (args.length == 2) {
             Player targetPlayer = Bukkit.getServer().getPlayer(args[0]);
-            if (!(targetPlayer == null)) {
+            if (targetPlayer != null) {
                 if (targetPlayer.equals(sender)) {
                     if (!sender.hasPermission(Permission.FLY_ME.toString())) {
                         Msg.noPermissionMessage(sender, Permission.FLY_ME);

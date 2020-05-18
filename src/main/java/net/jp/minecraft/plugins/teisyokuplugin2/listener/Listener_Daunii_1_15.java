@@ -251,7 +251,7 @@ public class Listener_Daunii_1_15 implements Listener {
 
     @EventHandler
     public void ClickGUI(InventoryClickEvent event) {//だうにーくんのGUIをクリックしたかどうか
-        if (!(event.getInventory().getSize() == 9)) {
+        if (event.getInventory().getSize() != 9) {
             return;
         }
 
@@ -271,7 +271,7 @@ public class Listener_Daunii_1_15 implements Listener {
     @EventHandler
     public void CloseGUI(InventoryCloseEvent event) {//だうにーくんのGUIを閉じた時、attrを付与する 但し、ダイヤ防具のみ
         Inventory inv = event.getInventory();
-        if (!(inv.getSize() == 9)) {
+        if (inv.getSize() != 9) {
             return;
         }
         if (!(event.getView().getTitle().equals(GUIName))) {

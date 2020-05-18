@@ -107,7 +107,7 @@ public class Command_RailwaysInfo implements CommandExecutor {
             getAll((Player) sender);
             return true;
         } else if (args[0].equalsIgnoreCase("edit") || args[0].equalsIgnoreCase("change") || args[0].equalsIgnoreCase("*")) {
-            if (!(args.length == 3)) {
+            if (args.length != 3) {
                 help(sender, commandLabel);
                 return true;
             }

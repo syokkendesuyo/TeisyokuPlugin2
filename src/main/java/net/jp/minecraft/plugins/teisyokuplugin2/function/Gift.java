@@ -64,7 +64,7 @@ public class Gift {
         }
 
         //利用回数の取得
-        if (!(config.getConfig().getString("gifts." + giftCode + ".limit") == null)) {
+        if (config.getConfig().getString("gifts." + giftCode + ".limit") != null) {
             int limit = config.getConfig().getInt("gifts." + giftCode + ".limit");
             if (0 < limit) {
                 config.getConfig().set("gifts." + giftCode + ".limit", limit - 1);

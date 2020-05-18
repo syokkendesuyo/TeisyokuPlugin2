@@ -24,7 +24,7 @@ public class Listener_SignEdit implements Listener {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
 
-        if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
         if (!(SignEdit.isEditMode(player))) {

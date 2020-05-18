@@ -114,7 +114,7 @@ public class GUI_ClickEvent implements Listener {
                 //デフォルトのアイテム名が適応されている場合はキャンセル
                 return;
             }
-            if (!(event.getCurrentItem().getAmount() == 0)) {
+            if (event.getCurrentItem().getAmount() != 0) {
                 String name = event.getCurrentItem().getItemMeta().getDisplayName();
                 Player p = Bukkit.getServer().getPlayer(name);
                 try {

@@ -44,7 +44,7 @@ public class Listener_Horse implements Listener {
         UUID entityUUID = event.getRightClicked().getUniqueId();
 
         //棒以外は無視
-        if (!(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STICK)) {
+        if (event.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK) {
             return;
         }
         String displayName = Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta()).getDisplayName();

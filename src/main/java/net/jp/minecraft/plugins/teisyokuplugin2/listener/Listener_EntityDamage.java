@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -45,7 +46,7 @@ public class Listener_EntityDamage implements Listener {
                 return;
             }
             // ダイヤモンドの剣の場合は許可
-            if (((Player) damager).getInventory().getItemInMainHand().equals(new ItemStack(Material.DIAMOND_SWORD))) {
+            if (((Player) damager).getInventory().getItemInMainHand().getType().equals(new ItemStack(Material.DIAMOND_SWORD).getType())) {
                 return;
             }
             // イベントをキャンセル
@@ -60,7 +61,7 @@ public class Listener_EntityDamage implements Listener {
                 return;
             }
             // ダイヤモンドの剣の場合は許可
-            if (((Player) damager).getInventory().getItemInMainHand().equals(new ItemStack(Material.DIAMOND_SWORD))) {
+            if (((Player) damager).getInventory().getItemInMainHand().getType().equals(new ItemStack(Material.DIAMOND_SWORD).getType())) {
                 return;
             }
             // イベントをキャンセル

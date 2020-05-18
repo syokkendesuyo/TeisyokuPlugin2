@@ -211,7 +211,7 @@ public class Command_TPoint implements CommandExecutor {
                     int point = Integer.parseInt(args[2]);
                     Listener_TPoint.setPoint(point, onlinePlayer);
                     Msg.success(onlinePlayer, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによって " + point + " TPointにセットされました");
-                    if (!(onlinePlayer == sender)) {
+                    if (!(sender.equals(onlinePlayer))) {
                         Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんを " + point + " TPointにセットしました");
                     }
                     Listener_TPoint.sendPersonalStatus(onlinePlayer);

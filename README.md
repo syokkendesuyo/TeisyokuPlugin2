@@ -1,13 +1,15 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/894e1b59443148efbda92a41874ae6b1)](https://www.codacy.com/manual/syokkendesuyo/TeisyokuPlugin2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=syokkendesuyo/TeisyokuPlugin2&amp;utm_campaign=Badge_Grade)  
+  
 TeisyokuPlugin2
-======================
+----------
 TeisyokuPlugin2 developed for Teisyoku Server.  
 WebSite：https://www.minecraft.jp.net/   
-  
+
+Developers
+----------
+Thank you for your Contribution!  
+[Developers](https://github.com/KisaragiEffective/TeisyokuPlugin2/network/members)
   
 License
 ----------
-GNU General Public License, version 3 (GPL-3.0)
-Copyright &copy; 2019 [syokkendesuyo](https://twitter.com/syokkendesuyo),[azuhata](https://twitter.com/azuhibiki)
-
-- http://www.gnu.org/licenses/gpl-3.0.html  
-- https://opensource.org/licenses/GPL-3.0  
+[Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja)  

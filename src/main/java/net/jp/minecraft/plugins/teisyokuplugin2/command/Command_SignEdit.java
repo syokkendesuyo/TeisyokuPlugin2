@@ -64,7 +64,7 @@ public class Command_SignEdit implements CommandExecutor {
             return true;
         }
 
-        if (!(args.length == 2)) {
+        if (args.length != 2) {
             help(sender, commandLabel);
             return true;
         }

@@ -108,7 +108,7 @@ public class Command_Cart implements CommandExecutor {
         ItemStack cart = new ItemStack(Material.MINECART);
 
         //ターゲットプレイヤーとコマンド送信者の一致を確認
-        if (sender == target) {
+        if (target.equals(sender)) {
             target.getInventory().addItem(cart);
             Msg.success(sender, "マインカートをインベントリに追加しました");
         } else {

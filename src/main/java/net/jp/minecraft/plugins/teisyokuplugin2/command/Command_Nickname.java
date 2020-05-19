@@ -101,7 +101,7 @@ public class Command_Nickname implements CommandExecutor {
             }
 
             if (args[1].equalsIgnoreCase("remove")) {
-                if (!(args.length == 3)) {
+                if (args.length != 3) {
                     Msg.success(sender, "引数が多すぎるかまたは少なすぎます");
                     help(sender, commandLabel);
                     return true;
@@ -124,7 +124,7 @@ public class Command_Nickname implements CommandExecutor {
             }
 
             if (args[1].equalsIgnoreCase("color")) {
-                if (!(args.length == 4)) {
+                if (args.length != 4) {
                     Msg.warning(sender, "引数が多すぎるかまたは少なすぎます");
                     return true;
                 }

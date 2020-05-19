@@ -75,7 +75,7 @@ public class Command_Call implements CommandExecutor {
         String playerName = args[0];
 
         //プレイヤーがオンラインであればメッセージを送信
-        if (!(player == null)) {
+        if (player != null) {
 
             //プレイヤー名を削除
             args[0] = "";

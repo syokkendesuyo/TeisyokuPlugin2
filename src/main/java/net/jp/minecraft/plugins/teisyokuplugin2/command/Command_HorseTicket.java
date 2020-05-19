@@ -32,7 +32,7 @@ public class Command_HorseTicket implements CommandExecutor {
             return true;
         }
 
-        if (!(args.length < 3)) {
+        if (args.length > 3) {
             Msg.warning(sender, "引数が多すぎます");
             return false;
         }

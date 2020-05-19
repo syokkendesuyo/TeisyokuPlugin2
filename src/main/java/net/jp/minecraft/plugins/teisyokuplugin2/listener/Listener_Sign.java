@@ -37,7 +37,7 @@ public class Listener_Sign implements Listener {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
 
-        if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
         assert block != null;
@@ -98,7 +98,7 @@ public class Listener_Sign implements Listener {
         //実行
         Msg.success(player, ChatColor.BOLD + "" + ChatColor.GRAY + " 看板データ参照 ");
         for (int cnt = 0; cnt < 4; cnt++) {
-            if (!(sign.getLine(cnt).length() == 0)) {
+            if (sign.getLine(cnt).length() != 0) {
                 Msg.info(player, sign.getLine(cnt));
             }
         }

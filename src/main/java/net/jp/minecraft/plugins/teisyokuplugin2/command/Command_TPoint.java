@@ -155,7 +155,7 @@ public class Command_TPoint implements CommandExecutor {
             }
             Player player = Bukkit.getServer().getPlayer(args[1]);
             //プレイヤーが居るか
-            if (!(player == null)) {
+            if (player != null) {
                 int point = Integer.parseInt(args[2]);
                 //ポイントが無かった場合
                 if (!Listener_TPoint.subtractPoint(point, player, sender)) {
@@ -192,7 +192,7 @@ public class Command_TPoint implements CommandExecutor {
 
         //セット
         if (args[0].equalsIgnoreCase("set")) {
-            if (!(args.length == 3)) {
+            if (args.length != 3) {
                 help(sender, commandLabel);
                 return true;
             }
@@ -211,7 +211,7 @@ public class Command_TPoint implements CommandExecutor {
                     int point = Integer.parseInt(args[2]);
                     Listener_TPoint.setPoint(point, onlinePlayer);
                     Msg.success(onlinePlayer, ChatColor.YELLOW + sender.getName() + ChatColor.RESET + " さんによって " + point + " TPointにセットされました");
-                    if (!(onlinePlayer == sender)) {
+                    if (!(sender.equals(onlinePlayer))) {
                         Msg.success(sender, ChatColor.YELLOW + player.getName() + ChatColor.RESET + " さんを " + point + " TPointにセットしました");
                     }
                     Listener_TPoint.sendPersonalStatus(onlinePlayer);

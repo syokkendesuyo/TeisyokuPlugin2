@@ -69,10 +69,8 @@ public class Command_Ad implements CommandExecutor {
         //クールタイムを確認
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            if (CoolDown.is(player)) {
-                if (!CoolDown.coolDown(player)) {
-                    return true;
-                }
+            if (CoolDown.is(player) && !CoolDown.coolDown(player)) {
+                return true;
             }
         }
 

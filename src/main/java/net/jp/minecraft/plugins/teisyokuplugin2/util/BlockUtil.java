@@ -15,7 +15,7 @@ public class BlockUtil {
     public static boolean isSign(Material material) {
 
         // 新しい看板が追加されたらここに追加する
-        Material[] target = {
+        Material[] targets = {
                 Material.ACACIA_SIGN,
                 Material.ACACIA_WALL_SIGN,
                 Material.BIRCH_SIGN,
@@ -29,11 +29,20 @@ public class BlockUtil {
                 Material.SPRUCE_SIGN,
                 Material.SPRUCE_WALL_SIGN};
 
-        for (Material m : target) {
+        return scanMaterial(material, targets);
+    }
+
+    /**
+     * 指定のmaterialがmaterial配列のなかにあるかどうか検査するメソッド
+     * @param material 検査するmaterial
+     * @param targets 対象のmaterialの配列
+     * @return 検査するmaterialが対象のmaterialだったかどうか
+     */
+    public static boolean scanMaterial(Material material, Material[] targets){
+        for (Material m : targets) {
             if (material.equals(m))
                 return true;
         }
-
         return false;
     }
 

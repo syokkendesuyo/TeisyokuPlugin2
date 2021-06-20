@@ -178,7 +178,7 @@ public class Listener_Daunii_1_15 implements Listener {
     }
 
     /**
-     *
+     * 複数のAttributeをランダムに生成するメソッド
      * @param slot Attributeを適用する装備スロット
      * @param count　AttributeModifierの数(1以上)
      * @param multiplier どれだけ増減させるか(場合により小数点以下切り上げ、1以上)

@@ -2,6 +2,7 @@ package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
@@ -175,6 +176,23 @@ public class Listener_Daunii_1_15 implements Listener {
         attr.setInt("UUIDMost", count);
         attr.setString("Slot", region);
         return attr;
+    }
+
+    /**
+     * ダイヤモンド相当以上の装備かを判定するメソッド
+     * @param material 検査するmaterial
+     * @return ダイヤモンド相当以上の装備かどうか
+     */
+    private boolean isHighLevelArmor(Material material){
+        // ハイレベルな装備
+        Material[] targets = {
+            Material.DIAMOND_HELMET,
+            Material.DIAMOND_CHESTPLATE,
+            Material.DIAMOND_LEGGINGS,
+            Material.DIAMOND_BOOTS
+        };
+
+        return BlockUtil.scanMaterial(material, targets);
     }
 
     /**

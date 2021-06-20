@@ -15,6 +15,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -26,11 +28,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.Math;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 public class Listener_Daunii_1_15 implements Listener {
 
@@ -46,6 +51,7 @@ public class Listener_Daunii_1_15 implements Listener {
     private int body_id = 2002;
     private int legs_id = 2003;
     private int feet_id = 2004;
+    private final String AttrName = "teisyoku_daunii";
 
     private ItemStack setAttr(ItemStack item) {//Attributeの設定
         net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
@@ -169,6 +175,52 @@ public class Listener_Daunii_1_15 implements Listener {
         attr.setInt("UUIDMost", count);
         attr.setString("Slot", region);
         return attr;
+    }
+
+    /**
+     *
+     * @param slot Attributeを適用する装備スロット
+     * @param count　AttributeModifierの数(1以上)
+     * @param multiplier どれだけ増減させるか(場合により小数点以下切り上げ、1以上)
+     * @return AttributeModifierの配列
+     */
+    private AttributeModifier[] createAbilities(EquipmentSlot slot, int count, double multiplier){
+        // エラー防止
+        assert count > 0;
+        assert multiplier >= 1;
+
+        // 追加される能力
+        Attribute[] Attributes = {
+                Attribute.GENERIC_ATTACK_DAMAGE,
+                Attribute.GENERIC_KNOCKBACK_RESISTANCE,
+                Attribute.GENERIC_MAX_HEALTH,
+                Attribute.GENERIC_MOVEMENT_SPEED
+        };
+
+        // 配列を作る
+        AttributeModifier[] Abilities = new AttributeModifier[count];
+
+        // Attributeを作る
+        for(int c = 0; c < Abilities.length; c++){
+            // 能力の種類を決定する
+            Attribute attr = Attributes[rand.nextInt(Attributes.length)];
+            // 能力値を引き出す
+            double amount = 0;
+            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_NUMBER;
+            if (attr.equals(Attribute.GENERIC_ATTACK_DAMAGE)){
+                amount = Math.ceil(1 * multiplier);
+            }else if(attr.equals(Attribute.GENERIC_KNOCKBACK_RESISTANCE)) {
+                amount = 0.1 * multiplier;
+            }else if(attr.equals(Attribute.GENERIC_MAX_HEALTH)){
+                amount = Math.ceil(2 * multiplier);
+            }else if(attr.equals(Attribute.GENERIC_MOVEMENT_SPEED)){
+                amount = 0.1 * multiplier;
+                operation = AttributeModifier.Operation.ADD_SCALAR;
+            }
+            // 能力を作る
+            Abilities[c] = new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot);
+        }
+        return Abilities;
     }
 
     private Inventory setItem(int point) {//インベントリを作成

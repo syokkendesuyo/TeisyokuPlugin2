@@ -196,15 +196,13 @@ public class Listener_Daunii_1_15 implements Listener {
     }
 
     /**
-     * 複数のAttributeをランダムに生成するメソッド
+     * Attributeをランダムに生成するメソッド
      * @param slot Attributeを適用する装備スロット
-     * @param count　AttributeModifierの数(1以上)
      * @param multiplier どれだけ増減させるか(場合により小数点以下切り上げ、1以上)
      * @return AttributeModifierの配列
      */
-    private Ability[] createAbilities(EquipmentSlot slot, int count, double multiplier){
+    private Ability createAbility(EquipmentSlot slot, double multiplier){
         // エラー防止
-        assert count > 0;
         assert multiplier >= 1;
 
         // 追加される能力
@@ -215,30 +213,24 @@ public class Listener_Daunii_1_15 implements Listener {
                 Attribute.GENERIC_MOVEMENT_SPEED
         };
 
-        // 配列を作る
-        Ability[] Abilities = new Ability[count];
-
         // Attributeを作る
-        for(int c = 0; c < Abilities.length; c++){
-            // 能力の種類を決定する
-            Attribute attr = Attributes[rand.nextInt(Attributes.length)];
-            // 能力値を引き出す
-            double amount = 0;
-            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_NUMBER;
-            if (attr.equals(Attribute.GENERIC_ATTACK_DAMAGE)){
-                amount = Math.ceil(1 * multiplier);
-            }else if(attr.equals(Attribute.GENERIC_KNOCKBACK_RESISTANCE)) {
-                amount = 0.1 * multiplier;
-            }else if(attr.equals(Attribute.GENERIC_MAX_HEALTH)){
-                amount = Math.ceil(2 * multiplier);
-            }else if(attr.equals(Attribute.GENERIC_MOVEMENT_SPEED)){
-                amount = 0.1 * multiplier;
-                operation = AttributeModifier.Operation.ADD_SCALAR;
-            }
-            // 能力を作る
-            Abilities[c] = new Ability(attr, new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot));
+        // 能力の種類を決定する
+        Attribute attr = Attributes[rand.nextInt(Attributes.length)];
+        // 能力値を引き出す
+        double amount = 0;
+        AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_NUMBER;
+        if (attr.equals(Attribute.GENERIC_ATTACK_DAMAGE)){
+            amount = Math.ceil(1 * multiplier);
+        }else if(attr.equals(Attribute.GENERIC_KNOCKBACK_RESISTANCE)) {
+            amount = 0.1 * multiplier;
+        }else if(attr.equals(Attribute.GENERIC_MAX_HEALTH)){
+            amount = Math.ceil(2 * multiplier);
+        }else if(attr.equals(Attribute.GENERIC_MOVEMENT_SPEED)){
+            amount = 0.1 * multiplier;
+            operation = AttributeModifier.Operation.ADD_SCALAR;
         }
-        return Abilities;
+        // 能力を作る
+        return new Ability(attr, new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot));
     }
 
     /**

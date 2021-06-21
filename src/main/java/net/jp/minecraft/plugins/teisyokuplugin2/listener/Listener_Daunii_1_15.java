@@ -202,7 +202,7 @@ public class Listener_Daunii_1_15 implements Listener {
      * @param multiplier どれだけ増減させるか(場合により小数点以下切り上げ、1以上)
      * @return AttributeModifierの配列
      */
-    private AttributeModifier[] createAbilities(EquipmentSlot slot, int count, double multiplier){
+    private Ability[] createAbilities(EquipmentSlot slot, int count, double multiplier){
         // エラー防止
         assert count > 0;
         assert multiplier >= 1;
@@ -216,7 +216,7 @@ public class Listener_Daunii_1_15 implements Listener {
         };
 
         // 配列を作る
-        AttributeModifier[] Abilities = new AttributeModifier[count];
+        Ability[] Abilities = new Ability[count];
 
         // Attributeを作る
         for(int c = 0; c < Abilities.length; c++){
@@ -236,9 +236,21 @@ public class Listener_Daunii_1_15 implements Listener {
                 operation = AttributeModifier.Operation.ADD_SCALAR;
             }
             // 能力を作る
-            Abilities[c] = new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot);
+            Abilities[c] = new Ability(attr, new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot));
         }
         return Abilities;
+    }
+
+    /**
+     * AttributeとAttributeModifierの組み合わせ。
+     */
+    private class Ability{
+        Ability(Attribute attr, AttributeModifier modifier){
+            Attribute = attr;
+            Modifier = modifier;
+        }
+        Attribute Attribute;
+        AttributeModifier Modifier;
     }
 
     private Inventory setItem(int point) {//インベントリを作成
@@ -352,7 +364,7 @@ public class Listener_Daunii_1_15 implements Listener {
         if (item == null) {
             return;
         }
-        if (!(((item.getType().equals(Material.DIAMOND_HELMET)) || (item.getType().equals(Material.DIAMOND_CHESTPLATE)) || (item.getType().equals(Material.DIAMOND_LEGGINGS)) || (item.getType().equals(Material.DIAMOND_BOOTS))))) {
+        if (!isHighLevelArmor(item.getType())) {
             Msg.warning(player, ChatColor.RED + "ダイヤ防具以外は強化できません!!");
             player.getInventory().addItem(item);
             player.playSound(player.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);

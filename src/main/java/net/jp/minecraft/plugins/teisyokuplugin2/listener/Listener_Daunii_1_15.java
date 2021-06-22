@@ -230,7 +230,7 @@ public class Listener_Daunii_1_15 implements Listener {
             operation = AttributeModifier.Operation.ADD_SCALAR;
         }
         // 能力を作る
-        return new Ability(attr, new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot));
+        return new Ability(attr, createModifier(amount, operation, slot));
     }
 
     private AttributeModifier createModifier(double amount, AttributeModifier.Operation operation, EquipmentSlot slot){

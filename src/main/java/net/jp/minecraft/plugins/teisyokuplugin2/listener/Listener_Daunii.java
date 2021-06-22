@@ -30,7 +30,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.lang.Math;
 import java.util.*;
 
-public class Listener_Daunii_1_15 implements Listener {
+public class Listener_Daunii implements Listener {
 
     public static String DauniiName = ChatColor.AQUA + "" + ChatColor.BOLD + "だうにーくん";
     private static Random rand = new Random();

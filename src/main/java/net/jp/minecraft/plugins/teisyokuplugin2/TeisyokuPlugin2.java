@@ -25,7 +25,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.config.CustomConfig;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.GUI_ClickEvent;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Chat;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Daunii_1_15;
+import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Daunii;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Death;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_EntityDamage;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Fly;
@@ -189,7 +189,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
             //events
             pm.registerEvents(new Listener_Tab(), this);
-            pm.registerEvents(new Listener_Daunii_1_15(), this);
+            pm.registerEvents(new Listener_Daunii(), this);
 
             //commands
             getCommand("daunii").setExecutor(new Command_Daunii());

@@ -196,6 +196,22 @@ public class Listener_Daunii_1_15 implements Listener {
     }
 
     /**
+     * GENERIC_ARMOR、GENERIC_ARMOR_TOUGHNESSのAttributeを追加する(主に復元に使用)
+     * @param meta 対象のItemMeta
+     * @param slot 装備箇所
+     * @param armor GENERIC_ARMOR(GUI上で「防具」と表現される値)
+     * @param toughness GENERIC_ARMOR_TOUGHNESS(GUI上で「防具強度」と表現される値)
+     * @return Attributeが追加されたItemMeta
+     */
+    private ItemMeta addArmorAttribute(ItemMeta meta, EquipmentSlot slot, double armor, double toughness){
+        meta.addAttributeModifier(Attribute.GENERIC_ARMOR,
+                createModifier(armor, AttributeModifier.Operation.ADD_NUMBER, slot));
+        meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS,
+                createModifier(toughness, AttributeModifier.Operation.ADD_NUMBER, slot));
+        return meta;
+    }
+
+    /**
      * Attributeをランダムに生成するメソッド
      * @param slot Attributeを適用する装備スロット
      * @param multiplier どれだけ増減させるか(場合により小数点以下切り上げ、1以上)

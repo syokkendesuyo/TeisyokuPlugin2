@@ -233,6 +233,10 @@ public class Listener_Daunii_1_15 implements Listener {
         return new Ability(attr, new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot));
     }
 
+    private AttributeModifier createModifier(double amount, AttributeModifier.Operation operation, EquipmentSlot slot){
+        return new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot);
+    }
+
     /**
      * AttributeとAttributeModifierの組み合わせ。
      */

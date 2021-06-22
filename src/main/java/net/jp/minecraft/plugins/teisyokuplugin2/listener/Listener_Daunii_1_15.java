@@ -32,11 +32,10 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.Math;
-import java.util.Objects;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class Listener_Daunii_1_15 implements Listener {
 
@@ -176,6 +175,85 @@ public class Listener_Daunii_1_15 implements Listener {
         attr.setInt("UUIDMost", count);
         attr.setString("Slot", region);
         return attr;
+    }
+
+    /**
+     * 装備に特殊能力を付与して返すメソッド
+     * ダイヤ装備でない場合そのまま返される
+     * @param item ダイヤ装備のみ
+     * @return 強化されたアイテム
+     */
+    private ItemStack setAttribute(ItemStack item){
+        // スロット判定
+        EquipmentSlot slot;
+        Material type = item.getType();
+        if(type.equals(Material.DIAMOND_HELMET)) {
+            slot = EquipmentSlot.HEAD;
+        } else if(type.equals(Material.DIAMOND_CHESTPLATE)){
+            slot = EquipmentSlot.CHEST;
+        } else if(type.equals(Material.DIAMOND_LEGGINGS)){
+            slot = EquipmentSlot.LEGS;
+        } else if(type.equals(Material.DIAMOND_BOOTS)){
+            slot = EquipmentSlot.FEET;
+        } else {
+            return item;
+        }
+        // 初期化
+        item = dauniiReset(item);
+        // アイテムのグレード判定
+        double multiplier;
+        if(type.equals(Material.DIAMOND_HELMET) || type.equals(Material.DIAMOND_CHESTPLATE) ||
+           type.equals(Material.DIAMOND_LEGGINGS) || type.equals(Material.DIAMOND_BOOTS)){
+            multiplier = 1;
+        } else{
+            return item;
+        }
+        // 能力をItemMetaに追加
+        int count = 3;
+        ItemMeta meta = item.getItemMeta();
+        for (int c = 0 ; c < count ; c++){
+            Ability ability = createAbility(slot, multiplier);
+            meta.addAttributeModifier(ability.Attribute, ability.Modifier);
+        }
+        // 初期能力を足しなおす
+        if(type.equals(Material.DIAMOND_HELMET)) {
+            addArmorAttribute(meta, slot, 3, 2);
+        } else if(type.equals(Material.DIAMOND_CHESTPLATE)){
+            addArmorAttribute(meta, slot, 8, 2);
+        } else if(type.equals(Material.DIAMOND_LEGGINGS)){
+            addArmorAttribute(meta, slot, 6, 2);
+        } else if(type.equals(Material.DIAMOND_BOOTS)){
+            addArmorAttribute(meta, slot, 3, 2);
+        }
+        // 能力がついたItemMetaを戻す
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    /**
+     * Nameにthis.AttrNameがついているAttributeModifierをすべて削除する
+     * @param item リセットしたいアイテム
+     * @return リセットされたアイテム
+     */
+    private ItemStack dauniiReset(ItemStack item){
+        // ItemMetaを取得
+        // エラー防止
+        if(!item.hasItemMeta())
+            return item;
+        ItemMeta meta = item.getItemMeta();
+        // AttributeModifierを調べてthis.AttrNameがついてたら削除する
+        // エラー防止
+        if(!meta.hasAttributeModifiers())
+            return item;
+        for(Map.Entry<Attribute, AttributeModifier> entry : meta.getAttributeModifiers().entries()){
+            if(Objects.isNull(entry))
+                continue;
+            if(entry.getValue().getName().equals(AttrName))
+                meta.removeAttributeModifier(entry.getKey(), entry.getValue());
+        }
+        // itemにItemMetaを戻してitemを返す
+        item.setItemMeta(meta);
+        return item;
     }
 
     /**
@@ -397,7 +475,7 @@ public class Listener_Daunii_1_15 implements Listener {
         }
         if (Listener_TPoint.subtractPoint(price, player, Bukkit.getConsoleSender())) {
             Msg.success(player, ChatColor.GOLD + "防具を強化しました!!");
-            player.getInventory().addItem(setAttr(item));
+            player.getInventory().addItem(setAttribute(item));
             player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
             return;
         }

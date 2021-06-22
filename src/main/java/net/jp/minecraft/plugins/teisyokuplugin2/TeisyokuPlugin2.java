@@ -127,6 +127,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         pm.registerEvents(new TPointIndexGUI(), this);
         pm.registerEvents(new TPointBuyGUI(), this);
 
+        pm.registerEvents(new Listener_Daunii(), this);
 
         getCommand("fly").setExecutor(new Command_Fly());
 
@@ -184,15 +185,15 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("gomi").setExecutor(new Command_Trash());
         getCommand("gomibako").setExecutor(new Command_Trash());
 
+        getCommand("daunii").setExecutor(new Command_Daunii());
+
         //サポートバージョンを確認
         if (version.equals(supportVersion)) {
 
             //events
             pm.registerEvents(new Listener_Tab(), this);
-            pm.registerEvents(new Listener_Daunii(), this);
 
             //commands
-            getCommand("daunii").setExecutor(new Command_Daunii());
             getCommand("tps").setExecutor(new Command_TPS());
             getCommand("status").setExecutor(new Command_TPS());
             getCommand("s").setExecutor(new Command_TPS());

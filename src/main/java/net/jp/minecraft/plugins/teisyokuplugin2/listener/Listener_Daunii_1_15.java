@@ -6,19 +6,12 @@ import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
-import net.minecraft.server.v1_15_R1.NBTBase;
-import net.minecraft.server.v1_15_R1.NBTTagCompound;
-import net.minecraft.server.v1_15_R1.NBTTagDouble;
-import net.minecraft.server.v1_15_R1.NBTTagInt;
-import net.minecraft.server.v1_15_R1.NBTTagList;
-import net.minecraft.server.v1_15_R1.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -43,139 +36,7 @@ public class Listener_Daunii_1_15 implements Listener {
     private static Random rand = new Random();
     private int price = 10000;
     private String GUIName = ChatColor.RED + "" + ChatColor.BOLD + "だうにーくん";
-    private String head = "head";
-    private String body = "chest";
-    private String legs = "legs";
-    private String feet = "feet";
-    private int head_id = 2001;
-    private int body_id = 2002;
-    private int legs_id = 2003;
-    private int feet_id = 2004;
     private final String AttrName = "teisyoku_daunii";
-
-    private ItemStack setAttr(ItemStack item) {//Attributeの設定
-        net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
-        NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-        NBTTagList modifiers = new NBTTagList();
-        int count = 0;
-        int per = 0;
-        int health = 0;
-        int damage = 0;
-        int knock = 0;
-        int speed = 0;
-        int id = 0;
-        String region;
-        if (item.getType().equals(Material.DIAMOND_HELMET)) {//ダイヤヘルメットの時
-            id = head_id;
-            region = head;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    health++;
-                } else if (per == 1) {
-                    damage++;
-                } else if (per == 2) {
-                    speed++;
-                }
-                count++;
-            }
-        } else if (item.getType().equals(Material.DIAMOND_CHESTPLATE)) {//ダイヤチェストの時
-            id = body_id;
-            region = body;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    health++;
-                } else if (per == 1) {
-                    damage++;
-                } else if (per == 2) {
-                    knock++;
-                }
-                count++;
-            }
-        } else if (item.getType().equals(Material.DIAMOND_LEGGINGS)) {//ダイヤレギンスの時
-            id = legs_id;
-            region = legs;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    damage++;
-                } else if (per == 1) {
-                    knock++;
-                } else if (per == 2) {
-                    speed++;
-                }
-                count++;
-            }
-        } else if (item.getType().equals(Material.DIAMOND_BOOTS)) {//ダイヤブーツの時
-            id = feet_id;
-            region = feet;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    health++;
-                } else if (per == 1) {
-                    knock++;
-                } else if (per == 2) {
-                    speed++;
-                }
-                count++;
-            }
-        } else {
-            return item;
-        }
-        count = 0;
-        while (count < 3) {//attrを付与
-            if (health > 0) {
-                modifiers.add(attribute("generic.maxHealth", region, 2.0, 0, id, count + 810));
-                health--;
-            }
-            if (damage > 0) {
-                modifiers.add(attribute("generic.attackDamage", region, 1.0, 0, id, count + 810));
-                damage--;
-            }
-            if (knock > 0) {
-                modifiers.add(attribute("generic.knockbackResistance", region, 0.1, 0, id, count + 810));
-                knock--;
-            }
-            if (speed > 0) {
-                modifiers.add(attribute("generic.movementSpeed", region, 0.1, 1, id, count + 810));
-                speed--;
-            }
-            count++;
-        }
-        if (id == head_id) {
-            modifiers.add(attribute("generic.armor", region, 3.0, 0, id, 105));
-        } else if (id == body_id) {
-            modifiers.add(attribute("generic.armor", region, 8.0, 0, id, 105));
-        } else if (id == legs_id) {
-            modifiers.add(attribute("generic.armor", region, 6.0, 0, id, 105));
-        } else if (id == feet_id) {
-            modifiers.add(attribute("generic.armor", region, 3.0, 0, id, 105));
-        }
-        modifiers.add(attribute("generic.armorToughness", region, 2.0, 0, id, 106));
-        assert compound != null;
-        compound.set("AttributeModifiers", modifiers);
-        nmsStack.setTag(compound);
-        item = CraftItemStack.asBukkitCopy(nmsStack);
-        return item;//ランダムにattrの付いたアイテムを返す
-    }
-
-    private NBTTagCompound attribute(String attributeName, String region, Double amount, int operation, int slot, int count) {
-        NBTTagCompound attr = new NBTTagCompound();
-        attr.setString("AttributeName", attributeName);
-        attr.setString("Name", attributeName);
-        if (amount < 1) {
-            attr.setDouble("Amount", amount);
-        } else {
-            attr.setInt("Amount", amount.intValue());
-        }
-        attr.setInt("Operation", operation);
-        attr.setInt("UUIDLeast", slot);
-        attr.setInt("UUIDMost", count);
-        attr.setString("Slot", region);
-        return attr;
-    }
 
     /**
      * 装備に特殊能力を付与して返すメソッド

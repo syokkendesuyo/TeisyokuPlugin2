@@ -72,15 +72,6 @@ commands:
     tabname:
         description: tabname
         usage: /tabname
-    tps:
-        description: tps
-        usage: /tps
-    status:
-        description: status
-        usage: /status
-    s:
-        description: status
-        usage: /status
     horse:
         description: horse
         usage: /horse

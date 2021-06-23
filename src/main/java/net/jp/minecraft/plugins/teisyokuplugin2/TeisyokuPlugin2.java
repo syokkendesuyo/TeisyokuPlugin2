@@ -17,7 +17,6 @@ import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_Players;
 import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_RailwaysInfo;
 import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_SignEdit;
 import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_TFlag;
-import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_TPS;
 import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_TPoint;
 import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_TabName;
 import net.jp.minecraft.plugins.teisyokuplugin2.command.Command_Teisyoku;
@@ -192,11 +191,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
             //events
             pm.registerEvents(new Listener_Tab(), this);
-
-            //commands
-            getCommand("tps").setExecutor(new Command_TPS());
-            getCommand("status").setExecutor(new Command_TPS());
-            getCommand("s").setExecutor(new Command_TPS());
 
             //schedule
             BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();

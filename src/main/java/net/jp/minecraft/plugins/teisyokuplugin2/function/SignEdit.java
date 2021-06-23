@@ -9,7 +9,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -80,7 +80,7 @@ public class SignEdit {
         World w = loc.getWorld();
         assert w != null;
         Block a = w.getBlockAt(loc);
-        if (BlockUtil.isSign(a.getType())) {
+        if (Tag.SIGNS.isTagged(a.getType())) {
             Sign sign = (Sign) a.getState();
             sign.setLine(lineData.get(player.getUniqueId()), StringUtil.replaceToBlank(Color.convert(editData.get(player.getUniqueId()))));
             sign.update(true);

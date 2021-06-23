@@ -39,7 +39,6 @@ import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SignEdit;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SkeletonHorse;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_SpawnEgg;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Tab;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TicksPerSecond_1_15;
 import net.jp.minecraft.plugins.teisyokuplugin2.migration.PlayerDatabaseMigration;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointBuyGUI;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
@@ -191,17 +190,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
             //events
             pm.registerEvents(new Listener_Tab(), this);
-
-            //schedule
-            BukkitScheduler scheduler_tps = Bukkit.getServer().getScheduler();
-            scheduler_tps.scheduleSyncRepeatingTask(this, new Runnable() {
-                public void run() {
-                    double tps = Listener_TicksPerSecond_1_15.getTps(1);
-                    if (Listener_TicksPerSecond_1_15.getTps(1) < 16) {
-                        Msg.warning(Bukkit.getConsoleSender(), "現在TPSが低下しています：" + ChatColor.YELLOW + Listener_TicksPerSecond_1_15.doubleToString(tps), true);
-                    }
-                }
-            }, 0L, 6000L);
 
             //message
             Msg.success(Bukkit.getConsoleSender(), version + "用に作成された一部機能が開放されました");

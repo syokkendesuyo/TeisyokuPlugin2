@@ -13,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class Listener_Sign implements Listener {
             return;
         }
         assert block != null;
-        if (BlockUtil.isSign(block.getType())) {
+        if (Tag.SIGNS.isTagged(block.getType())) {
             Sign sign = (Sign) block.getState();
 
             if (StringUtil.searchKeyword(sign.getLines(), "[trash]") || StringUtil.searchKeyword(sign.getLines(), "[gomi]") || StringUtil.searchKeyword(sign.getLines(), "[gomibako]")) {

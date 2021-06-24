@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.hook.Hook_BountifulAPI;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

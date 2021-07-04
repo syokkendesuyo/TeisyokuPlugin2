@@ -1,7 +1,7 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Daunii_1_15;
+import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_Daunii;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import org.bukkit.Location;
@@ -72,7 +72,7 @@ public class Command_Daunii implements CommandExecutor {
         }
 
         IronGolem Daunii = (IronGolem) player.getWorld().spawnEntity(player.getLocation(), EntityType.IRON_GOLEM);
-        Daunii.setCustomName(Listener_Daunii_1_15.DauniiName);
+        Daunii.setCustomName(Listener_Daunii.DauniiName);
         Daunii.setCustomNameVisible(true);
         Daunii.setRemoveWhenFarAway(false);
 

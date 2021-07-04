@@ -2,20 +2,16 @@ package net.jp.minecraft.plugins.teisyokuplugin2.listener;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Item;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
-import net.minecraft.server.v1_15_R1.NBTBase;
-import net.minecraft.server.v1_15_R1.NBTTagCompound;
-import net.minecraft.server.v1_15_R1.NBTTagDouble;
-import net.minecraft.server.v1_15_R1.NBTTagInt;
-import net.minecraft.server.v1_15_R1.NBTTagList;
-import net.minecraft.server.v1_15_R1.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -26,149 +22,196 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.Math;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
-public class Listener_Daunii_1_15 implements Listener {
+public class Listener_Daunii implements Listener {
 
     public static String DauniiName = ChatColor.AQUA + "" + ChatColor.BOLD + "だうにーくん";
     private static Random rand = new Random();
     private int price = 10000;
     private String GUIName = ChatColor.RED + "" + ChatColor.BOLD + "だうにーくん";
-    private String head = "head";
-    private String body = "chest";
-    private String legs = "legs";
-    private String feet = "feet";
-    private int head_id = 2001;
-    private int body_id = 2002;
-    private int legs_id = 2003;
-    private int feet_id = 2004;
+    private final String AttrName = "teisyoku_daunii";
 
-    private ItemStack setAttr(ItemStack item) {//Attributeの設定
-        net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
-        NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-        NBTTagList modifiers = new NBTTagList();
-        int count = 0;
-        int per = 0;
-        int health = 0;
-        int damage = 0;
-        int knock = 0;
-        int speed = 0;
-        int id = 0;
-        String region;
-        if (item.getType().equals(Material.DIAMOND_HELMET)) {//ダイヤヘルメットの時
-            id = head_id;
-            region = head;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    health++;
-                } else if (per == 1) {
-                    damage++;
-                } else if (per == 2) {
-                    speed++;
-                }
-                count++;
-            }
-        } else if (item.getType().equals(Material.DIAMOND_CHESTPLATE)) {//ダイヤチェストの時
-            id = body_id;
-            region = body;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    health++;
-                } else if (per == 1) {
-                    damage++;
-                } else if (per == 2) {
-                    knock++;
-                }
-                count++;
-            }
-        } else if (item.getType().equals(Material.DIAMOND_LEGGINGS)) {//ダイヤレギンスの時
-            id = legs_id;
-            region = legs;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    damage++;
-                } else if (per == 1) {
-                    knock++;
-                } else if (per == 2) {
-                    speed++;
-                }
-                count++;
-            }
-        } else if (item.getType().equals(Material.DIAMOND_BOOTS)) {//ダイヤブーツの時
-            id = feet_id;
-            region = feet;
-            while (count < 3) {
-                per = rand.nextInt(3);
-                if (per == 0) {
-                    health++;
-                } else if (per == 1) {
-                    knock++;
-                } else if (per == 2) {
-                    speed++;
-                }
-                count++;
-            }
+    /**
+     * 装備に特殊能力を付与して返すメソッド
+     * ダイヤ装備でない場合そのまま返される
+     * @param item ダイヤ装備のみ
+     * @return 強化されたアイテム
+     */
+    private ItemStack setAttribute(ItemStack item){
+        // スロット判定
+        EquipmentSlot slot;
+        Material type = item.getType();
+        if(type.equals(Material.DIAMOND_HELMET)) {
+            slot = EquipmentSlot.HEAD;
+        } else if(type.equals(Material.DIAMOND_CHESTPLATE)){
+            slot = EquipmentSlot.CHEST;
+        } else if(type.equals(Material.DIAMOND_LEGGINGS)){
+            slot = EquipmentSlot.LEGS;
+        } else if(type.equals(Material.DIAMOND_BOOTS)){
+            slot = EquipmentSlot.FEET;
         } else {
             return item;
         }
-        count = 0;
-        while (count < 3) {//attrを付与
-            if (health > 0) {
-                modifiers.add(attribute("generic.maxHealth", region, 2.0, 0, id, count + 810));
-                health--;
-            }
-            if (damage > 0) {
-                modifiers.add(attribute("generic.attackDamage", region, 1.0, 0, id, count + 810));
-                damage--;
-            }
-            if (knock > 0) {
-                modifiers.add(attribute("generic.knockbackResistance", region, 0.1, 0, id, count + 810));
-                knock--;
-            }
-            if (speed > 0) {
-                modifiers.add(attribute("generic.movementSpeed", region, 0.1, 1, id, count + 810));
-                speed--;
-            }
-            count++;
+        // 初期化
+        item = dauniiReset(item);
+        // アイテムのグレード判定
+        double multiplier;
+        if(type.equals(Material.DIAMOND_HELMET) || type.equals(Material.DIAMOND_CHESTPLATE) ||
+           type.equals(Material.DIAMOND_LEGGINGS) || type.equals(Material.DIAMOND_BOOTS)){
+            multiplier = 1;
+        } else{
+            return item;
         }
-        if (id == head_id) {
-            modifiers.add(attribute("generic.armor", region, 3.0, 0, id, 105));
-        } else if (id == body_id) {
-            modifiers.add(attribute("generic.armor", region, 8.0, 0, id, 105));
-        } else if (id == legs_id) {
-            modifiers.add(attribute("generic.armor", region, 6.0, 0, id, 105));
-        } else if (id == feet_id) {
-            modifiers.add(attribute("generic.armor", region, 3.0, 0, id, 105));
+        // 能力をItemMetaに追加
+        int count = 3;
+        ItemMeta meta = item.getItemMeta();
+        for (int c = 0 ; c < count ; c++){
+            Ability ability = createAbility(slot, multiplier);
+            meta.addAttributeModifier(ability.Attribute, ability.Modifier);
         }
-        modifiers.add(attribute("generic.armorToughness", region, 2.0, 0, id, 106));
-        assert compound != null;
-        compound.set("AttributeModifiers", modifiers);
-        nmsStack.setTag(compound);
-        item = CraftItemStack.asBukkitCopy(nmsStack);
-        return item;//ランダムにattrの付いたアイテムを返す
+        // 初期能力を足しなおす
+        if(type.equals(Material.DIAMOND_HELMET)) {
+            addArmorAttribute(meta, slot, 3, 2);
+        } else if(type.equals(Material.DIAMOND_CHESTPLATE)){
+            addArmorAttribute(meta, slot, 8, 2);
+        } else if(type.equals(Material.DIAMOND_LEGGINGS)){
+            addArmorAttribute(meta, slot, 6, 2);
+        } else if(type.equals(Material.DIAMOND_BOOTS)){
+            addArmorAttribute(meta, slot, 3, 2);
+        }
+        // 能力がついたItemMetaを戻す
+        item.setItemMeta(meta);
+        return item;
     }
 
-    private NBTTagCompound attribute(String attributeName, String region, Double amount, int operation, int slot, int count) {
-        NBTTagCompound attr = new NBTTagCompound();
-        attr.setString("AttributeName", attributeName);
-        attr.setString("Name", attributeName);
-        if (amount < 1) {
-            attr.setDouble("Amount", amount);
-        } else {
-            attr.setInt("Amount", amount.intValue());
+    /**
+     * Nameにthis.AttrNameがついているAttributeModifierをすべて削除する
+     * @param item リセットしたいアイテム
+     * @return リセットされたアイテム
+     */
+    private ItemStack dauniiReset(ItemStack item){
+        // ItemMetaを取得
+        // エラー防止
+        if(!item.hasItemMeta())
+            return item;
+        ItemMeta meta = item.getItemMeta();
+        // AttributeModifierを調べてthis.AttrNameがついてたら削除する
+        // エラー防止
+        if(!meta.hasAttributeModifiers())
+            return item;
+        for(Map.Entry<Attribute, AttributeModifier> entry : meta.getAttributeModifiers().entries()){
+            if(Objects.isNull(entry))
+                continue;
+            if(entry.getValue().getName().equals(AttrName))
+                meta.removeAttributeModifier(entry.getKey(), entry.getValue());
         }
-        attr.setInt("Operation", operation);
-        attr.setInt("UUIDLeast", slot);
-        attr.setInt("UUIDMost", count);
-        attr.setString("Slot", region);
-        return attr;
+        // itemにItemMetaを戻してitemを返す
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    /**
+     * ダイヤモンド相当以上の装備かを判定するメソッド
+     * @param material 検査するmaterial
+     * @return ダイヤモンド相当以上の装備かどうか
+     */
+    private boolean isHighLevelArmor(Material material){
+        // ハイレベルな装備
+        Material[] targets = {
+            Material.DIAMOND_HELMET,
+            Material.DIAMOND_CHESTPLATE,
+            Material.DIAMOND_LEGGINGS,
+            Material.DIAMOND_BOOTS
+        };
+
+        return BlockUtil.scanMaterial(material, targets);
+    }
+
+    /**
+     * GENERIC_ARMOR、GENERIC_ARMOR_TOUGHNESSのAttributeを追加する(主に復元に使用)
+     * @param meta 対象のItemMeta
+     * @param slot 装備箇所
+     * @param armor GENERIC_ARMOR(GUI上で「防具」と表現される値)
+     * @param toughness GENERIC_ARMOR_TOUGHNESS(GUI上で「防具強度」と表現される値)
+     * @return Attributeが追加されたItemMeta
+     */
+    private ItemMeta addArmorAttribute(ItemMeta meta, EquipmentSlot slot, double armor, double toughness){
+        meta.addAttributeModifier(Attribute.GENERIC_ARMOR,
+                createModifier(armor, AttributeModifier.Operation.ADD_NUMBER, slot));
+        meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS,
+                createModifier(toughness, AttributeModifier.Operation.ADD_NUMBER, slot));
+        return meta;
+    }
+
+    /**
+     * Attributeをランダムに生成するメソッド
+     * @param slot Attributeを適用する装備スロット
+     * @param multiplier どれだけ増減させるか(場合により小数点以下切り上げ、1以上)
+     * @return AttributeModifierの配列
+     */
+    private Ability createAbility(EquipmentSlot slot, double multiplier){
+        // エラー防止
+        assert multiplier >= 1;
+
+        // 追加される能力
+        Attribute[] Attributes = {
+                Attribute.GENERIC_ATTACK_DAMAGE,
+                Attribute.GENERIC_KNOCKBACK_RESISTANCE,
+                Attribute.GENERIC_MAX_HEALTH,
+                Attribute.GENERIC_MOVEMENT_SPEED
+        };
+
+        // Attributeを作る
+        // 能力の種類を決定する
+        Attribute attr = Attributes[rand.nextInt(Attributes.length)];
+        // 能力値を引き出す
+        double amount = 0;
+        AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_NUMBER;
+        if (attr.equals(Attribute.GENERIC_ATTACK_DAMAGE)){
+            amount = Math.ceil(1 * multiplier);
+        }else if(attr.equals(Attribute.GENERIC_KNOCKBACK_RESISTANCE)) {
+            amount = 0.1 * multiplier;
+        }else if(attr.equals(Attribute.GENERIC_MAX_HEALTH)){
+            amount = Math.ceil(2 * multiplier);
+        }else if(attr.equals(Attribute.GENERIC_MOVEMENT_SPEED)){
+            amount = 0.1 * multiplier;
+            operation = AttributeModifier.Operation.ADD_SCALAR;
+        }
+        // 能力を作る
+        return new Ability(attr, createModifier(amount, operation, slot));
+    }
+
+    /**
+     * AttributeModifierを作るのをほんの少し楽にする
+     * @param amount amount
+     * @param operation operation
+     * @param slot slot
+     * @return 生成されたAttributeModifier
+     */
+    private AttributeModifier createModifier(double amount, AttributeModifier.Operation operation, EquipmentSlot slot){
+        return new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot);
+    }
+
+    /**
+     * AttributeとAttributeModifierの組み合わせ。
+     */
+    private class Ability{
+        Ability(Attribute attr, AttributeModifier modifier){
+            Attribute = attr;
+            Modifier = modifier;
+        }
+        Attribute Attribute;
+        AttributeModifier Modifier;
     }
 
     private Inventory setItem(int point) {//インベントリを作成
@@ -282,7 +325,7 @@ public class Listener_Daunii_1_15 implements Listener {
         if (item == null) {
             return;
         }
-        if (!(((item.getType().equals(Material.DIAMOND_HELMET)) || (item.getType().equals(Material.DIAMOND_CHESTPLATE)) || (item.getType().equals(Material.DIAMOND_LEGGINGS)) || (item.getType().equals(Material.DIAMOND_BOOTS))))) {
+        if (!isHighLevelArmor(item.getType())) {
             Msg.warning(player, ChatColor.RED + "ダイヤ防具以外は強化できません!!");
             player.getInventory().addItem(item);
             player.playSound(player.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
@@ -296,7 +339,7 @@ public class Listener_Daunii_1_15 implements Listener {
         }
         if (Listener_TPoint.subtractPoint(price, player, Bukkit.getConsoleSender())) {
             Msg.success(player, ChatColor.GOLD + "防具を強化しました!!");
-            player.getInventory().addItem(setAttr(item));
+            player.getInventory().addItem(setAttribute(item));
             player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
             return;
         }

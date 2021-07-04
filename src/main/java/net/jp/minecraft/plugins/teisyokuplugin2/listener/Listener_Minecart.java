@@ -10,6 +10,7 @@ import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Rail;
@@ -126,7 +127,7 @@ public class Listener_Minecart implements Listener {
                 player = (Player) entity;
 
                 Material material = minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getType();
-                if (!BlockUtil.isSign(material)) {
+                if (!Tag.SIGNS.isTagged(material)) {
                     return;
                 }
                 Sign sign = (Sign) minecart.getLocation().getBlock().getRelative(BlockFace.DOWN).getRelative(BlockFace.DOWN).getState();

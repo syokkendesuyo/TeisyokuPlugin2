@@ -10,7 +10,10 @@ plugins {
 group = 'net.jp.minecraft.plugin'
 version = '2.16.0'
 description = 'TeisyokuPlugin2'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+compileJava{
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
     mavenLocal()

@@ -96,6 +96,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     /**
      * 再起動を含む起動時に呼び出されるメソッド
      */
+    @Override
     public void onEnable() {
         String version = Bukkit.getBukkitVersion();
         Msg.info(Bukkit.getConsoleSender(), "Running on " + version);
@@ -217,6 +218,7 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
 
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
             public void run() {
                 List<String> ad = configTeisyoku.getConfig().getStringList("ad");
                 for (String s : ad) {

@@ -37,7 +37,7 @@ jobs:
         uses: elgohr/Github-Release-Action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:`github.GITHUB_REF` when a user pushes a new tag
+            with:`github.GITHUB_REF` when a user pushes a new tag
           tag_name: $${{ github.ref }}
           release_name: Release ${{ github.ref }}
           prerelease: false

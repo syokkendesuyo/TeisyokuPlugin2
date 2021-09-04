@@ -29,24 +29,16 @@ jobs:
 
       - name: Create a Release
         id: create-release
-        # actions/create-release has been archived
-        #  https://github.com/actions/create-release
-        # This workflow using elgohr/Github-Release-Action
-        #  https://github.com/elgohr/Github-Release-Action
-        uses: elgohr/Github-Release-Action@master
+        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
             with:`github.GITHUB_REF` when a user pushes a new tag
           tag_name: ${{ github.ref }}
           release_name: Release ${{ env.RELEASE_VERSION }}
           prerelease: false
 
       - name: Upload a Release Asset
-        # actions/upload-release-asset has been archived
-        #  https://github.com/actions/upload-release-asset
-        # This workflow using softprops/action-gh-release
-        #  https://github.com/softprops/action-gh-release
-        uses: softprops/action-gh-release@v1
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

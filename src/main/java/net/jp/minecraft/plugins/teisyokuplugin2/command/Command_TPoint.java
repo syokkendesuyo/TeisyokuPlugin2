@@ -1,11 +1,11 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.NumberUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TPoint;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
+import net.jp.minecraft.plugins.teisyokuplugin2.util.NumberUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,7 +20,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
 import java.util.UUID;
 
 /**
@@ -30,7 +29,7 @@ import java.util.UUID;
  * TODO: 重複部分をメソッド化
  */
 public class Command_TPoint implements CommandExecutor {
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 

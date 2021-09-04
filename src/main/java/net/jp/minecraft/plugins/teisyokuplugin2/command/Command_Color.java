@@ -7,15 +7,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import javax.annotation.Nonnull;
-
 /**
  * TeisyokuPlugin2
  *
  * @author syokkendesuyo
  */
 public class Command_Color implements CommandExecutor {
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 

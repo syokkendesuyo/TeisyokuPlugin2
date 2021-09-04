@@ -6,11 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import javax.annotation.Nonnull;
-
 public class Command_CartHelp implements CommandExecutor {
 
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         if (args.length != 0) {
             Msg.warning(sender, "引数が多すぎです");

@@ -11,8 +11,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
-
 import static net.jp.minecraft.plugins.teisyokuplugin2.util.Msg.success;
 
 /**
@@ -22,7 +20,7 @@ import static net.jp.minecraft.plugins.teisyokuplugin2.util.Msg.success;
  * TODO: リファクタリング
  */
 public class Command_Teisyoku implements CommandExecutor {
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!(sender.hasPermission(Permission.USER.toString()))) {
             Msg.noPermissionMessage(sender, Permission.USER);
             return true;

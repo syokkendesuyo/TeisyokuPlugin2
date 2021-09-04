@@ -15,8 +15,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
-
 /**
  * TeisyokuPlugin2
  * callコマンド
@@ -24,7 +22,7 @@ import javax.annotation.Nonnull;
  * @author syokkendesuyo
  */
 public class Command_Call implements CommandExecutor {
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 

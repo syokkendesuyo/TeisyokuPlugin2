@@ -1,8 +1,8 @@
 package net.jp.minecraft.plugins.teisyokuplugin2.command;
 
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
-import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
+import net.jp.minecraft.plugins.teisyokuplugin2.module.PlayerDatabase;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.TimeUtil;
@@ -14,7 +14,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import javax.annotation.Nonnull;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
@@ -24,7 +23,7 @@ import java.util.UUID;
  * @author syokkendesuyo
  */
 public class Command_PlayerData implements CommandExecutor {
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 

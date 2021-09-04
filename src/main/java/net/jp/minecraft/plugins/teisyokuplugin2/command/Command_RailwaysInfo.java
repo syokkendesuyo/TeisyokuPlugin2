@@ -9,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -27,7 +26,7 @@ public class Command_RailwaysInfo implements CommandExecutor {
      */
     private TeisyokuPlugin2 plugin = TeisyokuPlugin2.getInstance();
 
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String commandLabel, @Nonnull String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         //コマンドが有効化されているかどうか検出
         if (!plugin.configTeisyoku.getConfig().getBoolean("functions.railways")) {

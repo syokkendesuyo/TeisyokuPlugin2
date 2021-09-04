@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'net.jp.minecraft.plugin'
-version = '2.17.8'
+version = '2.17.9'
 description = 'TeisyokuPlugin2'
 
 compileJava{

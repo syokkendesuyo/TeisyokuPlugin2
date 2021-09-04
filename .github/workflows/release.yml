@@ -37,12 +37,8 @@ jobs:
           release_name: Release ${{ env.RELEASE_VERSION }}
           prerelease: false
 
-      - name: Upload a Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Asset
+        uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./${{ github.event.repository.name }}-${{ env.RELEASE_VERSION }}.jar
-          asset_name: ${{ github.event.repository.name }}-${{ env.RELEASE_VERSION }}.jar
-          asset_content_type: application/java-archive
+          name: Package
+          path: build/libs

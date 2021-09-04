@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'net.jp.minecraft.plugin'
-version = '2.17.10'
+version = '2.17.11'
 description = 'TeisyokuPlugin2'
 
 compileJava{
@@ -31,6 +31,7 @@ dependencies {
 
 jar {
     from ('plugin.yml')
+    destinationDirectory.set(file("./build/libs"))
 }
 
 tasks.withType(JavaCompile) {

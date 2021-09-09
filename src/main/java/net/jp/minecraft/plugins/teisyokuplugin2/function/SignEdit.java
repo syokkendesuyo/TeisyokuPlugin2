@@ -3,7 +3,6 @@ package net.jp.minecraft.plugins.teisyokuplugin2.function;
 import net.jp.minecraft.plugins.teisyokuplugin2.TeisyokuPlugin2;
 import net.jp.minecraft.plugins.teisyokuplugin2.listener.Listener_TPoint;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.Permission;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Color;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;

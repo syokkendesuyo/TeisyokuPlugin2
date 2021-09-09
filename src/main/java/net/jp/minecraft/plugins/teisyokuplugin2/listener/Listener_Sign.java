@@ -5,7 +5,6 @@ import net.jp.minecraft.plugins.teisyokuplugin2.function.Trash;
 import net.jp.minecraft.plugins.teisyokuplugin2.gui.TeisyokuMenuIndex;
 import net.jp.minecraft.plugins.teisyokuplugin2.module.TFlag;
 import net.jp.minecraft.plugins.teisyokuplugin2.tpoint.TPointIndexGUI;
-import net.jp.minecraft.plugins.teisyokuplugin2.util.BlockUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.Msg;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.PlayerUtil;
 import net.jp.minecraft.plugins.teisyokuplugin2.util.StringUtil;

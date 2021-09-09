@@ -27,7 +27,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.lang.Math;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -44,20 +43,21 @@ public class Listener_Daunii implements Listener {
     /**
      * 装備に特殊能力を付与して返すメソッド
      * ダイヤ装備でない場合そのまま返される
+     *
      * @param item ダイヤ装備のみ
      * @return 強化されたアイテム
      */
-    private ItemStack setAttribute(ItemStack item){
+    private ItemStack setAttribute(ItemStack item) {
         // スロット判定
         EquipmentSlot slot;
         Material type = item.getType();
-        if(type.equals(Material.DIAMOND_HELMET)) {
+        if (type.equals(Material.DIAMOND_HELMET)) {
             slot = EquipmentSlot.HEAD;
-        } else if(type.equals(Material.DIAMOND_CHESTPLATE)){
+        } else if (type.equals(Material.DIAMOND_CHESTPLATE)) {
             slot = EquipmentSlot.CHEST;
-        } else if(type.equals(Material.DIAMOND_LEGGINGS)){
+        } else if (type.equals(Material.DIAMOND_LEGGINGS)) {
             slot = EquipmentSlot.LEGS;
-        } else if(type.equals(Material.DIAMOND_BOOTS)){
+        } else if (type.equals(Material.DIAMOND_BOOTS)) {
             slot = EquipmentSlot.FEET;
         } else {
             return item;
@@ -66,27 +66,27 @@ public class Listener_Daunii implements Listener {
         item = dauniiReset(item);
         // アイテムのグレード判定
         double multiplier;
-        if(type.equals(Material.DIAMOND_HELMET) || type.equals(Material.DIAMOND_CHESTPLATE) ||
-           type.equals(Material.DIAMOND_LEGGINGS) || type.equals(Material.DIAMOND_BOOTS)){
+        if (type.equals(Material.DIAMOND_HELMET) || type.equals(Material.DIAMOND_CHESTPLATE) ||
+            type.equals(Material.DIAMOND_LEGGINGS) || type.equals(Material.DIAMOND_BOOTS)) {
             multiplier = 1;
-        } else{
+        } else {
             return item;
         }
         // 能力をItemMetaに追加
         int count = 3;
         ItemMeta meta = item.getItemMeta();
-        for (int c = 0 ; c < count ; c++){
+        for (int c = 0; c < count; c++) {
             Ability ability = createAbility(slot, multiplier);
             meta.addAttributeModifier(ability.Attribute, ability.Modifier);
         }
         // 初期能力を足しなおす
-        if(type.equals(Material.DIAMOND_HELMET)) {
+        if (type.equals(Material.DIAMOND_HELMET)) {
             addArmorAttribute(meta, slot, 3, 2);
-        } else if(type.equals(Material.DIAMOND_CHESTPLATE)){
+        } else if (type.equals(Material.DIAMOND_CHESTPLATE)) {
             addArmorAttribute(meta, slot, 8, 2);
-        } else if(type.equals(Material.DIAMOND_LEGGINGS)){
+        } else if (type.equals(Material.DIAMOND_LEGGINGS)) {
             addArmorAttribute(meta, slot, 6, 2);
-        } else if(type.equals(Material.DIAMOND_BOOTS)){
+        } else if (type.equals(Material.DIAMOND_BOOTS)) {
             addArmorAttribute(meta, slot, 3, 2);
         }
         // 能力がついたItemMetaを戻す
@@ -96,23 +96,24 @@ public class Listener_Daunii implements Listener {
 
     /**
      * Nameにthis.AttrNameがついているAttributeModifierをすべて削除する
+     *
      * @param item リセットしたいアイテム
      * @return リセットされたアイテム
      */
-    private ItemStack dauniiReset(ItemStack item){
+    private ItemStack dauniiReset(ItemStack item) {
         // ItemMetaを取得
         // エラー防止
-        if(!item.hasItemMeta())
+        if (!item.hasItemMeta())
             return item;
         ItemMeta meta = item.getItemMeta();
         // AttributeModifierを調べてthis.AttrNameがついてたら削除する
         // エラー防止
-        if(!meta.hasAttributeModifiers())
+        if (!meta.hasAttributeModifiers())
             return item;
-        for(Map.Entry<Attribute, AttributeModifier> entry : meta.getAttributeModifiers().entries()){
-            if(Objects.isNull(entry))
+        for (Map.Entry<Attribute, AttributeModifier> entry : meta.getAttributeModifiers().entries()) {
+            if (Objects.isNull(entry))
                 continue;
-            if(entry.getValue().getName().equals(AttrName))
+            if (entry.getValue().getName().equals(AttrName))
                 meta.removeAttributeModifier(entry.getKey(), entry.getValue());
         }
         // itemにItemMetaを戻してitemを返す
@@ -122,16 +123,17 @@ public class Listener_Daunii implements Listener {
 
     /**
      * ダイヤモンド相当以上の装備かを判定するメソッド
+     *
      * @param material 検査するmaterial
      * @return ダイヤモンド相当以上の装備かどうか
      */
-    private boolean isHighLevelArmor(Material material){
+    private boolean isHighLevelArmor(Material material) {
         // ハイレベルな装備
         Material[] targets = {
-            Material.DIAMOND_HELMET,
-            Material.DIAMOND_CHESTPLATE,
-            Material.DIAMOND_LEGGINGS,
-            Material.DIAMOND_BOOTS
+                Material.DIAMOND_HELMET,
+                Material.DIAMOND_CHESTPLATE,
+                Material.DIAMOND_LEGGINGS,
+                Material.DIAMOND_BOOTS
         };
 
         return BlockUtil.scanMaterial(material, targets);
@@ -139,13 +141,14 @@ public class Listener_Daunii implements Listener {
 
     /**
      * GENERIC_ARMOR、GENERIC_ARMOR_TOUGHNESSのAttributeを追加する(主に復元に使用)
-     * @param meta 対象のItemMeta
-     * @param slot 装備箇所
-     * @param armor GENERIC_ARMOR(GUI上で「防具」と表現される値)
+     *
+     * @param meta      対象のItemMeta
+     * @param slot      装備箇所
+     * @param armor     GENERIC_ARMOR(GUI上で「防具」と表現される値)
      * @param toughness GENERIC_ARMOR_TOUGHNESS(GUI上で「防具強度」と表現される値)
      * @return Attributeが追加されたItemMeta
      */
-    private ItemMeta addArmorAttribute(ItemMeta meta, EquipmentSlot slot, double armor, double toughness){
+    private ItemMeta addArmorAttribute(ItemMeta meta, EquipmentSlot slot, double armor, double toughness) {
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR,
                 createModifier(armor, AttributeModifier.Operation.ADD_NUMBER, slot));
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS,
@@ -155,11 +158,12 @@ public class Listener_Daunii implements Listener {
 
     /**
      * Attributeをランダムに生成するメソッド
-     * @param slot Attributeを適用する装備スロット
+     *
+     * @param slot       Attributeを適用する装備スロット
      * @param multiplier どれだけ増減させるか(場合により小数点以下切り上げ、1以上)
      * @return AttributeModifierの配列
      */
-    private Ability createAbility(EquipmentSlot slot, double multiplier){
+    private Ability createAbility(EquipmentSlot slot, double multiplier) {
         // エラー防止
         assert multiplier >= 1;
 
@@ -177,13 +181,13 @@ public class Listener_Daunii implements Listener {
         // 能力値を引き出す
         double amount = 0;
         AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_NUMBER;
-        if (attr.equals(Attribute.GENERIC_ATTACK_DAMAGE)){
+        if (attr.equals(Attribute.GENERIC_ATTACK_DAMAGE)) {
             amount = Math.ceil(1 * multiplier);
-        }else if(attr.equals(Attribute.GENERIC_KNOCKBACK_RESISTANCE)) {
+        } else if (attr.equals(Attribute.GENERIC_KNOCKBACK_RESISTANCE)) {
             amount = 0.1 * multiplier;
-        }else if(attr.equals(Attribute.GENERIC_MAX_HEALTH)){
+        } else if (attr.equals(Attribute.GENERIC_MAX_HEALTH)) {
             amount = Math.ceil(2 * multiplier);
-        }else if(attr.equals(Attribute.GENERIC_MOVEMENT_SPEED)){
+        } else if (attr.equals(Attribute.GENERIC_MOVEMENT_SPEED)) {
             amount = 0.1 * multiplier;
             operation = AttributeModifier.Operation.ADD_SCALAR;
         }
@@ -193,23 +197,25 @@ public class Listener_Daunii implements Listener {
 
     /**
      * AttributeModifierを作るのをほんの少し楽にする
-     * @param amount amount
+     *
+     * @param amount    amount
      * @param operation operation
-     * @param slot slot
+     * @param slot      slot
      * @return 生成されたAttributeModifier
      */
-    private AttributeModifier createModifier(double amount, AttributeModifier.Operation operation, EquipmentSlot slot){
+    private AttributeModifier createModifier(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
         return new AttributeModifier(UUID.randomUUID(), AttrName, amount, operation, slot);
     }
 
     /**
      * AttributeとAttributeModifierの組み合わせ。
      */
-    private class Ability{
-        Ability(Attribute attr, AttributeModifier modifier){
+    private class Ability {
+        Ability(Attribute attr, AttributeModifier modifier) {
             Attribute = attr;
             Modifier = modifier;
         }
+
         Attribute Attribute;
         AttributeModifier Modifier;
     }
@@ -238,7 +244,7 @@ public class Listener_Daunii implements Listener {
     }
 
     @EventHandler
-    public void opendaunii(PlayerInteractAtEntityEvent event) {//だうにーくんをクリックしたかどうか
+    public void openDaunii(PlayerInteractAtEntityEvent event) {//だうにーくんをクリックしたかどうか
         if (!(event.getRightClicked().getType().equals(EntityType.IRON_GOLEM))) {
             return;
         }
@@ -293,7 +299,7 @@ public class Listener_Daunii implements Listener {
     }
 
     @EventHandler
-    public void ClickGUI(InventoryClickEvent event) {//だうにーくんのGUIをクリックしたかどうか
+    public void clickGUI(InventoryClickEvent event) {//だうにーくんのGUIをクリックしたかどうか
         if (event.getInventory().getSize() != 9) {
             return;
         }
@@ -312,7 +318,7 @@ public class Listener_Daunii implements Listener {
     }
 
     @EventHandler
-    public void CloseGUI(InventoryCloseEvent event) {//だうにーくんのGUIを閉じた時、attrを付与する 但し、ダイヤ防具のみ
+    public void closeGUI(InventoryCloseEvent event) {//だうにーくんのGUIを閉じた時、attrを付与する 但し、ダイヤ防具のみ
         Inventory inv = event.getInventory();
         if (inv.getSize() != 9) {
             return;
@@ -348,7 +354,7 @@ public class Listener_Daunii implements Listener {
     }
 
     @EventHandler
-    public void removedaunii(PlayerInteractAtEntityEvent event) {//もし鉄インゴットで右クリックしたら
+    public void removeDaunii(PlayerInteractAtEntityEvent event) {//もし鉄インゴットで右クリックしたら
         Entity entity = event.getRightClicked();
         if (!(event.getRightClicked().getType().equals(EntityType.IRON_GOLEM)) || !(Objects.equals(entity.getCustomName(), DauniiName)) || entity.getCustomName() == null) {
             return;
@@ -378,7 +384,7 @@ public class Listener_Daunii implements Listener {
     }
 
     @EventHandler
-    public void DauniiDamage(EntityDamageEvent event) {//だうにーくんを倒すことはできない --> 下のアーマースタンドが残ってしまうのを防ぐため
+    public void dauniiDamageEvent(EntityDamageEvent event) {//だうにーくんを倒すことはできない --> 下のアーマースタンドが残ってしまうのを防ぐため
         if (!(event.getEntityType().equals(EntityType.IRON_GOLEM))) {
             return;
         }

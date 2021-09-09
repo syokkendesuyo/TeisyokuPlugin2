@@ -121,7 +121,7 @@ public class Command_TPoint implements CommandExecutor {
             }
 
             Player player = Bukkit.getServer().getPlayer(args[1]);
-            if (!(player == null)) {
+            if (player != null) {
                 int point = Integer.parseInt(args[2]);
                 return Listener_TPoint.addPoint(point, player, sender) || !(sender instanceof CommandBlock);
             } else {

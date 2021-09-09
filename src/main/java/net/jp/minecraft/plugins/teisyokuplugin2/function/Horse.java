@@ -86,10 +86,10 @@ public class Horse {
             String strDate = sdf.format(date.getTime());
 
             plugin.configHorses.getConfig().set(uuid.toString(), player.toString());
-            plugin.configHorses.getConfig().set(uuid.toString() + ".data", strDate);
-            plugin.configHorses.getConfig().set(uuid.toString() + ".player", player.getName());
-            plugin.configHorses.getConfig().set(uuid.toString() + ".uuid", player.getUniqueId().toString());
-            plugin.configHorses.getConfig().set(uuid.toString() + ".mode", "private");
+            plugin.configHorses.getConfig().set(uuid + ".data", strDate);
+            plugin.configHorses.getConfig().set(uuid + ".player", player.getName());
+            plugin.configHorses.getConfig().set(uuid + ".uuid", player.getUniqueId().toString());
+            plugin.configHorses.getConfig().set(uuid + ".mode", "private");
 
             plugin.configHorses.saveConfig();
             Msg.success(player, "馬をロックしました");
@@ -152,7 +152,7 @@ public class Horse {
      * @return 登録状態
      */
     public static boolean isRegister(UUID entityUUID) {
-        return !(plugin.configHorses.getConfig().getString(entityUUID + ".uuid") == null);
+        return plugin.configHorses.getConfig().getString(entityUUID + ".uuid") != null;
     }
 
     /**

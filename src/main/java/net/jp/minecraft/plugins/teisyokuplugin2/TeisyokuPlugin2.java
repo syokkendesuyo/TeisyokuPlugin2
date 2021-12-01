@@ -60,11 +60,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
     private static TeisyokuPlugin2 instance;
 
     /**
-     * サポートバージョン
-     */
-    private static String supportVersion = "1.15.2-R0.1-SNAPSHOT";
-
-    /**
      * Teisyoku.yml
      */
     public CustomConfig configTeisyoku;
@@ -184,18 +179,6 @@ public class TeisyokuPlugin2 extends JavaPlugin implements Listener {
         getCommand("gomibako").setExecutor(new Command_Trash());
 
         getCommand("daunii").setExecutor(new Command_Daunii());
-
-        //サポートバージョンを確認
-        if (version.equals(supportVersion)) {
-
-            //events
-            pm.registerEvents(new Listener_Tab(), this);
-
-            //message
-            Msg.success(Bukkit.getConsoleSender(), version + "用に作成された一部機能が開放されました");
-        } else {
-            Msg.warning(Bukkit.getConsoleSender(), version + "はサポート対象外のバージョンです");
-        }
 
         // コンフィグを作成
         configTeisyoku = new CustomConfig(this, "Teisyoku.yml");
